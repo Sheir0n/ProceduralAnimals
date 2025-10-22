@@ -64,7 +64,7 @@ public class AnimalAnimator : MonoBehaviour
             float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
 
             // Zastosuj constraint
-            float maxAngle = prevSegment.angularConstraint;
+            float maxAngle = currSegment.angularConstraint;
             float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
 
             // Nowy lokalny k¹t bie¿¹cego segmentu = k¹t poprzedniego + ograniczony offset

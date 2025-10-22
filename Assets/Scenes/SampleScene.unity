@@ -1112,6 +1112,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8680193559776569613, guid: df39de02e393ab34da22f44a9f379289,
+        type: 3}
+      propertyPath: wriggleAmplitude
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680193559776569613, guid: df39de02e393ab34da22f44a9f379289,
+        type: 3}
+      propertyPath: wriggleFrequency
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680193559776569613, guid: df39de02e393ab34da22f44a9f379289,
+        type: 3}
+      propertyPath: wrigglePhaseOffset
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
