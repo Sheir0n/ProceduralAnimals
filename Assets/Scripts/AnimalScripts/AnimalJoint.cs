@@ -35,4 +35,11 @@ public class AnimalJoint : MonoBehaviour
     public void SetPosition(Vector3 _position) => segmentPosition = _position;
     public void SetRotation(Quaternion _rotation) => segmentRotation = _rotation;
     public void SetScale(Vector3 _scale) => segmentScale = _scale;
+
+    public void UpdateSegmentTransform()
+    {
+        transform.rotation = segmentRotation;
+        transform.position = segmentPosition;
+        transform.localScale = segmentScale;
+    }
 }
