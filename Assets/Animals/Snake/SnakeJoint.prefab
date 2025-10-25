@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 49560324033744192}
   - component: {fileID: 7894723369773246222}
   m_Layer: 0
-  m_Name: SnakeSegment
+  m_Name: SnakeJoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

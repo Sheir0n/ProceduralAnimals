@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class PathfindController : MonoBehaviour
 {
     private NavMeshAgent agent;
+    [SerializeField] bool enableMouseFollow = false;
 
     void Start()
     {
@@ -13,7 +14,7 @@ public class PathfindController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && enableMouseFollow)
         {
             Ray targetMovePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 

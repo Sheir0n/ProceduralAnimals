@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6134895179884091276
+--- !u!1 &8691682312111985452
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6256655305286040022}
-  - component: {fileID: 1224128648177409057}
-  - component: {fileID: 7424903157184427691}
-  - component: {fileID: 5834562888203028834}
-  - component: {fileID: 57846617184911277}
-  - component: {fileID: 643958624866356051}
-  - component: {fileID: 8680193559776569613}
-  - component: {fileID: 5576573532344184425}
+  - component: {fileID: 2963919266616240904}
+  - component: {fileID: 1584996244913920591}
+  - component: {fileID: 4813649917276845794}
+  - component: {fileID: 9007242376099067066}
+  - component: {fileID: 6300900642629504810}
+  - component: {fileID: 4950562770971155860}
+  - component: {fileID: 4030779250162643604}
+  - component: {fileID: 7415595393817211660}
   m_Layer: 0
-  m_Name: SnakeAgent
+  m_Name: LizardAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6256655305286040022
+--- !u!4 &2963919266616240904
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1224128648177409057
+--- !u!33 &1584996244913920591
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7424903157184427691
+--- !u!23 &4813649917276845794
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -88,13 +88,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5834562888203028834
+--- !u!136 &9007242376099067066
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -111,13 +111,13 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &57846617184911277
+--- !u!195 &6300900642629504810
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -133,110 +133,94 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &643958624866356051
+--- !u!114 &4950562770971155860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da899309ad9e20b45873eaa385dbeaf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableMouseFollow: 0
---- !u!114 &8680193559776569613
+  enableMouseFollow: 1
+--- !u!114 &4030779250162643604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 450582e5939c9844790bf8452acfcd04, type: 3}
+  m_Script: {fileID: 11500000, guid: a631ab87eabe04f478d6dce477b6bee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementController: {fileID: 643958624866356051}
-  wriggleAmplitude: 2
-  wriggleFrequency: 2.25
-  wrigglePhaseOffset: 0.25
-  movementThreshold: 0.001
---- !u!114 &5576573532344184425
+  movementController: {fileID: 4950562770971155860}
+--- !u!114 &7415595393817211660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134895179884091276}
+  m_GameObject: {fileID: 8691682312111985452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a635198bed26d014eae242f5bf4d4745, type: 3}
+  m_Script: {fileID: 11500000, guid: d973e0578c51ef24381d334cec55be88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorScript: {fileID: 8680193559776569613}
+  animatorScript: {fileID: 4030779250162643604}
   segments:
-  - segmentName: SnakeHead
-    bodySegmentPrefab: {fileID: 7359758330481590123, guid: 569d6776354f490488ae88a134dd041a,
+  - segmentName: MainBody
+    bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
       type: 3}
-    jointCount: 2
+    jointCount: 7
     sizeCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.4
-        inSlope: 0.6
-        outSlope: 0.6
+        value: 1
+        inSlope: -4.2606006
+        outSlope: -4.2606006
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0.6
-        outSlope: 0.6
+        time: 0.11094752
+        value: 0.52729696
+        inSlope: -1.8107208
+        outSlope: -1.8107208
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    distanceConstraint: 0.75
-    angularConstraint: 5
-  - segmentName: SnakeBody
-    bodySegmentPrefab: {fileID: 7359758330481590123, guid: 569d6776354f490488ae88a134dd041a,
-      type: 3}
-    jointCount: 35
-    sizeCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.6
-        inSlope: -0.66317457
-        outSlope: -0.66317457
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.26627517
-        value: 0.4234131
-        inSlope: -0.33500335
-        outSlope: -0.33500335
+        time: 0.46248275
+        value: 0.7519839
+        inSlope: 0.37236643
+        outSlope: 0.37236643
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.21855204
+        inWeight: 0.7441418
+        outWeight: 0.43993273
+      - serializedVersion: 3
+        time: 0.810194
+        value: 0.6424106
+        inSlope: -1.1881747
+        outSlope: -1.1881747
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.2
-        inSlope: -0.30449167
-        outSlope: -0.30449167
+        value: 0.35
+        inSlope: -1.5405762
+        outSlope: -1.5405762
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
@@ -244,5 +228,5 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    distanceConstraint: 0.75
-    angularConstraint: 35
+    distanceConstraint: 0.5
+    angularConstraint: 20

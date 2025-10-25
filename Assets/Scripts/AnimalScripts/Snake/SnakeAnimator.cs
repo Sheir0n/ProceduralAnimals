@@ -76,7 +76,7 @@ public class SnakeAnimator : AnimalAnimator
             float prevLocalY = prevSegment.segmentRotation.eulerAngles.y;
             float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
 
-            float maxAngle = currSegment.angularConstraint;
+            float maxAngle = prevSegment.angularConstraint;
             float clampedDeltaY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
 
             float newLocalY = prevLocalY + clampedDeltaY;

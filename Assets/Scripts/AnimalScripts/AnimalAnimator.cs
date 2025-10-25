@@ -5,6 +5,9 @@ using UnityEngine;
 public class AnimalAnimator : MonoBehaviour
 {
     protected List<AnimalJoint> joints;
+    protected List<AnimalLimb> limbs;
+
+
     [SerializeField] protected PathfindController movementController;
 
     protected Vector3 prevHeadPosition;
@@ -13,6 +16,11 @@ public class AnimalAnimator : MonoBehaviour
     public void SetJoints(List<AnimalJoint> _segments)
     {
         joints = _segments;
+    }
+
+    public void SetLimbs(List<AnimalLimb> _limbs)
+    {
+        limbs = _limbs;
     }
 
     protected virtual void CalculateHeadSegmentTransform()
@@ -64,7 +72,7 @@ public class AnimalAnimator : MonoBehaviour
             float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
 
             // Zastosuj constraint
-            float maxAngle = currSegment.angularConstraint;
+            float maxAngle = prevSegment.angularConstraint;
             float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
 
             // Nowy lokalny k¹t bie¿¹cego segmentu = k¹t poprzedniego + ograniczony offset
