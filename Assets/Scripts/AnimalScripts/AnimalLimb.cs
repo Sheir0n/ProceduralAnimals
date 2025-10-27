@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.Rendering.HableCurve;
 
@@ -14,12 +15,14 @@ public class AnimalLimbData
 
 public class AnimalLimb
 {
-    private AnimalLimbData limbData;
-    private List<AnimalJoint> joints;
+    public AnimalLimbData limbData { get; private set; }
+    public List<AnimalJoint> joints { get; private set; }
+    public Vector3 targetPosition;
 
     public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints)
     {
         limbData = _limbData;
         joints = _joints;
+        targetPosition = _joints.Last().segmentPosition;
     }
 }

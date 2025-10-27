@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorScript: {fileID: 8680193559776569613}
-  segments:
+  spineSegmentData:
   - segmentName: SnakeHead
     bodySegmentPrefab: {fileID: 7359758330481590123, guid: 569d6776354f490488ae88a134dd041a,
       type: 3}
@@ -246,3 +246,4 @@ MonoBehaviour:
       m_RotationOrder: 4
     distanceConstraint: 0.75
     angularConstraint: 35
+  animalLimbData: []

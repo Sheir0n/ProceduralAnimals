@@ -14,5 +14,6 @@ public class LizardAnimator : AnimalAnimator
 
         CalculateHeadSegmentTransform();
         CalculateMainBodyTransform(1, joints.Count);
+        CalculateLimbsTransform();
     }
 }

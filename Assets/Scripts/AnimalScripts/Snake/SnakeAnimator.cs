@@ -103,5 +103,4 @@ public class SnakeAnimator : AnimalAnimator
             currSegment.UpdateSegmentTransform();
         }
     }
-
 }
