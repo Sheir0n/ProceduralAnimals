@@ -304,9 +304,11 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.95
-      angularConstraint: 75
+      angularConstraint: 100
     parentJointId: 2
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
+    targetPosOffset: {x: 0.55, y: 0.95, z: 0}
+    maxReachDistance: 0.4
   - limbName: FrontLeft
     joints:
     - segmentName: FrontRight
@@ -338,9 +340,11 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.95
-      angularConstraint: 75
+      angularConstraint: 100
     parentJointId: 2
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
+    targetPosOffset: {x: -0.55, y: 0.95, z: 0}
+    maxReachDistance: 0.4
   - limbName: BackLeft
     joints:
     - segmentName: BackLeg
@@ -381,9 +385,11 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.95
-      angularConstraint: 75
+      angularConstraint: 100
     parentJointId: 6
-    parentPositionOffset: {x: 0.35, y: 0, z: 0}
+    parentPositionOffset: {x: 0.15, y: 0, z: 0}
+    targetPosOffset: {x: 0.85, y: 0.95, z: 0}
+    maxReachDistance: 0.5
   - limbName: BackRight
     joints:
     - segmentName: BackLeg
@@ -424,6 +430,8 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.95
-      angularConstraint: 75
+      angularConstraint: 100
     parentJointId: 6
-    parentPositionOffset: {x: -0.35, y: 0, z: 0}
+    parentPositionOffset: {x: -0.15, y: 0, z: 0}
+    targetPosOffset: {x: -0.85, y: 0.95, z: 0}
+    maxReachDistance: 0.5
