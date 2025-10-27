@@ -94,13 +94,15 @@ public class AnimalAnimator : MonoBehaviour
     {
         foreach (AnimalLimb currLimb in limbs)
         {
-            int chainPullCount = 5;
+            CalculateLimbsTargetPosition(currLimb);
+
+            int chainPullCount = 10;
             for (int pullId = 0; pullId < chainPullCount; pullId++)
             {
                 //obliczenie pozycji ostatniego stawu
                 AnimalJoint currJoint = currLimb.joints.Last();
                 AnimalLimbData currLimbData = currLimb.limbData;
-                Vector3 targetPos = currLimb.targetPosition;
+                Vector3 targetPos = currLimb.targetLerpPosition;
 
                 currJoint.SetPosition(targetPos);
 
@@ -199,6 +201,17 @@ public class AnimalAnimator : MonoBehaviour
         }
     }
 
+    protected void CalculateLimbsTargetPosition(AnimalLimb currLimb)
+    {
+        Vector3 lastJointPos = currLimb.joints.Last().transform.position;
+        Vector3 targetPos = currLimb.targetPosition;
+        currLimb.CalculateTargetLerp();
+        float distance = Vector3.Distance(lastJointPos, targetPos);
+        if (distance > currLimb.limbData.maxReachDistance)
+        {
+            currLimb.UpdateTarget(lerp: true);
+        }
+    }
 
     protected Quaternion RotateUp(Quaternion rotation)
     {

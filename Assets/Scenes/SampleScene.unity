@@ -717,43 +717,113 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
+      propertyPath: animalLimbData.Array.data[0].maxReachDistance
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[1].maxReachDistance
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[2].maxReachDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[3].maxReachDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[0].targetPosOffset.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[0].targetPosOffset.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[0].targetPosOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[1].targetPosOffset.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[1].targetPosOffset.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[1].targetPosOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[2].targetPosOffset.x
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[2].targetPosOffset.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[2].targetPosOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[3].targetPosOffset.x
+      value: -0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[3].targetPosOffset.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[3].targetPosOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[2].parentPositionOffset.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[3].parentPositionOffset.x
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
       propertyPath: animalLimbData.Array.data[0].joints.Array.data[0].angularConstraint
-      value: 75
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[1].joints.Array.data[0].angularConstraint
-      value: 75
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[2].joints.Array.data[0].angularConstraint
-      value: 75
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[3].joints.Array.data[0].angularConstraint
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: animalLimbData.Array.data[0].joints.Array.data[0].distanceConstraint
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: animalLimbData.Array.data[1].joints.Array.data[0].distanceConstraint
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: animalLimbData.Array.data[2].joints.Array.data[0].distanceConstraint
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: animalLimbData.Array.data[3].joints.Array.data[0].distanceConstraint
-      value: 0.95
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
