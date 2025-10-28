@@ -10,9 +10,7 @@ public class AnimalAnimator : MonoBehaviour
 
 
     [SerializeField] protected PathfindController movementController;
-
     protected Vector3 prevHeadPosition;
-
 
     public void SetJoints(List<AnimalJoint> _segments)
     {
@@ -56,33 +54,9 @@ public class AnimalAnimator : MonoBehaviour
             AnimalJoint currSegment = joints[i];
 
             Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-            Vector3 flatToPrev = new Vector3(toPrev.x, 0f, toPrev.z);
-
-            if (flatToPrev.sqrMagnitude < 0.0001f)
-                continue;
-
-            flatToPrev.Normalize();
-
-            // Docelowy k¹t wzglêdem œwiata
-            float targetYAngle = Mathf.Atan2(flatToPrev.x, flatToPrev.z) * Mathf.Rad2Deg;
-
-            // Obecny lokalny k¹t Y poprzedniego segmentu
-            float prevLocalY = prevSegment.segmentRotation.eulerAngles.y;
-
-            // Chcemy ograniczyæ ró¿nicê k¹ta miêdzy prev a curr wzglêdem lokalnego uk³adu
-            float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
-
-            // Zastosuj constraint
-            float maxAngle = prevSegment.angularConstraint;
-            float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
-
-            // Nowy lokalny k¹t bie¿¹cego segmentu = k¹t poprzedniego + ograniczony offset
-            float newLocalY = prevLocalY + clampedY;
-
-            // Bazowy X=90 (le¿y p³asko), Y=nowy k¹t, Z=0
+            float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment);
             currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
-            // Ustaw pozycjê wzd³u¿ kierunku wynikaj¹cego z nowej rotacji
             Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
             currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
 
@@ -99,42 +73,22 @@ public class AnimalAnimator : MonoBehaviour
             int chainPullCount = 10;
             for (int pullId = 0; pullId < chainPullCount; pullId++)
             {
-                //obliczenie pozycji ostatniego stawu
+                // Ustawienie i poci¹gniêcie ostatniego stawu
                 AnimalJoint currJoint = currLimb.joints.Last();
                 AnimalLimbData currLimbData = currLimb.limbData;
                 Vector3 targetPos = currLimb.targetLerpPosition;
-
                 currJoint.SetPosition(targetPos);
 
-                Vector3 toPrev = targetPos - currJoint.segmentPosition;
-                Vector3 flatToPrev = new Vector3(toPrev.x, 0f, toPrev.z);
-                flatToPrev.Normalize();
-                float angleY = Mathf.Atan2(flatToPrev.x, flatToPrev.z) * Mathf.Rad2Deg;
+                float angleY = GetYAngle(targetPos - currJoint.segmentPosition);
                 currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
                 currJoint.UpdateSegmentTransform();
-
 
                 for (int i = currLimb.joints.Count - 1; i > 0; i--)
                 {
                     AnimalJoint nextSegment = currLimb.joints[i];
-                    AnimalJoint currSegment = currLimb.joints[i - 1]; // ustawiamy wzglêdem nastêpnego
-
+                    AnimalJoint currSegment = currLimb.joints[i - 1];
                     Vector3 toNext = nextSegment.segmentPosition - currSegment.segmentPosition;
-                    Vector3 flatToNext = new Vector3(toNext.x, 0f, toNext.z);
-
-                    if (flatToNext.sqrMagnitude < 0.0001f)
-                        continue;
-
-                    flatToNext.Normalize();
-
-                    float targetYAngle = Mathf.Atan2(flatToNext.x, flatToNext.z) * Mathf.Rad2Deg;
-                    float currLocalY = currSegment.segmentRotation.eulerAngles.y;
-                    float deltaY = Mathf.DeltaAngle(currLocalY, targetYAngle);
-
-                    float maxAngle = currSegment.angularConstraint;
-                    float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
-                    float newLocalY = currLocalY + clampedY;
-
+                    float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment);
                     currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
                     Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
@@ -143,19 +97,14 @@ public class AnimalAnimator : MonoBehaviour
                     currSegment.UpdateSegmentTransform();
                 }
 
-                // obliczenie pozycji 1 stawu
+                // Ustawienie i poci¹gniêcie pierwszego stawu
                 currJoint = currLimb.joints[0];
                 currLimbData = currLimb.limbData;
                 AnimalJoint parentJoint = joints[currLimbData.parentJointId];
-
                 Vector3 rootPosition = parentJoint.segmentPosition + parentJoint.segmentRotation * currLimbData.parentPositionOffset;
 
                 currJoint.SetPosition(rootPosition);
-
-                toPrev = parentJoint.segmentPosition - currJoint.segmentPosition;
-                flatToPrev = new Vector3(toPrev.x, 0f, toPrev.z);
-                flatToPrev.Normalize();
-                angleY = Mathf.Atan2(flatToPrev.x, flatToPrev.z) * Mathf.Rad2Deg;
+                angleY = GetYAngle(toTarget: parentJoint.segmentPosition - currJoint.segmentPosition);
                 currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
                 currJoint.UpdateSegmentTransform();
 
@@ -164,52 +113,48 @@ public class AnimalAnimator : MonoBehaviour
                     AnimalJoint prevSegment = currLimb.joints[i - 1];
                     AnimalJoint currSegment = currLimb.joints[i];
 
-                    toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-                    flatToPrev = new Vector3(toPrev.x, 0f, toPrev.z);
-
-                    if (flatToPrev.sqrMagnitude < 0.0001f)
-                        continue;
-
-                    flatToPrev.Normalize();
-
-                    // Docelowy k¹t wzglêdem œwiata
-                    float targetYAngle = Mathf.Atan2(flatToPrev.x, flatToPrev.z) * Mathf.Rad2Deg;
-
-                    // Obecny lokalny k¹t Y poprzedniego segmentu
-                    float prevLocalY = prevSegment.segmentRotation.eulerAngles.y;
-
-                    // Chcemy ograniczyæ ró¿nicê k¹ta miêdzy prev a curr wzglêdem lokalnego uk³adu
-                    float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
-
-                    // Zastosuj constraint
-                    float maxAngle = prevSegment.angularConstraint;
-                    float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
-
-                    // Nowy lokalny k¹t bie¿¹cego segmentu = k¹t poprzedniego + ograniczony offset
-                    float newLocalY = prevLocalY + clampedY;
-
-                    // Bazowy X=90 (le¿y p³asko), Y=nowy k¹t, Z=0
+                    Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
+                    float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment);
                     currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
-                    // Ustaw pozycjê wzd³u¿ kierunku wynikaj¹cego z nowej rotacji
                     Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
                     currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
-
                     currSegment.UpdateSegmentTransform();
                 }
             }
         }
     }
 
-    protected void CalculateLimbsTargetPosition(AnimalLimb currLimb)
+    protected float GetYAngleConstrained(Vector3 vecToTarget, AnimalJoint targetJoint)
+    {
+        Vector3 flatToTarget = new Vector3(vecToTarget.x, 0f, vecToTarget.z);
+        flatToTarget.Normalize();
+
+        float targetYAngle = Mathf.Atan2(flatToTarget.x, flatToTarget.z) * Mathf.Rad2Deg;
+        float prevLocalY = targetJoint.segmentRotation.eulerAngles.y;
+        float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
+        float maxAngle = targetJoint.angularConstraint;
+        float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
+        float newLocalY = prevLocalY + clampedY;
+        return newLocalY;
+    }
+
+    protected float GetYAngle(Vector3 toTarget)
+    {
+        Vector3 flatToTarget = new Vector3(toTarget.x, 0f, toTarget.z);
+        flatToTarget.Normalize();
+        return Mathf.Atan2(flatToTarget.x, flatToTarget.z) * Mathf.Rad2Deg;
+    }
+    protected virtual void CalculateLimbsTargetPosition(AnimalLimb currLimb)
     {
         Vector3 lastJointPos = currLimb.joints.Last().transform.position;
         Vector3 targetPos = currLimb.targetPosition;
         currLimb.CalculateTargetLerp();
         float distance = Vector3.Distance(lastJointPos, targetPos);
+
         if (distance > currLimb.limbData.maxReachDistance)
         {
-            currLimb.UpdateTarget(lerp: true);
+            currLimb.UpdateLimbTarget(lerp: true);
         }
     }
 

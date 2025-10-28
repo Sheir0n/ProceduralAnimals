@@ -55,6 +55,8 @@ public class AnimalCreator : MonoBehaviour
     public void GenerateLimbs()
     {
         Transform masterTransform = transform;
+        int limbId = 0;
+
         foreach (AnimalLimbData currLimbData in animalLimbData)
         {
             Vector3 positionOffset;
@@ -95,7 +97,7 @@ public class AnimalCreator : MonoBehaviour
                     limbJoints.Add(newSegment.GetComponent<AnimalJoint>());
                 }
             }
-            limbs.Add(new AnimalLimb(currLimbData, limbJoints));
+            limbs.Add(new AnimalLimb(currLimbData, limbJoints, limbId++));
         }
         animatorScript.SetLimbs(limbs);
     }
