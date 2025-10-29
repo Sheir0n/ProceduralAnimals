@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ public class AnimalAnimator : MonoBehaviour
         limbs = _limbs;
     }
 
-    protected virtual void CalculateHeadSegmentTransform()
+    protected virtual void CalculateRootSegmentTransform()
     {
         if (joints != null && joints.Count > 0 && joints[0] != null)
         {
@@ -54,7 +55,7 @@ public class AnimalAnimator : MonoBehaviour
             AnimalJoint currSegment = joints[i];
 
             Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-            float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment);
+            float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, prevSegment.prefferedAngle);
             currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
             Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
@@ -88,7 +89,7 @@ public class AnimalAnimator : MonoBehaviour
                     AnimalJoint nextSegment = currLimb.joints[i];
                     AnimalJoint currSegment = currLimb.joints[i - 1];
                     Vector3 toNext = nextSegment.segmentPosition - currSegment.segmentPosition;
-                    float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment);
+                    float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment, currSegment.prefferedAngle);
                     currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
                     Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
@@ -114,7 +115,7 @@ public class AnimalAnimator : MonoBehaviour
                     AnimalJoint currSegment = currLimb.joints[i];
 
                     Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-                    float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment);
+                    float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, -prevSegment.prefferedAngle);
                     currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
                     Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
@@ -125,7 +126,7 @@ public class AnimalAnimator : MonoBehaviour
         }
     }
 
-    protected float GetYAngleConstrained(Vector3 vecToTarget, AnimalJoint targetJoint)
+    protected float GetYAngleConstrained(Vector3 vecToTarget, AnimalJoint targetJoint, float prefferedAngle)
     {
         Vector3 flatToTarget = new Vector3(vecToTarget.x, 0f, vecToTarget.z);
         flatToTarget.Normalize();
@@ -134,7 +135,7 @@ public class AnimalAnimator : MonoBehaviour
         float prevLocalY = targetJoint.segmentRotation.eulerAngles.y;
         float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
         float maxAngle = targetJoint.angularConstraint;
-        float clampedY = Mathf.Clamp(deltaY, -maxAngle, maxAngle);
+        float clampedY = Mathf.Clamp(deltaY, -maxAngle - prefferedAngle, maxAngle - prefferedAngle);
         float newLocalY = prevLocalY + clampedY;
         return newLocalY;
     }
@@ -145,12 +146,14 @@ public class AnimalAnimator : MonoBehaviour
         flatToTarget.Normalize();
         return Mathf.Atan2(flatToTarget.x, flatToTarget.z) * Mathf.Rad2Deg;
     }
+
     protected virtual void CalculateLimbsTargetPosition(AnimalLimb currLimb)
     {
-        Vector3 lastJointPos = currLimb.joints.Last().transform.position;
+        Vector3 newTargetPos = currLimb.GetNewTargetPos();
         Vector3 targetPos = currLimb.targetPosition;
         currLimb.CalculateTargetLerp();
-        float distance = Vector3.Distance(lastJointPos, targetPos);
+
+        float distance = Vector3.Distance(newTargetPos, targetPos);
 
         if (distance > currLimb.limbData.maxReachDistance)
         {

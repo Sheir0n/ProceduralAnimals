@@ -29,7 +29,7 @@ public class SnakeAnimator : AnimalAnimator
             return;
         }
 
-        CalculateHeadSegmentTransform();
+        CalculateRootSegmentTransform();
         CalculateMainBodyTransform(1, joints.Count);
     }
 

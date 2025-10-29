@@ -14,6 +14,7 @@ public class SegmentData
     public AnimationCurve sizeCurve;
     public float distanceConstraint;
     public float angularConstraint;
+    public float prefferedAngle;
 }
 
 public class AnimalCreator : MonoBehaviour
@@ -22,34 +23,51 @@ public class AnimalCreator : MonoBehaviour
 
     [SerializeField] protected List<SegmentData> spineSegmentData = new List<SegmentData>();
     [SerializeField] protected List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
+    [SerializeField] protected AnimalHeadData animalHeadData;
 
     private List<AnimalJoint> spineJoints = new List<AnimalJoint>();
     private List<AnimalLimb> limbs = new List<AnimalLimb>();
+    private AnimalHead animalHead;
     public void GenerateBody()
     {
         Transform masterTransform = transform;
         Vector3 positionOffset = Vector3.zero;
         int nameId = 0;
 
-        foreach (SegmentData currSegment in spineSegmentData)
+        foreach (SegmentData currSegmentData in spineSegmentData)
         {
-            for (int i = 0; i < currSegment.jointCount; i++)
+            for (int i = 0; i < currSegmentData.jointCount; i++)
             {
-                float xValue = (float)i / (float)currSegment.jointCount;
-                float segmentScale = currSegment.sizeCurve.Evaluate(xValue);
+                float xValue = (float)i / (float)currSegmentData.jointCount;
+                float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
+                string name = currSegmentData.segmentName + " Spine Segment " + nameId++;
 
-                GameObject newSegment = Instantiate(currSegment.bodySegmentPrefab, masterTransform);
-                newSegment.transform.localScale = Vector3.one * segmentScale;
-                newSegment.transform.position = new Vector3(masterTransform.position.x,0,masterTransform.position.z);
-                newSegment.transform.position += positionOffset;
+                spineJoints.Add(GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
                 positionOffset += new Vector3(0, 0, -1f * segmentScale);
-                newSegment.name = currSegment.segmentName + " Spine Segment " + nameId++;
-                AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
-                segmentScript.AfterInstantiate(currSegment.distanceConstraint * segmentScale, currSegment.angularConstraint, i);
-                spineJoints.Add(newSegment.GetComponent<AnimalJoint>());
             }
             animatorScript.SetJoints(spineJoints);
         }
+    }
+
+    public void GenerateHead()
+    {
+        Transform masterTransform = transform;
+        Vector3 positionOffset = Vector3.zero;
+        List<AnimalJoint> headJoints = new List<AnimalJoint>();
+
+        foreach (SegmentData currSegmentData in animalHeadData.joints)
+        {
+            int nameId = 0;
+            for (int i = 0; i < currSegmentData.jointCount; i++)
+            {
+                float xValue = (float)i / (float)currSegmentData.jointCount;
+                float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
+                string name = currSegmentData.segmentName + " Head Segment " + nameId++;
+                headJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
+                positionOffset += new Vector3(0, 0, 1f * segmentScale);
+            }
+        }
+        animalHead = new AnimalHead(headJoints);
     }
 
     public void GenerateLimbs()
@@ -76,29 +94,36 @@ public class AnimalCreator : MonoBehaviour
 
             List<AnimalJoint> limbJoints = new List<AnimalJoint>();
 
-            foreach (SegmentData currJoint in currLimbData.joints)
+            foreach (SegmentData currSegmentData in currLimbData.joints)
             {
                 int nameId = 0;
-                for (int i = 0; i < currJoint.jointCount; i++)
+                for (int i = 0; i < currSegmentData.jointCount; i++)
                 {
-                    float xValue = (float)i / (float)currJoint.jointCount;
-                    float segmentScale = currJoint.sizeCurve.Evaluate(xValue);
+                    float xValue = (float)i / (float)currSegmentData.jointCount;
+                    float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
 
-                    GameObject newSegment = Instantiate(currJoint.bodySegmentPrefab, masterTransform);
-                    newSegment.transform.localScale = Vector3.one * segmentScale;
-                    newSegment.transform.position += positionOffset;
+                    string name = currLimbData.limbName + " " + currSegmentData.segmentName + " Segment " + nameId++;
 
+                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
                     float offsetDirection = (currLimbData.parentPositionOffset.x >= 0f) ? 1 : -1;
                     positionOffset += new Vector3(offsetDirection * segmentScale, 0, 0);
-
-                    newSegment.name = currLimbData.limbName + " " + currJoint.segmentName + " Segment " + nameId++;
-                    AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
-                    segmentScript.AfterInstantiate(currJoint.distanceConstraint * segmentScale, currJoint.angularConstraint, i);
-                    limbJoints.Add(newSegment.GetComponent<AnimalJoint>());
                 }
             }
             limbs.Add(new AnimalLimb(currLimbData, limbJoints, limbId++));
         }
         animatorScript.SetLimbs(limbs);
+    }
+
+    protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, string name)
+    {
+        GameObject newSegment = Instantiate(segmentData.bodySegmentPrefab, masterTransform);
+        newSegment.transform.localScale = Vector3.one * segmentScale;
+        newSegment.transform.position = new Vector3(masterTransform.position.x, 0, masterTransform.position.z);
+        newSegment.transform.position += positionOffset;
+        newSegment.name = name;
+
+        AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
+        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle,iteration);
+        return newSegment.GetComponent<AnimalJoint>();
     }
 }

@@ -13,7 +13,7 @@ public class LizardAnimator : AnimalAnimator
             return;
         }
 
-        CalculateHeadSegmentTransform();
+        CalculateRootSegmentTransform();
         CalculateMainBodyTransform(1, joints.Count);
         CalculateLimbsTransform();
     }
@@ -23,24 +23,30 @@ public class LizardAnimator : AnimalAnimator
         if (limbs.Count < 4)
             return;
 
-        Vector3 lastJointPos = currLimb.joints.Last().transform.position;
+        Vector3 newTargetPos = currLimb.GetNewTargetPos();
         Vector3 targetPos = currLimb.targetPosition;
         currLimb.CalculateTargetLerp();
-        float distance = Vector3.Distance(lastJointPos, targetPos);
+        float distance = Vector3.Distance(newTargetPos, targetPos);
+
+        //if (distance > currLimb.limbData.maxReachDistance)
+        //{
+
+        //    if (currLimb.limbId == 0 || currLimb.limbId == 3)
+        //    {
+        //        limbs[0].UpdateLimbTarget(lerp: true);
+        //        limbs[3].UpdateLimbTarget(lerp: true);
+        //    }
+        //    else if (currLimb.limbId == 1 || currLimb.limbId == 2)
+        //    {
+        //        limbs[1].UpdateLimbTarget(lerp: true);
+        //        limbs[2].UpdateLimbTarget(lerp: true);
+        //    }
+        //}
+
 
         if (distance > currLimb.limbData.maxReachDistance)
         {
-
-            if (currLimb.limbId == 0 || currLimb.limbId == 3)
-            {
-                limbs[0].UpdateLimbTarget(lerp: true);
-                limbs[3].UpdateLimbTarget(lerp: true);
-            }
-            else if (currLimb.limbId == 1 || currLimb.limbId == 2)
-            {
-                limbs[1].UpdateLimbTarget(lerp: true);
-                limbs[2].UpdateLimbTarget(lerp: true);
-            }
+            currLimb.UpdateLimbTarget(lerp: true);
         }
     }
 }
