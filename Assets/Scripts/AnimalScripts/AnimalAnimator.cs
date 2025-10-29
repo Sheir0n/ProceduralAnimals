@@ -69,6 +69,7 @@ public class AnimalAnimator : MonoBehaviour
     {
         foreach (AnimalLimb currLimb in limbs)
         {
+            currLimb.UpdateTargetingTime(deltaMs: Time.deltaTime * 1000);
             CalculateLimbsTargetPosition(currLimb);
 
             int chainPullCount = 10;

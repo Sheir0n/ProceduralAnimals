@@ -26,6 +26,8 @@ public class AnimalLimb
 
     private Vector3 lastRootPos = Vector3.zero;
     private Vector3 lastMoveDir = Vector3.zero;
+    private float limbTargetingCooldownInMs = 250;
+    private float currLimbTargetingTimeMs = 0;
 
     public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints, int limbId)
     {
@@ -39,11 +41,16 @@ public class AnimalLimb
     public void UpdateLimbTarget(bool lerp)
     {
         AnimalJoint rootJoint = joints[0];
-        Vector3 newTargetPosition = GetNewTargetPos();
+        if (currLimbTargetingTimeMs >= limbTargetingCooldownInMs)
+        {
+            Vector3 newTargetPosition = GetNewTargetPos();
+            currLimbTargetingTimeMs = 0;
 
-        if (!lerp)
-            targetLerpPosition = newTargetPosition;
-        targetPosition = newTargetPosition;
+
+            if (!lerp)
+                targetLerpPosition = newTargetPosition;
+            targetPosition = newTargetPosition;
+        }   
     }
 
     public Vector3 GetNewTargetPos()
@@ -53,10 +60,11 @@ public class AnimalLimb
         Vector3 moveDir = pivot - lastRootPos;
         moveDir.y = 0f;
 
-        if (moveDir.sqrMagnitude > 0.00001f)
+        if (moveDir.sqrMagnitude > 0.0001f)
             moveDir.Normalize();
         else
             moveDir = lastMoveDir;
+
         float moveAngleY = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
         Quaternion moveRotation = Quaternion.Euler(0f, moveAngleY, 0f);
 
@@ -73,5 +81,10 @@ public class AnimalLimb
     {
         float speed = 20;
         targetLerpPosition = Vector3.Lerp(targetLerpPosition, targetPosition, speed * Time.deltaTime);
+    }
+
+    public void UpdateTargetingTime(float deltaMs)
+    {
+        currLimbTargetingTimeMs += deltaMs;
     }
 }
