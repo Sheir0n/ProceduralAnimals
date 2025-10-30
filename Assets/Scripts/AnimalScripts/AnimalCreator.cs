@@ -43,7 +43,7 @@ public class AnimalCreator : MonoBehaviour
                 string name = currSegmentData.segmentName + " Spine Segment " + nameId++;
 
                 spineJoints.Add(GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
-                positionOffset += new Vector3(0, 0, -1f * segmentScale);
+                positionOffset += new Vector3(0, 0, -1f * segmentScale * currSegmentData.distanceConstraint);
             }
             animatorScript.SetJoints(spineJoints);
         }
@@ -55,19 +55,20 @@ public class AnimalCreator : MonoBehaviour
         Vector3 positionOffset = Vector3.zero;
         List<AnimalJoint> headJoints = new List<AnimalJoint>();
 
+        int nameId = 0;
         foreach (SegmentData currSegmentData in animalHeadData.joints)
         {
-            int nameId = 0;
             for (int i = 0; i < currSegmentData.jointCount; i++)
             {
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Head Segment " + nameId++;
                 headJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
-                positionOffset += new Vector3(0, 0, 1f * segmentScale);
+                positionOffset += new Vector3(0, 0, 1f * segmentScale * currSegmentData.distanceConstraint);
             }
         }
-        animalHead = new AnimalHead(headJoints);
+        animalHead = new AnimalHead(headJoints, spineJoints[0], animalHeadData);
+        animatorScript.SetHead(animalHead);
     }
 
     public void GenerateLimbs()
@@ -106,7 +107,7 @@ public class AnimalCreator : MonoBehaviour
 
                     limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
                     float offsetDirection = (currLimbData.parentPositionOffset.x >= 0f) ? 1 : -1;
-                    positionOffset += new Vector3(offsetDirection * segmentScale, 0, 0);
+                    positionOffset += new Vector3(offsetDirection * segmentScale * currSegmentData.distanceConstraint, 0, 0);
                 }
             }
             limbs.Add(new AnimalLimb(currLimbData, limbJoints, limbId++));

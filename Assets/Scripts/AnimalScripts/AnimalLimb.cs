@@ -60,7 +60,7 @@ public class AnimalLimb
         Vector3 moveDir = pivot - lastRootPos;
         moveDir.y = 0f;
 
-        if (moveDir.sqrMagnitude > 0.0001f)
+        if (moveDir.sqrMagnitude > 0.001f)
             moveDir.Normalize();
         else
             moveDir = lastMoveDir;
@@ -69,8 +69,7 @@ public class AnimalLimb
         Quaternion moveRotation = Quaternion.Euler(0f, moveAngleY, 0f);
 
         float rootRotdirection = Mathf.Sign(limbData.parentPositionOffset.x);
-        Vector3 newTargetPosition = rootJoint.transform.position + (moveRotation * limbData.targetPosOffset);
-
+        Vector3 newTargetPosition = pivot + (moveRotation * limbData.targetPosOffset);
 
         lastRootPos = pivot;
         lastMoveDir = moveDir;
@@ -83,7 +82,7 @@ public class AnimalLimb
         targetLerpPosition = Vector3.Lerp(targetLerpPosition, targetPosition, speed * Time.deltaTime);
     }
 
-    public void UpdateTargetingTime(float deltaMs)
+    public void UpdateTargetingVariables(float deltaMs)
     {
         currLimbTargetingTimeMs += deltaMs;
     }

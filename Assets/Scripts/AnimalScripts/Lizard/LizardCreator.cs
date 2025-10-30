@@ -7,6 +7,7 @@ public class LizardCreator : AnimalCreator
     void Start()
     {
         GenerateBody();
+        GenerateHead();
         GenerateLimbs();
     }
 }

@@ -715,6 +715,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4950562770971155860, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: enableMouseLook
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6300900642629504810, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_AngularSpeed
@@ -724,6 +729,11 @@ PrefabInstance:
         type: 3}
       propertyPath: animalHeadData.headName
       value: LizardHead
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.maxLookAngle
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -803,22 +813,22 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[0].maxReachDistance
-      value: 1.75
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[1].maxReachDistance
-      value: 1.75
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[2].maxReachDistance
-      value: 1.75
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[3].maxReachDistance
-      value: 1.75
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -828,7 +838,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].jointCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -843,7 +853,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[0].targetPosOffset.x
-      value: 0.8
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -853,7 +863,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[0].targetPosOffset.z
-      value: 1.2
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -863,7 +873,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[1].targetPosOffset.x
-      value: -0.8
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -873,7 +883,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[1].targetPosOffset.z
-      value: 1.2
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -883,7 +893,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[2].targetPosOffset.x
-      value: 0.8
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -893,7 +903,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[2].targetPosOffset.z
-      value: 1.2
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -903,7 +913,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[3].targetPosOffset.x
-      value: -0.8
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -913,7 +923,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[3].targetPosOffset.z
-      value: 1.2
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -989,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].angularConstraint
-      value: 90
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1000,7 +1010,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[1].angularConstraint
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1011,7 +1021,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].distanceConstraint
-      value: 0.2
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1166,7 +1176,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1176,7 +1186,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[0].joints.Array.data[0].prefferedAngle
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1186,7 +1196,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[1].joints.Array.data[0].prefferedAngle
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1196,7 +1206,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[2].joints.Array.data[0].prefferedAngle
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1206,7 +1216,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[3].joints.Array.data[0].prefferedAngle
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1216,7 +1226,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[0].joints.Array.data[0].angularConstraint
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1232,7 +1242,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[1].joints.Array.data[0].angularConstraint
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1248,7 +1258,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[2].joints.Array.data[0].angularConstraint
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1264,7 +1274,7 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalLimbData.Array.data[3].joints.Array.data[0].angularConstraint
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1535,6 +1545,11 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[1].time
+      value: 0.5040796
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[2].time
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
@@ -1565,22 +1580,27 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[0].value
-      value: 0.1
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[1].value
-      value: 0.1
+      value: 0.35814622
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[2].value
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[1].sizeCurve.m_Curve.Array.data[0].value
-      value: 0.55
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[1].sizeCurve.m_Curve.Array.data[1].value
-      value: 1
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1629,13 +1649,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[0].inSlope
+      value: -0.18222077
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[1].inSlope
+      value: -0.018589912
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[2].inSlope
       value: -0.0034980865
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[1].sizeCurve.m_Curve.Array.data[0].inSlope
-      value: 0.45
+      value: -0.34999996
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1664,18 +1694,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[0].outSlope
+      value: -0.18222077
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[1].inWeight
-      value: 0.06134969
+      value: 0.11212802
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[1].outSlope
+      value: -0.018589912
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[2].inWeight
+      value: 0.06134969
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[2].outSlope
       value: -0.0034980865
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[1].sizeCurve.m_Curve.Array.data[0].outSlope
-      value: 0.45
+      value: -0.34999996
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1690,6 +1735,11 @@ PrefabInstance:
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalHeadData.joints.Array.data[0].sizeCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
