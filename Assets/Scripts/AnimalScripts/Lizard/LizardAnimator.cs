@@ -34,7 +34,7 @@ public class LizardAnimator : AnimalAnimator
         float newTargetDistance = Vector3.Distance(newTargetPosition, targetPos);
         if (newTargetDistance > maxDistance)
         {
-            if (angularSpeedUnlinkLimbPairs < movementController.agentAngularSpeed)
+            if (angularSpeedUnlinkLimbPairs > movementController.agentAngularSpeed)
             {
                 if (currLimb.limbId == 0 || currLimb.limbId == 3)
                 {
