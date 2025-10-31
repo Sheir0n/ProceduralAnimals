@@ -11,13 +11,15 @@ public class AnimalHeadData
     public string headName;
     public List<SegmentData> joints = new List<SegmentData>();
     public float maxLookAngle = 0f;
+    public Vector3 headParentOffset = Vector3.zero;
 }
 
 public class AnimalHead
 {
+    public AnimalHeadData headData { get; private set; }
     public List<AnimalJoint> headJoints { get; private set; }
-    public int neckSegmentId;
-    private float maxLookAngle;
+    public int neckSegmentId { get; private set; }
+    public Vector3 headLocalOffset { get; private set; }
 
     public Vector3 targetPosition { get; private set; } = Vector3.zero;
     private float lookLerpAngle = 0f;
@@ -25,9 +27,11 @@ public class AnimalHead
     public AnimalJoint parentJoint { get; private set; }
     public AnimalHead(List<AnimalJoint> _joints, AnimalJoint _parentJoint, AnimalHeadData _data)
     {
+        headData = _data;
         headJoints = _joints;
         parentJoint = _parentJoint;
-        maxLookAngle = _data.maxLookAngle;
+        // przekszta³cenie z rotacji globalnej na lokaln¹
+        headLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * _data.headParentOffset;
     }
 
     public void LookAt(Vector3 targetPos, bool doLook)
@@ -51,8 +55,7 @@ public class AnimalHead
         float targetY = Quaternion.LookRotation(toTarget, Vector3.up).eulerAngles.y;
         float deltaY = Mathf.DeltaAngle(currentY, targetY);
 
-        float clampedY = Mathf.Clamp(deltaY, -maxLookAngle, maxLookAngle);
-        //Debug.Log($"currentY: {currentY:F1}, targetY: {targetY:F1}, deltaY: {deltaY:F1}");
+        float clampedY = Mathf.Clamp(deltaY, -headData.maxLookAngle, headData.maxLookAngle);
 
         lookLerpAngle = Mathf.Lerp(lookLerpAngle, clampedY, Time.deltaTime * lerpSpeed);
 

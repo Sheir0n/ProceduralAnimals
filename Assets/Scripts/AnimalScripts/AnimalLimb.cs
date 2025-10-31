@@ -20,22 +20,24 @@ public class AnimalLimb
 {
     public AnimalLimbData limbData { get; private set; }
     public List<AnimalJoint> joints { get; private set; }
-    public Vector3 targetPosition = Vector3.zero;
-    public Vector3 targetLerpPosition = Vector3.zero;
-    public int limbId;
+    public Vector3 targetPosition { get; private set; } = Vector3.zero;
+    public Vector3 targetLerpPosition { get; private set; } = Vector3.zero;
+    public Vector3 parentLocalOffset { get; private set; } = Vector3.zero;
+    public int limbId { get; private set; }
 
     private Vector3 lastRootPos = Vector3.zero;
     private Vector3 lastMoveDir = Vector3.zero;
     private float limbTargetingCooldownInMs = 250;
     private float currLimbTargetingTimeMs = 0;
 
-    public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints, int limbId)
+    public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints, int _limbId)
     {
         limbData = _limbData;
         joints = _joints;
         UpdateLimbTarget(lerp: false);
-        this.limbId = limbId;
-        lastRootPos = joints[0].transform.position;
+        limbId = _limbId;
+        lastRootPos = _joints[0].transform.position;
+        parentLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * _limbData.parentPositionOffset;
     }
 
     public void UpdateLimbTarget(bool lerp)
@@ -63,7 +65,10 @@ public class AnimalLimb
         if (moveDir.sqrMagnitude > 0.001f)
             moveDir.Normalize();
         else
+        {
             moveDir = lastMoveDir;
+            pivot = lastRootPos;
+        }
 
         float moveAngleY = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
         Quaternion moveRotation = Quaternion.Euler(0f, moveAngleY, 0f);

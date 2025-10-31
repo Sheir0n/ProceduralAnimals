@@ -13,9 +13,13 @@ public class PathfindController : MonoBehaviour
     public Vector3 lookTargetPos { get; private set; } = Vector3.zero;
     public bool lookAtTarget { get; private set; } = false;
 
+    private Quaternion lastRotation;
+    public float agentAngularSpeed { get; private set; } = 0;
+
     void Start()
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
+        lastRotation = transform.rotation;
     }
     void Update()
     {
@@ -42,6 +46,8 @@ public class PathfindController : MonoBehaviour
         }
         else
             lookAtTarget = false;
+
+        CalculateAngularSpeed();
     }
 
     public bool IsMoving()
@@ -52,6 +58,14 @@ public class PathfindController : MonoBehaviour
     public float GetVelocity()
     {
         return agent.velocity.magnitude;
+    }
+
+    private void CalculateAngularSpeed()
+    {
+        Quaternion delta = transform.rotation * Quaternion.Inverse(lastRotation);
+        delta.ToAngleAxis(out float angle, out Vector3 axis);
+        agentAngularSpeed = angle / Time.deltaTime;
+        lastRotation = transform.rotation;
     }
 }
 

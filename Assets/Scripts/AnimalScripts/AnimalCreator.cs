@@ -52,7 +52,7 @@ public class AnimalCreator : MonoBehaviour
     public void GenerateHead()
     {
         Transform masterTransform = transform;
-        Vector3 positionOffset = Vector3.zero;
+        Vector3 positionOffset = animalHeadData.headParentOffset;
         List<AnimalJoint> headJoints = new List<AnimalJoint>();
 
         int nameId = 0;
@@ -78,20 +78,7 @@ public class AnimalCreator : MonoBehaviour
 
         foreach (AnimalLimbData currLimbData in animalLimbData)
         {
-            Vector3 positionOffset;
-            positionOffset = spineJoints[currLimbData.parentJointId].segmentPosition * spineJoints[currLimbData.parentJointId].segmentScale.x;
-            if (spineJoints != null && currLimbData.parentJointId >= 0 && currLimbData.parentJointId < spineJoints.Count && spineJoints[currLimbData.parentJointId] != null)
-            {
-                Vector3 parentOffset = spineJoints[currLimbData.parentJointId].segmentPosition;
-                float parentScale = spineJoints[currLimbData.parentJointId].segmentScale.x;
-                positionOffset = parentOffset * parentScale + currLimbData.parentPositionOffset;
-            }
-            else
-            {
-                positionOffset = currLimbData.parentPositionOffset;
-                Debug.LogWarning("Animal Creator: Parent for limb - " + currLimbData.limbName + " not found! Using default offset");
-            }
-
+            Vector3 positionOffset = spineJoints[currLimbData.parentJointId].segmentPosition + currLimbData.parentPositionOffset - masterTransform.position;
 
             List<AnimalJoint> limbJoints = new List<AnimalJoint>();
 
@@ -119,7 +106,8 @@ public class AnimalCreator : MonoBehaviour
     {
         GameObject newSegment = Instantiate(segmentData.bodySegmentPrefab, masterTransform);
         newSegment.transform.localScale = Vector3.one * segmentScale;
-        newSegment.transform.position = new Vector3(masterTransform.position.x, 0, masterTransform.position.z);
+
+        //newSegment.transform.position = new Vector3(masterTransform.position.x, masterTransform.position.y, masterTransform.position.z);
         newSegment.transform.position += positionOffset;
         newSegment.name = name;
 
