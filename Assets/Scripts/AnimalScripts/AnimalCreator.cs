@@ -97,7 +97,7 @@ public class AnimalCreator : MonoBehaviour
                     positionOffset += new Vector3(offsetDirection * segmentScale * currSegmentData.distanceConstraint, 0, 0);
                 }
             }
-            limbs.Add(new AnimalLimb(currLimbData, limbJoints, limbId++));
+            limbs.Add(new AnimalLimb(currLimbData, limbJoints, spineJoints[currLimbData.parentJointId], limbId++));
         }
         animatorScript.SetLimbs(limbs);
     }

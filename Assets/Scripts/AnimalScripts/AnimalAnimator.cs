@@ -66,7 +66,7 @@ public class AnimalAnimator : MonoBehaviour
         {
             currLimb.UpdateTargetingVariables(deltaMs: Time.deltaTime * 1000);
             CalculateLimbsTargetPosition(currLimb);
-            CalculateFabrikTransforms(jointChain: currLimb.joints, parentJoint: joints[currLimb.limbData.parentJointId], targetPos: currLimb.targetLerpPosition, rootOffset: currLimb.parentLocalOffset, pulls: chainPullCount);
+            CalculateFabrikTransforms(jointChain: currLimb.joints, parentJoint: joints[currLimb.limbData.parentJointId], targetPos: currLimb.targetLerpPosition, rootOffset: currLimb.parentLocalOffset, pulls: chainPullCount, doLerp: true);
         }
     }
 
@@ -74,10 +74,10 @@ public class AnimalAnimator : MonoBehaviour
     {
         head.LookAt(movementController.lookTargetPos, movementController.lookAtTarget);
         int chainPullCount = 10;
-        CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount);
+        CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
     }
 
-    protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls)
+    protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls, bool doLerp)
     {
         for (int pullId = 0; pullId < pulls; pullId++)
         {
@@ -86,8 +86,7 @@ public class AnimalAnimator : MonoBehaviour
 
             float angleY = GetYAngle(targetPos - currJoint.segmentPosition);
             currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
-            currJoint.UpdateSegmentTransform();
-
+            //currJoint.UpdateSegmentTransform();
             for (int i = jointChain.Count() - 1; i > 0; i--)
             {
                 AnimalJoint nextSegment = jointChain[i];
@@ -98,8 +97,6 @@ public class AnimalAnimator : MonoBehaviour
 
                 Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
                 currSegment.SetPosition(nextSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
-
-                currSegment.UpdateSegmentTransform();
             }
 
             currJoint = jointChain[0];
@@ -121,7 +118,27 @@ public class AnimalAnimator : MonoBehaviour
 
                 Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
                 currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
-                currSegment.UpdateSegmentTransform();
+            }
+        }
+
+        if (doLerp)
+        {
+            for (int i = 1; i < jointChain.Count; i++)
+            {
+                float lerpSpeed = 25;
+                AnimalJoint prevSegment = jointChain[i - 1];
+                AnimalJoint currSegment = jointChain[i];
+
+                jointChain[i].UpdateLerpRotation(lerpSpeed);
+                jointChain[i].UpdateLerpPosition(prevSegment.segmentLerpPosition);
+                jointChain[i].UpdateSegmentLerpTransform();
+            }
+        }
+        else
+        {
+            for (int i = 1; i < jointChain.Count; i++)
+            {
+                jointChain[i].UpdateSegmentTransform();
             }
         }
     }

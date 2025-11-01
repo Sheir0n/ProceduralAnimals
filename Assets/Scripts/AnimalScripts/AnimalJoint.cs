@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class AnimalJoint : MonoBehaviour
 {
@@ -12,11 +14,15 @@ public class AnimalJoint : MonoBehaviour
     public float angularConstraint { get; protected set; }
     public float prefferedAngle { get; protected set; }
     public int segmentId { get; protected set; } = 0;
+    public Quaternion segmentLerpRotation { get; protected set; }
+    public Vector3 segmentLerpPosition { get; protected set; }
 
     virtual public void AfterInstantiate(Vector3 _segPosition, Quaternion _segRotation, Vector3 _segScale, float _distanceConstraint, float _angularConstraint, float _prefferedAngle, int _id)
     {
         segmentRotation = _segRotation;
+        segmentLerpRotation = _segRotation;
         segmentPosition = _segPosition;
+        segmentLerpPosition = _segPosition;
         segmentScale = _segScale;
         distanceConstraint = _distanceConstraint;
         angularConstraint = _angularConstraint;
@@ -42,7 +48,36 @@ public class AnimalJoint : MonoBehaviour
     public void UpdateSegmentTransform()
     {
         transform.rotation = segmentRotation;
+        segmentLerpRotation = segmentRotation;
         transform.position = segmentPosition;
+        segmentLerpPosition = segmentPosition;
+        transform.localScale = segmentScale;
+    }
+
+    public void UpdateLerpPosition(Vector3 prevSegmentPosition)
+    {
+        Vector3 allowedDir = Quaternion.Euler(0f, segmentLerpRotation.eulerAngles.y, 0f) * Vector3.forward;
+        segmentLerpPosition = prevSegmentPosition - allowedDir * distanceConstraint;
+    }
+
+    public void UpdateLerpRotation(float lerpSpeed)
+    {
+        Vector3 eulerLerp = new Vector3(
+            90,
+            Mathf.LerpAngle(segmentLerpRotation.eulerAngles.y, segmentRotation.eulerAngles.y, lerpSpeed * Time.deltaTime),
+            0
+        );
+
+        segmentLerpRotation = Quaternion.Euler(eulerLerp);
+    }
+
+    public void UpdateSegmentLerpTransform()
+    {
+
+        transform.rotation = segmentLerpRotation;
+        transform.position = segmentLerpPosition;
+
+        //not currently lerped
         transform.localScale = segmentScale;
     }
 }
