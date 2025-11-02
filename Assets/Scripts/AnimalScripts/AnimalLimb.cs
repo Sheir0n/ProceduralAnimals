@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Rendering.HableCurve;
 
@@ -31,6 +32,7 @@ public class AnimalLimb
     private float limbTargetingCooldownInMs = 250;
     private float currLimbTargetingTimeMs = 0;
     private float targetLerpSpeed = 50;
+    private float absTargetingMaxRotation = 75;
 
     public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints, AnimalJoint _parentJoint, int _limbId)
     {
@@ -55,7 +57,7 @@ public class AnimalLimb
             if (!lerp)
                 targetLerpPosition = newTargetPosition;
             targetPosition = newTargetPosition;
-        }   
+        }
     }
 
     public Vector3 GetNewTargetPos()
@@ -76,13 +78,9 @@ public class AnimalLimb
         float moveAngleY = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
         Quaternion moveRotation = Quaternion.Euler(0f, moveAngleY, 0f);
         Quaternion parentRotation = Quaternion.Euler(0f, parentJoint.segmentRotation.eulerAngles.y, 0f);
+        float moveAngleDifference = Mathf.Clamp(GetSignedAngle(parentRotation, moveRotation, Vector3.up), -absTargetingMaxRotation, absTargetingMaxRotation);
 
-
-        Vector3 newTargetPosition;
-        if (Quaternion.Angle(parentRotation, moveRotation) <= 90)
-            newTargetPosition = pivot + (moveRotation * limbData.targetPosOffset);
-        else
-            newTargetPosition = pivot + (moveRotation * new Vector3(-limbData.targetPosOffset.x, 0, limbData.targetPosOffset.z / 3));
+        Vector3 newTargetPosition = pivot + (parentRotation * Quaternion.Euler(0, moveAngleDifference, 0) * limbData.targetPosOffset);
 
         lastRootPos = pivot;
         lastMoveDir = moveDir;
@@ -97,5 +95,14 @@ public class AnimalLimb
     public void UpdateTargetingVariables(float deltaMs)
     {
         currLimbTargetingTimeMs += deltaMs;
+    }
+
+    private float GetSignedAngle(Quaternion from, Quaternion to, Vector3 axis)
+    {
+        Vector3 fromDir = from * Vector3.forward;
+        Vector3 toDir = to * Vector3.forward;
+        float angle = Vector3.Angle(fromDir, toDir);
+        float sign = Mathf.Sign(Vector3.Dot(Vector3.Cross(fromDir, toDir), axis));
+        return angle * sign;
     }
 }

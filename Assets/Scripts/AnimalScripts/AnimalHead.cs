@@ -23,7 +23,7 @@ public class AnimalHead
 
     public Vector3 targetPosition { get; private set; } = Vector3.zero;
     private float lookLerpAngle = 0f;
-    private float lerpSpeed = 30f;
+    private float lerpSpeed = 15f;
     public AnimalJoint parentJoint { get; private set; }
     public AnimalHead(List<AnimalJoint> _joints, AnimalJoint _parentJoint, AnimalHeadData _data)
     {
