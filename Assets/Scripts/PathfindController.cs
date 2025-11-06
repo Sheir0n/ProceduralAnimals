@@ -34,7 +34,7 @@ public class PathfindController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(0) && enableMouseFollow)
+        if (Input.GetMouseButton(0) && enableMouseLook)
         {
             Ray targetLookPos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
