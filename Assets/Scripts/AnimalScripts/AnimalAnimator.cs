@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class AnimalAnimator : MonoBehaviour
 {
+    [Header("Animal Joints")]
     protected List<AnimalJoint> joints;
     protected List<AnimalLimb> limbs;
     protected AnimalHead head;
 
+    [Header("Movement Controller")]
     [SerializeField] protected PathfindController movementController;
     protected Vector3 prevHeadPosition;
 

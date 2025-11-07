@@ -13,6 +13,8 @@ public class SegmentData
     public int jointCount;
     public AnimationCurve sizeCurve;
     public float distanceConstraint;
+
+    [Header("Angle Range Variables")]
     [Range(0, 180)] public float angularConstraint;
     [Range(-180, 180)] public float prefferedAngle;
 }
