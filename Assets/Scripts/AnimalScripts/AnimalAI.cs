@@ -114,7 +114,7 @@ public class AnimalAI : MonoBehaviour
                 stats.energy = Mathf.Clamp(stats.energy + (stats.statVigor - 0.5f + defaultEnergyRegen) * Time.deltaTime, 0, stats.maxEnergy);
                 break;
             case AIAction.Wander:
-                float defaultEnergyDrain = 0.5f;
+                float defaultEnergyDrain = 0.15f;
                 stats.energy = Mathf.Clamp(stats.energy - (0.5f * (1 - stats.statVigor) + defaultEnergyDrain) * Time.deltaTime, 0, stats.maxEnergy);
                 break;
         }
@@ -164,8 +164,6 @@ public class AnimalAI : MonoBehaviour
             currAction = newBestAction;
         }
     }
-
-
 
     private float GetRestUtility()
     {
