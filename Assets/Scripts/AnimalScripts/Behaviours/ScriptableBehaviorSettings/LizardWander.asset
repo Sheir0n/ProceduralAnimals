@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LizardWander
   m_EditorClassIdentifier: 
   selectNewTargetCooldownMs: 250
-  wanderCircleDistance: 2
-  wanderCircleRadius: 1.5
+  wanderCircleDistance: 5
+  wanderCircleRadius: 2.25
   wanderJitter: 0.1
   agentWanderAngularSpeed: 90
   agentFallbackAngularSpeed: 240

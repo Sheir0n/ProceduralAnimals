@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [System.Serializable]
-public class WanderBehavior : IAnimalBehavior
+public class WanderMovement : IAnimalMovement
 {
     private NavMeshAgent agent;
 
-    private WanderBehaviorSettings settings;
+    private WanderMovementSettings settings;
 
     private bool showTargetingLogs = false;
 
@@ -24,7 +24,7 @@ public class WanderBehavior : IAnimalBehavior
     public Vector3? LookTargetPosition => lookTargetPos;
     public bool? LookAtTarget { get; private set; }
 
-    public WanderBehavior(NavMeshAgent agent, WanderBehaviorSettings settings)
+    public WanderMovement(NavMeshAgent agent, WanderMovementSettings settings)
     {
         this.agent = agent;
         this.settings = settings;

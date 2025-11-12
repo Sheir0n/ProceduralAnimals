@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface IAnimalBehavior
+public interface IAnimalMovement
 {
     void Enter();        
     void Update();       

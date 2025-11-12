@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WanderBehaviorSettings", menuName = "AI/Behavior/Wander Settings")]
-public class WanderBehaviorSettings : ScriptableObject
+[CreateAssetMenu(fileName = "WanderMovementSettings", menuName = "AI/Behavior/Movement/Wander Settings")]
+public class WanderMovementSettings : ScriptableObject
 {
     [Header("Wander Variables")]
     public float selectNewTargetCooldownMs = 250;

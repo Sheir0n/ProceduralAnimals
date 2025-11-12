@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerControlledBehavior : IAnimalBehavior
+public class PlayerControlledBehavior : IAnimalMovement
 {
     private NavMeshAgent agent;
     private Transform transform;

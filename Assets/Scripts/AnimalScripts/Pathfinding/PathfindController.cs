@@ -5,12 +5,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static AnimalAI;
 
-public class PathfindController : MonoBehaviour
+public class PathfindController : MonoBehaviour, IAnimalObserver
 {
     [Header("Nav Mesh Agent Component")]
     private NavMeshAgent agent;
-    [SerializeField] bool enablePlayerControl = false;
     public Vector3 moveTargetPos { get; private set; } = Vector3.zero;
     public Vector3 lookTargetPos { get; private set; } = Vector3.zero;
     public bool lookAtTarget { get; private set; } = false;
@@ -18,22 +18,22 @@ public class PathfindController : MonoBehaviour
     private Quaternion lastRotation;
     public float agentCurrAngularSpeed { get; private set; } = 0;
 
-    private WanderBehavior wanderBehavior;
+    private WanderMovement wanderBehavior;
     private PlayerControlledBehavior playerControledBehavior;
-    private IAnimalBehavior currentBehavior;
+    private IAnimalMovement currentBehavior;
 
     [Header("Scriptable Behavior Settings")]
-    [SerializeField] WanderBehaviorSettings wanderBehaviorSettings;
+    [SerializeField] WanderMovementSettings wanderBehaviorSettings;
+
+    AIAction currAction;
 
     private void Awake()
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
-        wanderBehavior = new WanderBehavior(agent, wanderBehaviorSettings);
+        wanderBehavior = new WanderMovement(agent, wanderBehaviorSettings);
         playerControledBehavior = new PlayerControlledBehavior(agent, transform);
-
-        currentBehavior = wanderBehavior;
-        currentBehavior.Enter();
     }
+
     void Start()
     {
         lastRotation = transform.rotation;
@@ -41,24 +41,6 @@ public class PathfindController : MonoBehaviour
 
     void Update()
     {
-        if (enablePlayerControl && playerControledBehavior != null)
-        {
-            if (currentBehavior != playerControledBehavior) {
-                currentBehavior.Exit();
-                currentBehavior = playerControledBehavior;
-                currentBehavior.Enter();
-            }
-        }
-        else
-        {
-            if (currentBehavior != wanderBehavior && wanderBehavior != null)
-            {
-                currentBehavior.Exit();
-                currentBehavior = wanderBehavior;
-                currentBehavior.Enter();
-            }
-        }
-        
         currentBehavior.Update();
         lookTargetPos = currentBehavior.LookTargetPosition ?? transform.position;
         lookAtTarget = currentBehavior.LookAtTarget ?? false;
@@ -74,6 +56,38 @@ public class PathfindController : MonoBehaviour
         delta.ToAngleAxis(out float angle, out Vector3 axis);
         agentCurrAngularSpeed = angle / Time.deltaTime;
         lastRotation = transform.rotation;
+    }
+
+    public void OnActionChanged(AIAction newAction) { 
+        Debug.Log("recived new action! " + newAction);
+
+        if (currAction == newAction)
+            return;
+
+        currentBehavior?.Exit();
+
+        currAction = newAction;
+
+        switch (newAction)
+        {
+            case AnimalAI.AIAction.Rest:
+                //currentBehavior = restMovement;
+                currentBehavior = wanderBehavior;
+                break;
+            case AnimalAI.AIAction.Wander:
+                currentBehavior = wanderBehavior;
+                break;
+            case AnimalAI.AIAction.PlayerControlled:
+                currentBehavior = playerControledBehavior;
+                break;
+            default:
+                currentBehavior = wanderBehavior;
+                break;
+        }
+
+        currentBehavior.Enter();
+
+        Debug.Log($"Action changed to {newAction}");
     }
 }
 

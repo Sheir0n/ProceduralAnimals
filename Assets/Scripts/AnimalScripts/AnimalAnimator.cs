@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static AnimalAI;
 
-public class AnimalAnimator : MonoBehaviour
+public class AnimalAnimator : MonoBehaviour, IAnimalObserver
 {
     [Header("Animal Joints")]
     protected List<AnimalJoint> joints;
@@ -186,4 +187,6 @@ public class AnimalAnimator : MonoBehaviour
         euler.x = 90f;
         return Quaternion.Euler(euler);
     }
+
+    public void OnActionChanged(AIAction actionEnum) { }
 }
