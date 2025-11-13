@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerControlledBehavior : IAnimalMovement
+public class PlayerControlledMovement : IAnimalMovement
 {
     private NavMeshAgent agent;
     private Transform transform;
-
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }
     public bool? LookAtTarget { get; private set; }
 
-    public PlayerControlledBehavior(NavMeshAgent agent, Transform transform)
+    public PlayerControlledMovement(NavMeshAgent agent, Transform transform)
     {
         this.agent = agent;
         this.transform = transform;

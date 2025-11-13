@@ -18,8 +18,9 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
     private Quaternion lastRotation;
     public float agentCurrAngularSpeed { get; private set; } = 0;
 
-    private WanderMovement wanderBehavior;
-    private PlayerControlledBehavior playerControledBehavior;
+    private WanderMovement wanderMovement;
+    private PlayerControlledMovement playerControledMovement;
+    private RestMovement restMovement;
     private IAnimalMovement currentBehavior;
 
     [Header("Scriptable Behavior Settings")]
@@ -30,8 +31,9 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
     private void Awake()
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
-        wanderBehavior = new WanderMovement(agent, wanderBehaviorSettings);
-        playerControledBehavior = new PlayerControlledBehavior(agent, transform);
+        wanderMovement = new WanderMovement(agent, wanderBehaviorSettings);
+        playerControledMovement = new PlayerControlledMovement(agent, transform);
+        restMovement = new RestMovement(agent,transform);
     }
 
     void Start()
@@ -71,17 +73,16 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
         switch (newAction)
         {
             case AnimalAI.AIAction.Rest:
-                //currentBehavior = restMovement;
-                currentBehavior = wanderBehavior;
+                currentBehavior = restMovement;
                 break;
             case AnimalAI.AIAction.Wander:
-                currentBehavior = wanderBehavior;
+                currentBehavior = wanderMovement;
                 break;
             case AnimalAI.AIAction.PlayerControlled:
-                currentBehavior = playerControledBehavior;
+                currentBehavior = playerControledMovement;
                 break;
             default:
-                currentBehavior = wanderBehavior;
+                currentBehavior = restMovement;
                 break;
         }
 
