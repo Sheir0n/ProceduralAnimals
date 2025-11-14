@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerControlledMovement : IAnimalMovement
+public class PlayerControlledMovement : BaseMovementScript, IAnimalMovement
 {
     private NavMeshAgent agent;
     private Transform transform;
@@ -11,10 +11,16 @@ public class PlayerControlledMovement : IAnimalMovement
     public Vector3? LookTargetPosition { get; private set; }
     public bool? LookAtTarget { get; private set; }
 
-    public PlayerControlledMovement(NavMeshAgent agent, Transform transform)
+    public PlayerControlledMovement(NavMeshAgent agent, Transform transform, IReadOnlyAnimalStats generalStatsHook)
     {
         this.agent = agent;
         this.transform = transform;
+        AssignMovementStats();
+    }
+
+    protected override void AssignMovementStats()
+    {
+        AssignBaseMovementStats(agent);
     }
 
     public void Enter()
@@ -24,6 +30,8 @@ public class PlayerControlledMovement : IAnimalMovement
 
     public void Update()
     {
+        SmoothAssignMovementStats(agent, BaseStats, lerpSpeed: 5f);
+
         if (Input.GetMouseButton(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

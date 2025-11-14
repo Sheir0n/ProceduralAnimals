@@ -14,4 +14,10 @@ public class WanderMovementSettings : ScriptableObject
     [Header("Wander Speed Variables")]
     public float agentWanderAngularSpeed = 90;
     public float agentFallbackAngularSpeed = 240;
+    public float agentBaseWalkSpeedMultiplier = 0.5f;
+
+    [Header("Global Stats Sensitivity Variables")]
+    public float vigorWalkSpeedVariationModifier = 0f;
+    [Range(0, 1)] public float lowHealthSpeedPenalityThreshold = 0f;
+    [Range(0f, 1)] public float healthSlowdownMaxPenality = 0f;
 }

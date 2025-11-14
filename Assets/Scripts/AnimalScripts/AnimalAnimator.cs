@@ -189,4 +189,6 @@ public class AnimalAnimator : MonoBehaviour, IAnimalObserver
     }
 
     public void OnActionChanged(AIAction actionEnum) { }
+
+    public void OnAnimalAIInitialize(IReadOnlyAnimalStats statsHook) { }
 }

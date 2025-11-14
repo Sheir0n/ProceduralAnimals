@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 using static AnimalAI;
@@ -28,12 +29,12 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
 
     AIAction currAction;
 
-    private void Awake()
+    public void OnAnimalAIInitialize(IReadOnlyAnimalStats statsHook)
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
-        wanderMovement = new WanderMovement(agent, wanderBehaviorSettings);
-        playerControledMovement = new PlayerControlledMovement(agent, transform);
-        restMovement = new RestMovement(agent,transform);
+        wanderMovement = new WanderMovement(agent, wanderBehaviorSettings, statsHook);
+        playerControledMovement = new PlayerControlledMovement(agent, transform, statsHook);
+        restMovement = new RestMovement(agent, transform, statsHook);
     }
 
     void Start()

@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectNewTargetCooldownMs: 250
   wanderCircleDistance: 5
-  wanderCircleRadius: 2.25
+  wanderCircleRadius: 1.5
   wanderJitter: 0.1
   agentWanderAngularSpeed: 90
   agentFallbackAngularSpeed: 240
+  agentBaseWalkSpeedMultiplier: 0.6
+  vigorWalkSpeedVariationModifier: 0.15
+  lowHealthSpeedPenalityThreshold: 0.45
+  healthSlowdownMaxPenality: 0.25

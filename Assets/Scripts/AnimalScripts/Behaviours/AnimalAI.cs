@@ -5,8 +5,25 @@ using System.Linq;
 using UnityEditor.UI;
 using UnityEngine;
 
+public interface IReadOnlyAnimalStats
+{
+    float Health { get; }
+    float Saturation { get; }
+    float Energy { get; }
+
+    float MaxHealth { get; }
+    float MaxSaturation { get; }
+    float MaxEnergy { get; }
+
+    float StatVigor { get; }
+    float StatAggressiveness { get; }
+    float StatCuriosity { get; }
+    float StatDominance { get; }
+}
+
+
 [System.Serializable]
-public class AnimalStats
+public class AnimalStats : IReadOnlyAnimalStats
 {
     [Header("General Variables")]
     public float health;
@@ -23,6 +40,19 @@ public class AnimalStats
     [Range(0.01f, 1)] public float statAggressiveness;
     [Range(0.01f, 1)] public float statCuriosity;
     [Range(0.01f, 1)] public float statDominance;
+
+    float IReadOnlyAnimalStats.Health => health;
+    float IReadOnlyAnimalStats.Saturation => saturation;
+    float IReadOnlyAnimalStats.Energy => energy;
+
+    float IReadOnlyAnimalStats.MaxHealth => maxHealth;
+    float IReadOnlyAnimalStats.MaxSaturation => maxSaturation;
+    float IReadOnlyAnimalStats.MaxEnergy => maxEnergy;
+
+    float IReadOnlyAnimalStats.StatVigor => statVigor;
+    float IReadOnlyAnimalStats.StatAggressiveness => statAggressiveness;
+    float IReadOnlyAnimalStats.StatCuriosity => statCuriosity;
+    float IReadOnlyAnimalStats.StatDominance => statDominance;
 }
 
 public class AnimalAI : MonoBehaviour
@@ -88,6 +118,9 @@ public class AnimalAI : MonoBehaviour
 
         RegisterObserver(animator);
         RegisterObserver(pathfindController);
+
+        foreach (var observer in observers)
+            observer.OnAnimalAIInitialize(stats);
     }
 
     protected virtual void Start()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RestMovement : IAnimalMovement
+public class RestMovement : BaseMovementScript, IAnimalMovement
 {
     private NavMeshAgent agent;
     private Transform transform;
@@ -11,10 +11,20 @@ public class RestMovement : IAnimalMovement
     public Vector3? LookTargetPosition { get; private set; }
 
     public bool? LookAtTarget { get; private set; }
-    public RestMovement(NavMeshAgent agent, Transform transform)
+
+    private MovementStats slowDownStats;
+    public RestMovement(NavMeshAgent agent, Transform transform, IReadOnlyAnimalStats generalStatsHook)
     {
         this.agent = agent;
         this.transform = transform;
+        AssignMovementStats();
+    }
+
+    protected override void AssignMovementStats()
+    {
+        AssignBaseMovementStats(agent);
+        slowDownStats = new MovementStats(BaseStats);
+        slowDownStats.Speed *= 0.1f;
     }
 
     public void Enter()
@@ -26,12 +36,10 @@ public class RestMovement : IAnimalMovement
 
     public void Update()
     {
-        
+        SmoothAssignMovementStats(agent, slowDownStats, lerpSpeed: 0.5f);
     }
 
     public void Exit()
     {
-
-
     }
 }

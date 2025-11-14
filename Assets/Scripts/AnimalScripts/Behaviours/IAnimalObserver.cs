@@ -6,4 +6,5 @@ using static AnimalAI;
 public interface IAnimalObserver
 {
     void OnActionChanged(AIAction actionEnum);
+    void OnAnimalAIInitialize(IReadOnlyAnimalStats statsHook);
 }
