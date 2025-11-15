@@ -25,6 +25,8 @@ public class RestController : IUtilityAction
             utilityScore = Mathf.Pow(1 - normalizedEnergy, 0.5f * stats.statVigor) * 2 / 3;
         else
             utilityScore = Mathf.Pow(1 - normalizedEnergy, 6f * (1 - stats.statVigor / 2)) * 2 / 3;
+
+        //Debug.Log("RestScore: " + utilityScore);
         return utilityScore;
     }
 

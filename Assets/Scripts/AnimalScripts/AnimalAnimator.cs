@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using static AnimalAI;
 
-public class AnimalAnimator : MonoBehaviour, IAnimalObserver
+public class AnimalAnimator : MonoBehaviour
 {
     [Header("Animal Joints")]
     protected List<AnimalJoint> joints;
@@ -15,6 +15,12 @@ public class AnimalAnimator : MonoBehaviour, IAnimalObserver
     [Header("Movement Controller")]
     [SerializeField] protected PathfindController movementController;
     protected Vector3 prevHeadPosition;
+
+    private AnimalEventHub eventHub;
+
+    void Awake() { 
+        eventHub = GetComponent<AnimalEventHub>();
+    }
 
     public void SetJoints(List<AnimalJoint> _segments) => joints = _segments;
     public void SetLimbs(List<AnimalLimb> _limbs) => limbs = _limbs;
@@ -187,8 +193,4 @@ public class AnimalAnimator : MonoBehaviour, IAnimalObserver
         euler.x = 90f;
         return Quaternion.Euler(euler);
     }
-
-    public void OnActionChanged(AIAction actionEnum) { }
-
-    public void OnAnimalAIInitialize(IReadOnlyAnimalStats statsHook) { }
 }

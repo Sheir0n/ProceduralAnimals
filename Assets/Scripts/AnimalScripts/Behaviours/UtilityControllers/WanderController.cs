@@ -19,10 +19,14 @@ public class WanderController : IUtilityAction
     public void Exit() { }
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
+        float utilityScore;
         if (currAction == this)
-            return Mathf.Pow(stats.energy / stats.maxEnergy, 2f) * 2 / 3;
+            utilityScore = Mathf.Pow(stats.energy / stats.maxEnergy, 2f) * 2 / 3;
         else
-            return Mathf.Pow(stats.energy / stats.maxEnergy, 6f) * 2 / 3;
+            utilityScore = Mathf.Pow(stats.energy / stats.maxEnergy, 6f) * 2 / 3;
+
+        //Debug.Log("Wanders score: " + utilityScore);
+        return utilityScore;
     }
 
     public void CalculateStats(AnimalStats stats)

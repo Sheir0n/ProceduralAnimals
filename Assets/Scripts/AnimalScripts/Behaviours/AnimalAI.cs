@@ -59,23 +59,20 @@ public class AnimalAI : MonoBehaviour
 {
     [SerializeField] protected float statMultiplierMaxRandomness = 0.2f;
     [SerializeField] protected AnimalStats stats;
-    [SerializeField] protected int staticSeed = 12345;
 
     [Header("Use predetermined or generate new seed")]
     [SerializeField] protected bool useStaticSeed = true;
     [Header("Use custom stats instead of seed")]
     [SerializeField] protected bool ignoreSeed = true;
-    private int seed = 0;
-    public AnimalStats Stats => stats;
-    public int Seed => seed;
+    [SerializeField] private int seed = 12345;
 
     [Header("Show StateChange logs")]
     [SerializeField] private bool showStateChangeLogs = false;
 
 
     //UtilityAction controllers
-    [SerializeField] private AnimalAnimator animator;
-    [SerializeField] private PathfindController pathfindController;
+    private AnimalAnimator animator;
+    private PathfindController pathfindController;
 
     //UtilityAI Actions
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
@@ -95,12 +92,14 @@ public class AnimalAI : MonoBehaviour
 
     [SerializeField] private bool isPlayerControlled = false;
 
-    //observer handling
-    protected List<IAnimalObserver> observers = new List<IAnimalObserver>();
-    //TODO: remove observers on death
+    private AnimalEventHub eventHub;
 
     protected virtual void Awake()
     {
+        eventHub = GetComponent<AnimalEventHub>();
+        animator = GetComponent<AnimalAnimator>();
+        pathfindController = GetComponent<PathfindController>();
+
         GenerateStats();
 
         actionByEnum = new Dictionary<AIAction, IUtilityAction>();
@@ -115,18 +114,12 @@ public class AnimalAI : MonoBehaviour
 
         currAction = actions[(int)AIAction.Rest];
         actionDebugDisplay = AIAction.Rest;
-
-        RegisterObserver(animator);
-        RegisterObserver(pathfindController);
-
-        foreach (var observer in observers)
-            observer.OnAnimalAIInitialize(stats);
     }
 
     protected virtual void Start()
     {
-        foreach (var observer in observers)
-            observer.OnActionChanged(enumByAction[currAction]);
+        eventHub.SendInitializeRequest(stats);
+        eventHub.SendAIStateChange(enumByAction[currAction]);
     }
 
     protected virtual void Update()
@@ -143,11 +136,9 @@ public class AnimalAI : MonoBehaviour
             currAction.Exit();
             actionPenalities[currAction] += defaultPenality;
 
-            foreach (var observer in observers)
-                observer.OnActionChanged(enumByAction[newAction]);
-
             currAction = newAction;
             newAction.Enter();
+            eventHub.SendAIStateChange(enumByAction[newAction]);
             newAction.Update();
         }
     }
@@ -165,7 +156,6 @@ public class AnimalAI : MonoBehaviour
         {
             if (useStaticSeed)
             {
-                seed = staticSeed;
                 Debug.Log("Created new animal with static seed: " + seed);
             }
             else
@@ -187,7 +177,7 @@ public class AnimalAI : MonoBehaviour
         else
         {
             Debug.Log("Created new animal without seed");
-            seed = staticSeed;
+            seed = 0;
         }
 
         stats.health = stats.maxHealth;
@@ -228,7 +218,6 @@ public class AnimalAI : MonoBehaviour
                 }
             }
         }
-
         return bestAction;
     }
 
@@ -241,9 +230,6 @@ public class AnimalAI : MonoBehaviour
             actionPenalities[key] = Mathf.Lerp(actionPenalities[key], 0, penalityDrainSpeed * Time.deltaTime);
         }
     }
-
-    public void RegisterObserver(IAnimalObserver observer) => observers.Add(observer);
-    public void UnregisterObserver(IAnimalObserver observer) => observers.Remove(observer);
 
     protected float GetRandom(System.Random rand, float min, float max)
     {

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using static AnimalAI;
 
-public class PathfindController : MonoBehaviour, IAnimalObserver
+public class PathfindController : MonoBehaviour
 {
     [Header("Nav Mesh Agent Component")]
     private NavMeshAgent agent;
@@ -31,10 +31,18 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
     protected Dictionary<IAnimalMovement, AIAction> enumByMovement;
     private IAnimalMovement currentBehavior;
 
+    private AnimalEventHub eventHub;
 
-
-    public void OnAnimalAIInitialize(IReadOnlyAnimalStats statsHook)
+    void Awake()
     {
+        eventHub = GetComponent<AnimalEventHub>();
+        eventHub.OnInitializeStats += InitializeWithStatsHook;
+        eventHub.OnActionChanged += OnActionChanged;
+    }
+
+    public void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)
+    {
+        Debug.Log("Initialized stats!");
         agent = transform.GetComponentInParent<NavMeshAgent>();
 
         movementByEnum = new Dictionary<AIAction, IAnimalMovement>();
@@ -42,10 +50,8 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
         AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
         AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, statsHook), AIAction.Wander);
         AddNewMovementBehavior(new RestMovement(agent, transform, statsHook), AIAction.Rest);
-    }
 
-    void Start()
-    {
+
         lastRotation = transform.rotation;
     }
 
