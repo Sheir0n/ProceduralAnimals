@@ -788,7 +788,7 @@ PrefabInstance:
     - target: {fileID: 6793691187201939306, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: ignoreSeed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6793691187201939306, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}

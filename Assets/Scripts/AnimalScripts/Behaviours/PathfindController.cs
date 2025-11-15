@@ -22,19 +22,26 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
     private WanderMovement wanderMovement;
     private PlayerControlledMovement playerControledMovement;
     private RestMovement restMovement;
-    private IAnimalMovement currentBehavior;
 
     [Header("Scriptable Behavior Settings")]
     [SerializeField] WanderMovementSettings wanderBehaviorSettings;
 
-    AIAction currAction;
+    protected List<IAnimalMovement> movements = new List<IAnimalMovement>();
+    protected Dictionary<AIAction, IAnimalMovement> movementByEnum;
+    protected Dictionary<IAnimalMovement, AIAction> enumByMovement;
+    private IAnimalMovement currentBehavior;
+
+
 
     public void OnAnimalAIInitialize(IReadOnlyAnimalStats statsHook)
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
-        wanderMovement = new WanderMovement(agent, wanderBehaviorSettings, statsHook);
-        playerControledMovement = new PlayerControlledMovement(agent, transform, statsHook);
-        restMovement = new RestMovement(agent, transform, statsHook);
+
+        movementByEnum = new Dictionary<AIAction, IAnimalMovement>();
+        enumByMovement = new Dictionary<IAnimalMovement, AIAction>();
+        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
+        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, statsHook), AIAction.Wander);
+        AddNewMovementBehavior(new RestMovement(agent, transform, statsHook), AIAction.Rest);
     }
 
     void Start()
@@ -61,33 +68,29 @@ public class PathfindController : MonoBehaviour, IAnimalObserver
         lastRotation = transform.rotation;
     }
 
-    public void OnActionChanged(AIAction newAction) { 
-        Debug.Log("recived new action! " + newAction);
+    protected void AddNewMovementBehavior(IAnimalMovement movement, AIAction actionEnum)
+    {
+        movements.Add(movement);
+        enumByMovement.Add(movement, actionEnum);
+        movementByEnum.Add(actionEnum, movement);
+    }
 
-        if (currAction == newAction)
+    public void OnActionChanged(AIAction newAction) { 
+        Debug.Log("Recived new action! " + newAction);
+
+        if(!movementByEnum.ContainsKey(newAction)) {
+            Debug.LogWarning("Couldnt find corresponding movmenet action! " + newAction);
+            return;
+        }
+
+        IAnimalMovement newMovementBehavior = movementByEnum[newAction];
+
+        if (currentBehavior == newMovementBehavior)
             return;
 
         currentBehavior?.Exit();
-
-        currAction = newAction;
-
-        switch (newAction)
-        {
-            case AnimalAI.AIAction.Rest:
-                currentBehavior = restMovement;
-                break;
-            case AnimalAI.AIAction.Wander:
-                currentBehavior = wanderMovement;
-                break;
-            case AnimalAI.AIAction.PlayerControlled:
-                currentBehavior = playerControledMovement;
-                break;
-            default:
-                currentBehavior = restMovement;
-                break;
-        }
-
-        currentBehavior.Enter();
+        currentBehavior = newMovementBehavior;
+        newMovementBehavior.Enter();
 
         Debug.Log($"Action changed to {newAction}");
     }

@@ -90,8 +90,8 @@ public class AnimalAI : MonoBehaviour
     [SerializeField, ReadOnly] protected Dictionary<IUtilityAction, float> actionPenalities;
     [SerializeField, ReadOnly] private AIAction actionDebugDisplay;
 
-    Dictionary<AIAction, IUtilityAction> actionByEnum = new Dictionary<AIAction, IUtilityAction>();
-    Dictionary<IUtilityAction, AIAction> enumByAction = new Dictionary<IUtilityAction, AIAction>();
+    Dictionary<AIAction, IUtilityAction> actionByEnum;
+    Dictionary<IUtilityAction, AIAction> enumByAction;
 
     [SerializeField] private bool isPlayerControlled = false;
 

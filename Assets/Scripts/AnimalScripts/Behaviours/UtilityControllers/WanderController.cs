@@ -17,9 +17,12 @@ public class WanderController : IUtilityAction
     public void Enter() { }
     public void Update() { }
     public void Exit() { }
-    public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction) 
+    public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
-        return Mathf.Pow(stats.energy / stats.maxEnergy, 2f);
+        if (currAction == this)
+            return Mathf.Pow(stats.energy / stats.maxEnergy, 2f) * 2 / 3;
+        else
+            return Mathf.Pow(stats.energy / stats.maxEnergy, 6f) * 2 / 3;
     }
 
     public void CalculateStats(AnimalStats stats)
