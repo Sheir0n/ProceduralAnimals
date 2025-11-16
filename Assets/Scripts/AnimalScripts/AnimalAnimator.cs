@@ -52,6 +52,7 @@ public class AnimalAnimator : MonoBehaviour
             return;
         }
 
+        bool isColliderDetected = false;
         for (int i = _minSegmentId; i < _maxSegmentId; i++)
         {
             AnimalJoint prevSegment = joints[i - 1];
@@ -59,13 +60,25 @@ public class AnimalAnimator : MonoBehaviour
 
             Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
             float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, prevSegment.prefferedAngle);
-            currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
 
             Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
-            currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
+            Vector3 targetPos = prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint;
+
+            float pushRadius = 0.25f * joints[i].segmentScale.x;
+            if (SegmentHitsObstacle(targetPos, radius: pushRadius))
+            {
+                targetPos = PushMainBodyFromObstacle(prevSegment, targetPos, radius: pushRadius);
+                isColliderDetected = true;
+            }
+
+            currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+            currSegment.SetPosition(targetPos);
 
             currSegment.UpdateSegmentTransform();
         }
+
+        if(!isColliderDetected)
+            eventHub.StopAgentPush();
     }
 
     protected virtual void CalculateLimbsTransform()
@@ -192,5 +205,47 @@ public class AnimalAnimator : MonoBehaviour
         Vector3 euler = rotation.eulerAngles;
         euler.x = 90f;
         return Quaternion.Euler(euler);
+    }
+
+    protected bool SegmentHitsObstacle(Vector3 pos, float radius)
+    {
+
+        LayerMask mask = LayerMask.GetMask("Obstacles");
+        bool hit = Physics.CheckSphere(pos, radius, mask, QueryTriggerInteraction.Ignore);
+        return hit;
+    }
+
+    protected Vector3 PushMainBodyFromObstacle(AnimalJoint prevSegment, Vector3 to, float radius = 0.15f, float pushFactor = 0.45f)
+    {
+        Vector3 from = prevSegment.segmentPosition;
+        Vector3 desiredMove = to - from;
+        float maxDistance = prevSegment.distanceConstraint;
+
+        Collider[] hits = Physics.OverlapSphere(to, radius, LayerMask.GetMask("Obstacles"));
+        if (hits.Length == 0)
+            return to;
+
+        Vector3 pushVector = Vector3.zero;
+
+        foreach (var hit in hits)
+        {
+            Vector3 dirAway = (to - hit.ClosestPoint(to)).normalized;
+
+            float colliderRadius = 0.5f;
+            if (hit is CapsuleCollider capsule)
+                colliderRadius = capsule.radius * Mathf.Max(capsule.transform.localScale.x, capsule.transform.localScale.z);
+
+            pushVector += dirAway * colliderRadius;
+        }
+
+        Vector3 pushedPos = to + pushVector * pushFactor;
+
+        Vector3 offsetFromPrev = pushedPos - from;
+        if (offsetFromPrev.magnitude > maxDistance)
+            pushedPos = from + offsetFromPrev.normalized * maxDistance;
+
+        if (pushVector.sqrMagnitude > 0.0001f)
+            eventHub.PushAgentOnSegmentCollision(pushVector);
+        return pushedPos;
     }
 }

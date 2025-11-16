@@ -29,6 +29,7 @@ public class RestMovement : BaseMovementScript, IAnimalMovement
 
     public void Enter()
     {
+        agent.isStopped = false;
         LookAtTarget = false;
         MoveTargetPosition = transform.position;
         LookAtTarget = false;

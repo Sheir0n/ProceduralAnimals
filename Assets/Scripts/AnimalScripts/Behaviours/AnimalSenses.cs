@@ -10,9 +10,7 @@ public class AnimalSenses : MonoBehaviour
 
     private void Awake()
     {
-        eventHub.GetComponent<AnimalEventHub>();
+        eventHub = GetComponent<AnimalEventHub>();
         agent = GetComponent<NavMeshAgent>();
     }
-
-
 }

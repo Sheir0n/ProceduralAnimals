@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using static AnimalAI;
 
 public class PathfindController : MonoBehaviour
@@ -32,12 +33,15 @@ public class PathfindController : MonoBehaviour
     private IAnimalMovement currentBehavior;
 
     private AnimalEventHub eventHub;
+    private Vector3 pendingPush;
 
     void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
         eventHub.OnInitializeStats += InitializeWithStatsHook;
         eventHub.OnActionChanged += OnActionChanged;
+        eventHub.OnSegmentCollision += PushAgentForward;
+        eventHub.OnNoSegmentCollision += StopAgentPush;
     }
 
     public void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)
@@ -60,6 +64,19 @@ public class PathfindController : MonoBehaviour
         currentBehavior.Update();
         lookTargetPos = currentBehavior.LookTargetPosition ?? transform.position;
         lookAtTarget = currentBehavior.LookAtTarget ?? false;
+
+        if (pendingPush.magnitude > 0.01f)
+            if (pendingPush.magnitude > 0.01f)
+            {
+                float basePushSpeed = 1.5f;
+                float scaledSpeed = basePushSpeed * pendingPush.magnitude;
+
+                float moveStep = Mathf.Min(pendingPush.magnitude, scaledSpeed * Time.deltaTime);
+                Vector3 moveDir = pendingPush.normalized * moveStep;
+                agent.Move(moveDir);
+                pendingPush -= moveDir;
+            }
+
         CalculateAngularSpeed();
     }
 
@@ -99,6 +116,20 @@ public class PathfindController : MonoBehaviour
         newMovementBehavior.Enter();
 
         Debug.Log($"Action changed to {newAction}");
+    }
+
+    private void PushAgentForward(Vector3 pushVector)
+    {
+        float amount = 0.5f;
+        pendingPush += pushVector * amount;
+    }
+
+    private void StopAgentPush()
+    {
+        if (pendingPush.sqrMagnitude > 0.00001f)
+        {
+            pendingPush *= 0.90f;
+        }
     }
 }
 
