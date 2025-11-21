@@ -6,11 +6,13 @@ public class RestController : IUtilityAction
 {
     private readonly PathfindController controller;
     private readonly AnimalAnimator animator;
+    private float energyRegenRate;
 
-    public RestController(PathfindController controller, AnimalAnimator animator)
+    public RestController(PathfindController controller, AnimalAnimator animator, float energyRegenRate)
     {
         this.controller = controller;
         this.animator = animator;
+        this.energyRegenRate = energyRegenRate;
     }
 
     public string DebugName() => "Rest";
@@ -32,7 +34,6 @@ public class RestController : IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        float defaultEnergyRegen = 1;
-        stats.energy = Mathf.Clamp(stats.energy + (stats.statVigor - 0.5f + defaultEnergyRegen) * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy + (stats.statVigor - 0.5f + energyRegenRate) * Time.deltaTime, 0, stats.maxEnergy);
     }
 }

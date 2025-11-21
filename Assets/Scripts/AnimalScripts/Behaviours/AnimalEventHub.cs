@@ -11,7 +11,11 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<AIAction> OnActionChanged;
 
     public event Action<Vector3> OnSegmentCollision;
-    public event Action OnNoSegmentCollision; 
+    public event Action OnNoSegmentCollision;
+
+    public event Func<float> OnAngularSpeedRequest;
+    public event Func<LookTarget> OnLookTargetRequest; // animator <= movement
+    public event Func<LerpedLookData> OnLookConeSetCenterRequest; // senses <= animator (current lerped look for vision cone)
 
     private const int pushEventLimit = 5;
     private int currPushEventCount = 0;
@@ -20,7 +24,6 @@ public class AnimalEventHub : MonoBehaviour
     {
         currPushEventCount = 0;
     }
-
 
     public void SendInitializeRequest(IReadOnlyAnimalStats stats) => OnInitializeStats?.Invoke(stats);
     public void SendAIStateChange(AIAction newAction) => OnActionChanged?.Invoke(newAction);
@@ -31,4 +34,15 @@ public class AnimalEventHub : MonoBehaviour
         currPushEventCount++;
     }
     public void StopAgentPush() => OnNoSegmentCollision?.Invoke();
+
+    public float GetAngularSpeed() => OnAngularSpeedRequest?.Invoke() ?? 0f;
+    public LookTarget RequestLookTargetData()
+    {
+        return OnLookTargetRequest?.Invoke() ?? new LookTarget(Vector3.zero, false);
+    }
+
+    public LerpedLookData RequestLookConeSetCenter()
+    {
+        return OnLookConeSetCenterRequest?.Invoke() ?? new LerpedLookData(transform.position, transform.forward);
+    }
 }

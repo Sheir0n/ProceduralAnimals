@@ -71,28 +71,27 @@ public class AnimalAI : MonoBehaviour
 
 
     //UtilityAction controllers
-    private AnimalAnimator animator;
-    private PathfindController pathfindController;
+    protected AnimalAnimator animator;
+    protected PathfindController pathfindController;
 
     //UtilityAI Actions
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
-    IUtilityAction currAction;
-
-    
+    protected IUtilityAction currAction;
+     
     public enum AIAction { PlayerControlled, Rest, Wander };
     [SerializeField] protected float defaultPenality = 1f;
     [SerializeField] protected float penalityDrainSpeed = 4f;
     [SerializeField] protected float hysteresis = 0.1f;
 
     [SerializeField, ReadOnly] protected Dictionary<IUtilityAction, float> actionPenalities;
-    [SerializeField, ReadOnly] private AIAction actionDebugDisplay;
+    [SerializeField, ReadOnly] protected AIAction actionDebugDisplay;
 
     Dictionary<AIAction, IUtilityAction> actionByEnum;
     Dictionary<IUtilityAction, AIAction> enumByAction;
 
     [SerializeField] private bool isPlayerControlled = false;
 
-    private AnimalEventHub eventHub;
+    protected AnimalEventHub eventHub;
 
     protected virtual void Awake()
     {
@@ -104,16 +103,6 @@ public class AnimalAI : MonoBehaviour
 
         actionByEnum = new Dictionary<AIAction, IUtilityAction>();
         enumByAction = new Dictionary<IUtilityAction, AIAction>();
-        AddNewAction(new PlayerControlledController(pathfindController, animator), AIAction.PlayerControlled);
-        AddNewAction(new RestController(pathfindController, animator), AIAction.Rest);
-        AddNewAction(new WanderController(pathfindController, animator), AIAction.Wander);
-
-        actionPenalities = new Dictionary<IUtilityAction, float>();
-        foreach (IUtilityAction action in actions)
-            actionPenalities.Add(action, 0);
-
-        currAction = actions[(int)AIAction.Rest];
-        actionDebugDisplay = AIAction.Rest;
     }
 
     protected virtual void Start()
@@ -207,6 +196,9 @@ public class AnimalAI : MonoBehaviour
         {
             foreach (IUtilityAction action in actions)
             {
+                if (action == actionByEnum[AIAction.PlayerControlled])
+                    continue;
+
                 float actionScore = action.GetUtilityScore(stats, currAction) - actionPenalities[action];
                 if (action == currAction)
                     actionScore += hysteresis;

@@ -6,11 +6,13 @@ public class WanderController : IUtilityAction
 {
     private readonly PathfindController controller;
     private readonly AnimalAnimator animator;
+    private float energyDrainRate;
 
-    public WanderController(PathfindController controller, AnimalAnimator animator)
+    public WanderController(PathfindController controller, AnimalAnimator animator, float energyDrainRate)
     {
         this.controller = controller;
         this.animator = animator;
+        this.energyDrainRate = energyDrainRate;
     }
 
     public string DebugName() => "Wander";
@@ -31,7 +33,6 @@ public class WanderController : IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        float defaultEnergyDrain = 0.15f;
-        stats.energy = Mathf.Clamp(stats.energy - (0.5f * (1 - stats.statVigor) + defaultEnergyDrain) * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy - (0.5f * (1 - stats.statVigor) + energyDrainRate) * Time.deltaTime, 0, stats.maxEnergy);
     }
 }

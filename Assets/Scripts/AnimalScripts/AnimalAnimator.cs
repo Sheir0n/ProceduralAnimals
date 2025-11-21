@@ -13,12 +13,12 @@ public class AnimalAnimator : MonoBehaviour
     protected AnimalHead head;
 
     [Header("Movement Controller")]
-    [SerializeField] protected PathfindController movementController;
+    //[SerializeField] protected PathfindController movementController;
     protected Vector3 prevHeadPosition;
 
-    private AnimalEventHub eventHub;
+    protected AnimalEventHub eventHub;
 
-    void Awake() { 
+    protected virtual void Awake() { 
         eventHub = GetComponent<AnimalEventHub>();
     }
 
@@ -52,7 +52,6 @@ public class AnimalAnimator : MonoBehaviour
             return;
         }
 
-        bool isColliderDetected = false;
         for (int i = _minSegmentId; i < _maxSegmentId; i++)
         {
             AnimalJoint prevSegment = joints[i - 1];
@@ -67,8 +66,7 @@ public class AnimalAnimator : MonoBehaviour
             float pushRadius = 0.25f * joints[i].segmentScale.x;
             if (SegmentHitsObstacle(targetPos, radius: pushRadius))
             {
-                targetPos = PushMainBodyFromObstacle(prevSegment, targetPos, radius: pushRadius);
-                isColliderDetected = true;
+                targetPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius);
             }
 
             currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
@@ -76,9 +74,6 @@ public class AnimalAnimator : MonoBehaviour
 
             currSegment.UpdateSegmentTransform();
         }
-
-        if(!isColliderDetected)
-            eventHub.StopAgentPush();
     }
 
     protected virtual void CalculateLimbsTransform()
@@ -94,7 +89,9 @@ public class AnimalAnimator : MonoBehaviour
 
     protected void CalculateHeadTransform()
     {
-        head.LookAt(movementController.lookTargetPos, movementController.lookAtTarget);
+        LookTarget lookData = eventHub.RequestLookTargetData();
+        head.LookAt(lookData);
+
         int chainPullCount = 10;
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
     }
@@ -108,7 +105,6 @@ public class AnimalAnimator : MonoBehaviour
 
             float angleY = GetYAngle(targetPos - currJoint.segmentPosition);
             currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
-            //currJoint.UpdateSegmentTransform();
             for (int i = jointChain.Count() - 1; i > 0; i--)
             {
                 AnimalJoint nextSegment = jointChain[i];
@@ -209,13 +205,12 @@ public class AnimalAnimator : MonoBehaviour
 
     protected bool SegmentHitsObstacle(Vector3 pos, float radius)
     {
-
         LayerMask mask = LayerMask.GetMask("Obstacles");
         bool hit = Physics.CheckSphere(pos, radius, mask, QueryTriggerInteraction.Ignore);
         return hit;
     }
 
-    protected Vector3 PushMainBodyFromObstacle(AnimalJoint prevSegment, Vector3 to, float radius = 0.15f, float pushFactor = 0.45f)
+    protected Vector3 PushBodyFromObstacle(AnimalJoint prevSegment, Vector3 to, float radius = 0.15f, float pushFactor = 0.45f)
     {
         Vector3 from = prevSegment.segmentPosition;
         Vector3 desiredMove = to - from;

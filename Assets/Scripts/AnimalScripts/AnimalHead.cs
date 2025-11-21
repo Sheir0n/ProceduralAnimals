@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -12,6 +13,17 @@ public class AnimalHeadData
     public List<SegmentData> joints = new List<SegmentData>();
     public float maxLookAngle = 0f;
     public Vector3 headParentOffset = Vector3.zero;
+}
+
+public struct LookTarget
+{
+    public Vector3 target;
+    public bool isLooking;
+    public LookTarget(Vector3 target, bool isLooking)
+    {
+        this.target = target;
+        this.isLooking = isLooking;
+    }
 }
 
 public class AnimalHead
@@ -34,12 +46,12 @@ public class AnimalHead
         headLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * _data.headParentOffset;
     }
 
-    public void LookAt(Vector3 targetPos, bool doLook)
+    public void LookAt(LookTarget lookData)
     {
         Vector3 toTarget;
-        if (doLook)
+        if (lookData.isLooking)
         {
-            toTarget = targetPos - parentJoint.transform.position;
+            toTarget = lookData.target - parentJoint.transform.position;
         }
         else
         {
@@ -63,5 +75,11 @@ public class AnimalHead
         Vector3 rotatedForward = Quaternion.AngleAxis(lookLerpAngle, Vector3.up) * forward;
         targetPosition = parentJoint.transform.position + rotatedForward * 5;
     }
+
+    public LerpedLookData GetLerpedLook(int segmentId)
+    {
+        return new LerpedLookData(headJoints[segmentId].segmentPosition, headJoints.Last().segmentLerpRotation * -Vector3.up);
+    }
+
 }
 

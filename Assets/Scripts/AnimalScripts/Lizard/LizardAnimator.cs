@@ -7,6 +7,13 @@ public class LizardAnimator : AnimalAnimator
 {
     private float angularSpeedUnlinkLimbPairs = 40f;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        eventHub.OnLookConeSetCenterRequest += GetLookCenter;
+    }
+
+
     private void Update()
     {
         if (joints == null || joints.Count == 0)
@@ -34,7 +41,8 @@ public class LizardAnimator : AnimalAnimator
         float newTargetDistance = Vector3.Distance(newTargetPosition, targetPos);
         if (newTargetDistance > maxDistance)
         {
-            if (angularSpeedUnlinkLimbPairs > movementController.agentCurrAngularSpeed)
+            float angularSpeed = eventHub.GetAngularSpeed();
+            if (angularSpeedUnlinkLimbPairs > angularSpeed)
             {
                 if (currLimb.limbId == 0 || currLimb.limbId == 3)
                 {
@@ -51,4 +59,6 @@ public class LizardAnimator : AnimalAnimator
                 currLimb.UpdateLimbTarget(lerp: true);
         }
     }
+
+    private LerpedLookData GetLookCenter() => head.GetLerpedLook(segmentId: 2);
 }

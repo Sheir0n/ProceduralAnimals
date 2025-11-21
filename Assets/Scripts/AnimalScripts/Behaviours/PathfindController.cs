@@ -18,7 +18,7 @@ public class PathfindController : MonoBehaviour
     public bool lookAtTarget { get; private set; } = false;
 
     private Quaternion lastRotation;
-    public float agentCurrAngularSpeed { get; private set; } = 0;
+    protected float agentCurrAngularSpeed { get; private set; } = 0;
 
     private WanderMovement wanderMovement;
     private PlayerControlledMovement playerControledMovement;
@@ -34,6 +34,7 @@ public class PathfindController : MonoBehaviour
 
     private AnimalEventHub eventHub;
     private Vector3 pendingPush;
+    private bool pushedThisFrame = false;
 
     void Awake()
     {
@@ -42,6 +43,10 @@ public class PathfindController : MonoBehaviour
         eventHub.OnActionChanged += OnActionChanged;
         eventHub.OnSegmentCollision += PushAgentForward;
         eventHub.OnNoSegmentCollision += StopAgentPush;
+
+        //external data requests
+        eventHub.OnAngularSpeedRequest += GetAngularSpeed;
+        eventHub.OnLookTargetRequest += GetLookTarget;
     }
 
     public void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)
@@ -77,7 +82,16 @@ public class PathfindController : MonoBehaviour
                 pendingPush -= moveDir;
             }
 
+        if(!pushedThisFrame)
+            StopAgentPush();
+
+
         CalculateAngularSpeed();
+    }
+
+    private void LateUpdate()
+    {
+        pushedThisFrame = false;
     }
 
     public bool IsMoving() => agent.velocity.sqrMagnitude > 0.01f;
@@ -120,8 +134,9 @@ public class PathfindController : MonoBehaviour
 
     private void PushAgentForward(Vector3 pushVector)
     {
-        float amount = 0.5f;
-        pendingPush += pushVector * amount;
+        pushedThisFrame = true;
+        float pushAmount = 30f;
+        pendingPush += pushVector * pushAmount * Time.deltaTime;
     }
 
     private void StopAgentPush()
@@ -131,5 +146,9 @@ public class PathfindController : MonoBehaviour
             pendingPush *= 0.90f;
         }
     }
+
+    public float GetAngularSpeed() => agentCurrAngularSpeed;
+
+    public LookTarget GetLookTarget() => new LookTarget(lookTargetPos, lookAtTarget);
 }
 
