@@ -2,37 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WanderController : IUtilityAction
+public class FindRestSpotController : IUtilityAction
 {
     private readonly PathfindController controller;
     private readonly AnimalAnimator animator;
     private float energyDrainRate;
-
-    public WanderController(PathfindController controller, AnimalAnimator animator, float energyDrainRate)
+    private bool enableScore = false;
+    public FindRestSpotController(PathfindController controller, AnimalAnimator animator, AnimalEventHub eventHub, float energyDrainRate)
     {
         this.controller = controller;
         this.animator = animator;
         this.energyDrainRate = energyDrainRate;
+        eventHub.OnFoundFirstRestSpot += EnableScoreOnFirstFoundSpot;
     }
 
-    public string DebugName() => "Wander";
+    public string DebugName() => "FindRestSpot";
     public void Enter() { }
     public void Update() { }
     public void Exit() { }
+
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
-        //float utilityScore;
-        //if (currAction == this)
-        //    utilityScore = Mathf.Pow(stats.energy / stats.maxEnergy, 2f) * 2 / 3;
-        //else
-        //    utilityScore = Mathf.Pow(stats.energy / stats.maxEnergy, 6f) * 2 / 3;
+        if (!enableScore)
+            return 0;
 
-        float utilityScore = Mathf.Pow(stats.energy / stats.maxEnergy, 2f) * 2 / 3;
+        float normalizedEnergy = stats.energy / stats.maxEnergy;
+        float utilityScore = Mathf.Pow(1 - normalizedEnergy, 3f + stats.statVigor * 2) * 2 / 3;
+
         return utilityScore;
     }
 
     public void CalculateStats(AnimalStats stats)
     {
         stats.energy = Mathf.Clamp(stats.energy - (0.5f * (1 - stats.statVigor) + energyDrainRate) * Time.deltaTime, 0, stats.maxEnergy);
+    }
+
+    private void EnableScoreOnFirstFoundSpot()
+    {
+        enableScore = true;
+        Debug.Log("Found first spot! Find Rest scoring enabled!");
     }
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4813649917276845794}
   - component: {fileID: 9007242376099067066}
   - component: {fileID: 6300900642629504810}
-  - component: {fileID: 4950562770971155860}
   - component: {fileID: 4030779250162643604}
   - component: {fileID: 7415595393817211660}
   - component: {fileID: 6526603793127092797}
@@ -136,20 +135,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4950562770971155860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8691682312111985452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da899309ad9e20b45873eaa385dbeaf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wanderBehaviorSettings: {fileID: 11400000, guid: bba1677c44732c34bbc9fdc1c4591ac4,
-    type: 2}
 --- !u!114 &4030779250162643604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,3 +648,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionConeData: {fileID: 11400000, guid: f1cce49f5a5c9dc40bfd335959f0a101, type: 2}
+  showConeDebug: 0

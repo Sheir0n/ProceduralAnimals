@@ -9,9 +9,8 @@ public class AnimalEventHub : MonoBehaviour
 {
     public event Action<IReadOnlyAnimalStats> OnInitializeStats;
     public event Action<AIAction> OnActionChanged;
-
     public event Action<Vector3> OnSegmentCollision;
-    public event Action OnNoSegmentCollision;
+    public event Action OnFoundFirstRestSpot;
 
     public event Func<float> OnAngularSpeedRequest;
     public event Func<LookTarget> OnLookTargetRequest; // animator <= movement
@@ -33,7 +32,8 @@ public class AnimalEventHub : MonoBehaviour
         OnSegmentCollision?.Invoke(pushVector);
         currPushEventCount++;
     }
-    public void StopAgentPush() => OnNoSegmentCollision?.Invoke();
+
+    public void FoundFirstRestSpot() => OnFoundFirstRestSpot?.Invoke();
 
     public float GetAngularSpeed() => OnAngularSpeedRequest?.Invoke() ?? 0f;
     public LookTarget RequestLookTargetData()

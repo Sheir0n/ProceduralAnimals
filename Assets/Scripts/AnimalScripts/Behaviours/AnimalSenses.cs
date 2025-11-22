@@ -16,8 +16,7 @@ public struct LerpedLookData
 
 public class AnimalSenses : MonoBehaviour
 {
-    private AnimalEventHub eventHub;
-    private NavMeshAgent agent;
+    protected AnimalEventHub eventHub;
 
     protected LerpedLookData coneCenterData;
     [SerializeField] protected VisionConeData visionConeData;
@@ -25,13 +24,11 @@ public class AnimalSenses : MonoBehaviour
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
-        agent = GetComponent<NavMeshAgent>();
     }
 
 
     protected virtual void Update()
     {
         coneCenterData = eventHub.RequestLookConeSetCenter();
-        //Debug.Log(coneCenterData.pivot + " " + coneCenterData.direction);
     }
 }

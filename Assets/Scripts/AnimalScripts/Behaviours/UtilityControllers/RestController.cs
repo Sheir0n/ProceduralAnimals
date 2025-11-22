@@ -24,11 +24,14 @@ public class RestController : IUtilityAction
         float utilityScore;
 
         if (currAction == this)
-            utilityScore = Mathf.Pow(1 - normalizedEnergy, 0.5f * stats.statVigor) * 2 / 3;
+            utilityScore = Mathf.Pow(1 - normalizedEnergy, 0.5f - (0.4f * stats.statVigor)) * 2 / 3;
+        else if(stats.energy < 0.1)
+        {
+            utilityScore = 1;
+        }
         else
-            utilityScore = Mathf.Pow(1 - normalizedEnergy, 6f * (1 - stats.statVigor / 2)) * 2 / 3;
+            utilityScore = 0;
 
-        //Debug.Log("RestScore: " + utilityScore);
         return utilityScore;
     }
 

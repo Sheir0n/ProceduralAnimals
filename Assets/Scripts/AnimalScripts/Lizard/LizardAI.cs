@@ -7,6 +7,7 @@ using UnityEngine;
 public class LizardAI : AnimalAI
 {
     private float wanderEnergyDrainRate = 0.05f;
+    private float findRestEnergyDrainRate = 0.02f;
     private float restEnergyRegenRate = 0.5f;
     protected override void Awake()
     {
@@ -14,6 +15,7 @@ public class LizardAI : AnimalAI
         AddNewAction(new PlayerControlledController(pathfindController, animator), AIAction.PlayerControlled);
         AddNewAction(new RestController(pathfindController, animator, restEnergyRegenRate), AIAction.Rest);
         AddNewAction(new WanderController(pathfindController, animator, wanderEnergyDrainRate), AIAction.Wander);
+        AddNewAction(new FindRestSpotController(pathfindController, animator, eventHub, findRestEnergyDrainRate), AIAction.FindRestSpot);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)

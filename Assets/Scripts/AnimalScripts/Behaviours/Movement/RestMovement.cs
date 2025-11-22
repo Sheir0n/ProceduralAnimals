@@ -13,7 +13,8 @@ public class RestMovement : BaseMovementScript, IAnimalMovement
     public bool? LookAtTarget { get; private set; }
 
     private MovementStats slowDownStats;
-    public RestMovement(NavMeshAgent agent, Transform transform, IReadOnlyAnimalStats generalStatsHook)
+
+    public RestMovement(NavMeshAgent agent, Transform transform)
     {
         this.agent = agent;
         this.transform = transform;

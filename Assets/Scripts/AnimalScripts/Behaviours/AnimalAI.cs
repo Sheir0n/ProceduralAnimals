@@ -78,7 +78,7 @@ public class AnimalAI : MonoBehaviour
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
     protected IUtilityAction currAction;
      
-    public enum AIAction { PlayerControlled, Rest, Wander };
+    public enum AIAction { PlayerControlled, FindRestSpot, Rest, Wander };
     [SerializeField] protected float defaultPenality = 1f;
     [SerializeField] protected float penalityDrainSpeed = 4f;
     [SerializeField] protected float hysteresis = 0.1f;
@@ -154,10 +154,10 @@ public class AnimalAI : MonoBehaviour
             }
 
             System.Random rng = new System.Random(seed);
-            stats.statVigor = GetRandom(rng, 0.01f, 1);
-            stats.statAggressiveness = GetRandom(rng, 0.01f, 1);
-            stats.statCuriosity = GetRandom(rng, 0.01f, 1);
-            stats.statDominance = GetRandom(rng, 0.01f, 1);
+            stats.statVigor = GetRandom(rng, 0.01f, 0.99f);
+            stats.statAggressiveness = GetRandom(rng, 0.01f, 0.99f);
+            stats.statCuriosity = GetRandom(rng, 0.01f, 0.99f);
+            stats.statDominance = GetRandom(rng, 0.01f, 0.99f);
 
             stats.maxHealth *= 1 + statMultiplierMaxRandomness * GetRandom(rng, -1, 1);
             stats.maxSaturation *= 1 + statMultiplierMaxRandomness * GetRandom(rng, -1, 1);

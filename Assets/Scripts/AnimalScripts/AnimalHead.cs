@@ -49,13 +49,14 @@ public class AnimalHead
     public void LookAt(LookTarget lookData)
     {
         Vector3 toTarget;
+        float targetDistance = 2;
         if (lookData.isLooking)
         {
             toTarget = lookData.target - parentJoint.transform.position;
         }
         else
         {
-            toTarget = parentJoint.transform.up * 5;
+            toTarget = parentJoint.transform.up * targetDistance;
         }
 
         toTarget.y = 0f;
@@ -73,7 +74,7 @@ public class AnimalHead
 
         Vector3 forward = parentJoint.transform.up;
         Vector3 rotatedForward = Quaternion.AngleAxis(lookLerpAngle, Vector3.up) * forward;
-        targetPosition = parentJoint.transform.position + rotatedForward * 5;
+        targetPosition = parentJoint.transform.position + rotatedForward * targetDistance;
     }
 
     public LerpedLookData GetLerpedLook(int segmentId)

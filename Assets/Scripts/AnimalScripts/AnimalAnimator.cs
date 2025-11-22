@@ -18,7 +18,8 @@ public class AnimalAnimator : MonoBehaviour
 
     protected AnimalEventHub eventHub;
 
-    protected virtual void Awake() { 
+    protected virtual void Awake()
+    {
         eventHub = GetComponent<AnimalEventHub>();
     }
 
@@ -66,7 +67,7 @@ public class AnimalAnimator : MonoBehaviour
             float pushRadius = 0.25f * joints[i].segmentScale.x;
             if (SegmentHitsObstacle(targetPos, radius: pushRadius))
             {
-                targetPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius);
+                targetPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius, pushFactor: 0.25f);
             }
 
             currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
@@ -94,6 +95,14 @@ public class AnimalAnimator : MonoBehaviour
 
         int chainPullCount = 10;
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
+
+        AnimalJoint end = head.headJoints.Last();
+        AnimalJoint prev = head.headJoints[head.headJoints.Count - 2];
+
+        float radius = 0.15f;
+
+        if (SegmentHitsObstacle(end.segmentPosition, radius))
+            PushBodyFromObstacle(prev, end.segmentPosition, radius, pushFactor: 0.45f);
     }
 
     protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls, bool doLerp)
@@ -213,7 +222,6 @@ public class AnimalAnimator : MonoBehaviour
     protected Vector3 PushBodyFromObstacle(AnimalJoint prevSegment, Vector3 to, float radius = 0.15f, float pushFactor = 0.45f)
     {
         Vector3 from = prevSegment.segmentPosition;
-        Vector3 desiredMove = to - from;
         float maxDistance = prevSegment.distanceConstraint;
 
         Collider[] hits = Physics.OverlapSphere(to, radius, LayerMask.GetMask("Obstacles"));
@@ -221,16 +229,24 @@ public class AnimalAnimator : MonoBehaviour
             return to;
 
         Vector3 pushVector = Vector3.zero;
+        const float MIN_PUSH = 0.1f; 
 
         foreach (var hit in hits)
         {
-            Vector3 dirAway = (to - hit.ClosestPoint(to)).normalized;
+            Vector3 closest = hit.ClosestPoint(to);
+            Vector3 dirAway = to - closest;
+            if (dirAway.sqrMagnitude < 0.0001f)
+            {
+                dirAway = (to - hit.bounds.center);
+                if (dirAway.sqrMagnitude < 0.0001f)
+                    dirAway = Vector3.up;
+            }
 
-            float colliderRadius = 0.5f;
-            if (hit is CapsuleCollider capsule)
-                colliderRadius = capsule.radius * Mathf.Max(capsule.transform.localScale.x, capsule.transform.localScale.z);
-
-            pushVector += dirAway * colliderRadius;
+            float dist = dirAway.magnitude;
+            dirAway /= dist;
+            float penetration = Mathf.Max(0f, radius - dist);
+            float finalPush = penetration > 0f ? penetration : MIN_PUSH;
+            pushVector += dirAway * finalPush;
         }
 
         Vector3 pushedPos = to + pushVector * pushFactor;
@@ -238,9 +254,9 @@ public class AnimalAnimator : MonoBehaviour
         Vector3 offsetFromPrev = pushedPos - from;
         if (offsetFromPrev.magnitude > maxDistance)
             pushedPos = from + offsetFromPrev.normalized * maxDistance;
-
         if (pushVector.sqrMagnitude > 0.0001f)
             eventHub.PushAgentOnSegmentCollision(pushVector);
+
         return pushedPos;
     }
 }
