@@ -57,12 +57,12 @@ public class RestController : IUtilityAction
         float normalizedHealth = stats.health / stats.maxHealth;
 
         float utilityScore;
-        if (currAction == this && !applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalizedHealth < 0.75f)
+        if (stats.energy < 0.1)
+            utilityScore = 1;
+        else if (currAction == this && !applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalizedHealth < 0.75f)
             utilityScore = Mathf.Pow(1 - normalizedHealth, 0.1f) * 2 / 3;
         else if (currAction == this || eventHub.IsOnRestSpot())
             utilityScore = Mathf.Pow(1 - normalizedEnergy, 0.1f) * 2 / 3;
-        else if (stats.energy < 0.1)
-            utilityScore = 1;
         else
         {
             utilityScore = 1 - ((5 + stats.statVigor) * normalizedEnergy);

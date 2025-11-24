@@ -18,6 +18,9 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
     private Transform nearestRestSpot;
     private bool isOnRestSpot;
 
+    private float restSpotScale = 0.5f;
+    private float restSpotCheckRangeBonus = 0.1f;
+
     public FindRestSpotMovement(NavMeshAgent agent, FindRestSpotMovementSettings settings, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats generalStatsHook)
     {
         this.agent = agent;
@@ -55,19 +58,19 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
         if (nearestRestSpot == null)
             return;
 
+        SmoothAssignMovementStats(agent, searchRestStats, lerpSpeed: 5f);
+
         Vector3 agentPos = transform.position;
         Vector3 spotPos = nearestRestSpot.position;
 
-        float radius = nearestRestSpot.lossyScale.x * 0.6f;
+        float radius = nearestRestSpot.lossyScale.x * (restSpotScale + restSpotCheckRangeBonus);
 
         Vector3 diff = agentPos - spotPos;
         diff.y = 0f;
 
         if (diff.sqrMagnitude <= radius * radius)
-        {
             isOnRestSpot = true;
-            Debug.Log("Agent is near resting spot!");
-        }
+        DrawDebugCircle(nearestRestSpot.position, radius);
     }
     public void Exit()
     {
@@ -82,7 +85,7 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
         Vector2 randomDir2D = Random.insideUnitCircle.normalized;
         Vector3 randomDir = new Vector3(randomDir2D.x, 0f, randomDir2D.y);
 
-        float offset = newRestSpot.lossyScale.x * 0.5f;
+        float offset = newRestSpot.lossyScale.x * restSpotScale;
 
         Vector3 finalTarget = spotPos + randomDir * offset;
 
@@ -92,5 +95,19 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
     private bool CheckIsOnRestSpot()
     {
         return isOnRestSpot;
+    }
+
+    public void DrawDebugCircle(Vector3 center, float radius, int segments = 32)
+    {
+        Vector3 prev = center + new Vector3(radius, 0, 0);
+
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = i * Mathf.PI * 2f / segments;
+            Vector3 next = center + new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+
+            Debug.DrawLine(prev, next, Color.red);
+            prev = next;
+        }
     }
 }

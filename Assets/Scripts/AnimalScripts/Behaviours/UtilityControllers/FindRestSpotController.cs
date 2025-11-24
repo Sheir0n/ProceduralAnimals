@@ -29,7 +29,7 @@ public class FindRestSpotController : IUtilityAction
             return 0;
 
         float normalizedEnergy = stats.energy / stats.maxEnergy;
-        float utilityScore = Mathf.Pow(1 - normalizedEnergy, 2f + stats.statVigor) * 2 / 3;
+        float utilityScore = Mathf.Pow(1 - normalizedEnergy, 1f + stats.statVigor) * 2 / 3;
 
         return utilityScore;
     }
