@@ -61,11 +61,12 @@ public class RestController : IUtilityAction
             utilityScore = Mathf.Pow(1 - normalizedHealth, 0.1f) * 2 / 3;
         else if (currAction == this || eventHub.IsOnRestSpot())
             utilityScore = Mathf.Pow(1 - normalizedEnergy, 0.1f) * 2 / 3;
+        else if (stats.energy < 0.1)
+            utilityScore = 1;
         else
         {
-            utilityScore = 1 - (5 + stats.statVigor) * normalizedEnergy;
+            utilityScore = 1 - ((5 + stats.statVigor) * normalizedEnergy);
         }
-
 
         return utilityScore;
     }
