@@ -84,7 +84,7 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
         for (int i = 0; i < maxTries; i++)
         {
             Vector3 randomOffset = Random.insideUnitSphere * Random.Range(0f, wanderSettings.wanderJitter);
-            Vector3 wanderTarget = Vector3.Normalize(new Vector3(randomOffset.x, 0, randomOffset.z)) * wanderSettings.wanderCircleRadius;
+            Vector3 wanderTarget = Vector3.Normalize(new Vector3(randomOffset.x, 0, randomOffset.z)) * wanderSettings.wanderCircleRadius * (0.5f + animalStatsHook.StatCuriosity);
 
             Vector3 circleCenter = agent.transform.forward * wanderSettings.wanderCircleDistance;
             Vector3 targetPos = agent.transform.position + circleCenter + wanderTarget;

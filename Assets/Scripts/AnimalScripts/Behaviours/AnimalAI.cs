@@ -118,7 +118,6 @@ public class AnimalAI : MonoBehaviour
         IUtilityAction newAction = GetHighestUtilityAction();
         if(newAction != currAction)
         {
-            actionDebugDisplay = enumByAction[newAction];
 
             if (showStateChangeLogs)
                 Debug.Log("Animal State Change: " + currAction.DebugName() + " => " + newAction.DebugName());
@@ -128,6 +127,7 @@ public class AnimalAI : MonoBehaviour
             currAction = newAction;
             newAction.Enter();
             eventHub.SendAIStateChange(enumByAction[newAction]);
+            actionDebugDisplay = enumByAction[newAction];
             newAction.Update();
         }
     }

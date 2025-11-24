@@ -25,15 +25,20 @@ public class RestMovement : BaseMovementScript, IAnimalMovement
     {
         AssignBaseMovementStats(agent);
         slowDownStats = new MovementStats(BaseStats);
-        slowDownStats.Speed *= 0.1f;
+        slowDownStats.Speed *= 0.2f;
     }
 
     public void Enter()
     {
         agent.isStopped = false;
         LookAtTarget = false;
-        MoveTargetPosition = transform.position;
-        LookAtTarget = false;
+
+        Vector3 flatForward = transform.forward;
+        flatForward.y = 0f;
+        flatForward.Normalize();
+
+        MoveTargetPosition = transform.position + flatForward * 0.5f;
+        agent.SetDestination((Vector3)MoveTargetPosition);
     }
 
     public void Update()

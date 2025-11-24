@@ -15,6 +15,8 @@ public class AnimalEventHub : MonoBehaviour
     public event Func<float> OnAngularSpeedRequest;
     public event Func<LookTarget> OnLookTargetRequest; // animator <= movement
     public event Func<LerpedLookData> OnLookConeSetCenterRequest; // senses <= animator (current lerped look for vision cone)
+    public event Func<Transform> OnNearestRestSpotRequest;
+    public event Func<bool> OnIsOnRestSpotRequest;
 
     private const int pushEventLimit = 5;
     private int currPushEventCount = 0;
@@ -45,4 +47,8 @@ public class AnimalEventHub : MonoBehaviour
     {
         return OnLookConeSetCenterRequest?.Invoke() ?? new LerpedLookData(transform.position, transform.forward);
     }
+
+    public Transform FindNearestRestSpot() => OnNearestRestSpotRequest?.Invoke();
+
+    public bool IsOnRestSpot() => OnIsOnRestSpotRequest?.Invoke() ?? false;
 }

@@ -21,6 +21,7 @@ public class AnimalAnimator : MonoBehaviour
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
+        eventHub.OnActionChanged += OnActionChanged;
     }
 
     public void SetJoints(List<AnimalJoint> _segments) => joints = _segments;
@@ -229,7 +230,7 @@ public class AnimalAnimator : MonoBehaviour
             return to;
 
         Vector3 pushVector = Vector3.zero;
-        const float MIN_PUSH = 0.1f; 
+        const float MIN_PUSH = 0.1f;
 
         foreach (var hit in hits)
         {
@@ -258,5 +259,9 @@ public class AnimalAnimator : MonoBehaviour
             eventHub.PushAgentOnSegmentCollision(pushVector);
 
         return pushedPos;
+    }
+
+    protected virtual void OnActionChanged(AIAction newAction)
+    {
     }
 }

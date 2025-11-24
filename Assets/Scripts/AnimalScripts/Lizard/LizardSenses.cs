@@ -8,13 +8,14 @@ public class LizardSenses : AnimalSenses
 
     [SerializeField] private bool showConeDebug = false;
 
-    private List<Vector3> restingSpots = new List<Vector3>();
+    private List<Transform> restingSpots = new List<Transform>();
     private const int maxSpotMemorySlots = 5;
     private bool foundFirstSpot = false;
 
     protected override void Awake()
     {
         base.Awake();
+        eventHub.OnNearestRestSpotRequest += GetNearestRestingSpot;
     }
 
     protected override void Update()
@@ -44,7 +45,7 @@ public class LizardSenses : AnimalSenses
                     if (showConeDebug)
                         Debug.DrawLine(pivot, hit.point, Color.yellow);
 
-                    StoreRockUnique(parent.transform.position);
+                    StoreRockUnique(parent.transform);
                     if(!foundFirstSpot)
                     {
                         foundFirstSpot = true;
@@ -77,30 +78,30 @@ public class LizardSenses : AnimalSenses
         return false;
     }
 
-    private void StoreRockUnique(Vector3 rockPosition)
+    private void StoreRockUnique(Transform rock)
     {
-        if (restingSpots.Contains(rockPosition))
+        if (restingSpots.Contains(rock))
             return;
 
-        restingSpots.Add(rockPosition);
+        restingSpots.Add(rock);
         if (restingSpots.Count > maxSpotMemorySlots)
         {
-            Vector3 farthest = restingSpots
-                .OrderByDescending(r => Vector3.Distance(transform.position, r))
+            Transform farthest = restingSpots
+                .OrderByDescending(r => Vector3.Distance(transform.position, r.position))
                 .First();
 
             restingSpots.Remove(farthest);
         }
     }
 
-    private Vector3? GetNearestRestingSpot()
+    private Transform GetNearestRestingSpot()
     {
         if (restingSpots == null || restingSpots.Count == 0)
             return null;
 
         Vector3 currentPos = transform.position;
-        Vector3 nearest = restingSpots
-            .OrderBy(spot => (spot - currentPos).sqrMagnitude)
+        Transform nearest = restingSpots
+            .OrderBy(spot => (spot.position - currentPos).sqrMagnitude)
             .First();
 
         return nearest;

@@ -73,7 +73,6 @@ public class AnimalJoint : MonoBehaviour
 
     public void UpdateSegmentLerpTransform()
     {
-
         transform.rotation = segmentLerpRotation;
         transform.position = segmentLerpPosition;
 

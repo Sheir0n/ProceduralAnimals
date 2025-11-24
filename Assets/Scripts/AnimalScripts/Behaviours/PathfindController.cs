@@ -99,7 +99,7 @@ public class PathfindController : MonoBehaviour
         movementByEnum.Add(actionEnum, movement);
     }
 
-    public void OnActionChanged(AIAction newAction)
+    protected void OnActionChanged(AIAction newAction)
     {
         Debug.Log("Recived new action! " + newAction);
 

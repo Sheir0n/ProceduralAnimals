@@ -6,11 +6,6 @@ using UnityEngine.AI;
 
 public class LizardPathfindController : PathfindController
 {
-    private WanderMovement wanderMovement;
-    private PlayerControlledMovement playerControledMovement;
-    private RestMovement restMovement;
-    private FindRestSpotMovement findRestSpotMovement;
-
     [Header("Scriptable Behavior Settings")]
     [SerializeField] private WanderMovementSettings wanderBehaviorSettings;
     [SerializeField] private FindRestSpotMovementSettings findRestSpotBehaviorSettings;
@@ -27,6 +22,6 @@ public class LizardPathfindController : PathfindController
         AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
         AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, statsHook), AIAction.Wander);
         AddNewMovementBehavior(new RestMovement(agent, transform), AIAction.Rest);
-        AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, statsHook), AIAction.FindRestSpot);
+        AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, transform, eventHub, statsHook), AIAction.FindRestSpot);
     }
 }
