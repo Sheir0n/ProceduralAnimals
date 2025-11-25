@@ -15,12 +15,6 @@ public class SnakeAnimator : AnimalAnimator
     private Vector3 lastHeadPosition;
     private bool isMoving;
 
-
-    public void SetJoints(List<SnakeJoint> _segments)
-    {
-        joints = new List<AnimalJoint>(_segments);
-    }
-
     private void Update()
     {
         if (joints == null || joints.Count == 0)
