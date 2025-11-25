@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2877285193596711997}
   - component: {fileID: 2646667849596069867}
+  - component: {fileID: 8142938125657519259}
   m_Layer: 0
   m_Name: BeetleJoint
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
-  m_Color: {r: 1, g: 0.7953782, b: 0.48113203, a: 1}
+  m_Color: {r: 1, g: 0.1490565, b: 0.22739646, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -85,3 +86,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8142938125657519259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528962184640154690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664f2b00cfa4ad84186217d987681539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

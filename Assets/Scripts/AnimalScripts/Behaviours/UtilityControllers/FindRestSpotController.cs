@@ -36,13 +36,12 @@ public class FindRestSpotController : IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        stats.energy = Mathf.Clamp(stats.energy - (0.5f * (1 - stats.statVigor) + energyDrainRate) * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy - (0.5f * (1 - stats.statVigor) * energyDrainRate) * Time.deltaTime, 0, stats.maxEnergy);
         stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
     }
 
     private void EnableScoreOnFirstFoundSpot()
     {
         enableScore = true;
-        Debug.Log(this + " Found first spot! Find Rest scoring enabled!");
     }
 }

@@ -10,7 +10,7 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class LizardAI : AnimalAI
 {
-    private float energyDrainRate = 0.05f;
+    private float energyDrainRate = 0.2f;
     private float saturationDrainRate = 0.005f;
 
     private float energyRegenRate = 1f;
@@ -38,9 +38,7 @@ public class LizardAI : AnimalAI
         foreach (IUtilityAction action in actions)
             actionPenalities.Add(action, 0);
 
-        currAction = actions[(int)AIAction.Rest];
-        actionDebugDisplay = AIAction.Rest;
-
+        currAction = actionByEnum[AIAction.Rest];
 
         eventHub.OnNearestRestSpotRequest += GetNearestRestingSpot;
         eventHub.OnNewRestSpotFound += AddNewRestSpot;
@@ -51,7 +49,7 @@ public class LizardAI : AnimalAI
     protected override void Update()
     {
         base.Update();
-        ResetInterestOnIntervalMs(intervalInMs: 2000);
+        ResetInterestOnIntervalMs(intervalInMs: 750);
         GetBestInterestSpot();
     }
 
@@ -108,7 +106,10 @@ public class LizardAI : AnimalAI
         }
 
         if (interestSpotResetTimer > intervalInMs)
+        {
+            interestSpotResetTimer = 0;
             interestSpots.Clear();
+        }
     }
 
     private LookTarget GetBestInterestSpot()
@@ -128,7 +129,7 @@ public class LizardAI : AnimalAI
                 score += 15 * (0.5f + stats.statAggressiveness);
             }
 
-            if (score > highscore)
+            if (score > highscore && score > 5 - (5 * stats.statCuriosity))
             {
                 highscore = score;
                 best = spot;

@@ -86,8 +86,8 @@ public class AnimalAI : MonoBehaviour
     [SerializeField, ReadOnly] protected Dictionary<IUtilityAction, float> actionPenalities;
     [SerializeField, ReadOnly] protected AIAction actionDebugDisplay;
 
-    Dictionary<AIAction, IUtilityAction> actionByEnum;
-    Dictionary<IUtilityAction, AIAction> enumByAction;
+    protected Dictionary<AIAction, IUtilityAction> actionByEnum;
+    protected Dictionary<IUtilityAction, AIAction> enumByAction;
 
     [SerializeField] private bool isPlayerControlled = false;
 
@@ -173,19 +173,19 @@ public class AnimalAI : MonoBehaviour
         stats.saturation = stats.maxSaturation;
         stats.energy = stats.maxEnergy;
 
-        Debug.Log(
-            $"=== Stats ===\n" +
-            $"Vigor: {stats.statVigor:F2}\n" +
-            $"Aggressiveness: {stats.statAggressiveness:F2}\n" +
-            $"Curiosity: {stats.statCuriosity:F2}\n" +
-            $"Dominance: {stats.statDominance:F2}"
-        );
+        //Debug.Log(
+        //    $"=== Stats ===\n" +
+        //    $"Vigor: {stats.statVigor:F2}\n" +
+        //    $"Aggressiveness: {stats.statAggressiveness:F2}\n" +
+        //    $"Curiosity: {stats.statCuriosity:F2}\n" +
+        //    $"Dominance: {stats.statDominance:F2}"
+        //);
     }
 
 
     protected virtual IUtilityAction GetHighestUtilityAction()
     {
-        IUtilityAction bestAction = actionByEnum[AIAction.Rest];
+        IUtilityAction bestAction = currAction;
         float highscore = 0;
 
         if (isPlayerControlled)

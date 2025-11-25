@@ -78,15 +78,18 @@ public class LizardAnimator : AnimalAnimator
 
     protected override void OnActionChanged(AnimalAI.AIAction newAction)
     {
-        if (newAction == AnimalAI.AIAction.Rest)
+        if (joints != null && joints.Count > 0)
         {
-            calculateTailLean = true;
-            currentTailLeanLerp = 0f;
-            randomTailDir = CalculateTailLeanDirection();
-        }
-        else
-        {
-            calculateTailLean = false;
+            if (newAction == AnimalAI.AIAction.Rest)
+            {
+                calculateTailLean = true;
+                currentTailLeanLerp = 0f;
+                randomTailDir = CalculateTailLeanDirection();
+            }
+            else
+            {
+                calculateTailLean = false;
+            }
         }
     }
 

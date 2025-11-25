@@ -13,15 +13,15 @@ GameObject:
   - component: {fileID: 2230795740469454850}
   - component: {fileID: 3115328312169260157}
   - component: {fileID: 2942879188421425895}
-  - component: {fileID: 6306586726557862583}
-  - component: {fileID: 6684081854916940021}
-  - component: {fileID: 9220543484483037001}
   - component: {fileID: 2135909315469369229}
   - component: {fileID: 7260299593797298941}
-  - component: {fileID: 3754040876134873840}
+  - component: {fileID: 3844302037179674085}
+  - component: {fileID: 4550726202260901322}
+  - component: {fileID: 5751978485350454209}
+  - component: {fileID: 6950670138473753536}
   m_Layer: 0
   m_Name: BeetleAgent
-  m_TagString: Lizard
+  m_TagString: Beetle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,8 +34,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4256173970276126365}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5787263, y: 4.6587143, z: 0.09563973}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,495 +136,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6306586726557862583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256173970276126365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a631ab87eabe04f478d6dce477b6bee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6684081854916940021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256173970276126365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d973e0578c51ef24381d334cec55be88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animatorScript: {fileID: 6306586726557862583}
-  spineSegmentData:
-  - segmentName: MainBody
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-      type: 3}
-    jointCount: 5
-    sizeCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.65
-        inSlope: 0.40514094
-        outSlope: 0.40514094
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.33764347
-        value: 0.7867932
-        inSlope: -0.01298553
-        outSlope: -0.01298553
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 1
-        outWeight: 0.0955444
-      - serializedVersion: 3
-        time: 1
-        value: 0.54905397
-        inSlope: -0.460844
-        outSlope: -0.460844
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.20187634
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    distanceConstraint: 0.75
-    angularConstraint: 35
-    prefferedAngle: 0
-  - segmentName: Tail
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-      type: 3}
-    jointCount: 12
-    sizeCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.45
-        inSlope: -0.35
-        outSlope: -0.35
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0.1
-        inSlope: -0.9915925
-        outSlope: -0.9915925
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.58996785
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    distanceConstraint: 0.75
-    angularConstraint: 25
-    prefferedAngle: 0
-  animalLimbData:
-  - limbName: FrontLeft
-    joints:
-    - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 1
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 0.5
-      angularConstraint: 75
-      prefferedAngle: -10
-    - segmentName: FrontLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 3
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 1.2
-      angularConstraint: 70
-      prefferedAngle: -70
-    parentJointId: 0
-    parentPositionOffset: {x: 0.25, y: 0, z: 0}
-    targetPosOffset: {x: 0.75, y: 0, z: 1.35}
-    maxReachDistance: 2
-  - limbName: FrontRight
-    joints:
-    - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 1
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 0.5
-      angularConstraint: 75
-      prefferedAngle: 10
-    - segmentName: FrontLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 3
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 1.2
-      angularConstraint: 70
-      prefferedAngle: 70
-    parentJointId: 0
-    parentPositionOffset: {x: -0.25, y: 0, z: 0}
-    targetPosOffset: {x: -0.75, y: 0, z: 1.35}
-    maxReachDistance: 2
-  - limbName: BackLeft
-    joints:
-    - segmentName: BackRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 1
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 0.5
-      angularConstraint: 75
-      prefferedAngle: -10
-    - segmentName: BackLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 3
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 1.2
-      angularConstraint: 70
-      prefferedAngle: -70
-    parentJointId: 4
-    parentPositionOffset: {x: 0.25, y: 0, z: 0}
-    targetPosOffset: {x: 0.75, y: 0, z: 1.35}
-    maxReachDistance: 1.75
-  - limbName: BackRight
-    joints:
-    - segmentName: BackRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 1
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 0.5
-      angularConstraint: 75
-      prefferedAngle: 10
-    - segmentName: BackLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 3
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 1.2
-      angularConstraint: 70
-      prefferedAngle: 70
-    parentJointId: 4
-    parentPositionOffset: {x: -0.25, y: 0, z: 0}
-    targetPosOffset: {x: -0.75, y: 0, z: 1.35}
-    maxReachDistance: 1.75
-  animalHeadData:
-    headName: LizardHead
-    joints:
-    - segmentName: Neck
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 3
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.45
-          inSlope: 0.05899627
-          outSlope: 0.05899627
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.37269858
-          value: 0.4719878
-          inSlope: -0.018589912
-          outSlope: -0.018589912
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.11212802
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.5220291
-          value: 0.72779036
-          inSlope: 1.0391493
-          outSlope: 1.0391493
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.9
-          inSlope: -0.0034980865
-          outSlope: -0.0034980865
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.06134969
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 0.65
-      angularConstraint: 20
-      prefferedAngle: 0
-    - segmentName: Head
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
-      jointCount: 1
-      sizeCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      distanceConstraint: 1
-      angularConstraint: 0
-      prefferedAngle: 0
-    maxLookAngle: 60
-    headParentOffset: {x: 0, y: 0, z: 0.2}
---- !u!114 &9220543484483037001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256173970276126365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8e2a053fb9f4f4aa194359b72bb50a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statMultiplierMaxRandomness: 0.2
-  stats:
-    health: 0
-    saturation: 0
-    energy: 0
-    maxHealth: 10
-    maxSaturation: 10
-    maxEnergy: 10
-    statVigor: 0.01
-    statAggressiveness: 0.01
-    statCuriosity: 0.01
-    statDominance: 0.01
-  useStaticSeed: 0
-  ignoreSeed: 0
-  seed: 12345
-  showStateChangeLogs: 0
-  defaultPenality: 1
-  penalityDrainSpeed: 4
-  hysteresis: 0.1
-  actionDebugDisplay: 0
-  isPlayerControlled: 0
-  showDebugInterestSpots: 0
 --- !u!114 &2135909315469369229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,14 +155,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4256173970276126365}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89fe1b19038da84cbb84344520f8c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   visionConeData: {fileID: 11400000, guid: f1cce49f5a5c9dc40bfd335959f0a101, type: 2}
   showConeDebug: 1
---- !u!114 &3754040876134873840
+--- !u!114 &3844302037179674085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -660,10 +171,576 @@ MonoBehaviour:
   m_GameObject: {fileID: 4256173970276126365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 590e5058688b2484fbb1ba990b7681e6, type: 3}
+  m_Script: {fileID: 11500000, guid: b539e3496d8814e46889b6c00607a621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderBehaviorSettings: {fileID: 11400000, guid: bba1677c44732c34bbc9fdc1c4591ac4,
-    type: 2}
-  findRestSpotBehaviorSettings: {fileID: 11400000, guid: f6e223be6cc7b264ea84bcc8b4eb3626,
-    type: 2}
+--- !u!114 &4550726202260901322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256173970276126365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc507d580468c214db8068258555b92f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorScript: {fileID: 3844302037179674085}
+  spineSegmentData:
+  - segmentName: Center
+    bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+      type: 3}
+    jointCount: 1
+    sizeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.48545596
+        value: 0.38495415
+        inSlope: -0.20762663
+        outSlope: -0.20762663
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.09291514
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    distanceConstraint: 0.7
+    angularConstraint: 10
+    prefferedAngle: 0
+  - segmentName: Back
+    bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+      type: 3}
+    jointCount: 2
+    sizeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.006223364
+        value: 0.60283285
+        inSlope: -0.0797099
+        outSlope: -0.0797099
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0129306
+        value: 0.5215962
+        inSlope: -0.20762663
+        outSlope: -0.20762663
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.09291514
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    distanceConstraint: 0.85
+    angularConstraint: 0
+    prefferedAngle: 0
+  animalLimbData:
+  - limbName: FrontLeft
+    joints:
+    - segmentName: FrontRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.005482034
+          value: 0.24953368
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0105803
+          value: 0.14915673
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1
+      angularConstraint: 75
+      prefferedAngle: -10
+    - segmentName: FrontLeg
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 3
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.005482034
+          value: 0.24953368
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0105803
+          value: 0.14915673
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 70
+      prefferedAngle: -70
+    parentJointId: 0
+    parentPositionOffset: {x: 0.15, y: 0, z: 0}
+    targetPosOffset: {x: 0.75, y: 0, z: 1.35}
+    maxReachDistance: 2
+  - limbName: FrontRight
+    joints:
+    - segmentName: FrontRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.005482034
+          value: 0.24953368
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0105803
+          value: 0.14915673
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1
+      angularConstraint: 75
+      prefferedAngle: 10
+    - segmentName: FrontLeg
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 3
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.005482034
+          value: 0.24953368
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0105803
+          value: 0.14915673
+          inSlope: -0.09879015
+          outSlope: -0.09879015
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 70
+      prefferedAngle: 10
+    parentJointId: 0
+    parentPositionOffset: {x: -0.15, y: 0, z: 0}
+    targetPosOffset: {x: -0.75, y: 0, z: 1.35}
+    maxReachDistance: 2
+  - limbName: CenterLeft
+    joints:
+    - segmentName: FrontRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1
+      angularConstraint: 75
+      prefferedAngle: -10
+    - segmentName: FrontLeg
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 3
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.2
+      angularConstraint: 70
+      prefferedAngle: -70
+    parentJointId: 1
+    parentPositionOffset: {x: 0.25, y: 0, z: 0}
+    targetPosOffset: {x: 0.75, y: 0, z: 1.35}
+    maxReachDistance: 2
+  - limbName: CenterRight
+    joints:
+    - segmentName: FrontRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1
+      angularConstraint: 75
+      prefferedAngle: 10
+    - segmentName: FrontLeg
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 3
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.2
+      angularConstraint: 70
+      prefferedAngle: 10
+    parentJointId: 1
+    parentPositionOffset: {x: -0.25, y: 0, z: 0}
+    targetPosOffset: {x: -0.75, y: 0, z: 1.35}
+    maxReachDistance: 2
+  - limbName: BackLeft
+    joints:
+    - segmentName: FrontRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1
+      angularConstraint: 75
+      prefferedAngle: -10
+    - segmentName: FrontLeg
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 3
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.2
+      angularConstraint: 70
+      prefferedAngle: -70
+    parentJointId: 2
+    parentPositionOffset: {x: 0.25, y: 0, z: 0}
+    targetPosOffset: {x: 0.75, y: 0, z: 1.35}
+    maxReachDistance: 2
+  - limbName: BackRight
+    joints:
+    - segmentName: FrontRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1
+      angularConstraint: 75
+      prefferedAngle: 10
+    - segmentName: FrontLeg
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 3
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009348456
+          value: 0.2094493
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0172266
+          value: 0.12839437
+          inSlope: -0.07895666
+          outSlope: -0.07895666
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.2
+      angularConstraint: 70
+      prefferedAngle: 10
+    parentJointId: 2
+    parentPositionOffset: {x: -0.25, y: 0, z: 0}
+    targetPosOffset: {x: -0.75, y: 0, z: 1.35}
+    maxReachDistance: 2
+  animalHeadData:
+    headName: Head
+    joints:
+    - segmentName: HeadRoot
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.026507536
+          value: 0.0495113
+          inSlope: -0.26122344
+          outSlope: -0.26122344
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0
+      angularConstraint: 0
+      prefferedAngle: 0
+    - segmentName: Head
+      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
+        type: 3}
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.019706726
+          value: 0.5136444
+          inSlope: -0.26122344
+          outSlope: -0.26122344
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.8
+      angularConstraint: 15
+      prefferedAngle: 0
+    maxLookAngle: 20
+    headParentOffset: {x: 0, y: 0, z: 0.1}
+--- !u!114 &5751978485350454209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256173970276126365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4fbc8ccdd33254ab9659284461b254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statMultiplierMaxRandomness: 0.2
+  stats:
+    health: 0
+    saturation: 0
+    energy: 0
+    maxHealth: 2
+    maxSaturation: 10
+    maxEnergy: 10
+    statVigor: 0.01
+    statAggressiveness: 0.01
+    statCuriosity: 0.01
+    statDominance: 0.01
+  useStaticSeed: 1
+  ignoreSeed: 1
+  seed: 12345
+  showStateChangeLogs: 0
+  defaultPenality: 1
+  penalityDrainSpeed: 4
+  hysteresis: 0.1
+  actionDebugDisplay: 0
+  isPlayerControlled: 1
+--- !u!114 &6950670138473753536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256173970276126365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0f663ab5c0edb4f8d7633ddb1b1bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

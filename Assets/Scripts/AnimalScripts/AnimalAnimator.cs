@@ -40,6 +40,44 @@ public class AnimalAnimator : MonoBehaviour
             Debug.LogWarning("Animal Animator: segment[0] not found!");
     }
 
+    //protected virtual void CalculateMainBodyTransform(int _minSegmentId, int _maxSegmentId)
+    //{
+    //    if (joints == null || joints.Count == 0)
+    //    {
+    //        Debug.LogWarning("Animal Animator: joints list is empty or null!");
+    //        return;
+    //    }
+
+    //    if (_minSegmentId < 1 || _maxSegmentId > joints.Count)
+    //    {
+    //        Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {joints.Count}");
+    //        return;
+    //    }
+
+    //    for (int i = _minSegmentId; i < _maxSegmentId; i++)
+    //    {
+    //        AnimalJoint prevSegment = joints[i - 1];
+    //        AnimalJoint currSegment = joints[i];
+
+    //        Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
+    //        float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, prevSegment.prefferedAngle);
+
+    //        Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
+    //        Vector3 targetPos = prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint;
+
+    //        float pushRadius = 0.25f * joints[i].segmentScale.x;
+    //        if (SegmentHitsObstacle(targetPos, radius: pushRadius))
+    //        {
+    //            targetPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius, pushFactor: 0.25f);
+    //        }
+
+    //        currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+    //        currSegment.SetPosition(targetPos);
+
+    //        currSegment.UpdateSegmentTransform();
+    //    }
+    //}
+
     protected virtual void CalculateMainBodyTransform(int _minSegmentId, int _maxSegmentId)
     {
         if (joints == null || joints.Count == 0)
@@ -58,17 +96,18 @@ public class AnimalAnimator : MonoBehaviour
         {
             AnimalJoint prevSegment = joints[i - 1];
             AnimalJoint currSegment = joints[i];
-
             Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-            float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, prevSegment.prefferedAngle);
+            float newLocalY = GetYAngleConstrained(toPrev, prevSegment, prevSegment.prefferedAngle);
 
-            Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
-            Vector3 targetPos = prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint;
+            Vector3 idealDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
 
-            float pushRadius = 0.25f * joints[i].segmentScale.x;
+            Vector3 targetPos = prevSegment.segmentPosition - idealDir * currSegment.distanceConstraint;
+            float pushRadius = 0.25f * currSegment.segmentScale.x;
             if (SegmentHitsObstacle(targetPos, radius: pushRadius))
             {
-                targetPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius, pushFactor: 0.25f);
+                Vector3 pushedPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius, pushFactor: 0.25f);
+
+                targetPos = prevSegment.segmentPosition + (pushedPos - prevSegment.segmentPosition).normalized * currSegment.distanceConstraint;
             }
 
             currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
@@ -225,47 +264,49 @@ public class AnimalAnimator : MonoBehaviour
         bool hit = Physics.CheckSphere(pos, radius, mask, QueryTriggerInteraction.Ignore);
         return hit;
     }
-
-    protected Vector3 PushBodyFromObstacle(AnimalJoint prevSegment, Vector3 to, float radius = 0.15f, float pushFactor = 0.45f)
+    protected Vector3 PushBodyFromObstacle(AnimalJoint prevSegment, Vector3 targetPos, float radius = 0.15f, float pushFactor = 0.45f)
     {
         Vector3 from = prevSegment.segmentPosition;
-        float maxDistance = prevSegment.distanceConstraint;
+        float segmentLength = prevSegment.distanceConstraint;
 
-        Collider[] hits = Physics.OverlapSphere(to, radius, LayerMask.GetMask("Obstacles"));
+        Collider[] hits = Physics.OverlapSphere(targetPos, radius, LayerMask.GetMask("Obstacles"));
         if (hits.Length == 0)
-            return to;
+            return targetPos;
 
-        Vector3 pushVector = Vector3.zero;
-        const float MIN_PUSH = 0.1f;
+        Vector3 totalPush = Vector3.zero;
 
         foreach (var hit in hits)
         {
-            Vector3 closest = hit.ClosestPoint(to);
-            Vector3 dirAway = to - closest;
-            if (dirAway.sqrMagnitude < 0.0001f)
-            {
-                dirAway = (to - hit.bounds.center);
-                if (dirAway.sqrMagnitude < 0.0001f)
-                    dirAway = Vector3.up;
-            }
+            Vector3 closest = hit.ClosestPoint(targetPos);
+            Vector3 dirAway = targetPos - closest;
 
-            float dist = dirAway.magnitude;
-            dirAway /= dist;
-            float penetration = Mathf.Max(0f, radius - dist);
-            float finalPush = penetration > 0f ? penetration : MIN_PUSH;
-            pushVector += dirAway * finalPush;
+            if (dirAway.sqrMagnitude < 0.0001f)
+                dirAway = targetPos - hit.bounds.center;
+            if (dirAway.sqrMagnitude < 0.0001f)
+                dirAway = Vector3.up;
+
+            dirAway.Normalize();
+
+            const float MIN_PUSH = 0.05f;
+            float penetration = Mathf.Max(0f, radius - Vector3.Distance(targetPos, closest));
+            float pushAmount = Mathf.Max(MIN_PUSH, penetration);
+
+            totalPush += dirAway * pushAmount;
         }
 
-        Vector3 pushedPos = to + pushVector * pushFactor;
+        Vector3 idealDir = (targetPos - from).normalized;
+        Vector3 perpPush = Vector3.ProjectOnPlane(totalPush * pushFactor, idealDir);
 
-        Vector3 offsetFromPrev = pushedPos - from;
-        if (offsetFromPrev.magnitude > maxDistance)
-            pushedPos = from + offsetFromPrev.normalized * maxDistance;
-        if (pushVector.sqrMagnitude > 0.0001f)
-            eventHub.PushAgentOnSegmentCollision(pushVector);
+        Vector3 pushedPos = targetPos + perpPush;
+
+        pushedPos = from + (pushedPos - from).normalized * segmentLength;
+
+        if (totalPush.sqrMagnitude > 0.0001f)
+            eventHub.PushAgentOnSegmentCollision(totalPush);
 
         return pushedPos;
     }
+
 
     protected virtual void OnActionChanged(AIAction newAction)
     {

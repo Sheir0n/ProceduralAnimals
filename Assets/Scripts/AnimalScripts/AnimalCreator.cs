@@ -107,7 +107,6 @@ public class AnimalCreator : MonoBehaviour
     protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, string name)
     {
         GameObject newSegment = Instantiate(segmentData.bodySegmentPrefab, masterTransform);
-        Debug.Log("NEWSEGMENT " + newSegment);
         newSegment.transform.localScale = Vector3.one * segmentScale;
 
         //newSegment.transform.position = new Vector3(masterTransform.position.x, masterTransform.position.y, masterTransform.position.z);

@@ -43,7 +43,6 @@ public class PathfindController : MonoBehaviour
 
     protected virtual void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)
     {
-        Debug.Log("Initialized stats!");
         agent = transform.GetComponentInParent<NavMeshAgent>();
 
         movementByEnum = new Dictionary<AIAction, IAnimalMovement>();
@@ -101,11 +100,9 @@ public class PathfindController : MonoBehaviour
 
     protected void OnActionChanged(AIAction newAction)
     {
-        Debug.Log("Recived new action! " + newAction);
-
         if (!movementByEnum.ContainsKey(newAction))
         {
-            Debug.LogWarning("Couldnt find corresponding movmenet action! " + newAction);
+            Debug.LogWarning("Couldnt find corresponding movemenet action! " + newAction);
             return;
         }
 
@@ -117,8 +114,6 @@ public class PathfindController : MonoBehaviour
         currentBehavior?.Exit();
         currentBehavior = newMovementBehavior;
         newMovementBehavior.Enter();
-
-        Debug.Log($"Action changed to {newAction}");
     }
 
     private void PushAgent(Vector3 pushVector)
