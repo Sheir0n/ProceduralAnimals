@@ -18,6 +18,7 @@ public class LizardPathfindController : PathfindController
     protected override void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)
     {
         base.InitializeWithStatsHook(statsHook);
+        agent.height = 2;
 
         AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
         AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), AIAction.Wander);

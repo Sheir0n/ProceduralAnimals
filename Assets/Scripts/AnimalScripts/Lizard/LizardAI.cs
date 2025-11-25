@@ -4,9 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using static UnityEditor.PlayerSettings;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+
 
 public class LizardAI : AnimalAI
 {
@@ -33,6 +31,7 @@ public class LizardAI : AnimalAI
         AddNewAction(new RestController(pathfindController, animator, eventHub, energyRegenRate, saturationDrainRate * 0.5f, restHealthRegenRate, healthRegenSaturationDrain, saturationRegenThreshold), AIAction.Rest);
         AddNewAction(new WanderController(pathfindController, animator, energyDrainRate, saturationDrainRate), AIAction.Wander);
         AddNewAction(new FindRestSpotController(pathfindController, animator, eventHub, energyDrainRate * 0.25f, saturationDrainRate * 0.75f), AIAction.FindRestSpot);
+        AddNewAction(new ChaseFoodController(pathfindController, animator, energyDrainRate * 2f, saturationDrainRate * 1.5f), AIAction.ChaseFood);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)
@@ -49,8 +48,12 @@ public class LizardAI : AnimalAI
     protected override void Update()
     {
         base.Update();
-        ResetInterestOnIntervalMs(intervalInMs: 750);
         GetBestInterestSpot();
+    }
+
+    protected void LateUpdate()
+    {
+        ResetInterestOnIntervalMs(intervalInMs: 750);
     }
 
     private void AddNewRestSpot(Transform restSpot)
@@ -127,6 +130,10 @@ public class LizardAI : AnimalAI
             else if (spot.CompareTag("Lizard"))
             {
                 score += 15 * (0.5f + stats.statAggressiveness);
+            }
+            else if (spot.CompareTag("Beetle"))
+            {
+                score += 20 * (0.5f + stats.saturation / stats.maxSaturation);
             }
 
             if (score > highscore && score > 5 - (5 * stats.statCuriosity))

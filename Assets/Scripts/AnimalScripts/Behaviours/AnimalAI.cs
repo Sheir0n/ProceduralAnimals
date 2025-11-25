@@ -77,8 +77,8 @@ public class AnimalAI : MonoBehaviour
     //UtilityAI Actions
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
     protected IUtilityAction currAction;
-     
-    public enum AIAction { PlayerControlled, FindRestSpot, Rest, Wander };
+
+    public enum AIAction { PlayerControlled, FindRestSpot, Rest, Wander, ChaseFood };
     [SerializeField] protected float defaultPenality = 1f;
     [SerializeField] protected float penalityDrainSpeed = 4f;
     [SerializeField] protected float hysteresis = 0.1f;
@@ -116,7 +116,7 @@ public class AnimalAI : MonoBehaviour
         CalculateStats();
 
         IUtilityAction newAction = GetHighestUtilityAction();
-        if(newAction != currAction)
+        if (newAction != currAction)
         {
 
             if (showStateChangeLogs)
@@ -217,7 +217,7 @@ public class AnimalAI : MonoBehaviour
     {
         currAction.CalculateStats(stats);
 
-        foreach (var key in actionPenalities.Keys.ToList()) 
+        foreach (var key in actionPenalities.Keys.ToList())
         {
             actionPenalities[key] = Mathf.Lerp(actionPenalities[key], 0, penalityDrainSpeed * Time.deltaTime);
         }

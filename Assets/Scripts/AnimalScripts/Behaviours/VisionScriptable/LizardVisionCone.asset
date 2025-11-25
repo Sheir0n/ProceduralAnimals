@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd80d647f80cf5b43a56e9c0179eb50e, type: 3}
   m_Name: LizardVisionCone
   m_EditorClassIdentifier: 
-  coneSize: 15
+  coneSize: 25
   coneAngleRange: 90
