@@ -20,7 +20,7 @@ public class LizardPathfindController : PathfindController
         base.InitializeWithStatsHook(statsHook);
 
         AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
-        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, statsHook), AIAction.Wander);
+        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), AIAction.Wander);
         AddNewMovementBehavior(new RestMovement(agent, transform), AIAction.Rest);
         AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, transform, eventHub, statsHook), AIAction.FindRestSpot);
     }

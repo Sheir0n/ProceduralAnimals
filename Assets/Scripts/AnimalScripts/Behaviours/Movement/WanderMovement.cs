@@ -9,8 +9,8 @@ using UnityEngine.AI;
 public class WanderMovement : BaseMovementScript, IAnimalMovement
 {
     private NavMeshAgent agent;
-
     private WanderMovementSettings wanderSettings;
+    private AnimalEventHub eventHub;
 
     private bool showTargetingLogs = false;
 
@@ -26,11 +26,12 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
     public bool? LookAtTarget { get; private set; }
 
     private MovementStats walkStats;
-    public WanderMovement(NavMeshAgent agent, WanderMovementSettings settings, IReadOnlyAnimalStats generalStatsHook)
+    public WanderMovement(NavMeshAgent agent, WanderMovementSettings settings, AnimalEventHub eventHub, IReadOnlyAnimalStats generalStatsHook)
     {
         this.agent = agent;
         this.wanderSettings = settings;
         this.animalStatsHook = generalStatsHook;
+        this.eventHub = eventHub;
         AssignMovementStats();
     }
 

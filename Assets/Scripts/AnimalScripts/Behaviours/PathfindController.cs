@@ -38,7 +38,7 @@ public class PathfindController : MonoBehaviour
 
         //external data requests
         eventHub.OnAngularSpeedRequest += GetAngularSpeed;
-        eventHub.OnLookTargetRequest += GetLookTarget;
+        eventHub.OnPathfingingLookTargetRequest += GetLookTarget;
     }
 
     protected virtual void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)

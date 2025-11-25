@@ -43,6 +43,6 @@ public class FindRestSpotController : IUtilityAction
     private void EnableScoreOnFirstFoundSpot()
     {
         enableScore = true;
-        Debug.Log("Found first spot! Find Rest scoring enabled!");
+        Debug.Log(this + " Found first spot! Find Rest scoring enabled!");
     }
 }

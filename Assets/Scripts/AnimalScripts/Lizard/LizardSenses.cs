@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class LizardSenses : AnimalSenses
@@ -8,20 +9,14 @@ public class LizardSenses : AnimalSenses
 
     [SerializeField] private bool showConeDebug = false;
 
-    private List<Transform> restingSpots = new List<Transform>();
-    private const int maxSpotMemorySlots = 5;
-    private bool foundFirstSpot = false;
-
     protected override void Awake()
     {
         base.Awake();
-        eventHub.OnNearestRestSpotRequest += GetNearestRestingSpot;
     }
 
     protected override void Update()
     {
         base.Update();
-
         CheckVisionCone();
     }
 
@@ -39,24 +34,29 @@ public class LizardSenses : AnimalSenses
 
             if (Physics.Raycast(pivot, rayDir, out RaycastHit hit, visionConeData.coneSize))
             {
-                var parent = hit.collider.transform.parent;
+                var colTransform = hit.collider.transform;
+                var parent = colTransform.parent;
+
                 if (parent != null && parent.CompareTag("Rock"))
                 {
+                    eventHub.NewRestSpotFound(parent.transform);
+                    eventHub.NewInterestSpotFound(parent.transform);
+
                     if (showConeDebug)
                         Debug.DrawLine(pivot, hit.point, Color.yellow);
-
-                    StoreRockUnique(parent.transform);
-                    if(!foundFirstSpot)
-                    {
-                        foundFirstSpot = true;
-                        eventHub.FoundFirstRestSpot();
-                    }
-
                 }
+                else if (colTransform != null && colTransform.CompareTag("Lizard"))
+                {
+                    eventHub.NewInterestSpotFound(colTransform);
+
+                    if (showConeDebug)
+                        Debug.DrawLine(pivot, hit.point, Color.red);
+                }
+
                 else
                 {
                     if (showConeDebug)
-                        Debug.DrawLine(pivot, hit.point, Color.red);
+                        Debug.DrawLine(pivot, hit.point, Color.white);
 
                 }
             }
@@ -76,34 +76,5 @@ public class LizardSenses : AnimalSenses
                 if (col.bounds.Contains(pivot))
                     return true;
         return false;
-    }
-
-    private void StoreRockUnique(Transform rock)
-    {
-        if (restingSpots.Contains(rock))
-            return;
-
-        restingSpots.Add(rock);
-        if (restingSpots.Count > maxSpotMemorySlots)
-        {
-            Transform farthest = restingSpots
-                .OrderByDescending(r => Vector3.Distance(transform.position, r.position))
-                .First();
-
-            restingSpots.Remove(farthest);
-        }
-    }
-
-    private Transform GetNearestRestingSpot()
-    {
-        if (restingSpots == null || restingSpots.Count == 0)
-            return null;
-
-        Vector3 currentPos = transform.position;
-        Transform nearest = restingSpots
-            .OrderBy(spot => (spot.position - currentPos).sqrMagnitude)
-            .First();
-
-        return nearest;
     }
 }

@@ -91,8 +91,14 @@ public class AnimalAnimator : MonoBehaviour
 
     protected void CalculateHeadTransform()
     {
-        LookTarget lookData = eventHub.RequestLookTargetData();
-        head.LookAt(lookData);
+        LookTarget lookData = eventHub.RequestPathfindingLookTargetData();
+        if(lookData.isLooking)
+            head.LookAt(lookData);
+        else
+        {
+            lookData = eventHub.RequestInterestLookTargetData();
+            head.LookAt(lookData);
+        }
 
         int chainPullCount = 10;
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
