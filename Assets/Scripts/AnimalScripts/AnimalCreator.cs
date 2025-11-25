@@ -43,8 +43,8 @@ public class AnimalCreator : MonoBehaviour
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Spine Segment " + nameId++;
-
-                spineJoints.Add(GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
+                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name);
+                spineJoints.Add(newJoint);
                 positionOffset += new Vector3(0, 0, -1f * segmentScale * currSegmentData.distanceConstraint);
             }
             animatorScript.SetJoints(spineJoints);
@@ -107,6 +107,7 @@ public class AnimalCreator : MonoBehaviour
     protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, string name)
     {
         GameObject newSegment = Instantiate(segmentData.bodySegmentPrefab, masterTransform);
+        Debug.Log("NEWSEGMENT " + newSegment);
         newSegment.transform.localScale = Vector3.one * segmentScale;
 
         //newSegment.transform.position = new Vector3(masterTransform.position.x, masterTransform.position.y, masterTransform.position.z);
