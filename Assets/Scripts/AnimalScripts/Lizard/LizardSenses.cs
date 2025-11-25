@@ -45,14 +45,21 @@ public class LizardSenses : AnimalSenses
                     if (showConeDebug)
                         Debug.DrawLine(pivot, hit.point, Color.yellow);
                 }
-                else if (colTransform != null && (colTransform.CompareTag("Lizard") || colTransform.CompareTag("Beetle")))
+                else if (colTransform != null && colTransform.CompareTag("Lizard"))
                 {
                     eventHub.NewInterestSpotFound(colTransform);
 
                     if (showConeDebug)
                         Debug.DrawLine(pivot, hit.point, Color.red);
                 }
+                else if (colTransform != null && colTransform.CompareTag("Beetle"))
+                {
+                    eventHub.NewHuntTargetFound(colTransform);
+                    eventHub.NewInterestSpotFound(colTransform);
 
+                    if (showConeDebug)
+                        Debug.DrawLine(pivot, hit.point, Color.white);
+                }
                 else
                 {
                     if (showConeDebug)

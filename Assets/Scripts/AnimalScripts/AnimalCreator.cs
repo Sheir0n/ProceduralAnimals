@@ -108,13 +108,12 @@ public class AnimalCreator : MonoBehaviour
     {
         GameObject newSegment = Instantiate(segmentData.bodySegmentPrefab, masterTransform);
         newSegment.transform.localScale = Vector3.one * segmentScale;
-
-        //newSegment.transform.position = new Vector3(masterTransform.position.x, masterTransform.position.y, masterTransform.position.z);
-        newSegment.transform.position += positionOffset;
+        newSegment.transform.position = masterTransform.position + masterTransform.rotation * positionOffset;
+        newSegment.transform.rotation = masterTransform.rotation * segmentData.bodySegmentPrefab.transform.rotation;
         newSegment.name = name;
-
         AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
-        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle,iteration);
-        return newSegment.GetComponent<AnimalJoint>();
+        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, iteration);
+
+        return segmentScript;
     }
 }

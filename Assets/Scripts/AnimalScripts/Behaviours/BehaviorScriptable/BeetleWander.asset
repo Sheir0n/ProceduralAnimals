@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d48704bef69d8c44986ef48b22b8f51, type: 3}
   m_Name: BeetleWander
   m_EditorClassIdentifier: 
-  selectNewTargetCooldownMs: 125
-  wanderCircleDistance: 1.75
-  wanderCircleRadius: 1.6
+  selectNewTargetCooldownMs: 350
+  wanderCircleDistance: 3
+  wanderCircleRadius: 2
   wanderJitter: 0.2
-  agentWanderAngularSpeed: 120
+  agentWanderAngularSpeed: 80
   agentFallbackAngularSpeed: 360
-  agentBaseWalkSpeedMultiplier: 0.6
+  agentBaseWalkSpeedMultiplier: 0.8
   vigorWalkSpeedVariationModifier: 0.1
   lowHealthSpeedPenalityThreshold: 0
   healthSlowdownMaxPenality: 0

@@ -60,9 +60,9 @@ public class RestController : IUtilityAction
         if (stats.energy < 0.1)
             utilityScore = 1;
         else if (currAction == this && !applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalizedHealth < 0.75f)
-            utilityScore = Mathf.Pow(1 - normalizedHealth, 0.1f) * 2 / 3;
+            utilityScore = Mathf.Pow(1 - normalizedHealth, 1f);
         else if (currAction == this || eventHub.IsOnRestSpot())
-            utilityScore = Mathf.Pow(1 - normalizedEnergy, 0.1f) * 2 / 3;
+            utilityScore = Mathf.Pow(1 - normalizedEnergy, (3f + 4 * stats.statVigor) / 5) * 4 / 5;
         else
         {
             utilityScore = 1 - ((5 + stats.statVigor) * normalizedEnergy);
@@ -73,7 +73,7 @@ public class RestController : IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        stats.energy = Mathf.Clamp(stats.energy + (stats.statVigor - 0.5f + energyRegenRate) * currentRestModifier * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy + (0.75f + 0.25f * stats.statVigor) * energyRegenRate * currentRestModifier * Time.deltaTime, 0, stats.maxEnergy);
 
         float normalizedSaturation = stats.saturation / stats.maxSaturation;
         float normalisedHealth = stats.health / stats.maxHealth;

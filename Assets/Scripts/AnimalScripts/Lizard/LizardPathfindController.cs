@@ -24,5 +24,6 @@ public class LizardPathfindController : PathfindController
         AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), AIAction.Wander);
         AddNewMovementBehavior(new RestMovement(agent, transform), AIAction.Rest);
         AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, transform, eventHub, statsHook), AIAction.FindRestSpot);
+        AddNewMovementBehavior(new ChaseFoodMovement(agent, eventHub), AIAction.ChaseFood);
     }
 }

@@ -31,7 +31,7 @@ public class WanderController : IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        stats.energy = Mathf.Clamp(stats.energy - (0.25f * (1 - stats.statVigor) * energyDrainRate) * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * Time.deltaTime, 0, stats.maxEnergy);
 
         stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
     }
