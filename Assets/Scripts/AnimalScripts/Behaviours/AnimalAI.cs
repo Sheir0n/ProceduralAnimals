@@ -91,6 +91,7 @@ public class AnimalAI : MonoBehaviour
     protected Dictionary<IUtilityAction, AIAction> enumByAction;
 
     [SerializeField] private bool isPlayerControlled = false;
+    [SerializeField] private bool showAIPoints = false;
 
     protected AnimalEventHub eventHub;
 
@@ -136,8 +137,13 @@ public class AnimalAI : MonoBehaviour
             newAction.Enter();
             eventHub.SendAIStateChange(enumByAction[newAction]);
             actionDebugDisplay = enumByAction[newAction];
-            newAction.Update();
         }
+
+        foreach (IUtilityAction action in actions)
+        {
+            action.AlwaysUpdate();
+        }
+        currAction.Update();
     }
 
     protected void AddNewAction(IUtilityAction action, AIAction actionEnum)
@@ -217,6 +223,9 @@ public class AnimalAI : MonoBehaviour
                     bestAction = action;
                     highscore = actionScore;
                 }
+
+                if (showAIPoints)
+                    Debug.Log(action.DebugName() + " " + actionScore);
             }
         }
 

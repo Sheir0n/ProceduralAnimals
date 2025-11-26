@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using static AnimalAI;
 
-public struct LerpedLookData
+public struct HeadCenterData
 {
     public Vector3 pivot;
     public Vector3 direction;
-    public LerpedLookData(Vector3 pivot, Vector3 direction)
+    public HeadCenterData(Vector3 pivot, Vector3 direction)
     {
         this.pivot = pivot;
         this.direction = direction;
@@ -18,7 +18,7 @@ public struct LerpedLookData
 public class AnimalSenses : MonoBehaviour
 {
     protected AnimalEventHub eventHub { private set; get; }
-    protected LerpedLookData coneCenterData { private set; get; }
+    protected HeadCenterData coneCenterData { private set; get; }
     protected bool deathDisableSenses { private set; get; } = false;
 
     [SerializeField] protected VisionConeData visionConeData;
@@ -31,7 +31,7 @@ public class AnimalSenses : MonoBehaviour
 
     protected virtual void Update()
     {
-        coneCenterData = eventHub.RequestLookConeSetCenter();
+        coneCenterData = eventHub.RequestHeadData();
     }
 
     private void DisableSensesOnDeath(AIAction newAction)

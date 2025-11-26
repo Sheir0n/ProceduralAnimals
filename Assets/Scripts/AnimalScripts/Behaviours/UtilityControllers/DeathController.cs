@@ -16,6 +16,7 @@ public class DeathController : IUtilityAction
 
     public void Enter() { }
     public void Update() { }
+    public void AlwaysUpdate() { }
     public void Exit() { }
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)

@@ -15,7 +15,7 @@ public class LizardAnimator : AnimalAnimator
     protected override void Awake()
     {
         base.Awake();
-        eventHub.OnLookConeSetCenterRequest += GetLookCenter;
+        eventHub.OnHeadDataRequest += GetLookCenter;
     }
 
 
@@ -74,7 +74,7 @@ public class LizardAnimator : AnimalAnimator
         }
     }
 
-    private LerpedLookData GetLookCenter() => head.GetLerpedLook(segmentId: 2);
+    private HeadCenterData GetLookCenter() => head.GetLerpedLook(segmentId: 2);
 
     protected override void OnActionChanged(AnimalAI.AIAction newAction)
     {

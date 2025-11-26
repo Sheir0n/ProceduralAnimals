@@ -294,4 +294,12 @@ public class AnimalAnimator : MonoBehaviour
             isAnimalDisabled = true;
         }
     }
+
+    public CapsuleCollider GetAnimalMouthCollider()
+    {
+        if (head == null)
+            return null;
+
+        return head.mouthCollider;
+    }
 }

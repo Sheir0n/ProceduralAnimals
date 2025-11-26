@@ -9,9 +9,8 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
     private AnimalEventHub eventHub;
     private MovementStats chaseStats;
 
-    private Vector3 moveTargetPos;
     private Vector3 lookTargetPos;
-    public Vector3? MoveTargetPosition => moveTargetPos;
+    public Vector3? MoveTargetPosition => null;
     public Vector3? LookTargetPosition => lookTargetPos;
     public bool? LookAtTarget { get; private set; }
 
@@ -35,6 +34,7 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
 
     public void Enter() {
         updateAgentTargetingTimerMs = 0f;
+        LookAtTarget = true;
     }
 
     public void Update() {
@@ -52,6 +52,7 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
         {
             agent.SetDestination(chaseTarget.position);
         }
+        lookTargetPos = chaseTarget.transform.position;
     }
     public void Exit() {
         chaseTarget = null;

@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a631ab87eabe04f478d6dce477b6bee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAnimalDisabled: 0
 --- !u!114 &7415595393817211660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d973e0578c51ef24381d334cec55be88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorScript: {fileID: 4030779250162643604}
   spineSegmentData:
   - segmentName: MainBody
     bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
@@ -591,6 +591,9 @@ MonoBehaviour:
       prefferedAngle: 0
     maxLookAngle: 60
     headParentOffset: {x: 0, y: 0, z: 0.2}
+  mouthColliderPrefab: {fileID: 6174930570440199844, guid: 0fe86e160b47f9a438e102bb7b82ffb8,
+    type: 3}
+  mouthColliderSegmentId: 2
 --- !u!114 &6526603793127092797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,11 +624,10 @@ MonoBehaviour:
   showStateChangeLogs: 0
   defaultPenality: 1
   penalityDrainSpeed: 4
-  hysteresis: 0.1
+  hysteresis: 0.05
   actionDebugDisplay: 0
   isPlayerControlled: 0
-  showDebugInterestSpots: 0
-  showDebugHuntTargets: 0
+  showAIPoints: 0
 --- !u!114 &6163224130160172068
 MonoBehaviour:
   m_ObjectHideFlags: 0

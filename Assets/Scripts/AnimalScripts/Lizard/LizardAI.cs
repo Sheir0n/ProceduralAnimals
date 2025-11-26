@@ -6,25 +6,6 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 
 
-public class HuntTarget
-{
-    public Transform target;
-    public float memoryTimeMs;
-    private float defaultMemoryMs = 5000;
-
-    public HuntTarget(Transform target)
-    {
-        this.target = target;
-        memoryTimeMs = defaultMemoryMs;
-    }
-
-    public void ResetMemoryTime()
-    {
-        memoryTimeMs = defaultMemoryMs;
-    }
-}
-
-
 public class LizardAI : AnimalAI
 {
     private float energyDrainRate = 0.075f;
@@ -35,16 +16,12 @@ public class LizardAI : AnimalAI
     private float healthRegenSaturationDrain = 0.05f;
     private float saturationRegenThreshold = 0.5f;
 
-    private List<Transform> restingSpots = new List<Transform>();
+    private int biteCooldownMs = 500;
+    private int biteDamage = 2;
+
     private List<Transform> interestSpots = new List<Transform>();
-    private List<HuntTarget> huntTargets = new List<HuntTarget>();
 
-    private const int maxSpotMemorySlots = 5;
-    private bool foundFirstSpot = false;
     private float interestSpotResetTimer = 0;
-
-    [SerializeField] private bool showDebugInterestSpots = false;
-    [SerializeField] private bool showDebugHuntTargets = false;
 
     private bool clearedMemoryOnDeath = false;
     protected override void Awake()
@@ -53,8 +30,8 @@ public class LizardAI : AnimalAI
         AddNewAction(new PlayerControlledController(pathfindController, animator), AIAction.PlayerControlled);
         AddNewAction(new RestController(pathfindController, animator, eventHub, energyRegenRate, saturationDrainRate * 0.5f, restHealthRegenRate, healthRegenSaturationDrain, saturationRegenThreshold), AIAction.Rest);
         AddNewAction(new WanderController(pathfindController, animator, energyDrainRate, saturationDrainRate), AIAction.Wander);
-        AddNewAction(new FindRestSpotController(pathfindController, animator, eventHub, energyDrainRate * 0.25f, saturationDrainRate * 0.75f), AIAction.FindRestSpot);
-        AddNewAction(new ChaseFoodController(pathfindController, animator, eventHub, energyDrainRate * 3f, saturationDrainRate * 1.5f), AIAction.ChaseFood);
+        AddNewAction(new FindRestSpotController(pathfindController, animator, transform, eventHub, energyDrainRate * 0.25f, saturationDrainRate * 0.75f), AIAction.FindRestSpot);
+        AddNewAction(new ChaseFoodController(pathfindController, animator, transform, eventHub, energyDrainRate * 3f, saturationDrainRate * 1.5f, biteCooldownMs, biteDamage), AIAction.ChaseFood);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)
@@ -62,19 +39,14 @@ public class LizardAI : AnimalAI
 
         currAction = actionByEnum[AIAction.Rest];
 
-        eventHub.OnNearestRestSpotRequest += GetNearestRestingSpot;
-        eventHub.OnNewRestSpotFound += AddNewRestSpot;
         eventHub.OnNewInterestSpotFound += AddNewInterestSpot;
         eventHub.OnInterestLookTargetRequest += GetBestInterestSpot;
-        eventHub.OnNewHuntTargetFound += AddHuntTarget;
-        eventHub.OnNearestHuntTargetRequest += GetNearestHuntTarget;
     }
 
     protected override void Update()
     {
         base.Update();
         GetBestInterestSpot();
-        UpdateHuntTargetMemory();
     }
 
     protected void LateUpdate()
@@ -82,46 +54,10 @@ public class LizardAI : AnimalAI
         if (enumByAction[currAction] == AIAction.Death && clearedMemoryOnDeath)
         {
             clearedMemoryOnDeath = true;
-            restingSpots.Clear();
             interestSpots.Clear();
-            huntTargets.Clear();
         }
         else
             ResetInterestOnIntervalMs(intervalInMs: 750);
-    }
-
-    private void AddNewRestSpot(Transform restSpot)
-    {
-        if (restingSpots.Contains(restSpot))
-            return;
-
-        if (!foundFirstSpot)
-        {
-            foundFirstSpot = true;
-            eventHub.FoundFirstRestSpot();
-        }
-
-        restingSpots.Add(restSpot);
-        if (restingSpots.Count > maxSpotMemorySlots)
-        {
-            Transform farthest = restingSpots
-                .OrderByDescending(r => Vector3.Distance(transform.position, r.position))
-                .First();
-
-            restingSpots.Remove(farthest);
-        }
-    }
-    private Transform GetNearestRestingSpot()
-    {
-        if (restingSpots == null || restingSpots.Count == 0)
-            return null;
-
-        Vector3 currentPos = transform.position;
-        Transform nearest = restingSpots
-            .OrderBy(spot => (spot.position - currentPos).sqrMagnitude)
-            .First();
-
-        return nearest;
     }
 
     private void AddNewInterestSpot(Transform interestPoint)
@@ -177,9 +113,6 @@ public class LizardAI : AnimalAI
             }
         }
 
-        if (showDebugInterestSpots)
-            Debug.Log("bestSpot: " + best + " score: " + highscore);
-
         if (best == null)
         {
             LookTarget target = new LookTarget(transform.position, isLooking: false);
@@ -190,53 +123,5 @@ public class LizardAI : AnimalAI
             LookTarget target = new LookTarget(best.position, isLooking: true);
             return target;
         }
-    }
-
-    private void AddHuntTarget(Transform target)
-    {
-        if (target == null)
-            return;
-
-        for (int i = 0; i < huntTargets.Count; i++)
-        {
-            if (huntTargets[i].target == target)
-            {
-                huntTargets[i].ResetMemoryTime();
-                return;
-            }
-        }
-
-        huntTargets.Add(new HuntTarget(target));
-    }
-
-    private void UpdateHuntTargetMemory()
-    {
-        for (int i = huntTargets.Count - 1; i >= 0; i--)
-        {
-            HuntTarget huntTarget = huntTargets[i];
-
-            huntTarget.memoryTimeMs -= Time.deltaTime * 1000f;
-
-            if (huntTarget.memoryTimeMs < 0)
-            {
-                huntTargets.RemoveAt(i);
-            }
-        }
-
-        if (showDebugHuntTargets)
-            Debug.Log(huntTargets.Count);
-    }
-
-    private Transform GetNearestHuntTarget()
-    {
-        if (huntTargets.Count == 0)
-            return null;
-
-        Vector3 currentPos = transform.position;
-        HuntTarget nearest = huntTargets
-            .OrderBy(t => (t.target.position - currentPos).sqrMagnitude)
-            .First();
-
-        return nearest.target;
     }
 }

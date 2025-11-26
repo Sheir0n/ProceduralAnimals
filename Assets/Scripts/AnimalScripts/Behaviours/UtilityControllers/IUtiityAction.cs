@@ -7,6 +7,7 @@ public interface IUtilityAction
     string DebugName();
     void Enter();
     void Update();
+    void AlwaysUpdate();
     void Exit();
     float GetUtilityScore(AnimalStats stats, IUtilityAction currAction);
     void CalculateStats(AnimalStats stats);

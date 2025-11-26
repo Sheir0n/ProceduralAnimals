@@ -21,11 +21,12 @@ public class WanderController : IUtilityAction
     public string DebugName() => "Wander";
     public void Enter() { }
     public void Update() { }
+    public void AlwaysUpdate() { }
     public void Exit() { }
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
         float normalizedEnergy = stats.energy / stats.maxEnergy;
-        float utilityScore = Mathf.Pow(normalizedEnergy, 2f) * 2 / 3;
+        float utilityScore = Mathf.Min(Mathf.Pow(normalizedEnergy, 2f) * 2 / 3, 0.5f);
         return utilityScore;
     }
 

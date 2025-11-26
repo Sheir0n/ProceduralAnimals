@@ -49,6 +49,7 @@ public class RestController : IUtilityAction
     }
 
     public void Update() { }
+    public void AlwaysUpdate() { }
     public void Exit() { }
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -21,15 +22,21 @@ public class SegmentData
 
 public class AnimalCreator : MonoBehaviour
 {
-    [SerializeField] AnimalAnimator animatorScript;
+    AnimalAnimator animatorScript;
 
+    [Header("Segment Datas")]
     [SerializeField] protected List<SegmentData> spineSegmentData = new List<SegmentData>();
     [SerializeField] protected List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
     [SerializeField] protected AnimalHeadData animalHeadData;
 
-    private List<AnimalJoint> spineJoints = new List<AnimalJoint>();
-    private List<AnimalLimb> limbs = new List<AnimalLimb>();
-    private AnimalHead animalHead;
+    protected List<AnimalJoint> spineJoints = new List<AnimalJoint>();
+    protected List<AnimalLimb> limbs = new List<AnimalLimb>();
+    protected AnimalHead animalHead;
+
+    protected void Awake()
+    {
+        animatorScript = GetComponent<AnimalAnimator>();
+    }
     public void GenerateBody()
     {
         Transform masterTransform = transform;
