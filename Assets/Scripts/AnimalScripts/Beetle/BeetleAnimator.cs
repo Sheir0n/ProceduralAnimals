@@ -13,7 +13,7 @@ public class BeetleAnimator : AnimalAnimator
         }
 
         CalculateRootSegmentTransform();
-        CalculateMainBodyTransform(1, joints.Count);
+        CalculateMainBodyTransform(joints, 1, joints.Count);
         CalculateLimbsTransform();
     }
 }

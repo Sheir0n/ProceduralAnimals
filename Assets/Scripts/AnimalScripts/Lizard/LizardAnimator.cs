@@ -31,12 +31,12 @@ public class LizardAnimator : AnimalAnimator
 
         if (calculateTailLean)
         {
-            CalculateMainBodyTransform(1, joints.Count);
+            CalculateMainBodyTransform(joints, 1, joints.Count);
             currentTailLeanLerp = Mathf.Lerp(currentTailLeanLerp, 1, tailLerpSpeed * Time.deltaTime);
             ForceSegmentsLean(6, joints.Count, randomTailDir);
         }
         else
-            CalculateMainBodyTransform(1, joints.Count);
+            CalculateMainBodyTransform(joints, 1, joints.Count);
 
         CalculateLimbsTransform();
         CalculateHeadTransform();
@@ -78,6 +78,7 @@ public class LizardAnimator : AnimalAnimator
 
     protected override void OnActionChanged(AnimalAI.AIAction newAction)
     {
+        base.OnActionChanged(newAction);
         if (joints != null && joints.Count > 0)
         {
             if (newAction == AnimalAI.AIAction.Rest)

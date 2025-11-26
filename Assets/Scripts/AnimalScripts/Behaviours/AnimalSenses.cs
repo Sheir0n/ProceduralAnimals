@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static AnimalAI;
 
 public struct LerpedLookData
 {
@@ -16,19 +17,26 @@ public struct LerpedLookData
 
 public class AnimalSenses : MonoBehaviour
 {
-    protected AnimalEventHub eventHub;
+    protected AnimalEventHub eventHub { private set; get; }
+    protected LerpedLookData coneCenterData { private set; get; }
+    protected bool deathDisableSenses { private set; get; } = false;
 
-    protected LerpedLookData coneCenterData;
     [SerializeField] protected VisionConeData visionConeData;
 
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
+        eventHub.OnActionChanged += DisableSensesOnDeath;
     }
-
 
     protected virtual void Update()
     {
         coneCenterData = eventHub.RequestLookConeSetCenter();
+    }
+
+    private void DisableSensesOnDeath(AIAction newAction)
+    {
+        if (newAction == AIAction.Death)
+            deathDisableSenses = true;
     }
 }

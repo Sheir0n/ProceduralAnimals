@@ -45,6 +45,8 @@ public class LizardAI : AnimalAI
 
     [SerializeField] private bool showDebugInterestSpots = false;
     [SerializeField] private bool showDebugHuntTargets = false;
+
+    private bool clearedMemoryOnDeath = false;
     protected override void Awake()
     {
         base.Awake();
@@ -77,7 +79,15 @@ public class LizardAI : AnimalAI
 
     protected void LateUpdate()
     {
-        ResetInterestOnIntervalMs(intervalInMs: 750);
+        if (enumByAction[currAction] == AIAction.Death && clearedMemoryOnDeath)
+        {
+            clearedMemoryOnDeath = true;
+            restingSpots.Clear();
+            interestSpots.Clear();
+            huntTargets.Clear();
+        }
+        else
+            ResetInterestOnIntervalMs(intervalInMs: 750);
     }
 
     private void AddNewRestSpot(Transform restSpot)

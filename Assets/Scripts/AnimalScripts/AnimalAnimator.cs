@@ -17,6 +17,7 @@ public class AnimalAnimator : MonoBehaviour
     protected Vector3 prevHeadPosition;
 
     protected AnimalEventHub eventHub;
+    [SerializeField] private bool isAnimalDisabled;
 
     protected virtual void Awake()
     {
@@ -40,62 +41,24 @@ public class AnimalAnimator : MonoBehaviour
             Debug.LogWarning("Animal Animator: segment[0] not found!");
     }
 
-    //protected virtual void CalculateMainBodyTransform(int _minSegmentId, int _maxSegmentId)
-    //{
-    //    if (joints == null || joints.Count == 0)
-    //    {
-    //        Debug.LogWarning("Animal Animator: joints list is empty or null!");
-    //        return;
-    //    }
-
-    //    if (_minSegmentId < 1 || _maxSegmentId > joints.Count)
-    //    {
-    //        Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {joints.Count}");
-    //        return;
-    //    }
-
-    //    for (int i = _minSegmentId; i < _maxSegmentId; i++)
-    //    {
-    //        AnimalJoint prevSegment = joints[i - 1];
-    //        AnimalJoint currSegment = joints[i];
-
-    //        Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-    //        float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, prevSegment.prefferedAngle);
-
-    //        Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
-    //        Vector3 targetPos = prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint;
-
-    //        float pushRadius = 0.25f * joints[i].segmentScale.x;
-    //        if (SegmentHitsObstacle(targetPos, radius: pushRadius))
-    //        {
-    //            targetPos = PushBodyFromObstacle(prevSegment, targetPos, radius: pushRadius, pushFactor: 0.25f);
-    //        }
-
-    //        currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
-    //        currSegment.SetPosition(targetPos);
-
-    //        currSegment.UpdateSegmentTransform();
-    //    }
-    //}
-
-    protected virtual void CalculateMainBodyTransform(int _minSegmentId, int _maxSegmentId)
+    protected virtual void CalculateMainBodyTransform(List<AnimalJoint> jointList, int _minSegmentId, int _maxSegmentId)
     {
-        if (joints == null || joints.Count == 0)
+        if (jointList == null || jointList.Count == 0)
         {
             Debug.LogWarning("Animal Animator: joints list is empty or null!");
             return;
         }
 
-        if (_minSegmentId < 1 || _maxSegmentId > joints.Count)
+        if (_minSegmentId < 1 || _maxSegmentId > jointList.Count)
         {
-            Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {joints.Count}");
+            Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {jointList.Count}");
             return;
         }
 
         for (int i = _minSegmentId; i < _maxSegmentId; i++)
         {
-            AnimalJoint prevSegment = joints[i - 1];
-            AnimalJoint currSegment = joints[i];
+            AnimalJoint prevSegment = jointList[i - 1];
+            AnimalJoint currSegment = jointList[i];
             Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
             float newLocalY = GetYAngleConstrained(toPrev, prevSegment, prevSegment.prefferedAngle);
 
@@ -130,16 +93,20 @@ public class AnimalAnimator : MonoBehaviour
 
     protected void CalculateHeadTransform()
     {
-        LookTarget lookData = eventHub.RequestPathfindingLookTargetData();
-        if(lookData.isLooking)
-            head.LookAt(lookData);
-        else
+        if (!isAnimalDisabled)
         {
-            lookData = eventHub.RequestInterestLookTargetData();
-            head.LookAt(lookData);
+            LookTarget lookData = eventHub.RequestPathfindingLookTargetData();
+            if (lookData.isLooking)
+                head.LookAt(lookData);
+            else
+            {
+                lookData = eventHub.RequestInterestLookTargetData();
+                head.LookAt(lookData);
+            }
         }
-
         int chainPullCount = 10;
+
+
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
 
         AnimalJoint end = head.headJoints.Last();
@@ -153,23 +120,33 @@ public class AnimalAnimator : MonoBehaviour
 
     protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls, bool doLerp)
     {
+        if (isAnimalDisabled)
+            pulls = 1;
+
         for (int pullId = 0; pullId < pulls; pullId++)
         {
-            AnimalJoint currJoint = jointChain.Last();
-            currJoint.SetPosition(targetPos);
+            AnimalJoint currJoint;
+            float angleY;
 
-            float angleY = GetYAngle(targetPos - currJoint.segmentPosition);
-            currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
-            for (int i = jointChain.Count() - 1; i > 0; i--)
+            //ignores firs half of pulls if animal is disabled
+            if (!isAnimalDisabled)
             {
-                AnimalJoint nextSegment = jointChain[i];
-                AnimalJoint currSegment = jointChain[i - 1];
-                Vector3 toNext = nextSegment.segmentPosition - currSegment.segmentPosition;
-                float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment, currSegment.prefferedAngle);
-                currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+                currJoint = jointChain.Last();
+                currJoint.SetPosition(targetPos);
 
-                Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
-                currSegment.SetPosition(nextSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
+                angleY = GetYAngle(targetPos - currJoint.segmentPosition);
+                currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+                for (int i = jointChain.Count() - 1; i > 0; i--)
+                {
+                    AnimalJoint nextSegment = jointChain[i];
+                    AnimalJoint currSegment = jointChain[i - 1];
+                    Vector3 toNext = nextSegment.segmentPosition - currSegment.segmentPosition;
+                    float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment, currSegment.prefferedAngle);
+                    currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+
+                    Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
+                    currSegment.SetPosition(nextSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
+                }
             }
 
             currJoint = jointChain[0];
@@ -310,5 +287,11 @@ public class AnimalAnimator : MonoBehaviour
 
     protected virtual void OnActionChanged(AIAction newAction)
     {
+        Debug.Log("Animator recived: " + newAction);
+        if (newAction == AIAction.Death)
+        {
+            Debug.Log("Animal disable recived");
+            isAnimalDisabled = true;
+        }
     }
 }

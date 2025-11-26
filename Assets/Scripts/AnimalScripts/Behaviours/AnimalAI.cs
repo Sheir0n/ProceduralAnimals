@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
 
@@ -78,7 +79,7 @@ public class AnimalAI : MonoBehaviour
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
     protected IUtilityAction currAction;
 
-    public enum AIAction { PlayerControlled, FindRestSpot, Rest, Wander, ChaseFood };
+    public enum AIAction { PlayerControlled, FindRestSpot, Rest, Wander, ChaseFood, Death };
     [SerializeField] protected float defaultPenality = 1f;
     [SerializeField] protected float penalityDrainSpeed = 4f;
     [SerializeField] protected float hysteresis = 0.1f;
@@ -103,6 +104,8 @@ public class AnimalAI : MonoBehaviour
 
         actionByEnum = new Dictionary<AIAction, IUtilityAction>();
         enumByAction = new Dictionary<IUtilityAction, AIAction>();
+
+        AddNewAction(new DeathController(pathfindController, animator), AIAction.Death);
     }
 
     protected virtual void Start()
@@ -113,6 +116,11 @@ public class AnimalAI : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (currAction == actionByEnum[AIAction.Death] || CheckDeath())
+        {
+            return;
+        }
+
         CalculateStats();
 
         IUtilityAction newAction = GetHighestUtilityAction();
@@ -190,13 +198,14 @@ public class AnimalAI : MonoBehaviour
 
         if (isPlayerControlled)
         {
-            bestAction = actions[(int)AIAction.PlayerControlled];
+
+            bestAction = actionByEnum[AIAction.PlayerControlled];
         }
         else
         {
             foreach (IUtilityAction action in actions)
             {
-                if (action == actionByEnum[AIAction.PlayerControlled])
+                if (action == actionByEnum[AIAction.PlayerControlled] || action == actionByEnum[AIAction.Death])
                     continue;
 
                 float actionScore = action.GetUtilityScore(stats, currAction) - actionPenalities[action];
@@ -210,6 +219,7 @@ public class AnimalAI : MonoBehaviour
                 }
             }
         }
+
         return bestAction;
     }
 
@@ -226,5 +236,18 @@ public class AnimalAI : MonoBehaviour
     protected float GetRandom(System.Random rand, float min, float max)
     {
         return (float)(rand.NextDouble() * (max - min) + min);
+    }
+
+    private bool CheckDeath()
+    {
+        if (stats.health <= 0)
+        {
+            Debug.Log(stats.health);
+            currAction = actionByEnum[AIAction.Death];
+            eventHub.SendAIStateChange(AIAction.Death);
+            actionDebugDisplay = AIAction.Death;
+            return true;
+        }
+        return false;
     }
 }

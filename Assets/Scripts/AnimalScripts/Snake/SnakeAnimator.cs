@@ -24,25 +24,25 @@ public class SnakeAnimator : AnimalAnimator
         }
 
         CalculateRootSegmentTransform();
-        CalculateMainBodyTransform(1, joints.Count);
+        CalculateMainBodyTransform(joints, 1, joints.Count);
     }
 
-    protected override void CalculateMainBodyTransform(int _minSegmentId, int _maxSegmentId)
+    protected override void CalculateMainBodyTransform(List<AnimalJoint> jointList, int _minSegmentId, int _maxSegmentId)
     {
-        if (joints == null || joints.Count == 0)
+        if (jointList == null || jointList.Count == 0)
         {
             Debug.LogWarning("Animal Animator: joints list is empty or null!");
             return;
         }
 
-        if (_minSegmentId < 1 || _maxSegmentId > joints.Count)
+        if (_minSegmentId < 1 || _maxSegmentId > jointList.Count)
         {
-            Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {joints.Count}");
+            Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {jointList.Count}");
             return;
         }
 
         // --- Detekcja ruchu g³owy ---
-        Vector3 headPos = joints[0].segmentPosition;
+        Vector3 headPos = jointList[0].segmentPosition;
         Vector3 headDelta = headPos - lastHeadPosition;
         float headSpeed = headDelta.magnitude / Time.deltaTime;
         isMoving = headSpeed > movementThreshold;
@@ -55,8 +55,8 @@ public class SnakeAnimator : AnimalAnimator
 
         for (int i = _minSegmentId; i < _maxSegmentId; i++)
         {
-            AnimalJoint prevSegment = joints[i - 1];
-            AnimalJoint currSegment = joints[i];
+            AnimalJoint prevSegment = jointList[i - 1];
+            AnimalJoint currSegment = jointList[i];
 
             Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
             Vector3 flatToPrev = new Vector3(toPrev.x, 0f, toPrev.z);

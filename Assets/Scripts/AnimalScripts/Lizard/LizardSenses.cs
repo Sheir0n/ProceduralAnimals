@@ -16,6 +16,9 @@ public class LizardSenses : AnimalSenses
 
     protected override void Update()
     {
+        if (deathDisableSenses)
+            return;
+
         base.Update();
         CheckVisionCone();
     }

@@ -48,6 +48,8 @@ public class PathfindController : MonoBehaviour
         movementByEnum = new Dictionary<AIAction, IAnimalMovement>();
         enumByMovement = new Dictionary<IAnimalMovement, AIAction>();
         lastRotation = transform.rotation;
+
+        AddNewMovementBehavior(new DeathMovement(agent, eventHub), AIAction.Death);
     }
 
     void Update()
@@ -119,7 +121,7 @@ public class PathfindController : MonoBehaviour
     private void PushAgent(Vector3 pushVector)
     {
         pushedThisFrame = true;
-        float pushAmount = 15f;
+        float pushAmount = 25f;
         float redirectAmount = 10f;
         pendingPush += pushVector * pushAmount * Time.deltaTime;
 
@@ -128,7 +130,7 @@ public class PathfindController : MonoBehaviour
         float distanceToDestination = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(currDestination.x, currDestination.z));
 
         //redirect agent
-        if (distanceToDestination < stopDistance)
+        if (distanceToDestination < stopDistance && enumByMovement[currentBehavior] != AIAction.Death)
         {
             agent.SetDestination(currDestination + pushVector * redirectAmount * Time.deltaTime);
         }
