@@ -22,8 +22,10 @@ public class LizardAI : AnimalAI
     private List<Transform> interestSpots = new List<Transform>();
 
     private float interestSpotResetTimer = 0;
+    private const float interestResetCooldownMs = 450;
 
     private bool clearedMemoryOnDeath = false;
+    private const int maxInterestDistance = 20;
     protected override void Awake()
     {
         base.Awake();
@@ -57,7 +59,7 @@ public class LizardAI : AnimalAI
             interestSpots.Clear();
         }
         else
-            ResetInterestOnIntervalMs(intervalInMs: 750);
+            ResetInterestOnIntervalMs();
     }
 
     private void AddNewInterestSpot(Transform interestPoint)
@@ -68,7 +70,7 @@ public class LizardAI : AnimalAI
         interestSpots.Add(interestPoint);
     }
 
-    private void ResetInterestOnIntervalMs(int intervalInMs)
+    private void ResetInterestOnIntervalMs()
     {
         if (interestSpots.Count() > 0)
             interestSpotResetTimer += Time.deltaTime * 1000;
@@ -78,7 +80,7 @@ public class LizardAI : AnimalAI
             return;
         }
 
-        if (interestSpotResetTimer > intervalInMs)
+        if (interestSpotResetTimer > interestResetCooldownMs)
         {
             interestSpotResetTimer = 0;
             interestSpots.Clear();
@@ -91,22 +93,29 @@ public class LizardAI : AnimalAI
         float highscore = 0;
         foreach (Transform spot in interestSpots)
         {
-            float distance = Mathf.Sqrt((transform.position - spot.position).sqrMagnitude);
-            float score = Mathf.Clamp(1f / (distance + 0.0001f), 0, 10);
+            Vector3 position = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 spotPosition = new Vector3(spot.position.x, 0, spot.position.z);
+
+            float distance = Mathf.Sqrt((transform.position - spotPosition).sqrMagnitude);
+            float score = Mathf.Clamp((maxInterestDistance - distance)/2, 0, 10);
+
             if (spot.CompareTag("Rock"))
             {
-                score += 10 * (1 - (stats.energy / stats.maxEnergy)) * (0.5f + (1 - stats.statVigor));
+                Debug.Log("Rock " + score + " " + distance);
+                score += 8 * (1 - (stats.energy / stats.maxEnergy)) * (0.5f + (1 - stats.statVigor));
             }
             else if (spot.CompareTag("Lizard"))
             {
-                score += 15 * (0.5f + stats.statAggressiveness);
+                Debug.Log("Lizard" + score + " " + distance);
+                score += 8 * (0.5f + stats.statAggressiveness);
             }
             else if (spot.CompareTag("Beetle"))
             {
-                score += 20 * (0.5f + stats.saturation / stats.maxSaturation);
+                Debug.Log("Beetle" + score + " " + distance);
+                score += 10 * (0.5f + (1 - (stats.saturation / stats.maxSaturation)));
             }
 
-            if (score > highscore && score > 5 - (5 * stats.statCuriosity))
+            if (score > highscore && score > 15 - (5 * stats.statCuriosity))
             {
                 highscore = score;
                 best = spot;
