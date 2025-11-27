@@ -16,6 +16,7 @@ public class LizardAnimator : AnimalAnimator
     {
         base.Awake();
         eventHub.OnHeadDataRequest += GetLookCenter;
+        eventHub.OnMouthTransformRequest += GetMouthSegmentPos;
     }
 
 
@@ -139,4 +140,6 @@ public class LizardAnimator : AnimalAnimator
             curr.UpdateSegmentTransform();
         }
     }
+
+    private Transform GetMouthSegmentPos() => head.headJoints.Last().transform;
 }

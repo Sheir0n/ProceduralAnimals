@@ -37,6 +37,8 @@ public class ChaseFoodController : IUtilityAction
 
     private bool hasBittern = false;
     private Collider biteTarget;
+    IDamageable targetInterface;
+
     private int biteCooldownMs = 500;
     private int randomisedCooldownMs;
     private float biteTimerMs = 0;
@@ -83,6 +85,7 @@ public class ChaseFoodController : IUtilityAction
     public void Exit() {
         eventHub.OnAttemptBite -= AttemptBite;
         biteTarget = null;
+        targetInterface = null;
     }
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
@@ -155,11 +158,20 @@ public class ChaseFoodController : IUtilityAction
         if (!hasBittern)
         {
             biteTarget = other;
+            targetInterface = other.gameObject.GetComponent<IDamageable>();
         }
     }
 
     private void Bite(Collider other)
     {
         Debug.Log("Succesful bite for " + biteDamage + " damage!");
+        if (targetInterface.GetHealth() > 0)
+            targetInterface.TakeDamage(biteDamage);
+        else
+        {
+            Transform mouthTransform = eventHub.GetMouthTransform();
+            if(mouthTransform != null)
+                targetInterface.OnSnatchAttachTo(mouthTransform);
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.AI;
 
 public interface IReadOnlyAnimalStats
 {
@@ -56,7 +57,7 @@ public class AnimalStats : IReadOnlyAnimalStats
     float IReadOnlyAnimalStats.StatDominance => statDominance;
 }
 
-public class AnimalAI : MonoBehaviour
+public class AnimalAI : MonoBehaviour, IDamageable
 {
     [SerializeField] protected float statMultiplierMaxRandomness = 0.2f;
     [SerializeField] protected AnimalStats stats;
@@ -94,6 +95,7 @@ public class AnimalAI : MonoBehaviour
     [SerializeField] private bool showAIPoints = false;
 
     protected AnimalEventHub eventHub;
+    private Transform snatchTransform;
 
     protected virtual void Awake()
     {
@@ -258,5 +260,27 @@ public class AnimalAI : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        if (stats.health > 0)
+            stats.health = Math.Clamp(stats.health - amount, 0, stats.maxHealth);
+    }
+
+    public float GetHealth() { return stats.health; }
+
+    public void OnSnatchAttachTo(Transform other)
+    {
+        //temporary - move to movement
+        if (snatchTransform != other)
+        {
+            snatchTransform = other;
+            transform.position = new Vector3(snatchTransform.position.x, transform.position.y, snatchTransform.position.z);
+            Debug.Log(transform.position + " " + snatchTransform.position);
+            Debug.Log("snatched on death!");
+
+            //transform.GetComponent<Collider>().enabled = false;
+        }
     }
 }

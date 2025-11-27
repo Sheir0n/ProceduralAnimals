@@ -22,7 +22,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Func<Transform> OnNearestRestSpotRequest;
     public event Func<bool> OnIsOnRestSpotRequest;
     public event Func<Transform> OnNearestHuntTargetRequest;
-
+    public event Func<Transform> OnMouthTransformRequest;
 
     private const int pushEventLimit = 5;
     private int currPushEventCount = 0;
@@ -51,6 +51,6 @@ public class AnimalEventHub : MonoBehaviour
     public void NewInterestSpotFound(Transform interestTransform) => OnNewInterestSpotFound?.Invoke(interestTransform);
     public void NewHuntTargetFound(Transform interestTransform) => OnNewHuntTargetFound?.Invoke(interestTransform);
     public Transform FindNearestHuntTarget() => OnNearestHuntTargetRequest?.Invoke();
-
     public void AttemptBite(Collider other) => OnAttemptBite?.Invoke(other);
+    public Transform GetMouthTransform() => OnMouthTransformRequest?.Invoke();
 }

@@ -101,17 +101,14 @@ public class LizardAI : AnimalAI
 
             if (spot.CompareTag("Rock"))
             {
-                Debug.Log("Rock " + score + " " + distance);
                 score += 8 * (1 - (stats.energy / stats.maxEnergy)) * (0.5f + (1 - stats.statVigor));
             }
             else if (spot.CompareTag("Lizard"))
             {
-                Debug.Log("Lizard" + score + " " + distance);
                 score += 8 * (0.5f + stats.statAggressiveness);
             }
             else if (spot.CompareTag("Beetle"))
             {
-                Debug.Log("Beetle" + score + " " + distance);
                 score += 10 * (0.5f + (1 - (stats.saturation / stats.maxSaturation)));
             }
 
