@@ -18,8 +18,8 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
     private Transform nearestRestSpot;
     private bool isOnRestSpot;
 
-    private float restSpotScale = 0.5f;
-    private float restSpotCheckRangeBonus = 0.1f;
+    private float restSpotScale = 0.65f;
+    private float restSpotCheckRangeBonus = 0.15f;
 
     public FindRestSpotMovement(NavMeshAgent agent, FindRestSpotMovementSettings settings, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats generalStatsHook)
     {
@@ -62,8 +62,10 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
 
         Vector3 agentPos = transform.position;
         Vector3 spotPos = nearestRestSpot.position;
+        agentPos.y = 0;
+        spotPos.y = 0;
 
-        float radius = nearestRestSpot.lossyScale.x * (restSpotScale + restSpotCheckRangeBonus);
+        float radius = nearestRestSpot.lossyScale.x * restSpotScale + restSpotCheckRangeBonus;
 
         Vector3 diff = agentPos - spotPos;
         diff.y = 0f;

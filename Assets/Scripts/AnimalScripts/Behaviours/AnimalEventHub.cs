@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static AnimalAI;
+using static ChaseFoodController;
 
 public class AnimalEventHub : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<Transform> OnNewInterestSpotFound;
     public event Action<Transform> OnNewHuntTargetFound;
     public event Action<Collider> OnAttemptBite;
+    public event Action<BiteAttackStage> OnBiteAttack;
+    public event Action<IDamageable> OnAnnouncePreyCaught;
 
     public event Func<float> OnAngularSpeedRequest;
     public event Func<LookTarget> OnPathfingingLookTargetRequest; // animator <= movement
@@ -23,6 +26,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Func<bool> OnIsOnRestSpotRequest;
     public event Func<Transform> OnNearestHuntTargetRequest;
     public event Func<Transform> OnMouthTransformRequest;
+    public event Func<Collider, bool> OnColliderInMouthCheckRequest;
 
     private const int pushEventLimit = 5;
     private int currPushEventCount = 0;
@@ -53,4 +57,7 @@ public class AnimalEventHub : MonoBehaviour
     public Transform FindNearestHuntTarget() => OnNearestHuntTargetRequest?.Invoke();
     public void AttemptBite(Collider other) => OnAttemptBite?.Invoke(other);
     public Transform GetMouthTransform() => OnMouthTransformRequest?.Invoke();
+    public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);
+    public bool CheckIfColliderInMouth(Collider other) => OnColliderInMouthCheckRequest?.Invoke(other) ?? false;
+    public void AnnouncePreyCaught(IDamageable prey) => OnAnnouncePreyCaught?.Invoke(prey);
 }

@@ -16,8 +16,10 @@ public class LizardAI : AnimalAI
     private float healthRegenSaturationDrain = 0.05f;
     private float saturationRegenThreshold = 0.5f;
 
-    private int biteCooldownMs = 500;
+    private int biteCooldownMs = 1500;
+    private int biteWindupMs = 2000;
     private int biteDamage = 2;
+    private int biteDashDuration = 1500;
 
     private List<Transform> interestSpots = new List<Transform>();
 
@@ -26,6 +28,9 @@ public class LizardAI : AnimalAI
 
     private bool clearedMemoryOnDeath = false;
     private const int maxInterestDistance = 20;
+
+    private IDamageable carriedPrey;
+
     protected override void Awake()
     {
         base.Awake();
@@ -33,7 +38,7 @@ public class LizardAI : AnimalAI
         AddNewAction(new RestController(pathfindController, animator, eventHub, energyRegenRate, saturationDrainRate * 0.5f, restHealthRegenRate, healthRegenSaturationDrain, saturationRegenThreshold), AIAction.Rest);
         AddNewAction(new WanderController(pathfindController, animator, energyDrainRate, saturationDrainRate), AIAction.Wander);
         AddNewAction(new FindRestSpotController(pathfindController, animator, transform, eventHub, energyDrainRate * 0.25f, saturationDrainRate * 0.75f), AIAction.FindRestSpot);
-        AddNewAction(new ChaseFoodController(pathfindController, animator, transform, eventHub, energyDrainRate * 3f, saturationDrainRate * 1.5f, biteCooldownMs, biteDamage), AIAction.ChaseFood);
+        AddNewAction(new ChaseFoodController(pathfindController, animator, transform, eventHub, energyDrainRate * 3f, saturationDrainRate * 1.5f, biteCooldownMs, biteWindupMs, biteDashDuration, biteDamage), AIAction.ChaseFood);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)
@@ -43,6 +48,7 @@ public class LizardAI : AnimalAI
 
         eventHub.OnNewInterestSpotFound += AddNewInterestSpot;
         eventHub.OnInterestLookTargetRequest += GetBestInterestSpot;
+        eventHub.OnAnnouncePreyCaught += OnPreyCaught;
     }
 
     protected override void Update()
@@ -97,7 +103,7 @@ public class LizardAI : AnimalAI
             Vector3 spotPosition = new Vector3(spot.position.x, 0, spot.position.z);
 
             float distance = Mathf.Sqrt((transform.position - spotPosition).sqrMagnitude);
-            float score = Mathf.Clamp((maxInterestDistance - distance)/2, 0, 10);
+            float score = Mathf.Clamp((maxInterestDistance - distance) / 2, 0, 10);
 
             if (spot.CompareTag("Rock"))
             {
@@ -129,5 +135,14 @@ public class LizardAI : AnimalAI
             LookTarget target = new LookTarget(best.position, isLooking: true);
             return target;
         }
+    }
+
+    private void OnPreyCaught(IDamageable prey)
+    {
+        if (prey == null)
+            return;
+
+        stats.saturation = stats.maxSaturation;
+        carriedPrey = prey;
     }
 }

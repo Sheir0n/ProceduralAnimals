@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class HuntTarget
@@ -35,15 +39,25 @@ public class ChaseFoodController : IUtilityAction
 
     private List<HuntTarget> huntTargets = new List<HuntTarget>();
 
-    private bool hasBittern = false;
+    private bool bitePrepared = false;
+
     private Collider biteTarget;
     IDamageable targetInterface;
 
     private int biteCooldownMs = 500;
     private int randomisedCooldownMs;
     private float biteTimerMs = 0;
+
+    private int biteWindupMs = 100;
+
+    private int biteDashDuration = 500;
     private int biteDamage = 1;
-    public ChaseFoodController(PathfindController controller, AnimalAnimator animator, Transform transform, AnimalEventHub eventHub, float energyDrainRate, float saturationDrainRate, int biteCooldownMs, int biteDamage)
+    private bool preyCaught = false;
+
+    public enum BiteAttackStage {Windup, Dash, Finished}
+
+    private CancellationTokenSource biteCancelToken;
+    public ChaseFoodController(PathfindController controller, AnimalAnimator animator, Transform transform, AnimalEventHub eventHub, float energyDrainRate, float saturationDrainRate, int biteCooldownMs, int biteWindupMs, int biteDashDuration, int biteDamage)
     {
         this.controller = controller;
         this.animator = animator;
@@ -52,6 +66,8 @@ public class ChaseFoodController : IUtilityAction
         this.energyDrainRate = energyDrainRate;
         this.saturationDrainRate = saturationDrainRate;
         this.biteCooldownMs = biteCooldownMs;
+        this.biteWindupMs = biteWindupMs;
+        this.biteDashDuration = biteDashDuration;
         this.biteDamage = biteDamage;
 
 
@@ -61,42 +77,44 @@ public class ChaseFoodController : IUtilityAction
 
     public string DebugName() => "Chase Food";
 
-    public void Enter() {
-        eventHub.OnAttemptBite += AttemptBite;
-        hasBittern = false;
-        biteTimerMs = biteCooldownMs;
-    }
-
-    public void Update() 
+    public void Enter()
     {
-        if (!hasBittern && biteTarget != null && biteTimerMs >= randomisedCooldownMs)
-        {
-            Bite(biteTarget);
-            biteTimerMs = 0;
-            randomisedCooldownMs = (int)(biteCooldownMs * Random.Range(0.75f, 1.25f));
-        }
-        biteTimerMs += Time.deltaTime * 1000f;
+        eventHub.OnAttemptBite += AttemptBite;
+        bitePrepared = false;
+        biteTimerMs = biteCooldownMs;
+        randomisedCooldownMs = (int)(biteCooldownMs * UnityEngine.Random.Range(0.75f, 1.25f));
+        preyCaught = false;
     }
 
-    public void AlwaysUpdate() {
+    public void Update()
+    {
+        biteTimerMs += Time.deltaTime * 1000;
+    }
+
+    public void AlwaysUpdate()
+    {
         UpdateHuntTargetMemory();
     }
 
-    public void Exit() {
+    public void Exit()
+    {
         eventHub.OnAttemptBite -= AttemptBite;
         biteTarget = null;
         targetInterface = null;
+        biteCancelToken?.Cancel();
     }
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
         Transform huntTarget = eventHub.FindNearestHuntTarget();
-        if (huntTarget == null)
+        //TODO do zmiany, na razie zapobiega blokadzie
+        //ma sie odblokowac po zaniesieniu ofiary na spawn
+        if (huntTarget == null || preyCaught)
             return 0;
         else
         {
             float normalisedSaturation = stats.saturation / stats.maxSaturation;
-            return Mathf.Pow(1 - normalisedSaturation, (1 - stats.statAggressiveness) / 3) * 2 / 3;
+            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * 2 / 3;
         }
     }
 
@@ -155,23 +173,73 @@ public class ChaseFoodController : IUtilityAction
 
     private void AttemptBite(Collider other)
     {
-        if (!hasBittern)
+        if (!bitePrepared && !preyCaught && biteTimerMs >= randomisedCooldownMs)
         {
             biteTarget = other;
+            bitePrepared = true;
             targetInterface = other.gameObject.GetComponent<IDamageable>();
+
+            biteTimerMs = 0;
+            randomisedCooldownMs = (int)(biteCooldownMs * UnityEngine.Random.Range(0.75f, 1.25f));
+
+            biteCancelToken = new CancellationTokenSource();
+            _ = BiteAfterDelay(other, biteCancelToken.Token);
+        }
+    }
+
+    private async Task BiteAfterDelay(Collider other, CancellationToken token)
+    {
+        try
+        {
+            eventHub.AnnounceBiteAttack(BiteAttackStage.Windup);
+            Debug.Log("bite windup start " + biteWindupMs);
+            await Task.Delay(biteWindupMs, token);
+
+            eventHub.AnnounceBiteAttack(BiteAttackStage.Dash);
+            Debug.Log("bite dash started");
+
+            float elapsedMs = 0f;
+            while (elapsedMs < biteDashDuration)
+            {
+                token.ThrowIfCancellationRequested();
+                if(eventHub.CheckIfColliderInMouth(other))
+                {
+                    Bite(other);
+                    bitePrepared = false;
+                    eventHub.AnnounceBiteAttack(BiteAttackStage.Finished);
+                    return;
+                }
+
+                await Task.Yield();
+                elapsedMs += Time.deltaTime * 1000;
+            }
+
+            Debug.Log("bite dash ended");
+            eventHub.AnnounceBiteAttack(BiteAttackStage.Finished);
+            bitePrepared = false;
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("Bite cancelled!");
+            bitePrepared = false;
         }
     }
 
     private void Bite(Collider other)
     {
+        bitePrepared = false;
         Debug.Log("Succesful bite for " + biteDamage + " damage!");
         if (targetInterface.GetHealth() > 0)
             targetInterface.TakeDamage(biteDamage);
         else
         {
             Transform mouthTransform = eventHub.GetMouthTransform();
-            if(mouthTransform != null)
+            if (mouthTransform != null)
+            {
                 targetInterface.OnSnatchAttachTo(mouthTransform);
+                preyCaught = true;
+                eventHub.AnnouncePreyCaught(targetInterface);
+            }
         }
     }
 }
