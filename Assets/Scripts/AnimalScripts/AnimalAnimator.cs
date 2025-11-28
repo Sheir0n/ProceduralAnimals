@@ -241,6 +241,7 @@ public class AnimalAnimator : MonoBehaviour
         bool hit = Physics.CheckSphere(pos, radius, mask, QueryTriggerInteraction.Ignore);
         return hit;
     }
+
     protected Vector3 PushBodyFromObstacle(AnimalJoint prevSegment, Vector3 targetPos, float radius = 0.15f, float pushFactor = 0.45f)
     {
         Vector3 from = prevSegment.segmentPosition;
@@ -273,7 +274,6 @@ public class AnimalAnimator : MonoBehaviour
 
         Vector3 idealDir = (targetPos - from).normalized;
         Vector3 perpPush = Vector3.ProjectOnPlane(totalPush * pushFactor, idealDir);
-
         Vector3 pushedPos = targetPos + perpPush;
 
         pushedPos = from + (pushedPos - from).normalized * segmentLength;

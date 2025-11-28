@@ -51,7 +51,7 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
 
         noMovementStats = new MovementStats(BaseStats);
         noMovementStats.Speed = 0f;
-        noMovementStats.AngularSpeed = 0f;
+        noMovementStats.AngularSpeed = 0.125f;
 
         currStatsSet = chaseStats;
     }

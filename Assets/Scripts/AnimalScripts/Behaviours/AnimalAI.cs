@@ -38,10 +38,10 @@ public class AnimalStats : IReadOnlyAnimalStats
     public float maxEnergy;
 
     [Header("Behaviour modifiers (0-1)")]
-    [Range(0.01f, 1)] public float statVigor;
-    [Range(0.01f, 1)] public float statAggressiveness;
-    [Range(0.01f, 1)] public float statCuriosity;
-    [Range(0.01f, 1)] public float statDominance;
+    [Range(0.01f, 0.99f)] public float statVigor;
+    [Range(0.01f, 0.99f)] public float statAggressiveness;
+    [Range(0.01f, 0.99f)] public float statCuriosity;
+    [Range(0.01f, 0.99f)] public float statDominance;
 
     float IReadOnlyAnimalStats.Health => health;
     float IReadOnlyAnimalStats.Saturation => saturation;
@@ -124,7 +124,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
             return;
         }
 
-        CalculateStats();
+        CalculateStatsAndPenalities();
 
         IUtilityAction newAction = GetHighestUtilityAction();
         if (newAction != currAction)
@@ -188,14 +188,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
         stats.health = stats.maxHealth;
         stats.saturation = stats.maxSaturation;
         stats.energy = stats.maxEnergy;
-
-        //Debug.Log(
-        //    $"=== Stats ===\n" +
-        //    $"Vigor: {stats.statVigor:F2}\n" +
-        //    $"Aggressiveness: {stats.statAggressiveness:F2}\n" +
-        //    $"Curiosity: {stats.statCuriosity:F2}\n" +
-        //    $"Dominance: {stats.statDominance:F2}"
-        //);
     }
 
 
@@ -234,7 +226,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         return bestAction;
     }
 
-    protected virtual void CalculateStats()
+    protected virtual void CalculateStatsAndPenalities()
     {
         currAction.CalculateStats(stats);
 
