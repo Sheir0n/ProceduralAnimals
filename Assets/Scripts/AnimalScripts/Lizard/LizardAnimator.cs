@@ -19,7 +19,6 @@ public class LizardAnimator : AnimalAnimator
         eventHub.OnMouthTransformRequest += GetMouthSegmentPos;
     }
 
-
     private void Update()
     {
         if (joints == null || joints.Count == 0)
