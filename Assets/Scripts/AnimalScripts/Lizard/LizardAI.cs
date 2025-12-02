@@ -47,7 +47,7 @@ public class LizardAI : AnimalAI
         currAction = actionByEnum[AIAction.Rest];
 
         eventHub.OnNewInterestSpotFound += AddNewInterestSpot;
-        eventHub.OnInterestLookTargetRequest += GetBestInterestSpot;
+        eventHub.OnInterestLookTarget += GetBestInterestSpot;
         eventHub.OnAnnouncePreyCaught += OnPreyCaught;
     }
 

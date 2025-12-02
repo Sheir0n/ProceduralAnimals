@@ -104,8 +104,8 @@ public class AnimalAnimator : MonoBehaviour
                 head.LookAt(lookData);
             }
         }
-        int chainPullCount = 10;
 
+        int chainPullCount = 10;
 
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
 
@@ -118,80 +118,167 @@ public class AnimalAnimator : MonoBehaviour
             PushBodyFromObstacle(prev, end.segmentPosition, radius, pushFactor: 0.45f);
     }
 
+
+    //protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls, bool doLerp)
+    //{
+    //    if (isAnimalDisabled)
+    //        pulls = 1;
+
+    //    for (int pullId = 0; pullId < pulls; pullId++)
+    //    {
+    //        AnimalJoint currJoint;
+    //        float angleY;
+
+    //        //ignores first half of pulls if animal is disabled
+    //        if (!isAnimalDisabled)
+    //        {
+    //            currJoint = jointChain.Last();
+    //            currJoint.SetPosition(targetPos);
+
+    //            angleY = GetYAngle(targetPos - currJoint.segmentPosition);
+    //            currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+    //            for (int i = jointChain.Count() - 1; i > 0; i--)
+    //            {
+    //                AnimalJoint nextSegment = jointChain[i];
+    //                AnimalJoint currSegment = jointChain[i - 1];
+    //                Vector3 toNext = nextSegment.segmentPosition - currSegment.segmentPosition;
+    //                float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment, currSegment.prefferedAngle);
+    //                currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+
+    //                Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
+    //                currSegment.SetPosition(nextSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
+    //            }
+    //        }
+
+    //        currJoint = jointChain[0];
+    //        Vector3 rootPosition = parentJoint.segmentPosition + parentJoint.segmentRotation * rootOffset;
+
+    //        currJoint.SetPosition(rootPosition);
+    //        angleY = GetYAngle(toTarget: parentJoint.segmentPosition - currJoint.segmentPosition);
+    //        currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+    //        currJoint.UpdateSegmentTransform();
+
+    //        for (int i = 1; i < jointChain.Count; i++)
+    //        {
+    //            AnimalJoint prevSegment = jointChain[i - 1];
+    //            AnimalJoint currSegment = jointChain[i];
+
+    //            Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
+    //            float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, -prevSegment.prefferedAngle);
+    //            currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+
+    //            Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
+    //            currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
+    //        }
+    //    }
+
+    //    if (doLerp)
+    //    {
+    //        for (int i = 1; i < jointChain.Count; i++)
+    //        {
+    //            float lerpSpeed = 25;
+    //            AnimalJoint prevSegment = jointChain[i - 1];
+    //            AnimalJoint currSegment = jointChain[i];
+
+    //            jointChain[i].UpdateLerpRotation(lerpSpeed);
+    //            jointChain[i].UpdateLerpPosition(prevSegment.segmentLerpPosition);
+    //            jointChain[i].UpdateSegmentLerpTransform();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        for (int i = 1; i < jointChain.Count; i++)
+    //        {
+    //            jointChain[i].UpdateSegmentTransform();
+    //        }
+    //    }
+    //}
+
+
     protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls, bool doLerp)
     {
         if (isAnimalDisabled)
             pulls = 1;
 
-        for (int pullId = 0; pullId < pulls; pullId++)
+        for (int i = 0; i < pulls; i++)
         {
-            AnimalJoint currJoint;
-            float angleY;
-
-            //ignores firs half of pulls if animal is disabled
             if (!isAnimalDisabled)
-            {
-                currJoint = jointChain.Last();
-                currJoint.SetPosition(targetPos);
-
-                angleY = GetYAngle(targetPos - currJoint.segmentPosition);
-                currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
-                for (int i = jointChain.Count() - 1; i > 0; i--)
-                {
-                    AnimalJoint nextSegment = jointChain[i];
-                    AnimalJoint currSegment = jointChain[i - 1];
-                    Vector3 toNext = nextSegment.segmentPosition - currSegment.segmentPosition;
-                    float newLocalY = GetYAngleConstrained(vecToTarget: toNext, targetJoint: currSegment, currSegment.prefferedAngle);
-                    currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
-
-                    Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
-                    currSegment.SetPosition(nextSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
-                }
-            }
-
-            currJoint = jointChain[0];
-            Vector3 rootPosition = parentJoint.segmentPosition + parentJoint.segmentRotation * rootOffset;
-
-            currJoint.SetPosition(rootPosition);
-            angleY = GetYAngle(toTarget: parentJoint.segmentPosition - currJoint.segmentPosition);
-            currJoint.SetRotation(Quaternion.Euler(90f, angleY, 0f));
-            currJoint.UpdateSegmentTransform();
-
-            for (int i = 1; i < jointChain.Count; i++)
-            {
-                AnimalJoint prevSegment = jointChain[i - 1];
-                AnimalJoint currSegment = jointChain[i];
-
-                Vector3 toPrev = prevSegment.segmentPosition - currSegment.segmentPosition;
-                float newLocalY = GetYAngleConstrained(vecToTarget: toPrev, targetJoint: prevSegment, -prevSegment.prefferedAngle);
-                currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
-
-                Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
-                currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
-            }
+                ForwardPass(jointChain, targetPos);
+            BackwardPass(jointChain, parentJoint, rootOffset);
         }
 
         if (doLerp)
-        {
-            for (int i = 1; i < jointChain.Count; i++)
-            {
-                float lerpSpeed = 25;
-                AnimalJoint prevSegment = jointChain[i - 1];
-                AnimalJoint currSegment = jointChain[i];
-
-                jointChain[i].UpdateLerpRotation(lerpSpeed);
-                jointChain[i].UpdateLerpPosition(prevSegment.segmentLerpPosition);
-                jointChain[i].UpdateSegmentLerpTransform();
-            }
-        }
+            LerpUpdateChain(jointChain);
         else
+            DirectUpdateChain(jointChain);
+    }
+
+    private void ForwardPass(List<AnimalJoint> chain, Vector3 targetPos)
+    {
+        AnimalJoint tip = chain[^1];
+        tip.SetPosition(targetPos);
+
+        float angleY = GetYAngle(targetPos - tip.segmentPosition);
+        tip.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+
+        for (int i = chain.Count - 1; i > 0; i--)
         {
-            for (int i = 1; i < jointChain.Count; i++)
-            {
-                jointChain[i].UpdateSegmentTransform();
-            }
+            AnimalJoint next = chain[i];
+            AnimalJoint curr = chain[i - 1];
+
+            SolveJoint(anchor: next, segment: curr, constraintJoint: curr, curr.prefferedAngle);
         }
     }
+
+    private void BackwardPass(List<AnimalJoint> chain, AnimalJoint parent, Vector3 rootOffset)
+    {
+        AnimalJoint root = chain[0];
+        Vector3 rootPos = parent.segmentPosition + parent.segmentRotation * rootOffset;
+
+        root.SetPosition(rootPos);
+        float angleY = GetYAngle(parent.segmentPosition - root.segmentPosition);
+        root.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+        root.UpdateSegmentTransform();
+
+        for (int i = 1; i < chain.Count; i++)
+        {
+            AnimalJoint prev = chain[i - 1];
+            AnimalJoint curr = chain[i];
+
+            SolveJoint(anchor: prev, segment: curr, constraintJoint: prev, -prev.prefferedAngle);
+        }
+    }
+
+    private void SolveJoint(AnimalJoint anchor, AnimalJoint segment, AnimalJoint constraintJoint,float prefferedAngle)
+    {
+        Vector3 direction = anchor.segmentPosition - segment.segmentPosition;
+        float newLocalY = GetYAngleConstrained(direction, constraintJoint, prefferedAngle);
+        segment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+        Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
+        segment.SetPosition(anchor.segmentPosition - allowedDir * segment.distanceConstraint);
+    }
+
+    private void LerpUpdateChain(List<AnimalJoint> chain)
+    {
+        const float lerpSpeed = 25f;
+
+        for (int i = 1; i < chain.Count; i++)
+        {
+            var prev = chain[i - 1];
+            var curr = chain[i];
+
+            curr.UpdateLerpRotation(lerpSpeed);
+            curr.UpdateLerpPosition(prev.segmentLerpPosition);
+            curr.UpdateSegmentLerpTransform();
+        }
+    }
+
+    private void DirectUpdateChain(List<AnimalJoint> chain)
+    {
+        for (int i = 1; i < chain.Count; i++)
+            chain[i].UpdateSegmentTransform();
+    }
+
 
     protected float GetYAngleConstrained(Vector3 vecToTarget, AnimalJoint targetJoint, float prefferedAngle)
     {

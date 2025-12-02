@@ -50,6 +50,7 @@ public class AnimalHead
     {
         Vector3 toTarget;
         float targetDistance = 2;
+
         if (lookData.isLooking)
         {
             toTarget = lookData.target - parentJoint.transform.position;

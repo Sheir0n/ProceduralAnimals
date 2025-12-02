@@ -3025,6 +3025,11 @@ PrefabInstance:
       propertyPath: isPlayerControlled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7415595393817211660, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: animalLimbData.Array.data[0].joints.Array.data[1].jointCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name

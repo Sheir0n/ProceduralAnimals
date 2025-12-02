@@ -16,7 +16,6 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
 
     private Vector3 dashPushVector = Vector3.zero;
     private Vector3 dashPushTargetVector = Vector3.zero;
-    private bool pushAgent = false;
 
     private Vector3 lookTargetPos;
     public Vector3? MoveTargetPosition => null;

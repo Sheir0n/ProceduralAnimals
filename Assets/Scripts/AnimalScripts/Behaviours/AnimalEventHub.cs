@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static AnimalAI;
@@ -19,8 +20,8 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<IDamageable> OnAnnouncePreyCaught;
 
     public event Func<float> OnAngularSpeedRequest;
-    public event Func<LookTarget> OnPathfingingLookTargetRequest; // animator <= movement
-    public event Func<LookTarget> OnInterestLookTargetRequest; // animator <= UtilityAI interest targets
+    public event Func<LookTarget> OnPathfindScriptLookTarget; // animator <= movement
+    public event Func<LookTarget> OnInterestLookTarget; // animator <= UtilityAI interest targets
     public event Func<HeadCenterData> OnHeadDataRequest; // senses <= animator (current lerped look for vision cone)
     public event Func<Transform> OnNearestRestSpotRequest;
     public event Func<bool> OnIsOnRestSpotRequest;
@@ -46,8 +47,9 @@ public class AnimalEventHub : MonoBehaviour
     }
 
     public float GetAngularSpeed() => OnAngularSpeedRequest?.Invoke() ?? 0f;
-    public LookTarget RequestPathfindingLookTargetData() => OnPathfingingLookTargetRequest?.Invoke() ?? new LookTarget(Vector3.zero, false);
-    public LookTarget RequestInterestLookTargetData() => OnInterestLookTargetRequest?.Invoke() ?? new LookTarget(Vector3.zero, false);
+
+    public LookTarget RequestPathfindingLookTargetData() => OnPathfindScriptLookTarget?.Invoke() ?? new LookTarget(Vector3.zero, false);
+    public LookTarget RequestInterestLookTargetData() => OnInterestLookTarget?.Invoke() ?? new LookTarget(Vector3.zero, false);
     public HeadCenterData RequestHeadData() => OnHeadDataRequest?.Invoke() ?? new HeadCenterData(transform.position, transform.forward);
     public Transform FindNearestRestSpot() => OnNearestRestSpotRequest?.Invoke();
     public bool IsOnRestSpot() => OnIsOnRestSpotRequest?.Invoke() ?? false;

@@ -19,10 +19,8 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
     private float fallbackTimerMs = 0;
     private const float fallbackCooldownMs = 500;
 
-    private Vector3 moveTargetPos;
-    private Vector3 lookTargetPos;
-    public Vector3? MoveTargetPosition => moveTargetPos;
-    public Vector3? LookTargetPosition => lookTargetPos;
+    public Vector3? MoveTargetPosition { get; private set; }
+    public Vector3? LookTargetPosition { get; private set; }
     public bool? LookAtTarget { get; private set; }
 
     private MovementStats walkStats;
@@ -66,9 +64,9 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
         {
             selectNewTargetTimerMs = 0;
             Vector3 newPos = GetNewWanderTarget();
-            moveTargetPos = newPos;
-            lookTargetPos = newPos;
-            agent.SetDestination(moveTargetPos);
+            MoveTargetPosition = newPos;
+            LookTargetPosition = newPos;
+            agent.SetDestination((Vector3)MoveTargetPosition);
         }
 
         UpdateTimer();
