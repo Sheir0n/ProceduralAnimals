@@ -13,7 +13,7 @@ public class AnimalMouthCollider : MonoBehaviour
     {
         eventHub = transform.parent.parent.GetComponent<AnimalEventHub>();
         mouthCollider = transform.GetComponent<CapsuleCollider>();
-        eventHub.OnColliderInMouthCheckRequest += CheckIfOtherInMouth;
+        eventHub.OnMouthHookRequest += GetThisHook;
     }
     private void Update()
     {
@@ -35,11 +35,13 @@ public class AnimalMouthCollider : MonoBehaviour
                 eventHub.AttemptBite(hit);
     }
 
-    private bool CheckIfOtherInMouth(Collider other)
+    public bool CheckIfOtherInMouth(Collider other)
     {
         if (mouthCollider == null || other == null)
             return false;
 
         return mouthCollider.bounds.Intersects(other.bounds);
     }
+
+    private AnimalMouthCollider GetThisHook() => this;
 }

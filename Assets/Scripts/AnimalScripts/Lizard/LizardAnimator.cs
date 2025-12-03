@@ -16,7 +16,6 @@ public class LizardAnimator : AnimalAnimator
     {
         base.Awake();
         eventHub.OnHeadDataRequest += GetLookCenter;
-        eventHub.OnMouthTransformRequest += GetMouthSegmentPos;
     }
 
     private void Update()
@@ -31,9 +30,9 @@ public class LizardAnimator : AnimalAnimator
 
         if (calculateTailLean)
         {
-            CalculateMainBodyTransform(joints, 1, joints.Count);
+            CalculateMainBodyTransform(joints, minSegmentId: 1, joints.Count);
             currentTailLeanLerp = Mathf.Lerp(currentTailLeanLerp, 1, tailLerpSpeed * Time.deltaTime);
-            ForceSegmentsLean(6, joints.Count, randomTailDir);
+            ForceSegmentsLean(minSegmentId: 6, joints.Count, randomTailDir);
         }
         else
             CalculateMainBodyTransform(joints, 1, joints.Count);
@@ -139,6 +138,4 @@ public class LizardAnimator : AnimalAnimator
             curr.UpdateSegmentTransform();
         }
     }
-
-    private Transform GetMouthSegmentPos() => head.headJoints.Last().transform;
 }

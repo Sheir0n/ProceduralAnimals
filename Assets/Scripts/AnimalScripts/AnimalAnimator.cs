@@ -13,7 +13,6 @@ public class AnimalAnimator : MonoBehaviour
     protected AnimalHead head;
 
     [Header("Movement Controller")]
-    //[SerializeField] protected PathfindController movementController;
     protected Vector3 prevHeadPosition;
 
     protected AnimalEventHub eventHub;
@@ -24,7 +23,12 @@ public class AnimalAnimator : MonoBehaviour
         eventHub = GetComponent<AnimalEventHub>();
         eventHub.OnActionChanged += OnActionChanged;
     }
-
+    public void SetBody(List<AnimalJoint> spineJoints, List<AnimalLimb> limbs, AnimalHead head)
+    {
+        this.joints = spineJoints;
+        this.limbs = limbs;
+        this.head = head;
+    }
     public void SetJoints(List<AnimalJoint> _segments) => joints = _segments;
     public void SetLimbs(List<AnimalLimb> _limbs) => limbs = _limbs;
     public void SetHead(AnimalHead _head) => head = _head;
@@ -41,7 +45,7 @@ public class AnimalAnimator : MonoBehaviour
             Debug.LogWarning("Animal Animator: segment[0] not found!");
     }
 
-    protected virtual void CalculateMainBodyTransform(List<AnimalJoint> jointList, int _minSegmentId, int _maxSegmentId)
+    protected virtual void CalculateMainBodyTransform(List<AnimalJoint> jointList, int minSegmentId, int maxSegmentId)
     {
         if (jointList == null || jointList.Count == 0)
         {
@@ -49,13 +53,13 @@ public class AnimalAnimator : MonoBehaviour
             return;
         }
 
-        if (_minSegmentId < 1 || _maxSegmentId > jointList.Count)
+        if (minSegmentId < 1 || maxSegmentId > jointList.Count)
         {
-            Debug.LogWarning($"Animal Animator: _minSegmentId ({_minSegmentId}) or _maxSegmentId ({_maxSegmentId}) out of range. List count: {jointList.Count}");
+            Debug.LogWarning($"Animal Animator: _minSegmentId ({minSegmentId}) or _maxSegmentId ({maxSegmentId}) out of range. List count: {jointList.Count}");
             return;
         }
 
-        for (int i = _minSegmentId; i < _maxSegmentId; i++)
+        for (int i = minSegmentId; i < maxSegmentId; i++)
         {
             AnimalJoint prevSegment = jointList[i - 1];
             AnimalJoint currSegment = jointList[i];
@@ -93,6 +97,9 @@ public class AnimalAnimator : MonoBehaviour
 
     protected void CalculateHeadTransform()
     {
+        if (head is null)
+            return;
+
         if (!isAnimalDisabled)
         {
             LookTarget lookData = eventHub.RequestPathfindingLookTargetData();
@@ -104,7 +111,6 @@ public class AnimalAnimator : MonoBehaviour
                 head.LookAt(lookData);
             }
         }
-
         int chainPullCount = 10;
 
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
@@ -289,7 +295,6 @@ public class AnimalAnimator : MonoBehaviour
         return pushedPos;
     }
 
-
     protected virtual void OnActionChanged(AIAction newAction)
     {
         Debug.Log("Animator recived: " + newAction);
@@ -299,12 +304,4 @@ public class AnimalAnimator : MonoBehaviour
             isAnimalDisabled = true;
         }
     }
-
-    //public CapsuleCollider GetAnimalMouthCollider()
-    //{
-    //    if (head == null)
-    //        return null;
-
-    //    return head.mouthCollider;
-    //}
 }

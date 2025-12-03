@@ -26,8 +26,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Func<Transform> OnNearestRestSpotRequest;
     public event Func<bool> OnIsOnRestSpotRequest;
     public event Func<Transform> OnNearestHuntTargetRequest;
-    public event Func<Transform> OnMouthTransformRequest;
-    public event Func<Collider, bool> OnColliderInMouthCheckRequest;
+    public event Func<AnimalMouthCollider> OnMouthHookRequest;
 
     private const int pushEventLimit = 5;
     private int currPushEventCount = 0;
@@ -58,8 +57,7 @@ public class AnimalEventHub : MonoBehaviour
     public void NewHuntTargetFound(Transform interestTransform) => OnNewHuntTargetFound?.Invoke(interestTransform);
     public Transform FindNearestHuntTarget() => OnNearestHuntTargetRequest?.Invoke();
     public void AttemptBite(Collider other) => OnAttemptBite?.Invoke(other);
-    public Transform GetMouthTransform() => OnMouthTransformRequest?.Invoke();
+    public AnimalMouthCollider GetAnimalMouth() => OnMouthHookRequest?.Invoke();
     public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);
-    public bool CheckIfColliderInMouth(Collider other) => OnColliderInMouthCheckRequest?.Invoke(other) ?? false;
     public void AnnouncePreyCaught(IDamageable prey) => OnAnnouncePreyCaught?.Invoke(prey);
 }

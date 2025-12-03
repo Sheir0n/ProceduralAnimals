@@ -55,8 +55,10 @@ public class ChaseFoodController : IUtilityAction
     private bool preyCaught = false;
 
     public enum BiteAttackStage {Windup, Dash, Finished}
-
     private CancellationTokenSource biteCancelToken;
+    AnimalMouthCollider animalMouth;
+
+
     public ChaseFoodController(PathfindController controller, AnimalAnimator animator, Transform transform, AnimalEventHub eventHub, float energyDrainRate, float saturationDrainRate, int biteCooldownMs, int biteWindupMs, int biteDashDuration, int biteDamage)
     {
         this.controller = controller;
@@ -84,6 +86,8 @@ public class ChaseFoodController : IUtilityAction
         biteTimerMs = biteCooldownMs;
         randomisedCooldownMs = (int)(biteCooldownMs * UnityEngine.Random.Range(0.75f, 1.25f));
         preyCaught = false;
+
+        animalMouth = eventHub.GetAnimalMouth();
     }
 
     public void Update()
@@ -102,6 +106,7 @@ public class ChaseFoodController : IUtilityAction
         biteTarget = null;
         targetInterface = null;
         biteCancelToken?.Cancel();
+        animalMouth = null;
     }
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
@@ -202,7 +207,7 @@ public class ChaseFoodController : IUtilityAction
             while (elapsedMs < biteDashDuration)
             {
                 token.ThrowIfCancellationRequested();
-                if(eventHub.CheckIfColliderInMouth(other))
+                if(animalMouth.CheckIfOtherInMouth(other))
                 {
                     Bite(other);
                     bitePrepared = false;
@@ -233,10 +238,9 @@ public class ChaseFoodController : IUtilityAction
             targetInterface.TakeDamage(biteDamage);
         else
         {
-            Transform mouthTransform = eventHub.GetMouthTransform();
-            if (mouthTransform != null)
+            if (animalMouth != null)
             {
-                targetInterface.OnSnatchAttachTo(mouthTransform);
+                targetInterface.OnSnatchAttachTo(animalMouth.transform);
                 preyCaught = true;
                 eventHub.AnnouncePreyCaught(targetInterface);
             }

@@ -34,7 +34,6 @@ public class AnimalCreator : MonoBehaviour
     protected List<AnimalJoint> spineJoints = new List<AnimalJoint>();
     protected List<AnimalLimb> limbs = new List<AnimalLimb>();
     protected AnimalHead animalHead;
-    protected CapsuleCollider mouthCollider;
 
     protected void Awake()
     {
@@ -56,8 +55,9 @@ public class AnimalCreator : MonoBehaviour
         if (creatorData.mouthColliderPrefab is null)
         {
             Debug.LogWarning(this + "Mouth collider not specified! Returning early.");
-            return;
         }
+
+        animatorScript.SetBody(spineJoints, limbs, animalHead);
 
         if (creatorData.attachMouthToHeadSegment && hasHead)
         {
@@ -95,7 +95,6 @@ public class AnimalCreator : MonoBehaviour
                 spineJoints.Add(newJoint);
                 positionOffset += new Vector3(0, 0, -1f * segmentScale * currSegmentData.distanceConstraint);
             }
-            animatorScript.SetJoints(spineJoints);
         }
     }
 
@@ -118,7 +117,6 @@ public class AnimalCreator : MonoBehaviour
             }
         }
         animalHead = new AnimalHead(headJoints, spineJoints[0], creatorData.animalHeadData);
-        animatorScript.SetHead(animalHead);
     }
 
     public void GenerateLimbs()
@@ -149,7 +147,6 @@ public class AnimalCreator : MonoBehaviour
             }
             limbs.Add(new AnimalLimb(currLimbData, limbJoints, spineJoints[currLimbData.parentJointId], limbId++));
         }
-        animatorScript.SetLimbs(limbs);
     }
 
     protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, string name)
@@ -182,7 +179,5 @@ public class AnimalCreator : MonoBehaviour
         mouthCollider.transform.SetParent(parent, false);
         mouthCollider.transform.localPosition = Vector3.zero;
         mouthCollider.transform.localScale = Vector3.one;
-
-        this.mouthCollider = mouthCollider.GetComponent<CapsuleCollider>();
     }
 }
