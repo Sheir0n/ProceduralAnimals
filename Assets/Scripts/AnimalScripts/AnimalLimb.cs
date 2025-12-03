@@ -31,7 +31,7 @@ public class AnimalLimb
     private Vector3 lastMoveDir = Vector3.zero;
     private float limbTargetingCooldownInMs = 250;
     private float currLimbTargetingTimeMs = 0;
-    private float targetLerpSpeed = 45;
+    private float targetLerpSpeed = 25;
     private float absTargetingMaxRotation = 75;
 
     private const float targetReachThreshold = 0.05f;
@@ -98,12 +98,44 @@ public class AnimalLimb
             absTargetingMaxRotation
         );
 
-        Vector3 newTargetPosition = pivot + (parentRotation * Quaternion.Euler(0, moveAngleDifference, 0) * limbData.targetPosOffset);
+        Vector3 newTargetPosition =
+            pivot + (parentRotation * Quaternion.Euler(0, moveAngleDifference, 0) * limbData.targetPosOffset);
+
+        newTargetPosition = ResolveTargetCollision(pivot, newTargetPosition);
 
         lastRootPos = pivot;
         lastMoveDir = moveDir;
 
         return newTargetPosition;
+    }
+
+
+    private Vector3 ResolveTargetCollision(Vector3 pivot, Vector3 target)
+    {
+        float radius = 0.25f;
+        float cushion = radius * 1.25f;
+        float stepBack = 0.05f;
+        int maxIterations = 10;
+
+        LayerMask obstacleMask = LayerMask.GetMask("Obstacles");
+        if (Physics.Linecast(pivot, target, out RaycastHit hit, obstacleMask))
+        {
+            // Ustaw target ZAWSZE po stronie root-jointa
+            Vector3 safePos = hit.point + hit.normal * cushion;
+
+            target = safePos;
+        }
+
+        for (int i = 0; i < maxIterations; i++)
+        {
+            if (!Physics.CheckSphere(target, radius, obstacleMask))
+                return target;
+
+            Vector3 dir = (pivot - target).normalized;
+            target += dir * stepBack;
+        }
+
+        return target;
     }
 
     public void CalculateTargetLerp()

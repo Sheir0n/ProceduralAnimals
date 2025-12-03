@@ -137,7 +137,7 @@ public class AnimalAnimator : MonoBehaviour
         if (isAnimalDisabled)
             pulls = 1;
 
-        float collisionRadius = 0.12f;
+        float collisionRadius = 0.15f;
         float pushFactor = 1f;
 
         for (int i = 0; i < pulls; i++)
@@ -145,8 +145,8 @@ public class AnimalAnimator : MonoBehaviour
             if (!isAnimalDisabled)
                 ForwardPass(jointChain, targetPos);
             BackwardPass(jointChain, parentJoint, rootOffset);
-
-            ApplyCollisionConstraints(jointChain, collisionRadius, pushFactor);
+            ResolveAllSegmentCollisions(jointChain, collisionRadius, pushFactor);
+            RebuildChainDistancesSafe(jointChain, collisionRadius);
         }
 
         if (doLerp)
@@ -173,7 +173,9 @@ public class AnimalAnimator : MonoBehaviour
 
             float radius = curr.segmentScale.magnitude * 0.12f;
             Vector3 pushOffset = CalculatePushOffset(next, curr, radius, pushFactor: 0.25f);
-            curr.SetPosition(curr.segmentPosition + pushOffset);
+            Vector3 newPos = curr.segmentPosition + pushOffset;
+            newPos.y = curr.segmentPosition.y;
+            curr.SetPosition(newPos);
         }
     }
 
@@ -196,7 +198,9 @@ public class AnimalAnimator : MonoBehaviour
 
             float radius = curr.segmentScale.magnitude * 0.12f;
             Vector3 pushOffset = CalculatePushOffset(prev, curr, radius, pushFactor: 0.25f);
-            curr.SetPosition(curr.segmentPosition + pushOffset);
+            Vector3 newPos = curr.segmentPosition + pushOffset;
+            newPos.y = curr.segmentPosition.y;
+            curr.SetPosition(newPos);
         }
     }
 
@@ -311,12 +315,17 @@ public class AnimalAnimator : MonoBehaviour
         {
             Vector3 closest = hit.ClosestPoint(targetPos);
             Vector3 dir = targetPos - closest;
-
+            dir.y = 0f;
             if (dir.sqrMagnitude < 0.0001f)
+            {
                 dir = targetPos - hit.bounds.center;
+                dir.y = 0f;
+            }
             dir.Normalize();
 
-            float penetration = radius - Vector3.Distance(targetPos, closest);
+            Vector2 targetXZ = new Vector2(targetPos.x, targetPos.z);
+            Vector2 closestXZ = new Vector2(closest.x, closest.z);
+            float penetration = radius - Vector2.Distance(targetXZ, closestXZ);
             if (penetration < 0f)
                 continue;
 
@@ -336,21 +345,6 @@ public class AnimalAnimator : MonoBehaviour
         return finalPos;
     }
 
-    private void ApplyCollisionConstraints(List<AnimalJoint> chain, float radius, float pushFactor)
-    {
-        for (int i = 1; i < chain.Count; i++)
-        {
-            AnimalJoint prev = chain[i - 1];
-            AnimalJoint curr = chain[i];
-
-            if (SegmentHitsObstacle(curr.segmentPosition, radius))
-            {
-                Vector3 direction = (curr.segmentPosition - prev.segmentPosition).normalized;
-                Vector3 pushOffset = CalculatePushOffset(prev, curr, radius, pushFactor);
-                curr.SetPosition(prev.segmentPosition + direction * curr.distanceConstraint + pushOffset);
-            }
-        }
-    }
     private Vector3 CalculatePushOffset(AnimalJoint prevSegment, AnimalJoint currSegment, float radius, float pushFactor)
     {
         Vector3 checkPos = currSegment.segmentPosition;
@@ -358,17 +352,23 @@ public class AnimalAnimator : MonoBehaviour
         if (hits.Length == 0) return Vector3.zero;
 
         Vector3 totalPush = Vector3.zero;
-        const float MIN_PUSH = 0.05f;
+        const float MIN_PUSH = 0.25f;
 
         foreach (var hit in hits)
         {
             Vector3 closest = hit.ClosestPoint(checkPos);
-            Vector3 dir = (checkPos - closest);
+            Vector3 dir = checkPos - closest;
+            dir.y = 0f;
             if (dir.sqrMagnitude < 0.0001f)
+            {
                 dir = checkPos - hit.bounds.center;
+                dir.y = 0f;
+            }
             dir.Normalize();
 
-            float penetration = radius - Vector3.Distance(checkPos, closest);
+            Vector2 posXZ = new Vector2(checkPos.x, checkPos.z);
+            Vector2 closestXZ = new Vector2(closest.x, closest.z);
+            float penetration = radius - Vector2.Distance(posXZ, closestXZ);
             if (penetration <= 0f) continue;
 
             totalPush += dir * Mathf.Max(MIN_PUSH, penetration);
@@ -376,5 +376,102 @@ public class AnimalAnimator : MonoBehaviour
 
         Vector3 along = (currSegment.segmentPosition - prevSegment.segmentPosition).normalized;
         return Vector3.ProjectOnPlane(totalPush, along) * pushFactor;
+    }
+
+    private void ResolveAllSegmentCollisions(List<AnimalJoint> chain, float radius, float pushFactor)
+    {
+        for (int i = 0; i < chain.Count; i++)
+        {
+            AnimalJoint curr = chain[i];
+            Collider[] hits = Physics.OverlapSphere(curr.segmentPosition, radius, LayerMask.GetMask("Obstacles"));
+            if (hits.Length == 0) continue;
+
+            Vector3 totalPush = Vector3.zero;
+
+            foreach (var hit in hits)
+            {
+                Vector3 closest = hit.ClosestPoint(curr.segmentPosition);
+                Vector3 dir = curr.segmentPosition - closest;
+                dir.y = 0f;
+
+                if (dir.sqrMagnitude < 0.0001f)
+                {
+                    dir = curr.segmentPosition - hit.bounds.center;
+                    dir.y = 0f;
+                }
+
+                Vector2 currXZ = new Vector2(curr.segmentPosition.x, curr.segmentPosition.z);
+                Vector2 closestXZ = new Vector2(closest.x, closest.z);
+                float penetration = radius - Vector2.Distance(currXZ, closestXZ);
+                if (penetration > 0f)
+                    totalPush += dir.normalized * penetration;
+            }
+
+            if (totalPush.sqrMagnitude > 0.0001f)
+            {
+                Vector3 newPos = curr.segmentPosition + totalPush * pushFactor;
+                curr.SetPosition(Vector3.Lerp(curr.segmentPosition, newPos, 0.35f));
+            }
+        }
+    }
+
+    private void RebuildChainDistancesSafe(List<AnimalJoint> chain, float radius)
+    {
+        LayerMask mask = LayerMask.GetMask("Obstacles");
+
+        for (int i = 1; i < chain.Count; i++)
+        {
+            AnimalJoint prev = chain[i - 1];
+            AnimalJoint curr = chain[i];
+
+            Vector3 dir = curr.segmentPosition - prev.segmentPosition;
+            dir.y = 0f;
+            dir = dir.normalized;
+
+            Vector3 newPos = prev.segmentPosition + dir * curr.distanceConstraint;
+            // Y BLOKOWANY DO PREV:
+            newPos.y = prev.segmentPosition.y;
+            curr.SetPosition(newPos);
+
+            int safety = 0;
+            while (Physics.CheckSphere(curr.segmentPosition, radius, mask))
+            {
+                Collider[] hits = Physics.OverlapSphere(curr.segmentPosition, radius, mask);
+
+                Vector3 correction = Vector3.zero;
+
+                foreach (var h in hits)
+                {
+                    Vector3 closest = h.ClosestPoint(curr.segmentPosition);
+                    Vector3 push = curr.segmentPosition - closest;
+                    push.y = 0f;
+
+                    if (push.sqrMagnitude < 0.0001f)
+                    {
+                        push = curr.segmentPosition - h.bounds.center;
+                        push.y = 0f;
+                    }
+
+                    Vector2 currXZ = new Vector2(curr.segmentPosition.x, curr.segmentPosition.z);
+                    Vector2 closestXZ = new Vector2(closest.x, closest.z);
+                    float penetration = radius - Vector2.Distance(currXZ, closestXZ);
+                    if (penetration > 0f)
+                        correction += push.normalized * penetration;
+                }
+
+                curr.SetPosition(curr.segmentPosition + correction);
+
+                dir = curr.segmentPosition - prev.segmentPosition;
+                dir.y = 0f;
+                dir = dir.normalized;
+
+                Vector3 fixedPos = prev.segmentPosition + dir * curr.distanceConstraint;
+                fixedPos.y = prev.segmentPosition.y;
+                curr.SetPosition(fixedPos);
+
+                safety++;
+                if (safety > 6) break;
+            }
+        }
     }
 }
