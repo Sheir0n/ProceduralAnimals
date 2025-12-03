@@ -31,8 +31,11 @@ public class AnimalLimb
     private Vector3 lastMoveDir = Vector3.zero;
     private float limbTargetingCooldownInMs = 250;
     private float currLimbTargetingTimeMs = 0;
-    private float targetLerpSpeed = 50;
+    private float targetLerpSpeed = 45;
     private float absTargetingMaxRotation = 75;
+
+    private const float targetReachThreshold = 0.05f;
+    private const float targetAngleThreshold = 1f;
 
     public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints, AnimalJoint _parentJoint, int _limbId)
     {
@@ -47,43 +50,59 @@ public class AnimalLimb
 
     public void UpdateLimbTarget(bool lerp)
     {
-        AnimalJoint rootJoint = joints[0];
+        AnimalJoint tipSegment = joints[^1];
+        float distanceToTip = Vector3.Distance(tipSegment.segmentPosition, targetPosition);
+
+        if (distanceToTip < targetReachThreshold)
+        {
+            CalculateTargetLerp();
+            return;
+        }
+
         if (currLimbTargetingTimeMs >= limbTargetingCooldownInMs)
         {
             Vector3 newTargetPosition = GetNewTargetPos();
-            currLimbTargetingTimeMs = 0;
+            float distanceDiff = Vector3.Distance(newTargetPosition, targetPosition);
+            float angleDiff = Vector3.Angle((newTargetPosition - joints[0].segmentPosition).normalized,
+                                            (targetPosition - joints[0].segmentPosition).normalized);
 
+            if (distanceDiff > targetReachThreshold || angleDiff > targetAngleThreshold)
+            {
+                targetPosition = newTargetPosition;
 
-            if (!lerp)
-                targetLerpPosition = newTargetPosition;
-            targetPosition = newTargetPosition;
+                if (!lerp)
+                    targetLerpPosition = newTargetPosition;
+
+                currLimbTargetingTimeMs = 0;
+            }
         }
+        CalculateTargetLerp();
     }
 
     public Vector3 GetNewTargetPos()
     {
-        AnimalJoint rootJoint = joints[0];
-        Vector3 pivot = rootJoint.segmentPosition;
+        Vector3 pivot = joints[0].segmentPosition;
         Vector3 moveDir = pivot - lastRootPos;
         moveDir.y = 0f;
 
-        if (moveDir.sqrMagnitude > 0.001f)
-            moveDir.Normalize();
-        else
-        {
+        if (moveDir.sqrMagnitude < 0.001f)
             moveDir = lastMoveDir;
-            pivot = lastRootPos;
-        }
 
         float moveAngleY = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
         Quaternion moveRotation = Quaternion.Euler(0f, moveAngleY, 0f);
         Quaternion parentRotation = Quaternion.Euler(0f, parentJoint.segmentRotation.eulerAngles.y, 0f);
-        float moveAngleDifference = Mathf.Clamp(GetSignedAngle(parentRotation, moveRotation, Vector3.up), -absTargetingMaxRotation, absTargetingMaxRotation);
+
+        float moveAngleDifference = Mathf.Clamp(
+            GetSignedAngle(parentRotation, moveRotation, Vector3.up),
+            -absTargetingMaxRotation,
+            absTargetingMaxRotation
+        );
 
         Vector3 newTargetPosition = pivot + (parentRotation * Quaternion.Euler(0, moveAngleDifference, 0) * limbData.targetPosOffset);
 
         lastRootPos = pivot;
         lastMoveDir = moveDir;
+
         return newTargetPosition;
     }
 

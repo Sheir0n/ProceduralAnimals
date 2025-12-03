@@ -18,7 +18,7 @@ public class LizardAnimator : AnimalAnimator
         eventHub.OnHeadDataRequest += GetLookCenter;
     }
 
-    private void Update()
+    protected override void Update()
     {
         if (joints == null || joints.Count == 0)
         {
@@ -46,6 +46,14 @@ public class LizardAnimator : AnimalAnimator
         if (limbs.Count < 4)
             return;
 
+        AnimalJoint tipSegment = currLimb.joints[^1];
+        float distanceToTarget = Vector3.Distance(tipSegment.segmentPosition, currLimb.targetLerpPosition);
+        if (distanceToTarget < 0.01f)
+        {
+            currLimb.CalculateTargetLerp();
+            return;
+        }
+
         Vector3 targetPos = currLimb.targetPosition;
         Vector3 newTargetPosition = currLimb.GetNewTargetPos();
         float maxDistance = currLimb.limbData.maxReachDistance;
@@ -69,7 +77,9 @@ public class LizardAnimator : AnimalAnimator
                 }
             }
             else
+            {
                 currLimb.UpdateLimbTarget(lerp: true);
+            }
         }
     }
 
@@ -130,7 +140,7 @@ public class LizardAnimator : AnimalAnimator
             float pushRadius = 0.25f * curr.segmentScale.x;
             if (SegmentHitsObstacle(targetPos, pushRadius))
             {
-                targetPos = PushBodyFromObstacle(prev, targetPos, pushRadius, 0.25f);
+                targetPos = PushBodyFromObstacle(prev, targetPos, pushRadius, pushFactor: 0.25f, callEvent: true);
             }
 
             curr.SetRotation(globalRot);
