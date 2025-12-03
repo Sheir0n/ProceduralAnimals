@@ -130,6 +130,22 @@ public class AnimalAnimator : MonoBehaviour
         int chainPullCount = 10;
 
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
+
+        //odepchniêcie g³owy
+        for (int i = 1; i < head.headJoints.Count; i++)
+        {
+            AnimalJoint prevSegment = head.headJoints[i - 1];
+            AnimalJoint currSegment = head.headJoints[i];
+
+            float baseRadius = 0.25f;
+            float pushFactor = 0.25f;
+            float radius = currSegment.segmentScale.magnitude * baseRadius;
+
+            if (SegmentHitsObstacle(currSegment.segmentPosition, radius))
+            {
+                Vector3 pushed = PushBodyFromObstacle(prevSegment, currSegment.segmentPosition, radius, pushFactor, callEvent: true);
+            }
+        }
     }
 
     protected void CalculateFabrikTransforms(List<AnimalJoint> jointChain, AnimalJoint parentJoint, Vector3 targetPos, Vector3 rootOffset, int pulls, bool doLerp)

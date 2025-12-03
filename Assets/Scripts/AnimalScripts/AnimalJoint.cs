@@ -47,7 +47,7 @@ public class AnimalJoint : MonoBehaviour
 
     public void UpdateSegmentTransform()
     {
-        transform.rotation = segmentRotation;
+        transform.rotation = Quaternion.Euler(90f, segmentRotation.eulerAngles.y, 0f);
         segmentLerpRotation = segmentRotation;
         transform.position = segmentPosition;
         segmentLerpPosition = segmentPosition;
