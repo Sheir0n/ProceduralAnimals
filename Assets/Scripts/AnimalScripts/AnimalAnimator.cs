@@ -300,11 +300,11 @@ public class AnimalAnimator : MonoBehaviour
         }
     }
 
-    public CapsuleCollider GetAnimalMouthCollider()
-    {
-        if (head == null)
-            return null;
+    //public CapsuleCollider GetAnimalMouthCollider()
+    //{
+    //    if (head == null)
+    //        return null;
 
-        return head.mouthCollider;
-    }
+    //    return head.mouthCollider;
+    //}
 }

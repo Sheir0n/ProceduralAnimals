@@ -35,8 +35,6 @@ public class AnimalHead
     private float lookLerpAngle = 0f;
     private float lerpSpeed = 15f;
     public AnimalJoint parentJoint { get; private set; }
-
-    public CapsuleCollider mouthCollider { get; private set; }
     public AnimalHead(List<AnimalJoint> _joints, AnimalJoint _parentJoint, AnimalHeadData _data)
     {
         headData = _data;
@@ -81,28 +79,6 @@ public class AnimalHead
     public HeadCenterData GetLerpedLook(int segmentId)
     {
         return new HeadCenterData(headJoints[segmentId].segmentPosition, headJoints.Last().segmentLerpRotation * -Vector3.up);
-    }
-
-    public void AttachMouthCollider(GameObject mouthCollider, int segmentId)
-    {
-        if (mouthCollider == null)
-        {
-            Debug.Log("Cant attach mouth collider - not specified!");
-            return;
-        }
-        if(segmentId < 0 || segmentId > headJoints.Count)
-        {
-            Debug.Log("Cant attach mouth collider - id not in joint range!");
-            return;
-        }
-
-
-        Transform parent = headJoints[segmentId].transform;
-        mouthCollider.transform.SetParent(parent, false);
-        mouthCollider.transform.localPosition = Vector3.zero;
-        mouthCollider.transform.localScale = Vector3.one;
-        
-        this.mouthCollider = mouthCollider.GetComponent<CapsuleCollider>();
     }
 }
 

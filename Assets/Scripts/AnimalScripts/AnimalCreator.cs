@@ -25,25 +25,66 @@ public class AnimalCreator : MonoBehaviour
     AnimalAnimator animatorScript;
 
     [Header("Segment Datas")]
-    [SerializeField] protected List<SegmentData> spineSegmentData = new List<SegmentData>();
-    [SerializeField] protected List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
-    [SerializeField] protected AnimalHeadData animalHeadData;
+    //[SerializeField] protected List<SegmentData> spineSegmentData = new List<SegmentData>();
+    //[SerializeField] protected List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
+    //[SerializeField] protected AnimalHeadData animalHeadData;
+
+    [SerializeField] private ScriptableCreator creatorData;
 
     protected List<AnimalJoint> spineJoints = new List<AnimalJoint>();
     protected List<AnimalLimb> limbs = new List<AnimalLimb>();
     protected AnimalHead animalHead;
+    protected CapsuleCollider mouthCollider;
 
     protected void Awake()
     {
         animatorScript = GetComponent<AnimalAnimator>();
     }
+
+    void Start()
+    {
+        Debug.Log("GENERATING");
+        bool hasHead = false;
+        GenerateBody();
+        if (creatorData.animalHeadData.joints.Count > 0)
+        {
+            GenerateHead();
+            hasHead = true;
+        }
+        if (creatorData.animalLimbData.Count > 0)
+            GenerateLimbs();
+        if (creatorData.mouthColliderPrefab is null)
+        {
+            Debug.LogWarning(this + "Mouth collider not specified! Returning early.");
+            return;
+        }
+
+        if (creatorData.attachMouthToHeadSegment && hasHead)
+        {
+            if (hasHead)
+            {
+                GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
+                AttachMouthCollider(animalHead.headJoints,mouthCollider, creatorData.mouthParentId);
+                mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+            }
+            else
+                Debug.LogWarning(this + "Trying to attach mouth collider whan animal has no head! Select attach to body!");
+        }
+        else
+        {
+            GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
+            AttachMouthCollider(spineJoints, mouthCollider, creatorData.mouthParentId);
+            mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+        }
+    }
+
     public void GenerateBody()
     {
         Transform masterTransform = transform;
         Vector3 positionOffset = Vector3.zero;
         int nameId = 0;
 
-        foreach (SegmentData currSegmentData in spineSegmentData)
+        foreach (SegmentData currSegmentData in creatorData.spineSegmentData)
         {
             for (int i = 0; i < currSegmentData.jointCount; i++)
             {
@@ -61,11 +102,11 @@ public class AnimalCreator : MonoBehaviour
     public void GenerateHead()
     {
         Transform masterTransform = transform;
-        Vector3 positionOffset = animalHeadData.headParentOffset;
+        Vector3 positionOffset = creatorData.animalHeadData.headParentOffset;
         List<AnimalJoint> headJoints = new List<AnimalJoint>();
 
         int nameId = 0;
-        foreach (SegmentData currSegmentData in animalHeadData.joints)
+        foreach (SegmentData currSegmentData in creatorData.animalHeadData.joints)
         {
             for (int i = 0; i < currSegmentData.jointCount; i++)
             {
@@ -76,7 +117,7 @@ public class AnimalCreator : MonoBehaviour
                 positionOffset += new Vector3(0, 0, 1f * segmentScale * currSegmentData.distanceConstraint);
             }
         }
-        animalHead = new AnimalHead(headJoints, spineJoints[0], animalHeadData);
+        animalHead = new AnimalHead(headJoints, spineJoints[0], creatorData.animalHeadData);
         animatorScript.SetHead(animalHead);
     }
 
@@ -85,7 +126,7 @@ public class AnimalCreator : MonoBehaviour
         Transform masterTransform = transform;
         int limbId = 0;
 
-        foreach (AnimalLimbData currLimbData in animalLimbData)
+        foreach (AnimalLimbData currLimbData in creatorData.animalLimbData)
         {
             Vector3 positionOffset = spineJoints[currLimbData.parentJointId].segmentPosition + currLimbData.parentPositionOffset - masterTransform.position;
 
@@ -122,5 +163,26 @@ public class AnimalCreator : MonoBehaviour
         segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, iteration);
 
         return segmentScript;
+    }
+
+    public void AttachMouthCollider(List<AnimalJoint> attachChain, GameObject mouthCollider, int segmentId)
+    {
+        if (mouthCollider == null)
+        {
+            Debug.Log("Cant attach mouth collider - not specified!");
+            return;
+        }
+        if (segmentId < 0 || segmentId > attachChain.Count)
+        {
+            Debug.Log("Cant attach mouth collider - id not in joint range!");
+            return;
+        }
+
+        Transform parent = attachChain[segmentId].transform;
+        mouthCollider.transform.SetParent(parent, false);
+        mouthCollider.transform.localPosition = Vector3.zero;
+        mouthCollider.transform.localScale = Vector3.one;
+
+        this.mouthCollider = mouthCollider.GetComponent<CapsuleCollider>();
     }
 }
