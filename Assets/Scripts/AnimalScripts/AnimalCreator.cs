@@ -64,7 +64,7 @@ public class AnimalCreator : MonoBehaviour
             if (hasHead)
             {
                 GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
-                AttachMouthCollider(animalHead.headJoints,mouthCollider, creatorData.mouthParentId);
+                AttachMouthCollider(animalHead.headJoints, mouthCollider, creatorData.mouthParentId);
                 mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
             }
             else
@@ -72,9 +72,12 @@ public class AnimalCreator : MonoBehaviour
         }
         else
         {
-            GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
-            AttachMouthCollider(spineJoints, mouthCollider, creatorData.mouthParentId);
-            mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+            if (creatorData.mouthColliderPrefab != null)
+            {
+                GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
+                AttachMouthCollider(spineJoints, mouthCollider, creatorData.mouthParentId);
+                mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+            }
         }
     }
 

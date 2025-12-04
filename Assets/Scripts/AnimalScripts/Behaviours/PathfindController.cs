@@ -61,7 +61,7 @@ public class PathfindController : MonoBehaviour
         if (pendingPush.magnitude > 0.01f)
             if (pendingPush.magnitude > 0.01f)
             {
-                float basePushSpeed = 1.5f;
+                float basePushSpeed = 2f;
                 float scaledSpeed = basePushSpeed * pendingPush.magnitude;
 
                 float moveStep = Mathf.Min(pendingPush.magnitude, scaledSpeed * Time.deltaTime);
@@ -140,7 +140,7 @@ public class PathfindController : MonoBehaviour
     {
         if (pendingPush.sqrMagnitude > 0.00001f)
         {
-            pendingPush *= 0.80f;
+            pendingPush *= 0.75f;
         }
     }
 

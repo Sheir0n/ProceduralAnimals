@@ -29,7 +29,7 @@ public class AnimalLimb
 
     private Vector3 lastRootPos = Vector3.zero;
     private Vector3 lastMoveDir = Vector3.zero;
-    private float limbTargetingCooldownInMs = 250;
+    private float limbTargetingCooldownInMs = 150;
     private float currLimbTargetingTimeMs = 0;
     private float targetLerpSpeed = 45;
     private float absTargetingMaxRotation = 75;
