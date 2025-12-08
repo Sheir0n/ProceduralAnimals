@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.Rendering.HableCurve;
 
 [System.Serializable]
 public class AnimalLimbData
@@ -76,6 +73,7 @@ public class AnimalLimb
                 currLimbTargetingTimeMs = 0;
             }
         }
+        DetectInaccesibleTargetPoint();
         CalculateTargetLerp();
     }
 
@@ -123,5 +121,59 @@ public class AnimalLimb
         float angle = Vector3.Angle(fromDir, toDir);
         float sign = Mathf.Sign(Vector3.Dot(Vector3.Cross(fromDir, toDir), axis));
         return angle * sign;
+    }
+
+
+    private void DetectInaccesibleTargetPoint()
+    {
+        float overlapRadius = 0.05f;
+        var hits = Physics.OverlapSphere(targetPosition, overlapRadius, LayerMask.GetMask("Obstacles"));
+        if (hits.Length == 0)
+            return;
+
+        foreach (var hit in hits)
+        {
+            if (hit is CapsuleCollider capsule)
+            {
+                targetPosition = FixTargetPoint(capsule, targetPosition);
+            }
+        }
+    }
+
+    private Vector3 FixTargetPoint(CapsuleCollider capsule, Vector3 pos)
+    {
+        float origY = pos.y;
+
+        Vector3 rootXZ = new Vector3(parentJoint.segmentPosition.x, 0, parentJoint.segmentPosition.z);
+        Vector3 capCenterXZ = new Vector3(capsule.transform.position.x, 0f, capsule.transform.position.z); ;
+        Vector3 posXZ = new Vector3(pos.x, 0f, pos.z);
+        float capsuleRadiusXZ = capsule.radius * Mathf.Max(capsule.transform.lossyScale.x, capsule.transform.lossyScale.z);
+
+        Vector3 dir = (rootXZ - capCenterXZ);
+        if (dir.sqrMagnitude < 0.0001f)
+            dir = Vector3.forward;
+
+        dir.Normalize();
+        Vector3 targetOnEdge = capCenterXZ + dir * capsuleRadiusXZ;
+        targetOnEdge.y = origY;
+
+        return targetOnEdge;
+    }
+
+    public void DrawGizmos()
+    {
+        if (joints == null || joints.Count == 0)
+            return;
+
+        Vector3 root = joints[0].segmentPosition;
+        Gizmos.color = UnityEngine.Color.yellow;
+        Gizmos.DrawLine(root, targetPosition);
+
+        Gizmos.color = UnityEngine.Color.red;
+        Gizmos.DrawSphere(targetPosition, 0.05f);
+
+        Gizmos.color = UnityEngine.Color.cyan;
+        Gizmos.DrawLine(root, targetLerpPosition);
+        Gizmos.DrawSphere(targetLerpPosition, 0.04f);
     }
 }

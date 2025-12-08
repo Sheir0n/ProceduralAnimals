@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using static AnimalAI;
@@ -410,5 +411,14 @@ public class AnimalAnimator : MonoBehaviour
         newPos.y = origY;
 
         return newPos;
+    }
+
+    public void OnDrawGizmos()
+    {
+        if (limbs == null)
+            return;
+
+        foreach (var limb in limbs)
+            limb?.DrawGizmos();
     }
 }
