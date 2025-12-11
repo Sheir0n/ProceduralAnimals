@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e82e356521cf0479e44cf02d04db5f, type: 3}
+  m_Name: LizardTrackerTagData
+  m_EditorClassIdentifier: 
+  lookTrackerTags:
+  - tag: Rock
+    importance: 0.4
+    memoryTimeInSec: 2
+    forgetMinRange: 0
+    maxTrackDistance: 10
+    objectType: 1
+  - tag: Lizard
+    importance: 0.6
+    memoryTimeInSec: 2
+    forgetMinRange: 0
+    maxTrackDistance: 15
+    objectType: 4
+  - tag: Beetle
+    importance: 0.7
+    memoryTimeInSec: 2
+    forgetMinRange: 0
+    maxTrackDistance: 20
+    objectType: 2
+  fearTrackerTags: []
+  foodTrackerTags: []

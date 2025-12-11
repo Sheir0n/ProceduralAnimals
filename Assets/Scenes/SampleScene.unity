@@ -468,6 +468,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,6 +780,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -887,6 +899,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: trackersData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b077a2fe54472748851a19970ebb83b,
+        type: 2}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
@@ -1114,6 +1138,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: trackersData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b077a2fe54472748851a19970ebb83b,
+        type: 2}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
@@ -1155,6 +1191,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1508,6 +1550,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1660,6 +1708,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1945,6 +1999,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2541,6 +2601,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: trackersData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b077a2fe54472748851a19970ebb83b,
+        type: 2}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
@@ -2705,6 +2777,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2773,6 +2851,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3013,9 +3097,21 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
+      propertyPath: trackersData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
       propertyPath: isPlayerControlled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: stats.baseMaxStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b077a2fe54472748851a19970ebb83b,
+        type: 2}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name

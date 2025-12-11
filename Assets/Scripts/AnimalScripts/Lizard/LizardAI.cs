@@ -21,13 +21,7 @@ public class LizardAI : AnimalAI
     private int biteDamage = 2;
     private int biteDashDuration = 1500;
 
-    private List<Transform> interestSpots = new List<Transform>();
-
-    private float interestSpotResetTimer = 0;
-    private const float interestResetCooldownMs = 450;
-
     private bool clearedMemoryOnDeath = false;
-    private const int maxInterestDistance = 20;
 
     private IDamageable carriedPrey;
 
@@ -46,15 +40,12 @@ public class LizardAI : AnimalAI
 
         currAction = actionByEnum[AIAction.Rest];
 
-        eventHub.OnNewInterestSpotFound += AddNewInterestSpot;
-        eventHub.OnInterestLookTarget += GetBestInterestSpot;
         eventHub.OnAnnouncePreyCaught += OnPreyCaught;
     }
 
     protected override void Update()
     {
         base.Update();
-        GetBestInterestSpot();
     }
 
     protected void LateUpdate()
@@ -62,78 +53,6 @@ public class LizardAI : AnimalAI
         if (enumByAction[currAction] == AIAction.Death && !clearedMemoryOnDeath)
         {
             clearedMemoryOnDeath = true;
-            interestSpots.Clear();
-        }
-        else
-            ResetInterestOnIntervalMs();
-    }
-
-    private void AddNewInterestSpot(Transform interestPoint)
-    {
-        if (interestSpots.Contains(interestPoint))
-            return;
-
-        interestSpots.Add(interestPoint);
-    }
-
-    private void ResetInterestOnIntervalMs()
-    {
-        if (interestSpots.Count() > 0)
-            interestSpotResetTimer += Time.deltaTime * 1000;
-        else
-        {
-            interestSpotResetTimer = 0;
-            return;
-        }
-
-        if (interestSpotResetTimer > interestResetCooldownMs)
-        {
-            interestSpotResetTimer = 0;
-            interestSpots.Clear();
-        }
-    }
-
-    private LookTarget GetBestInterestSpot()
-    {
-        Transform best = null;
-        float highscore = 0;
-        foreach (Transform spot in interestSpots)
-        {
-            Vector3 position = new Vector3(transform.position.x, 0, transform.position.z);
-            Vector3 spotPosition = new Vector3(spot.position.x, 0, spot.position.z);
-
-            float distance = Mathf.Sqrt((transform.position - spotPosition).sqrMagnitude);
-            float score = Mathf.Clamp((maxInterestDistance - distance) / 2, 0, 10);
-
-            if (spot.CompareTag("Rock"))
-            {
-                score += 8 * (1 - (stats.energy / stats.maxEnergy)) * (0.5f + (1 - stats.statVigor));
-            }
-            else if (spot.CompareTag("Lizard"))
-            {
-                score += 8 * (0.5f + stats.statAggressiveness);
-            }
-            else if (spot.CompareTag("Beetle"))
-            {
-                score += 10 * (0.5f + (1 - (stats.saturation / stats.maxSaturation)));
-            }
-
-            if (score > highscore && score > 15 - (5 * stats.statCuriosity))
-            {
-                highscore = score;
-                best = spot;
-            }
-        }
-
-        if (best == null)
-        {
-            LookTarget target = new LookTarget(transform.position, isLooking: false);
-            return target;
-        }
-        else
-        {
-            LookTarget target = new LookTarget(best.position, isLooking: true);
-            return target;
         }
     }
 

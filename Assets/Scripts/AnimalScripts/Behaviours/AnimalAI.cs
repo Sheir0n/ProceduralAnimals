@@ -3,59 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AI;
-
-public interface IReadOnlyAnimalStats
-{
-    float Health { get; }
-    float Saturation { get; }
-    float Energy { get; }
-
-    float MaxHealth { get; }
-    float MaxSaturation { get; }
-    float MaxEnergy { get; }
-
-    float StatVigor { get; }
-    float StatAggressiveness { get; }
-    float StatCuriosity { get; }
-    float StatDominance { get; }
-}
-
-
-[System.Serializable]
-public class AnimalStats : IReadOnlyAnimalStats
-{
-    [Header("General Variables")]
-    public float health;
-    public float saturation;
-    public float energy;
-
-    [Header("Variable limits")]
-    public float maxHealth;
-    public float maxSaturation;
-    public float maxEnergy;
-
-    [Header("Behaviour modifiers (0-1)")]
-    [Range(0.01f, 0.99f)] public float statVigor;
-    [Range(0.01f, 0.99f)] public float statAggressiveness;
-    [Range(0.01f, 0.99f)] public float statCuriosity;
-    [Range(0.01f, 0.99f)] public float statDominance;
-
-    float IReadOnlyAnimalStats.Health => health;
-    float IReadOnlyAnimalStats.Saturation => saturation;
-    float IReadOnlyAnimalStats.Energy => energy;
-
-    float IReadOnlyAnimalStats.MaxHealth => maxHealth;
-    float IReadOnlyAnimalStats.MaxSaturation => maxSaturation;
-    float IReadOnlyAnimalStats.MaxEnergy => maxEnergy;
-
-    float IReadOnlyAnimalStats.StatVigor => statVigor;
-    float IReadOnlyAnimalStats.StatAggressiveness => statAggressiveness;
-    float IReadOnlyAnimalStats.StatCuriosity => statCuriosity;
-    float IReadOnlyAnimalStats.StatDominance => statDominance;
-}
 
 public class AnimalAI : MonoBehaviour, IDamageable
 {
@@ -70,6 +21,11 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
     [Header("Show StateChange logs")]
     [SerializeField] private bool showStateChangeLogs = false;
+
+    //Datas
+    [SerializeField] TrackerTags trackersData;
+    InterestTracker interestTracker;
+    //[SerializeField] 
 
 
     //UtilityAction controllers
@@ -103,12 +59,16 @@ public class AnimalAI : MonoBehaviour, IDamageable
         animator = GetComponent<AnimalAnimator>();
         pathfindController = GetComponent<PathfindController>();
 
-        GenerateStats();
+        stats.GenerateStats();
 
         actionByEnum = new Dictionary<AIAction, IUtilityAction>();
         enumByAction = new Dictionary<IUtilityAction, AIAction>();
 
         AddNewAction(new DeathController(pathfindController, animator), AIAction.Death);
+
+        if(trackersData == null)
+            trackersData = ScriptableObject.CreateInstance<TrackerTags>();
+        interestTracker = new InterestTracker(trackersData.lookTrackerTags, transform, eventHub, stats);
     }
 
     protected virtual void Start()
@@ -145,7 +105,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
         {
             action.AlwaysUpdate();
         }
+
         currAction.Update();
+        interestTracker.OnUpdate();
     }
 
     protected void AddNewAction(IUtilityAction action, AIAction actionEnum)
@@ -154,42 +116,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
         enumByAction.Add(action, actionEnum);
         actionByEnum.Add(actionEnum, action);
     }
-
-    protected void GenerateStats()
-    {
-        if (!ignoreSeed)
-        {
-            if (useStaticSeed)
-            {
-                Debug.Log("Created new animal with static seed: " + seed);
-            }
-            else
-            {
-                seed = UnityEngine.Random.Range(1, 99999);
-                Debug.Log("Created new animal with seed: " + seed);
-            }
-
-            System.Random rng = new System.Random(seed);
-            stats.statVigor = GetRandom(rng, 0.01f, 0.99f);
-            stats.statAggressiveness = GetRandom(rng, 0.01f, 0.99f);
-            stats.statCuriosity = GetRandom(rng, 0.01f, 0.99f);
-            stats.statDominance = GetRandom(rng, 0.01f, 0.99f);
-
-            stats.maxHealth *= 1 + statMultiplierMaxRandomness * GetRandom(rng, -1, 1);
-            stats.maxSaturation *= 1 + statMultiplierMaxRandomness * GetRandom(rng, -1, 1);
-            stats.maxEnergy *= 1 + statMultiplierMaxRandomness * GetRandom(rng, -1, 1);
-        }
-        else
-        {
-            Debug.Log("Created new animal without seed");
-            seed = 0;
-        }
-
-        stats.health = stats.maxHealth;
-        stats.saturation = stats.maxSaturation;
-        stats.energy = stats.maxEnergy;
-    }
-
 
     protected virtual IUtilityAction GetHighestUtilityAction()
     {
@@ -275,4 +201,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
             //transform.GetComponent<Collider>().enabled = false;
         }
     }
+
+
 }
