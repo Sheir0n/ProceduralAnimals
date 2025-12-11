@@ -27,6 +27,18 @@ public class TrackerTarget<TData> where TData : TrackerData
     }
 }
 
+public struct TrackedWithScore
+{
+    public Transform tracked;
+    public float score;
+
+    public TrackedWithScore(Transform tracked, float score)
+    {
+        this.tracked = tracked;
+        this.score = score;
+    }
+}
+
 public abstract class DefaultTracker<TData, TTarget>
     where TData : TrackerData
     where TTarget : TrackerTarget<TData>
@@ -74,7 +86,7 @@ public abstract class DefaultTracker<TData, TTarget>
 
     protected abstract TTarget CreateTarget(Transform target, TData data);
 
-    protected abstract Transform GetMostImportantTracked();
+    protected abstract TrackedWithScore GetMostImportantTracked();
 
     private void UpdateHuntTargetMemory()
     {

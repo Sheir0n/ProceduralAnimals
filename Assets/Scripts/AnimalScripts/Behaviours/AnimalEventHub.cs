@@ -12,9 +12,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<IReadOnlyAnimalStats> OnInitializeStats;
     public event Action<AIAction> OnActionChanged;
     public event Action<Vector3> OnSegmentCollision;
-    public event Action<Transform> OnNewRestSpotFound;
-    public event Action<Transform> OnNewInterestSpotFound;
-    public event Action<Transform> OnNewHuntTargetFound;
+    public event Action<Transform> OnNewInterestFound;
     public event Action<Collider> OnAttemptBite;
     public event Action<BiteAttackStage> OnBiteAttack;
     public event Action<IDamageable> OnAnnouncePreyCaught;
@@ -25,8 +23,8 @@ public class AnimalEventHub : MonoBehaviour
     public event Func<HeadCenterData> OnHeadDataRequest; // senses <= animator (current lerped look for vision cone)
     public event Func<Transform> OnNearestRestSpotRequest;
     public event Func<bool> OnIsOnRestSpotRequest;
-    public event Func<Transform> OnNearestHuntTargetRequest;
     public event Func<AnimalMouthCollider> OnMouthHookRequest;
+    public event Func<TrackedWithScore> OnTrackedPreyRequest;
 
     private const int pushEventLimit = 5;
     private int currPushEventCount = 0;
@@ -52,12 +50,10 @@ public class AnimalEventHub : MonoBehaviour
     public HeadCenterData RequestHeadData() => OnHeadDataRequest?.Invoke() ?? new HeadCenterData(transform.position, transform.forward);
     public Transform FindNearestRestSpot() => OnNearestRestSpotRequest?.Invoke();
     public bool IsOnRestSpot() => OnIsOnRestSpotRequest?.Invoke() ?? false;
-    public void NewRestSpotFound(Transform restTransform) => OnNewRestSpotFound?.Invoke(restTransform);
-    public void NewInterestSpotFound(Transform interestTransform) => OnNewInterestSpotFound?.Invoke(interestTransform);
-    public void NewHuntTargetFound(Transform interestTransform) => OnNewHuntTargetFound?.Invoke(interestTransform);
-    public Transform FindNearestHuntTarget() => OnNearestHuntTargetRequest?.Invoke();
+    public void NewInterestFound(Transform interestTransform) => OnNewInterestFound?.Invoke(interestTransform);
     public void AttemptBite(Collider other) => OnAttemptBite?.Invoke(other);
     public AnimalMouthCollider GetAnimalMouth() => OnMouthHookRequest?.Invoke();
     public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);
     public void AnnouncePreyCaught(IDamageable prey) => OnAnnouncePreyCaught?.Invoke(prey);
+    public TrackedWithScore RequestTrackedPrey() => OnTrackedPreyRequest?.Invoke() ?? new TrackedWithScore(null,0);
 }

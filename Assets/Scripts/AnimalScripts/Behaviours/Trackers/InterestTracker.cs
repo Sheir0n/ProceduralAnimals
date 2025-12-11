@@ -21,7 +21,7 @@ public class InterestTracker : DefaultTracker<LookTrackerData, LookTrackerTarget
     public InterestTracker(List<LookTrackerData> datas, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
         : base(datas, transform, eventHub, statsHook)
     {
-        eventHub.OnNewInterestSpotFound += AddTarget;
+        eventHub.OnNewInterestFound += AddTarget;
         eventHub.OnInterestLookTarget += GetLookTarget;
     }
 
@@ -30,7 +30,7 @@ public class InterestTracker : DefaultTracker<LookTrackerData, LookTrackerTarget
         return new LookTrackerTarget(target, data);
     }
 
-    protected override Transform GetMostImportantTracked()
+    protected override TrackedWithScore GetMostImportantTracked()
     {
         Transform best = null;
         float highscore = 0;
@@ -68,12 +68,12 @@ public class InterestTracker : DefaultTracker<LookTrackerData, LookTrackerTarget
             }
         }
 
-        return best;
+        return new TrackedWithScore(best, highscore);
     }
 
     public LookTarget GetLookTarget()
     {
-        Transform best = GetMostImportantTracked();
+        Transform best = GetMostImportantTracked().tracked;
 
         if (best == null)
         {

@@ -38,43 +38,21 @@ public class LizardSenses : AnimalSenses
             if (Physics.Raycast(pivot, rayDir, out RaycastHit hit, visionConeData.coneSize))
             {
                 var colTransform = hit.collider.transform;
-                var parent = colTransform.parent;
-
-                if (parent != null && parent.CompareTag("Rock"))
-                {
-                    eventHub.NewRestSpotFound(parent.transform);
-                    eventHub.NewInterestSpotFound(parent.transform);
-
-                    if (showConeDebug)
-                        Debug.DrawLine(pivot, hit.point, Color.yellow);
-                }
-                else if (colTransform != null && colTransform.CompareTag("Lizard"))
-                {
-                    eventHub.NewInterestSpotFound(colTransform);
-
-                    if (showConeDebug)
-                        Debug.DrawLine(pivot, hit.point, Color.red);
-                }
-                else if (colTransform != null && colTransform.CompareTag("Beetle"))
-                {
-                    eventHub.NewHuntTargetFound(colTransform);
-                    eventHub.NewInterestSpotFound(colTransform);
-
-                    if (showConeDebug)
-                        Debug.DrawLine(pivot, hit.point, Color.white);
-                }
-                else
-                {
-                    if (showConeDebug)
-                        Debug.DrawLine(pivot, hit.point, Color.white);
-
-                }
-            }
-            else
-            {
+                eventHub.NewInterestFound(colTransform);
                 if (showConeDebug)
-                    Debug.DrawRay(pivot, rayDir * visionConeData.coneSize, Color.green);
+                {
+                    if (trackedFoodTags.Contains(colTransform.tag))
+                            Debug.DrawLine(pivot, hit.point, Color.white);
+                    else if (trackedFearTags.Contains(colTransform.tag))
+                            Debug.DrawLine(pivot, hit.point, Color.red);
+                    else if (trackedInterestTags.Contains(colTransform.tag))
+                        Debug.DrawLine(pivot, hit.point, Color.yellow);
+                    else
+                        Debug.DrawLine(pivot, hit.point, Color.green);
+                }
             }
+            else if (showConeDebug)
+                Debug.DrawRay(pivot, rayDir * visionConeData.coneSize, Color.green);
         }
     }
 

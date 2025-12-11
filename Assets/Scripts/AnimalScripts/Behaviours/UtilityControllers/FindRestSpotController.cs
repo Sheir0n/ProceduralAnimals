@@ -24,7 +24,7 @@ public class FindRestSpotController : IUtilityAction
         this.energyDrainRate = energyDrainRate;
         this.saturationDrainRate = saturationDrainRate;
 
-        eventHub.OnNewRestSpotFound += AddNewRestSpot;
+        eventHub.OnNewInterestFound += AddNewRestSpot;
         eventHub.OnNearestRestSpotRequest += GetNearestRestingSpot;
     }
 
@@ -52,7 +52,7 @@ public class FindRestSpotController : IUtilityAction
 
     private void AddNewRestSpot(Transform restSpot)
     {
-        if (restingSpots.Contains(restSpot))
+        if (restingSpots.Contains(restSpot) || !restSpot.CompareTag("Rock"))
             return;
 
         if (!enableScore)

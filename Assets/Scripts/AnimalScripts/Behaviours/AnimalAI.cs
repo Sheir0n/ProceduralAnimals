@@ -23,8 +23,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] private bool showStateChangeLogs = false;
 
     //Datas
-    [SerializeField] TrackerTags trackersData;
+    [SerializeField] TrackerDatas trackersData;
     InterestTracker interestTracker;
+    PreyTracker preyTracker;
     //[SerializeField] 
 
 
@@ -67,8 +68,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
         AddNewAction(new DeathController(pathfindController, animator), AIAction.Death);
 
         if(trackersData == null)
-            trackersData = ScriptableObject.CreateInstance<TrackerTags>();
+            trackersData = ScriptableObject.CreateInstance<TrackerDatas>();
         interestTracker = new InterestTracker(trackersData.lookTrackerTags, transform, eventHub, stats);
+        preyTracker = new PreyTracker(trackersData.foodTrackerTags, transform, eventHub, stats);
     }
 
     protected virtual void Start()
@@ -107,7 +109,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
         }
 
         currAction.Update();
-        interestTracker.OnUpdate();
+        //interestTracker.OnUpdate();
+        preyTracker.OnUpdate();
     }
 
     protected void AddNewAction(IUtilityAction action, AIAction actionEnum)

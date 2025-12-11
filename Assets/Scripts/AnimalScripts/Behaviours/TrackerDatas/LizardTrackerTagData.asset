@@ -32,4 +32,9 @@ MonoBehaviour:
     maxTrackDistance: 20
     objectType: 2
   fearTrackerTags: []
-  foodTrackerTags: []
+  foodTrackerTags:
+  - tag: Beetle
+    importance: 1
+    memoryTimeInSec: 8
+    forgetMinRange: 5
+    maxTrackDistance: 20

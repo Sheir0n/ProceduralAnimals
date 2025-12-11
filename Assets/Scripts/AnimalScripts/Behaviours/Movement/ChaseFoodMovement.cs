@@ -80,7 +80,7 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
             agent.Move(dashPushVector * dashSpeed * Time.deltaTime);
         }
 
-        Transform newTarget = eventHub.FindNearestHuntTarget();
+        Transform newTarget = eventHub.RequestTrackedPrey().tracked;
         if (newTarget != null && chaseTarget != newTarget)
         {
             chaseTarget = newTarget;

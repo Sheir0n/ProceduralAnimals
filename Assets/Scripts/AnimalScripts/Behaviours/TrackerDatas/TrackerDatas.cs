@@ -29,7 +29,7 @@ public class LookTrackerData : TrackerData
 }
 
 [CreateAssetMenu(fileName = "TrackerTagData", menuName = "AI/Behavior/Tracker Data")]
-public class TrackerTags : ScriptableObject
+public class TrackerDatas : ScriptableObject
 {
     public List<LookTrackerData> lookTrackerTags = new List<LookTrackerData>();
     public List<TrackerData> fearTrackerTags = new List<TrackerData>();

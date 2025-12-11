@@ -35,9 +35,7 @@ public class ChaseFoodController : IUtilityAction
     private float energyDrainRate = 0;
     private float saturationDrainRate = 0;
 
-    private const float huntTargetMemoryDecayMinDistance = 4f;
-
-    private List<HuntTarget> huntTargets = new List<HuntTarget>();
+    TrackedWithScore bestPreyCandidate;
 
     private bool bitePrepared = false;
 
@@ -72,9 +70,7 @@ public class ChaseFoodController : IUtilityAction
         this.biteDashDuration = biteDashDuration;
         this.biteDamage = biteDamage;
 
-
-        eventHub.OnNewHuntTargetFound += AddHuntTarget;
-        eventHub.OnNearestHuntTargetRequest += GetNearestHuntTarget;
+        bestPreyCandidate = new TrackedWithScore(null, 0);
     }
 
     public string DebugName() => "Chase Food";
@@ -97,7 +93,7 @@ public class ChaseFoodController : IUtilityAction
 
     public void AlwaysUpdate()
     {
-        UpdateHuntTargetMemory();
+        bestPreyCandidate = eventHub.RequestTrackedPrey();
     }
 
     public void Exit()
@@ -111,15 +107,18 @@ public class ChaseFoodController : IUtilityAction
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
-        Transform huntTarget = eventHub.FindNearestHuntTarget();
+        //float targetScoreModifier = bestPreyCandidate.score;
+        float targetScoreModifier = 1f;
+        Transform targetTransform = bestPreyCandidate.tracked;
+
         //TODO do zmiany, na razie zapobiega blokadzie
         //ma sie odblokowac po zaniesieniu ofiary na spawn
-        if (huntTarget == null || preyCaught)
+        if (targetTransform == null || preyCaught)
             return 0;
         else
         {
             float normalisedSaturation = stats.saturation / stats.maxSaturation;
-            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * 2 / 3;
+            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * targetScoreModifier * 2 / 3;
         }
     }
 
@@ -130,51 +129,6 @@ public class ChaseFoodController : IUtilityAction
         stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
     }
 
-    private void AddHuntTarget(Transform target)
-    {
-        if (target == null)
-            return;
-
-        for (int i = 0; i < huntTargets.Count; i++)
-            if (huntTargets[i].target == target)
-            {
-                huntTargets[i].ResetMemoryTime();
-                return;
-            }
-        huntTargets.Add(new HuntTarget(target));
-    }
-
-    private void UpdateHuntTargetMemory()
-    {
-        for (int i = huntTargets.Count - 1; i >= 0; i--)
-        {
-            Vector3 currentPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
-            Vector3 targetPosXZ = new Vector3(huntTargets[i].target.position.x, 0, huntTargets[i].target.position.z);
-
-
-            HuntTarget huntTarget = huntTargets[i];
-
-            if (huntTarget.memoryTimeMs < 0)
-            {
-                huntTargets.RemoveAt(i);
-            }
-            else if (Vector3.Distance(currentPosXZ, targetPosXZ) > huntTargetMemoryDecayMinDistance)
-                huntTarget.memoryTimeMs -= Time.deltaTime * 1000f;
-        }
-    }
-
-    private Transform GetNearestHuntTarget()
-    {
-        if (huntTargets.Count == 0)
-            return null;
-
-        Vector3 currentPos = transform.position;
-        HuntTarget nearest = huntTargets
-            .OrderBy(t => (t.target.position - currentPos).sqrMagnitude)
-            .First();
-
-        return nearest.target;
-    }
 
     private void AttemptBite(Collider other)
     {
