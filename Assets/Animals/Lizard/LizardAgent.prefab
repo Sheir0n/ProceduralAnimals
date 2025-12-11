@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3601753697074411684}
   - component: {fileID: 6526603793127092797}
   - component: {fileID: 6163224130160172068}
-  - component: {fileID: 8555716325632231707}
+  - component: {fileID: 6898191812217292574}
   - component: {fileID: 5736892628052416827}
   m_Layer: 0
   m_Name: LizardAgent
@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2963919266616240904
 Transform:
   m_ObjectHideFlags: 0
@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8e2a053fb9f4f4aa194359b72bb50a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statMultiplierMaxRandomness: 0.2
   stats:
+    baseMaxStats: {fileID: 11400000, guid: 9b077a2fe54472748851a19970ebb83b, type: 2}
     health: 0
     saturation: 0
     energy: 0
@@ -186,10 +186,11 @@ MonoBehaviour:
     statAggressiveness: 0.01
     statCuriosity: 0.01
     statDominance: 0.01
-  useStaticSeed: 0
-  ignoreSeed: 0
-  seed: 12345
+    ignoreSeed: 0
+    useStaticSeed: 0
+    seed: 12345
   showStateChangeLogs: 0
+  trackersData: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40, type: 2}
   defaultPenality: 1
   penalityDrainSpeed: 4
   hysteresis: 0.05
@@ -208,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279b57e8653e178419025eabcd8370ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8555716325632231707
+--- !u!114 &6898191812217292574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,11 +218,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8691682312111985452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f89fe1b19038da84cbb84344520f8c13, type: 3}
+  m_Script: {fileID: 11500000, guid: a825d37bdbd024347a8592cf0c52acc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showConeDebug: 0
   visionConeData: {fileID: 11400000, guid: f1cce49f5a5c9dc40bfd335959f0a101, type: 2}
-  showConeDebug: 1
 --- !u!114 &5736892628052416827
 MonoBehaviour:
   m_ObjectHideFlags: 0

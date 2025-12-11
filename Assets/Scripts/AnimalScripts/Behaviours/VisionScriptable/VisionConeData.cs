@@ -7,4 +7,6 @@ public class VisionConeData : ScriptableObject
 {
     public float coneSize = 15;
     public float coneAngleRange = 30f;
+
+    public TrackerDatas allTrackedTagDatas;
 }

@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd80d647f80cf5b43a56e9c0179eb50e, type: 3}
-  m_Name: LizardVisionCone
+  m_Script: {fileID: 11500000, guid: 23e82e356521cf0479e44cf02d04db5f, type: 3}
+  m_Name: BeetleTrackerData
   m_EditorClassIdentifier: 
-  coneSize: 25
-  coneAngleRange: 90
-  allTrackedTagDatas: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40, type: 2}
+  lookTrackerTags: []
+  fearTrackerTags:
+  - tag: Lizard
+    importance: 1
+    memoryTimeInSec: 10
+    forgetMinRange: 8
+    maxTrackDistance: 10
+  foodTrackerTags: []

@@ -12,7 +12,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<IReadOnlyAnimalStats> OnInitializeStats;
     public event Action<AIAction> OnActionChanged;
     public event Action<Vector3> OnSegmentCollision;
-    public event Action<Transform> OnNewInterestFound;
+    public event Action<List<Transform>> OnNewInterestFound;
     public event Action<Collider> OnAttemptBite;
     public event Action<BiteAttackStage> OnBiteAttack;
     public event Action<IDamageable> OnAnnouncePreyCaught;
@@ -50,7 +50,7 @@ public class AnimalEventHub : MonoBehaviour
     public HeadCenterData RequestHeadData() => OnHeadDataRequest?.Invoke() ?? new HeadCenterData(transform.position, transform.forward);
     public Transform FindNearestRestSpot() => OnNearestRestSpotRequest?.Invoke();
     public bool IsOnRestSpot() => OnIsOnRestSpotRequest?.Invoke() ?? false;
-    public void NewInterestFound(Transform interestTransform) => OnNewInterestFound?.Invoke(interestTransform);
+    public void NewInterestsFound(List<Transform> interestsTransform) => OnNewInterestFound?.Invoke(interestsTransform);
     public void AttemptBite(Collider other) => OnAttemptBite?.Invoke(other);
     public AnimalMouthCollider GetAnimalMouth() => OnMouthHookRequest?.Invoke();
     public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);

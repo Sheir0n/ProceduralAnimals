@@ -62,24 +62,27 @@ public abstract class DefaultTracker<TData, TTarget>
         UpdateHuntTargetMemory();
     }
 
-    protected void AddTarget(Transform target)
+    protected void AddTarget(List<Transform> targets)
     {
-        if (target == null)
-            return;
-
-        for (int i = 0; i < trackerTargets.Count; i++)
-            if (trackerTargets[i].target == target)
-            {
-                trackerTargets[i].ResetMemoryTime();
-                return;
-            }
-
-        foreach (TData data in trackerDatas)
+        foreach (Transform target in targets)
         {
-            if (target.CompareTag(data.tag))
+            if (target == null)
+                return;
+
+            for (int i = 0; i < trackerTargets.Count; i++)
+                if (trackerTargets[i].target == target)
+                {
+                    trackerTargets[i].ResetMemoryTime();
+                    return;
+                }
+
+            foreach (TData data in trackerDatas)
             {
-                TTarget newTarget = CreateTarget(target, data);
-                trackerTargets.Add(newTarget);
+                if (target.CompareTag(data.tag))
+                {
+                    TTarget newTarget = CreateTarget(target, data);
+                    trackerTargets.Add(newTarget);
+                }
             }
         }
     }

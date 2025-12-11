@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3115328312169260157}
   - component: {fileID: 2942879188421425895}
   - component: {fileID: 2135909315469369229}
-  - component: {fileID: 7260299593797298941}
+  - component: {fileID: 3372454230984371394}
   - component: {fileID: 3844302037179674085}
   - component: {fileID: 8322555769018731319}
   - component: {fileID: 5751978485350454209}
@@ -148,20 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279b57e8653e178419025eabcd8370ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7260299593797298941
+--- !u!114 &3372454230984371394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4256173970276126365}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f89fe1b19038da84cbb84344520f8c13, type: 3}
+  m_Script: {fileID: 11500000, guid: a825d37bdbd024347a8592cf0c52acc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionConeData: {fileID: 11400000, guid: f1cce49f5a5c9dc40bfd335959f0a101, type: 2}
-  showConeDebug: 1
+  showConeDebug: 0
+  visionConeData: {fileID: 11400000, guid: 3f4190e25aec59d449190f2e9ce8a4f6, type: 2}
 --- !u!114 &3844302037179674085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4fbc8ccdd33254ab9659284461b254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statMultiplierMaxRandomness: 0.2
   stats:
+    baseMaxStats: {fileID: 11400000, guid: b60785e82374d324b9a00127e1b1b960, type: 2}
     health: 0
     saturation: 0
     energy: 0
@@ -212,10 +212,11 @@ MonoBehaviour:
     statAggressiveness: 0.01
     statCuriosity: 0.01
     statDominance: 0.01
-  useStaticSeed: 0
-  ignoreSeed: 0
-  seed: 12345
+    ignoreSeed: 0
+    useStaticSeed: 0
+    seed: 12345
   showStateChangeLogs: 0
+  trackersData: {fileID: 11400000, guid: e1a05554247db3f4a9d5ffab27074620, type: 2}
   defaultPenality: 1
   penalityDrainSpeed: 4
   hysteresis: 0.05

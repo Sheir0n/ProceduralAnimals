@@ -50,22 +50,25 @@ public class FindRestSpotController : IUtilityAction
         stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
     }
 
-    private void AddNewRestSpot(Transform restSpot)
+    private void AddNewRestSpot(List<Transform> restSpots)
     {
-        if (restingSpots.Contains(restSpot) || !restSpot.CompareTag("Rock"))
-            return;
-
-        if (!enableScore)
-            enableScore = true;
-
-        restingSpots.Add(restSpot);
-        if (restingSpots.Count > maxRestSpots)
+        foreach (Transform restSpot in restSpots)
         {
-            Transform farthest = restingSpots
-                .OrderByDescending(r => Vector3.Distance(transform.position, r.position))
-                .First();
+            if (restingSpots.Contains(restSpot) || !restSpot.CompareTag("Rock"))
+                return;
 
-            restingSpots.Remove(farthest);
+            if (!enableScore)
+                enableScore = true;
+
+            restingSpots.Add(restSpot);
+            if (restingSpots.Count > maxRestSpots)
+            {
+                Transform farthest = restingSpots
+                    .OrderByDescending(r => Vector3.Distance(transform.position, r.position))
+                    .First();
+
+                restingSpots.Remove(farthest);
+            }
         }
     }
     private Transform GetNearestRestingSpot()

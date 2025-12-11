@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd80d647f80cf5b43a56e9c0179eb50e, type: 3}
-  m_Name: LizardVisionCone
+  m_Name: BeetleVisionCone
   m_EditorClassIdentifier: 
-  coneSize: 25
-  coneAngleRange: 90
-  allTrackedTagDatas: {fileID: 11400000, guid: 7e0cd61e5317e9c489cace7415dc0d40, type: 2}
+  coneSize: 15
+  coneAngleRange: 120
+  allTrackedTagDatas: {fileID: 11400000, guid: e1a05554247db3f4a9d5ffab27074620, type: 2}

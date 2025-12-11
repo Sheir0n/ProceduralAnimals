@@ -10,14 +10,7 @@ using UnityEngine.AI;
 
 public class AnimalAI : MonoBehaviour, IDamageable
 {
-    [SerializeField] protected float statMultiplierMaxRandomness = 0.2f;
     [SerializeField] protected AnimalStats stats;
-
-    [Header("Use predetermined or generate new seed")]
-    [SerializeField] protected bool useStaticSeed = true;
-    [Header("Use custom stats instead of seed")]
-    [SerializeField] protected bool ignoreSeed = true;
-    [SerializeField] private int seed = 12345;
 
     [Header("Show StateChange logs")]
     [SerializeField] private bool showStateChangeLogs = false;
@@ -26,7 +19,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] TrackerDatas trackersData;
     InterestTracker interestTracker;
     PreyTracker preyTracker;
-    //[SerializeField] 
 
 
     //UtilityAction controllers
@@ -109,7 +101,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         }
 
         currAction.Update();
-        //interestTracker.OnUpdate();
+        interestTracker.OnUpdate();
         preyTracker.OnUpdate();
     }
 
