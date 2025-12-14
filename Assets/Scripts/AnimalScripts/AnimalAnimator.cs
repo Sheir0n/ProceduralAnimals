@@ -7,7 +7,6 @@ using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using static AnimalAI;
-using static UnityEditor.PlayerSettings;
 
 public class AnimalAnimator : MonoBehaviour
 {

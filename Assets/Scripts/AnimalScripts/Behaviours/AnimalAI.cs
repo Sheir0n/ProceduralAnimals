@@ -2,11 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class AnimalAI : MonoBehaviour, IDamageable
 {
