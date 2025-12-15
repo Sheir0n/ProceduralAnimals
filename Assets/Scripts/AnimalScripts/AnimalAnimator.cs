@@ -59,7 +59,7 @@ public class AnimalAnimator : MonoBehaviour
         if (joints != null && joints.Count > 0 && joints[0] != null)
         {
             joints[0].SetPosition(transform.position);
-            joints[0].SetRotation(RotateUp(transform.rotation));
+            joints[0].SetRotation(transform.rotation.eulerAngles.y);
             joints[0].UpdateSegmentTransform();
         }
         else
@@ -174,7 +174,7 @@ public class AnimalAnimator : MonoBehaviour
         tip.SetPosition(targetPos);
 
         float angleY = GetYAngle(targetPos - tip.segmentPosition);
-        tip.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+        tip.SetRotation(angleY);
 
 
         for (int i = chain.Count - 1; i > 0; i--)
@@ -194,7 +194,7 @@ public class AnimalAnimator : MonoBehaviour
 
         root.SetPosition(rootPos);
         float angleY = GetYAngle(parent.segmentPosition - root.segmentPosition);
-        root.SetRotation(Quaternion.Euler(90f, angleY, 0f));
+        root.SetRotation(angleY);
         root.UpdateSegmentTransform();
 
         for (int i = 1; i < chain.Count; i++)
@@ -210,11 +210,10 @@ public class AnimalAnimator : MonoBehaviour
     {
         Vector3 direction = anchor.segmentPosition - segment.segmentPosition;
         float newLocalY = GetYAngleConstrained(direction, constraintJoint, prefferedAngle);
-        segment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+        segment.SetRotation(newLocalY);
 
         float rad = newLocalY * Mathf.Deg2Rad;
-        Vector3 allowedDir = new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad)
-        );
+        Vector3 allowedDir = new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad));
 
         segment.SetPosition(anchor.segmentPosition - allowedDir * segment.distanceConstraint);
     }
@@ -244,7 +243,7 @@ public class AnimalAnimator : MonoBehaviour
     {
         float targetYAngle = Mathf.Atan2(vecToTarget.x, vecToTarget.z) * Mathf.Rad2Deg;
 
-        float prevY = joint.segmentRotation.eulerAngles.y;
+        float prevY = joint.yaw;
         float deltaY = Mathf.DeltaAngle(prevY, targetYAngle);
         float max = joint.angularConstraint;
         deltaY = Mathf.Clamp(deltaY, -max - preferredAngle, max - preferredAngle);
@@ -372,8 +371,7 @@ public class AnimalAnimator : MonoBehaviour
 
                 Vector3 dir = prev.segmentPosition - curr.segmentPosition;
                 float targetY = GetYAngleConstrained(dir, prev, -prev.prefferedAngle);
-                Quaternion targetRot = Quaternion.Euler(90f, targetY, 0f);
-                curr.SetRotation(targetRot);
+                curr.SetRotation(targetY);
             }
         }
     }

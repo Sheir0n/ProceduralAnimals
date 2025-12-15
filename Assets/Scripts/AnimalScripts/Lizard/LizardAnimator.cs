@@ -114,7 +114,7 @@ public class LizardAnimator : AnimalAnimator
 
     private int CalculateTailLeanDirection()
     {
-        float deltaY = Mathf.DeltaAngle(joints[5].segmentRotation.eulerAngles.y, joints[6].segmentRotation.eulerAngles.y);
+        float deltaY = Mathf.DeltaAngle(joints[5].yaw, joints[6].yaw);
         int directionalAmount = deltaY >= 0 ? 1 : -1;
 
         return directionalAmount;
@@ -134,15 +134,13 @@ public class LizardAnimator : AnimalAnimator
             AnimalJoint prev = joints[i - 1];
             AnimalJoint curr = joints[i];
 
-            float prevY = prev.segmentRotation.eulerAngles.y;
+            float prevYaw = prev.yaw;
             float targetDelta = Mathf.Abs(prev.angularConstraint) * currentTailLeanLerp * directionalAmount;
-            float targetY = prevY + targetDelta;
+            float targetYaw = prevYaw + targetDelta;
 
-            float newY = Mathf.MoveTowardsAngle(curr.segmentRotation.eulerAngles.y, targetY, leanSpeed * Time.deltaTime);
+            float newYaw = Mathf.MoveTowardsAngle(curr.yaw, targetYaw, leanSpeed * Time.deltaTime);
 
-            Quaternion globalRot = Quaternion.Euler(90f, newY, 0f);
-            Vector3 allowedDir = Quaternion.Euler(0f, newY, 0f) * Vector3.forward;
-
+            Vector3 allowedDir = new Vector3(Mathf.Sin(newYaw * Mathf.Deg2Rad), 0f, Mathf.Cos(newYaw * Mathf.Deg2Rad));
             Vector3 targetPos = prev.segmentPosition - allowedDir * curr.distanceConstraint;
 
             float pushRadius = 0.25f * curr.segmentScale.x;
@@ -151,7 +149,7 @@ public class LizardAnimator : AnimalAnimator
                 targetPos = PushBodyFromObstacle(prev, targetPos, pushRadius, pushFactor: 0.25f, callEvent: true);
             }
 
-            curr.SetRotation(globalRot);
+            curr.SetRotation(newYaw);
             curr.SetPosition(targetPos);
             curr.UpdateSegmentTransform();
         }

@@ -17,6 +17,9 @@ public class AnimalJoint : MonoBehaviour
     public Quaternion segmentLerpRotation { get; protected set; }
     public Vector3 segmentLerpPosition { get; protected set; }
 
+    public float yaw { get; protected set; }
+    public float lerpedYaw { get; protected set; }
+
     virtual public void AfterInstantiate(Vector3 _segPosition, Quaternion _segRotation, Vector3 _segScale, float _distanceConstraint, float _angularConstraint, float _prefferedAngle, int _id)
     {
         segmentRotation = _segRotation;
@@ -42,12 +45,17 @@ public class AnimalJoint : MonoBehaviour
     }
 
     public void SetPosition(Vector3 _position) => segmentPosition = _position;
-    public void SetRotation(Quaternion _rotation) => segmentRotation = _rotation;
+    public void SetRotation(float newYaw)
+    {
+        yaw = newYaw; 
+    }
+
     public void SetScale(Vector3 _scale) => segmentScale = _scale;
 
     public void UpdateSegmentTransform()
     {
         transform.rotation = Quaternion.Euler(90f, segmentRotation.eulerAngles.y, 0f);
+        segmentRotation = Quaternion.Euler(90f, yaw, 0f);
         segmentLerpRotation = segmentRotation;
         transform.position = segmentPosition;
         segmentLerpPosition = segmentPosition;
@@ -56,19 +64,15 @@ public class AnimalJoint : MonoBehaviour
 
     public void UpdateLerpPosition(Vector3 prevSegmentPosition)
     {
-        Vector3 allowedDir = Quaternion.Euler(0f, segmentLerpRotation.eulerAngles.y, 0f) * Vector3.forward;
+        Vector3 allowedDir = Quaternion.Euler(0f, lerpedYaw, 0f) * Vector3.forward;
         segmentLerpPosition = prevSegmentPosition - allowedDir * distanceConstraint;
     }
 
     public void UpdateLerpRotation(float lerpSpeed)
     {
-        Vector3 eulerLerp = new Vector3(
-            90,
-            Mathf.LerpAngle(segmentLerpRotation.eulerAngles.y, segmentRotation.eulerAngles.y, lerpSpeed * Time.deltaTime),
-            0
-        );
-
-        segmentLerpRotation = Quaternion.Euler(eulerLerp);
+        float t = 1f - Mathf.Exp(-lerpSpeed * Time.deltaTime);
+        lerpedYaw = Mathf.LerpAngle(lerpedYaw, yaw, t);
+        segmentLerpRotation = Quaternion.Euler(90f, lerpedYaw, 0f);
     }
 
     public void UpdateSegmentLerpTransform()

@@ -88,7 +88,7 @@ public class AnimalLimb
 
         float moveAngleY = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
         Quaternion moveRotation = Quaternion.Euler(0f, moveAngleY, 0f);
-        Quaternion parentRotation = Quaternion.Euler(0f, parentJoint.segmentRotation.eulerAngles.y, 0f);
+        Quaternion parentRotation = Quaternion.Euler(0f, parentJoint.yaw, 0f);
 
         float moveAngleDifference = Mathf.Clamp(
             GetSignedAngle(parentRotation, moveRotation, Vector3.up),

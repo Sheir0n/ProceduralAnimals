@@ -67,7 +67,7 @@ public class SnakeAnimator : AnimalAnimator
             flatToPrev.Normalize();
 
             float targetYAngle = Mathf.Atan2(flatToPrev.x, flatToPrev.z) * Mathf.Rad2Deg;
-            float prevLocalY = prevSegment.segmentRotation.eulerAngles.y;
+            float prevLocalY = prevSegment.yaw;
             float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
 
             float maxAngle = prevSegment.angularConstraint;
@@ -89,7 +89,7 @@ public class SnakeAnimator : AnimalAnimator
                 newLocalY += wriggleOffset;
             }
 
-            currSegment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
+            currSegment.SetRotation(newLocalY);
 
             Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
             currSegment.SetPosition(prevSegment.segmentPosition - allowedDir * currSegment.distanceConstraint);
