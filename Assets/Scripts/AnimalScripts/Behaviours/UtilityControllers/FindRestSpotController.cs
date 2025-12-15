@@ -6,19 +6,23 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "FindRestSpotController", menuName = "AI/Actions/FindRestSpotController")]
-public class FindRestSpotController : IUtilityAction
+public class FindRestSpotController : ActionController, IUtilityAction
 {
     private Transform transform;
 
-    [Header("FindRestSpot settings")]
-    [SerializeField] private float energyDrainRate = 0.25f;
-    [SerializeField] private float saturationDrainRate = 0.75f;
+    [Header("Drain rate modifiers")]
+    [SerializeField] private float energyDrainRateModifier = 1;
+    [SerializeField] private float saturationDrainRateModifier = 1;
+
+    [Header("Rest spot settings")]
     [SerializeField] private const int maxRestSpots = 5;
 
     private bool enableScore = false;
     private List<Transform> restingSpots = new List<Transform>();
 
     public string DebugName() => "FindRestSpot";
+
+    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.FindRestSpot;
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
@@ -46,8 +50,8 @@ public class FindRestSpotController : IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        stats.energy = Mathf.Clamp(stats.energy - (0.5f + 0.5f * (1 - stats.statVigor)) * energyDrainRate * Time.deltaTime, 0, stats.maxEnergy);
-        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
+        stats.energy = Mathf.Clamp(stats.energy - (0.5f + 0.5f * (1 - stats.statVigor)) * energyDrainRate *energyDrainRateModifier* Time.deltaTime, 0, stats.maxEnergy);
+        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate *saturationDrainRateModifier* Time.deltaTime, 0, stats.maxSaturation);
     }
 
     private void AddNewRestSpot(List<Transform> restSpots)

@@ -27,16 +27,13 @@ public class HuntTarget
 }
 
 [CreateAssetMenu(fileName = "ChaseFoodController", menuName = "AI/Actions/ChaseFoodController")]
-public class ChaseFoodController : ScriptableObject, IUtilityAction
+public class ChaseFoodController : ActionController, IUtilityAction
 {
     private AnimalEventHub eventHub;
 
     [Header("Drain rate modifiers")]
     [SerializeField] private float energyDrainRateModifier = 1;
     [SerializeField] private float saturationDrainRateModifier = 1;
-
-    private float energyDrainRate = 0;
-    private float saturationDrainRate = 0;
 
     [Header("Bite settings")]
     [SerializeField] private int biteCooldownMs = 500;
@@ -66,6 +63,8 @@ public class ChaseFoodController : ScriptableObject, IUtilityAction
         this.saturationDrainRate = saturationDrainRate;
         bestPreyCandidate = new TrackedWithScore(null, 0);
     }
+
+    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.ChaseFood;
 
     public string DebugName() => "Chase Food";
 
@@ -118,9 +117,9 @@ public class ChaseFoodController : ScriptableObject, IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * energyDrainRateModifier * Time.deltaTime, 0, stats.maxEnergy);
 
-        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
+        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate *saturationDrainRateModifier* Time.deltaTime, 0, stats.maxSaturation);
     }
 
 

@@ -103,7 +103,7 @@ public class AnimalAnimator : MonoBehaviour
 
     protected virtual void CalculateLimbsTransform()
     {
-        int chainPullCount = 10;
+        int chainPullCount = 3;
         foreach (AnimalLimb currLimb in limbs)
         {
             currLimb.UpdateTargetingVariables(deltaMs: Time.deltaTime * 1000);
@@ -128,7 +128,7 @@ public class AnimalAnimator : MonoBehaviour
                 head.LookAt(lookData);
             }
         }
-        int chainPullCount = 10;
+        int chainPullCount = 3;
 
         CalculateFabrikTransforms(jointChain: head.headJoints, parentJoint: head.parentJoint, targetPos: head.targetPosition, rootOffset: head.headLocalOffset, pulls: chainPullCount, doLerp: false);
 
@@ -211,7 +211,11 @@ public class AnimalAnimator : MonoBehaviour
         Vector3 direction = anchor.segmentPosition - segment.segmentPosition;
         float newLocalY = GetYAngleConstrained(direction, constraintJoint, prefferedAngle);
         segment.SetRotation(Quaternion.Euler(90f, newLocalY, 0f));
-        Vector3 allowedDir = Quaternion.Euler(0f, newLocalY, 0f) * Vector3.forward;
+
+        float rad = newLocalY * Mathf.Deg2Rad;
+        Vector3 allowedDir = new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad)
+        );
+
         segment.SetPosition(anchor.segmentPosition - allowedDir * segment.distanceConstraint);
     }
 
@@ -236,18 +240,16 @@ public class AnimalAnimator : MonoBehaviour
             chain[i].UpdateSegmentTransform();
     }
 
-    protected float GetYAngleConstrained(Vector3 vecToTarget, AnimalJoint targetJoint, float prefferedAngle)
+    protected float GetYAngleConstrained(Vector3 vecToTarget, AnimalJoint joint, float preferredAngle)
     {
-        Vector3 flatToTarget = new Vector3(vecToTarget.x, 0f, vecToTarget.z);
-        flatToTarget.Normalize();
+        float targetYAngle = Mathf.Atan2(vecToTarget.x, vecToTarget.z) * Mathf.Rad2Deg;
 
-        float targetYAngle = Mathf.Atan2(flatToTarget.x, flatToTarget.z) * Mathf.Rad2Deg;
-        float prevLocalY = targetJoint.segmentRotation.eulerAngles.y;
-        float deltaY = Mathf.DeltaAngle(prevLocalY, targetYAngle);
-        float maxAngle = targetJoint.angularConstraint;
-        float clampedY = Mathf.Clamp(deltaY, -maxAngle - prefferedAngle, maxAngle - prefferedAngle);
-        float newLocalY = prevLocalY + clampedY;
-        return newLocalY;
+        float prevY = joint.segmentRotation.eulerAngles.y;
+        float deltaY = Mathf.DeltaAngle(prevY, targetYAngle);
+        float max = joint.angularConstraint;
+        deltaY = Mathf.Clamp(deltaY, -max - preferredAngle, max - preferredAngle);
+
+        return prevY + deltaY;
     }
 
     protected float GetYAngle(Vector3 toTarget)
@@ -348,9 +350,10 @@ public class AnimalAnimator : MonoBehaviour
         if (jointChain.Count == 0)
             return;
 
-        float lerpSpeed = 8f;                   
-        float minPenetration = 0.02f;      
-        int iterations = jointChain.Count;                
+        float lerpSpeed = 8f;
+        float minPenetration = 0.02f;
+        int iterations = 3;
+        float t = 1f - Mathf.Exp(-lerpSpeed * Time.deltaTime / iterations);
 
         for (int iter = 0; iter < iterations; iter++)
         {
@@ -363,7 +366,7 @@ public class AnimalAnimator : MonoBehaviour
                 Vector3 diff = targetPos - curr.segmentPosition;
                 if (diff.magnitude > minPenetration)
                 {
-                    Vector3 move = Vector3.Lerp(Vector3.zero, diff, Mathf.Clamp01(lerpSpeed * Time.deltaTime));
+                    Vector3 move = Vector3.Lerp(Vector3.zero, diff, Mathf.Clamp01(t));
                     curr.SetPosition(curr.segmentPosition + move);
                 }
 

@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f22c2f5fd2fe24f837cd02ee928844, type: 3}
-  m_Name: LizardPlayerController
+  m_Script: {fileID: 11500000, guid: 02466f0bcc8b8b641b83a3da4a1224ec, type: 3}
+  m_Name: LizardFindRestSpotController
   m_EditorClassIdentifier: 
+  energyDrainRateModifier: 0.4
+  saturationDrainRateModifier: 0.65

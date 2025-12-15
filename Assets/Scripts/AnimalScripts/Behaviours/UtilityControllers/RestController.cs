@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RestController : ScriptableObject, IUtilityAction
+[CreateAssetMenu(fileName = "RestController", menuName = "AI/Actions/RestController")]
+public class RestController : ActionController, IUtilityAction
 {
     private AnimalEventHub eventHub;
 
-    private float saturationDrainRate = 0;
-
+    [Header("Drain rate modifiers")]
+    [SerializeField] private float saturationDrainRateModifier = 1;
 
     [Header("Rest settings")]
     [SerializeField] private float energyRegenRate = 0.5f;
@@ -21,6 +22,8 @@ public class RestController : ScriptableObject, IUtilityAction
 
     const float restPenalityDefaultModifier = 0.5f;
     private float currentRestModifier = 1f;
+
+    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Rest;
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
@@ -55,9 +58,9 @@ public class RestController : ScriptableObject, IUtilityAction
         float utilityScore;
         if (stats.energy < 0.1)
             utilityScore = 1;
-        else if (currAction == this && !applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalizedHealth < 0.75f)
+        else if (ReferenceEquals(currAction, this) && !applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalizedHealth < 0.75f)
             utilityScore = Mathf.Pow(1 - normalizedHealth, 1f);
-        else if (currAction == this || eventHub.IsOnRestSpot())
+        else if (ReferenceEquals(currAction, this) || eventHub.IsOnRestSpot())
             utilityScore = Mathf.Pow(1 - normalizedEnergy, (3f + 4 * stats.statVigor) / 5) * 4 / 5;
         else
         {
@@ -76,9 +79,9 @@ public class RestController : ScriptableObject, IUtilityAction
         if (!applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalisedHealth < 1f)
         {
             stats.health = Mathf.Clamp(stats.health + restHealthRegenRate * Time.deltaTime, 0, stats.maxHealth);
-            stats.saturation = Mathf.Clamp(stats.saturation - (healthRegenSaturationDrain + saturationDrainRate) * Time.deltaTime, 0, stats.maxSaturation);
+            stats.saturation = Mathf.Clamp(stats.saturation - (healthRegenSaturationDrain + saturationDrainRate) * saturationDrainRateModifier * Time.deltaTime, 0, stats.maxSaturation);
         }
         else
-            stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
+            stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * saturationDrainRateModifier * Time.deltaTime, 0, stats.maxSaturation);
     }
 }

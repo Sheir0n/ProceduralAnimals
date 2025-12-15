@@ -15,7 +15,7 @@ public class SnakeAnimator : AnimalAnimator
     private Vector3 lastHeadPosition;
     private bool isMoving;
 
-    private void Update()
+    protected override void Update()
     {
         if (joints == null || joints.Count == 0)
         {

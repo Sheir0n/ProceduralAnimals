@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2963919266616240904
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff962cdadc580d4f8c178410a897a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creatorData: {fileID: 11400000, guid: 8ae58a55d2d149e47906559f3e5b8ceb, type: 2}
+  creatorData: {fileID: 11400000, guid: 2a27c2be79fa35747aca55bd3c5142d5, type: 2}
+  bodyColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &6526603793127092797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +196,15 @@ MonoBehaviour:
   penalityDrainSpeed: 4
   hysteresis: 0.05
   actionDebugDisplay: 0
-  isPlayerControlled: 0
-  showAIPoints: 0
+  isPlayerControlled: 1
+  showAIPoints: 1
+  actionAssetList:
+  - {fileID: 11400000, guid: c7f15355f3adac2498d6ec361179c79c, type: 2}
+  - {fileID: 11400000, guid: 4da5108932d5bfd478481735596e186a, type: 2}
+  - {fileID: 11400000, guid: a25b6686c6b100a4a94ab35a23821119, type: 2}
+  - {fileID: 11400000, guid: 646a523c28e576045a84ec61042f86a9, type: 2}
+  - {fileID: 11400000, guid: cd05be2583da09541af615e407489bdd, type: 2}
+  defaultAction: 0
 --- !u!114 &6163224130160172068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a825d37bdbd024347a8592cf0c52acc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showConeDebug: 0
+  showConeDebug: 1
   visionConeData: {fileID: 11400000, guid: f1cce49f5a5c9dc40bfd335959f0a101, type: 2}
 --- !u!114 &5736892628052416827
 MonoBehaviour:

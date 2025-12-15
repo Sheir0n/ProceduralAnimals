@@ -5,16 +5,15 @@ using UnityEngine.Rendering.UI;
 
 
 [CreateAssetMenu(fileName = "WanderController", menuName = "AI/Actions/WanderController")]
-public class WanderController : ScriptableObject, IUtilityAction
+public class WanderController : ActionController, IUtilityAction
 {
-    private float energyDrainRate = 0;
-    private float saturationDrainRate = 0;
-
     [Header("Drain rate modifiers")]
     [SerializeField] private float energyDrainRateModifier = 1;
     [SerializeField] private float saturationDrainRateModifier = 1;
 
     public string DebugName() => "Wander";
+
+    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Wander;
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
@@ -35,8 +34,8 @@ public class WanderController : ScriptableObject, IUtilityAction
 
     public void CalculateStats(AnimalStats stats)
     {
-        stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * Time.deltaTime, 0, stats.maxEnergy);
+        stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * energyDrainRateModifier * Time.deltaTime, 0, stats.maxEnergy);
 
-        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * Time.deltaTime, 0, stats.maxSaturation);
+        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * saturationDrainRateModifier * Time.deltaTime, 0, stats.maxSaturation);
     }
 }

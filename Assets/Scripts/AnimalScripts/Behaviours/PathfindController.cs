@@ -54,9 +54,12 @@ public class PathfindController : MonoBehaviour
 
     void Update()
     {
-        currentBehavior.Update();
-        lookTargetPos = currentBehavior.LookTargetPosition ?? transform.position;
-        lookAtTarget = currentBehavior.LookAtTarget ?? false;
+        if (currentBehavior != null)
+        {
+            currentBehavior.Update();
+            lookTargetPos = currentBehavior.LookTargetPosition ?? transform.position;
+            lookAtTarget = currentBehavior.LookAtTarget ?? false;
+        }
 
         if (pendingPush.magnitude > 0.01f)
             if (pendingPush.magnitude > 0.01f)
@@ -104,7 +107,7 @@ public class PathfindController : MonoBehaviour
     {
         if (!movementByEnum.ContainsKey(newAction))
         {
-            Debug.LogWarning("Couldnt find corresponding movemenet action! " + newAction);
+            Debug.LogWarning("Couldnt find corresponding movement action! " + newAction);
             return;
         }
 

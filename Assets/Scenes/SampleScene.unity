@@ -468,31 +468,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent
       objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
-      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -799,31 +774,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
-      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -957,6 +907,16 @@ PrefabInstance:
       propertyPath: bodyColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: showAIPoints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: isPlayerControlled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: showConeDebug
@@ -966,6 +926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1209,6 +1174,16 @@ PrefabInstance:
       propertyPath: bodyColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: showAIPoints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: isPlayerControlled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: showConeDebug
@@ -1218,6 +1193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1254,31 +1234,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -1633,31 +1588,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
-      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1809,31 +1739,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -2119,31 +2024,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -2766,6 +2646,16 @@ PrefabInstance:
       propertyPath: bodyColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: showAIPoints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: isPlayerControlled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: showConeDebug
@@ -2775,6 +2665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2935,31 +2830,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
-      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3027,31 +2897,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0.09878961
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0.4716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -3285,51 +3130,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.b
+      propertyPath: showAIPoints
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
-      propertyPath: bodyColor.g
-      value: 0
+      propertyPath: actionAssetList.Array.size
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
-      propertyPath: bodyColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: creatorData
+      propertyPath: actionAssetList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2a27c2be79fa35747aca55bd3c5142d5,
+      objectReference: {fileID: 11400000, guid: c7f15355f3adac2498d6ec361179c79c,
         type: 2}
     - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
-      propertyPath: isPlayerControlled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+      propertyPath: actionAssetList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4da5108932d5bfd478481735596e186a,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
-      propertyPath: showConeDebug
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: actionAssetList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: a25b6686c6b100a4a94ab35a23821119,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: actionAssetList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 646a523c28e576045a84ec61042f86a9,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: actionAssetList.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: cd05be2583da09541af615e407489bdd,
+        type: 2}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
       value: LizardAgent
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
