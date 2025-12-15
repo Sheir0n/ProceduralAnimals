@@ -4,22 +4,24 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+[CreateAssetMenu(fileName = "FindRestSpotController", menuName = "AI/Actions/FindRestSpotController")]
 public class FindRestSpotController : IUtilityAction
 {
-    private readonly PathfindController controller;
-    private readonly AnimalAnimator animator;
-    private readonly Transform transform;
-    private float energyDrainRate = 0;
-    private float saturationDrainRate = 0;
-    private bool enableScore = false;
-    private const int maxRestSpots = 5;
+    private Transform transform;
 
+    [Header("FindRestSpot settings")]
+    [SerializeField] private float energyDrainRate = 0.25f;
+    [SerializeField] private float saturationDrainRate = 0.75f;
+    [SerializeField] private const int maxRestSpots = 5;
+
+    private bool enableScore = false;
     private List<Transform> restingSpots = new List<Transform>();
 
-    public FindRestSpotController(PathfindController controller, AnimalAnimator animator, Transform transform, AnimalEventHub eventHub, float energyDrainRate, float saturationDrainRate)
+    public string DebugName() => "FindRestSpot";
+
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
-        this.controller = controller;
-        this.animator = animator;
         this.transform = transform;
         this.energyDrainRate = energyDrainRate;
         this.saturationDrainRate = saturationDrainRate;
@@ -27,8 +29,6 @@ public class FindRestSpotController : IUtilityAction
         eventHub.OnNewInterestFound += AddNewRestSpot;
         eventHub.OnNearestRestSpotRequest += GetNearestRestingSpot;
     }
-
-    public string DebugName() => "FindRestSpot";
     public void Enter() { }
     public void Update() { }
     public void AlwaysUpdate() { }

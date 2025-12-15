@@ -26,50 +26,44 @@ public class HuntTarget
     }
 }
 
-public class ChaseFoodController : IUtilityAction
+[CreateAssetMenu(fileName = "ChaseFoodController", menuName = "AI/Actions/ChaseFoodController")]
+public class ChaseFoodController : ScriptableObject, IUtilityAction
 {
-    private readonly PathfindController controller;
-    private readonly AnimalAnimator animator;
-    private readonly AnimalEventHub eventHub;
-    private readonly Transform transform;
+    private AnimalEventHub eventHub;
+
+    [Header("Drain rate modifiers")]
+    [SerializeField] private float energyDrainRateModifier = 1;
+    [SerializeField] private float saturationDrainRateModifier = 1;
+
     private float energyDrainRate = 0;
     private float saturationDrainRate = 0;
+
+    [Header("Bite settings")]
+    [SerializeField] private int biteCooldownMs = 500;
+    [SerializeField] private int biteWindupMs = 100;
+    [SerializeField] private int biteDashDuration = 500;
+    [SerializeField] private int biteDamage = 1;
 
     TrackedWithScore bestPreyCandidate;
 
     private bool bitePrepared = false;
 
-    private Collider biteTarget;
     IDamageable targetInterface;
 
-    private int biteCooldownMs = 500;
     private int randomisedCooldownMs;
     private float biteTimerMs = 0;
-
-    private int biteWindupMs = 100;
-
-    private int biteDashDuration = 500;
-    private int biteDamage = 1;
     private bool preyCaught = false;
 
+    private Collider biteTarget = null;
     public enum BiteAttackStage {Windup, Dash, Finished}
     private CancellationTokenSource biteCancelToken;
     AnimalMouthCollider animalMouth;
 
-
-    public ChaseFoodController(PathfindController controller, AnimalAnimator animator, Transform transform, AnimalEventHub eventHub, float energyDrainRate, float saturationDrainRate, int biteCooldownMs, int biteWindupMs, int biteDashDuration, int biteDamage)
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
-        this.controller = controller;
-        this.animator = animator;
-        this.transform = transform;
         this.eventHub = eventHub;
         this.energyDrainRate = energyDrainRate;
         this.saturationDrainRate = saturationDrainRate;
-        this.biteCooldownMs = biteCooldownMs;
-        this.biteWindupMs = biteWindupMs;
-        this.biteDashDuration = biteDashDuration;
-        this.biteDamage = biteDamage;
-
         bestPreyCandidate = new TrackedWithScore(null, 0);
     }
 
@@ -114,7 +108,7 @@ public class ChaseFoodController : IUtilityAction
         //TODO do zmiany, na razie zapobiega blokadzie
         //ma sie odblokowac po zaniesieniu ofiary na spawn
         if (targetTransform == null || preyCaught)
-            return 0;
+            return -Mathf.Infinity;
         else
         {
             float normalisedSaturation = stats.saturation / stats.maxSaturation;

@@ -14,6 +14,11 @@ public class DeathController : IUtilityAction
 
     public string DebugName() => "DeathDisabled";
 
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
+    {
+        this.animator = animator;
+    }
+
     public void Enter() { }
     public void Update() { }
     public void AlwaysUpdate() { }

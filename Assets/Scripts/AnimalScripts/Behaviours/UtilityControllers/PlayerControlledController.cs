@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlledController : IUtilityAction
+[CreateAssetMenu(fileName = "PlayerControlledController", menuName = "AI/Actions/PlayerControlledController")]
+public class PlayerControlledController : ScriptableObject, IUtilityAction
 {
-    private readonly PathfindController controller;
-    private readonly AnimalAnimator animator;
+    private AnimalAnimator animator;
 
-    public PlayerControlledController(PathfindController controller, AnimalAnimator animator)
+    public string DebugName() => "PlayerControlled";
+
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
-        this.controller = controller;
         this.animator = animator;
     }
 
-    public string DebugName() => "PlayerControlled";
     public void Enter() { }
     public void Update() { }
     public void AlwaysUpdate() { }

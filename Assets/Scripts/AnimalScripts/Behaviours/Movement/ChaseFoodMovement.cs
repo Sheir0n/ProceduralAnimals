@@ -90,7 +90,8 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
         updateAgentTargetingTimerMs += Time.deltaTime * 1000f;
         if (updateAgentTargetingTimerMs >= updateAgentTargetingTimeMs)
         {
-            agent.SetDestination(chaseTarget.position);
+            if (chaseTarget != null)
+                agent.SetDestination(chaseTarget.position);
         }
         lookTargetPos = chaseTarget.transform.position;
     }

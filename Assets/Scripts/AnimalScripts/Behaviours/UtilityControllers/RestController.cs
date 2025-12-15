@@ -4,34 +4,29 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RestController : IUtilityAction
+public class RestController : ScriptableObject, IUtilityAction
 {
-    private readonly PathfindController controller;
-    private readonly AnimalAnimator animator;
     private AnimalEventHub eventHub;
 
-    private float energyRegenRate = 0;
-    private float restHealthRegenRate = 0;
     private float saturationDrainRate = 0;
-    private float healthRegenSaturationDrain = 0;
-    private float saturationRegenThreshold = 0;
+
+
+    [Header("Rest settings")]
+    [SerializeField] private float energyRegenRate = 0.5f;
+    [SerializeField] private float restHealthRegenRate = 0.05f;
+    [SerializeField] private float healthRegenSaturationDrain = 0.05f;
+    [SerializeField] private float saturationRegenThreshold = 0.5f;
+
     bool applyRestPenality = false;
 
     const float restPenalityDefaultModifier = 0.5f;
     private float currentRestModifier = 1f;
 
-    public RestController(PathfindController controller, AnimalAnimator animator, AnimalEventHub eventHub, float energyRegenRate, float saturationDrainRate, float restHealthRegenRate, float healthRegenSaturationDrain, float saturationRegenThreshold)
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
-        this.controller = controller;
-        this.animator = animator;
         this.eventHub = eventHub;
-        this.energyRegenRate = energyRegenRate;
         this.saturationDrainRate = saturationDrainRate;
-        this.restHealthRegenRate = restHealthRegenRate;
-        this.healthRegenSaturationDrain = healthRegenSaturationDrain;
-        this.saturationRegenThreshold = saturationRegenThreshold;
     }
-
     public string DebugName() => "Rest";
     public void Enter()
     {

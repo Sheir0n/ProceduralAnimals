@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
-public class WanderController : IUtilityAction
+
+[CreateAssetMenu(fileName = "WanderController", menuName = "AI/Actions/WanderController")]
+public class WanderController : ScriptableObject, IUtilityAction
 {
-    private readonly PathfindController controller;
-    private readonly AnimalAnimator animator;
     private float energyDrainRate = 0;
     private float saturationDrainRate = 0;
 
-    public WanderController(PathfindController controller, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
+    [Header("Drain rate modifiers")]
+    [SerializeField] private float energyDrainRateModifier = 1;
+    [SerializeField] private float saturationDrainRateModifier = 1;
+
+    public string DebugName() => "Wander";
+
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
-        this.controller = controller;
-        this.animator = animator;
         this.energyDrainRate = energyDrainRate;
         this.saturationDrainRate = saturationDrainRate;
     }
 
-    public string DebugName() => "Wander";
     public void Enter() { }
     public void Update() { }
     public void AlwaysUpdate() { }

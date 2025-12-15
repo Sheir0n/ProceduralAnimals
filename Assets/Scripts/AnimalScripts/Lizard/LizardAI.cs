@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class LizardAI : AnimalAI
 {
-    private float energyDrainRate = 0.075f;
-    private float saturationDrainRate = 0.045f;
-
     private float energyRegenRate = 0.5f;
     private float restHealthRegenRate = 0.05f;
     private float healthRegenSaturationDrain = 0.05f;
@@ -26,11 +23,11 @@ public class LizardAI : AnimalAI
     protected override void Awake()
     {
         base.Awake();
-        AddNewAction(new PlayerControlledController(pathfindController, animator), AIAction.PlayerControlled);
-        AddNewAction(new RestController(pathfindController, animator, eventHub, energyRegenRate, saturationDrainRate * 0.5f, restHealthRegenRate, healthRegenSaturationDrain, saturationRegenThreshold), AIAction.Rest);
-        AddNewAction(new WanderController(pathfindController, animator, energyDrainRate, saturationDrainRate), AIAction.Wander);
-        AddNewAction(new FindRestSpotController(pathfindController, animator, transform, eventHub, energyDrainRate * 0.25f, saturationDrainRate * 0.75f), AIAction.FindRestSpot);
-        AddNewAction(new ChaseFoodController(pathfindController, animator, transform, eventHub, energyDrainRate * 3f, saturationDrainRate * 1.5f, biteCooldownMs, biteWindupMs, biteDashDuration, biteDamage), AIAction.ChaseFood);
+        AddNewAction(new PlayerControlledController(), AIAction.PlayerControlled);
+        AddNewAction(new RestController(), AIAction.Rest);
+        AddNewAction(new WanderController(), AIAction.Wander);
+        AddNewAction(new FindRestSpotController(), AIAction.FindRestSpot);
+        AddNewAction(new ChaseFoodController(), AIAction.ChaseFood);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)

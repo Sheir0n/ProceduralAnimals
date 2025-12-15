@@ -7,6 +7,8 @@ using UnityEngine;
 public class AnimalAI : MonoBehaviour, IDamageable
 {
     [SerializeField] protected AnimalStats stats;
+    protected readonly float energyDrainRate = 0.075f;
+    protected readonly float saturationDrainRate = 0.045f;
 
     [Header("Show StateChange logs")]
     [SerializeField] private bool showStateChangeLogs = false;
@@ -42,6 +44,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected AnimalEventHub eventHub;
     private Transform snatchTransform;
 
+    [SerializeField] protected List<IUtilityAction> acionList = new List<IUtilityAction>();
+
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
@@ -55,7 +59,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
         AddNewAction(new DeathController(pathfindController, animator), AIAction.Death);
 
-        if(trackersData == null)
+        if (trackersData == null)
             trackersData = ScriptableObject.CreateInstance<TrackerDatas>();
         interestTracker = new InterestTracker(trackersData.lookTrackerTags, transform, eventHub, stats);
         preyTracker = new PreyTracker(trackersData.foodTrackerTags, transform, eventHub, stats);
@@ -104,6 +108,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected void AddNewAction(IUtilityAction action, AIAction actionEnum)
     {
         actions.Add(action);
+        action.OnInstantiate(transform, eventHub, animator, energyDrainRate, saturationDrainRate);
         enumByAction.Add(action, actionEnum);
         actionByEnum.Add(actionEnum, action);
     }
@@ -111,7 +116,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected virtual IUtilityAction GetHighestUtilityAction()
     {
         IUtilityAction bestAction = currAction;
-        float highscore = 0;
+        float highscore = -Mathf.Infinity;
 
         if (isPlayerControlled)
         {
