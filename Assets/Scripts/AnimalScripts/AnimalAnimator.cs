@@ -20,6 +20,7 @@ public class AnimalAnimator : MonoBehaviour
 
     protected AnimalEventHub eventHub;
     [SerializeField] private bool isAnimalDisabled;
+    protected bool isBodyReady { get; private set; } = false;
 
     protected virtual void Awake()
     {
@@ -29,6 +30,9 @@ public class AnimalAnimator : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!isBodyReady)
+            return;
+
         if (joints == null || joints.Count == 0)
         {
             Debug.LogWarning("Animal Animator: joints list is empty or null!");
@@ -47,6 +51,7 @@ public class AnimalAnimator : MonoBehaviour
         this.joints = spineJoints;
         this.limbs = limbs;
         this.head = head;
+        isBodyReady = true;
     }
 
     protected virtual void CalculateRootSegmentTransform()

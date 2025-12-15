@@ -468,6 +468,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
+      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,6 +794,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
+      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -886,6 +926,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -1119,6 +1179,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: showConeDebug
@@ -1164,6 +1244,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -1518,6 +1618,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
+      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1669,6 +1789,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -1954,6 +2094,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -2556,6 +2716,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: showConeDebug
@@ -2725,6 +2905,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
+      objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2792,6 +2992,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0.09878961
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322555769018731319, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 0.2300954
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -3024,6 +3244,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: bodyColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}

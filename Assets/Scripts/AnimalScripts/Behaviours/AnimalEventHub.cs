@@ -7,6 +7,7 @@ using static ChaseFoodController;
 
 public class AnimalEventHub : MonoBehaviour
 {
+    public event Action OnBodyGenerated;
     public event Action<IReadOnlyAnimalStats> OnInitializeStats;
     public event Action<AIAction> OnActionChanged;
     public event Action<Vector3> OnSegmentCollision;
@@ -32,6 +33,7 @@ public class AnimalEventHub : MonoBehaviour
         currPushEventCount = 0;
     }
 
+    public void AnnounceBodyGenerated() => OnBodyGenerated?.Invoke();
     public void SendInitializeRequest(IReadOnlyAnimalStats stats) => OnInitializeStats?.Invoke(stats);
     public void SendAIStateChange(AIAction newAction) => OnActionChanged?.Invoke(newAction);
     public void PushAgentOnSegmentCollision(Vector3 pushVector)

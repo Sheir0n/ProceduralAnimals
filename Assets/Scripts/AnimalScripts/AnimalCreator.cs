@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 
 [System.Serializable]
 public class SegmentData
 {
     public string segmentName;
-
-    public GameObject bodySegmentPrefab;
     public int jointCount;
     public AnimationCurve sizeCurve;
     public float distanceConstraint;
@@ -23,27 +23,34 @@ public class SegmentData
 public class AnimalCreator : MonoBehaviour
 {
     AnimalAnimator animatorScript;
+    AnimalEventHub eventHub;
 
     [Header("Segment Datas")]
-    //[SerializeField] protected List<SegmentData> spineSegmentData = new List<SegmentData>();
-    //[SerializeField] protected List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
-    //[SerializeField] protected AnimalHeadData animalHeadData;
-
     [SerializeField] private ScriptableCreator creatorData;
+    [SerializeField] private Color bodyColor = Color.red;
 
     protected List<AnimalJoint> spineJoints = new List<AnimalJoint>();
     protected List<AnimalLimb> limbs = new List<AnimalLimb>();
     protected AnimalHead animalHead;
 
+    private GameObject prefabCache;
+
     protected void Awake()
     {
         animatorScript = GetComponent<AnimalAnimator>();
+        eventHub = GetComponent<AnimalEventHub>();
     }
-
-    void Start()
+    async void Start()
     {
         Debug.Log("GENERATING");
         bool hasHead = false;
+        await LoadPrefabs();
+        if (prefabCache == null)
+        {
+            Debug.LogError("Animal Joint Prefab addressable not found! Halting animal creation process.", this);
+            return;
+        }
+
         GenerateBody();
         if (creatorData.animalHeadData.joints.Count > 0)
         {
@@ -79,6 +86,8 @@ public class AnimalCreator : MonoBehaviour
                 mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
             }
         }
+        eventHub.AnnounceBodyGenerated();
+        ReleasePrefab();
     }
 
     public void GenerateBody()
@@ -154,17 +163,34 @@ public class AnimalCreator : MonoBehaviour
 
     protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, string name)
     {
-        GameObject newSegment = Instantiate(segmentData.bodySegmentPrefab, masterTransform);
+        GameObject newSegment = Instantiate(prefabCache, masterTransform);
         newSegment.transform.localScale = Vector3.one * segmentScale;
         newSegment.transform.position = masterTransform.position + masterTransform.rotation * positionOffset;
-        newSegment.transform.rotation = masterTransform.rotation * segmentData.bodySegmentPrefab.transform.rotation;
+        newSegment.transform.rotation = masterTransform.rotation * prefabCache.transform.rotation;
         newSegment.name = name;
+
+        newSegment.GetComponent<SpriteRenderer>().color = bodyColor;
         AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
         segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, iteration);
 
         return segmentScript;
     }
 
+    private async Task LoadPrefabs()
+    {
+        if (prefabCache == null)
+        {
+            prefabCache = await Addressables.LoadAssetAsync<GameObject>("AnimalJoint").Task;
+        }
+    }
+
+    private void ReleasePrefab() { 
+        if (prefabCache != null)
+        {
+            Addressables.Release(prefabCache);
+            prefabCache = null;
+        }
+    }
     public void AttachMouthCollider(List<AnimalJoint> attachChain, GameObject mouthCollider, int segmentId)
     {
         if (mouthCollider == null)

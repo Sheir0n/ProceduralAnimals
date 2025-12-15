@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creatorData: {fileID: 11400000, guid: dfe6319d903b1f54596dc232ccb2d88a, type: 2}
+  bodyColor: {r: 0.21428463, g: 0.3962264, b: 0.11886788, a: 0}
 --- !u!114 &5751978485350454209
 MonoBehaviour:
   m_ObjectHideFlags: 0

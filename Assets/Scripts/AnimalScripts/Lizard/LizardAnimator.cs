@@ -20,6 +20,9 @@ public class LizardAnimator : AnimalAnimator
 
     protected override void Update()
     {
+        if (!isBodyReady)
+            return;
+
         if (joints == null || joints.Count == 0)
         {
             Debug.LogWarning("Animal Animator: joints list is empty or null!");
@@ -83,7 +86,12 @@ public class LizardAnimator : AnimalAnimator
         }
     }
 
-    private HeadCenterData GetLookCenter() => head.GetLerpedLook(segmentId: 2);
+    private HeadCenterData GetLookCenter()
+    {
+        if (head == null)
+            return new HeadCenterData(transform.position, transform.forward);
+        return head.GetLerpedLook(segmentId: 2);
+    }
 
     protected override void OnActionChanged(AnimalAI.AIAction newAction)
     {
