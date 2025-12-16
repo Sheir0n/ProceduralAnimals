@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[System.Serializable]
+[CreateAssetMenu(fileName = "WanderMovement", menuName = "AI/Movement/WanderMovement")]
 public class WanderMovement : BaseMovementScript, IAnimalMovement
 {
-    private NavMeshAgent agent;
-    private WanderMovementSettings wanderSettings;
-    private AnimalEventHub eventHub;
+    [Header("Wander Variables")]
+    [SerializeField] private float selectNewTargetCooldownMs = 250;
+    [SerializeField] private float wanderCircleDistance = 2f;
+    [SerializeField] private float wanderCircleRadius = 1.5f;
+    [SerializeField] private float wanderJitter = 0.1f;
+
+    [Header("Global Stats Sensitivity Variables")]
+    [SerializeField] private float vigorWalkSpeedVariationModifier = 0f;
+    [SerializeField][Range(0, 1)] private float lowHealthSpeedPenalityThreshold = 0f;
+    [SerializeField][Range(0f, 1)] private float healthSlowdownMaxPenality = 0f;
 
     private bool showTargetingLogs = false;
-
     private bool wanderFallback = false;
     private float selectNewTargetTimerMs = 0;
     private float fallbackTimerMs = 0;
@@ -21,28 +27,34 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
     public Vector3? LookTargetPosition { get; private set; }
     public bool? LookAtTarget { get; private set; }
 
-    private MovementStats walkStats;
-    public WanderMovement(NavMeshAgent agent, WanderMovementSettings settings, AnimalEventHub eventHub, IReadOnlyAnimalStats generalStatsHook)
+    MovementStats penalisedStats;
+
+    MovementStats baseFallbackStats;
+    MovementStats penalisedFallbackStats;
+
+    MovementStats currStats;
+
+    [Header("No target fallback movement modifiers")]
+    [SerializeField] private MovementStatsModifiers fallbackStatsModifiers = new MovementStatsModifiers();
+
+
+    protected override void AssignExtraMovementStats(NavMeshAgent agent)
     {
-        this.agent = agent;
-        this.wanderSettings = settings;
-        this.animalStatsHook = generalStatsHook;
-        this.eventHub = eventHub;
-        AssignMovementStats();
+        penalisedStats = new MovementStats(baseStats);
+        baseFallbackStats = CalculateStatsWithModifiers(agent, fallbackStatsModifiers);
     }
 
-    protected override void AssignMovementStats()
+    protected void CalculatePenalisedStats()
     {
-        AssignBaseMovementStats(agent);
-        walkStats = new MovementStats(BaseStats);
-
-        float modifier = wanderSettings.vigorWalkSpeedVariationModifier;
+        float modifier = vigorWalkSpeedVariationModifier;
         float speedMultiplier = Mathf.Lerp(1f - modifier, 1f + modifier, animalStatsHook.StatVigor);
 
-        walkStats.Speed *= wanderSettings.agentBaseWalkSpeedMultiplier * speedMultiplier;
-        walkStats.Acceleration *= wanderSettings.agentBaseWalkSpeedMultiplier * speedMultiplier;
-    }
+        penalisedStats.Speed *= baseStats.Speed * speedMultiplier;
+        penalisedStats.Acceleration *= baseStats.Acceleration * speedMultiplier;
 
+        penalisedFallbackStats.Speed *= baseStats.Speed * speedMultiplier;
+        penalisedFallbackStats.Acceleration *= baseStats.Acceleration * speedMultiplier;
+    }
     public void Enter()
     {
         fallbackTimerMs = fallbackCooldownMs;
@@ -55,10 +67,11 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
 
     public void Update()
     {
-        MovementStats penalizedStats = CalculateHealthStatPenality(walkStats);
+        penalisedStats = CalculateHealthStatPenality(baseStats);
+        penalisedFallbackStats = CalculateHealthStatPenality(baseFallbackStats);
 
-        SmoothAssignMovementStats(agent, penalizedStats, lerpSpeed: 5f);
-        if (fallbackCooldownMs < fallbackTimerMs && selectNewTargetTimerMs >= wanderSettings.selectNewTargetCooldownMs)
+        SmoothAssignMovementStats(agent, currStats, lerpSpeed: 5f);
+        if (fallbackCooldownMs < fallbackTimerMs && selectNewTargetTimerMs >= selectNewTargetCooldownMs)
         {
             selectNewTargetTimerMs = 0;
             Vector3 newPos = GetNewWanderTarget();
@@ -80,10 +93,10 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
 
         for (int i = 0; i < maxTries; i++)
         {
-            Vector3 randomOffset = Random.insideUnitSphere * Random.Range(0f, wanderSettings.wanderJitter);
-            Vector3 wanderTarget = Vector3.Normalize(new Vector3(randomOffset.x, 0, randomOffset.z)) * wanderSettings.wanderCircleRadius * (0.5f + animalStatsHook.StatCuriosity);
+            Vector3 randomOffset = Random.insideUnitSphere * Random.Range(0f, wanderJitter);
+            Vector3 wanderTarget = Vector3.Normalize(new Vector3(randomOffset.x, 0, randomOffset.z)) * wanderCircleRadius * (0.5f + animalStatsHook.StatCuriosity);
 
-            Vector3 circleCenter = agent.transform.forward * wanderSettings.wanderCircleDistance;
+            Vector3 circleCenter = agent.transform.forward * wanderCircleDistance;
             Vector3 targetPos = agent.transform.position + circleCenter + wanderTarget;
             targetPos.y = 0;
 
@@ -91,7 +104,7 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
             {
                 if (showTargetingLogs)
                     Debug.Log($"[Wander] Target found on attempt {i + 1}");
-                SetWanderFallbackSpeed(false);
+                SetWanderFallback(false);
                 return validPos;
             }
         }
@@ -110,24 +123,23 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
             {
                 if (showTargetingLogs)
                     Debug.Log($"[Wander] Fallback target found on attempt {i + 1}");
-                SetWanderFallbackSpeed(true);
+                SetWanderFallback(true);
                 return candidateValidPos;
             }
         }
         return agent.transform.position;
     }
 
-    private void SetWanderFallbackSpeed(bool fallback)
+    private void SetWanderFallback(bool fallback)
     {
         if (fallback != wanderFallback)
         {
             if (fallback)
             {
-                walkStats.AngularSpeed = wanderSettings.agentFallbackAngularSpeed;
-                fallbackTimerMs = 0;
+                currStats = penalisedFallbackStats;
             }
             else
-                walkStats.AngularSpeed = wanderSettings.agentWanderAngularSpeed;
+                currStats = penalisedStats;
 
             wanderFallback = fallback;
         }
@@ -144,12 +156,12 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
         float speedMultiplier = 1f;
 
         float currentHealthNormalized = animalStatsHook.Health / animalStatsHook.MaxHealth;
-        if (currentHealthNormalized <= wanderSettings.lowHealthSpeedPenalityThreshold)
+        if (currentHealthNormalized <= lowHealthSpeedPenalityThreshold)
         {
-            float t = 1f - (currentHealthNormalized / wanderSettings.lowHealthSpeedPenalityThreshold);
+            float t = 1f - (currentHealthNormalized / lowHealthSpeedPenalityThreshold);
             t = Mathf.Clamp01(t);
 
-            speedMultiplier = 1f - t * wanderSettings.healthSlowdownMaxPenality;
+            speedMultiplier = 1f - t * healthSlowdownMaxPenality;
         }
 
         MovementStats modifiedStats = baseStats;

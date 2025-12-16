@@ -5,28 +5,11 @@ using UnityEngine.AI;
 
 public class RestMovement : BaseMovementScript, IAnimalMovement
 {
-    private NavMeshAgent agent;
-    private Transform transform;
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }
-
     public bool? LookAtTarget { get; private set; }
 
-    private MovementStats slowDownStats;
-
-    public RestMovement(NavMeshAgent agent, Transform transform)
-    {
-        this.agent = agent;
-        this.transform = transform;
-        AssignMovementStats();
-    }
-
-    protected override void AssignMovementStats()
-    {
-        AssignBaseMovementStats(agent);
-        slowDownStats = new MovementStats(BaseStats);
-        slowDownStats.Speed *= 0.2f;
-    }
+    protected override void AssignExtraMovementStats(NavMeshAgent agent) { }
 
     public void Enter()
     {
@@ -43,7 +26,7 @@ public class RestMovement : BaseMovementScript, IAnimalMovement
 
     public void Update()
     {
-        SmoothAssignMovementStats(agent, slowDownStats, lerpSpeed: 0.5f);
+        SmoothAssignMovementStats(agent, baseStats, lerpSpeed: 0.5f);
     }
 
     public void Exit()

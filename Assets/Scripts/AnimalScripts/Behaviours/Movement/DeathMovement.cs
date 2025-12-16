@@ -4,26 +4,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+[CreateAssetMenu(fileName = "DeathMovement", menuName = "AI/Movement/DeathMovement")]
 public class DeathMovement : BaseMovementScript, IAnimalMovement
 {
     public Vector3? MoveTargetPosition => null;
     public Vector3? LookTargetPosition => null;
     public bool? LookAtTarget { get; private set; }
 
-    NavMeshAgent agent;
-    AnimalEventHub eventHub;
-
-    public DeathMovement(NavMeshAgent agent, AnimalEventHub eventHub)
-    {
-        this.agent = agent;
-        this.eventHub = eventHub;
-        AssignMovementStats();
-    }
-
-    protected override void AssignMovementStats()
-    {
-        AssignBaseMovementStats(agent);
-    }
+    protected override void AssignExtraMovementStats(NavMeshAgent agent) { }
 
     public void Enter()
     {

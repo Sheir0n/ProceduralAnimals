@@ -11,5 +11,5 @@ public interface IAnimalMovement
     Vector3? MoveTargetPosition { get; }
     Vector3? LookTargetPosition { get; }
     bool? LookAtTarget { get; }
-
+    void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook);
 }

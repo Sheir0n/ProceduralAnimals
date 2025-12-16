@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.AI;
 using static ChaseFoodController;
 
+[CreateAssetMenu(fileName = "ChaseMovement", menuName = "AI/Movement/ChaseMovement")]
 public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
 {
-    private NavMeshAgent agent;
-    private AnimalEventHub eventHub;
-    private Transform transform;
-    private MovementStats chaseStats;
+    [Header("Attack Dash Settings")]
+    [SerializeField] private MovementStatsModifiers slowdownStatsModifiers = new MovementStatsModifiers();
+    [SerializeField] private MovementStatsModifiers noMovementStatsModifiers = new MovementStatsModifiers();
+
     private MovementStats slowdownStats;
     private MovementStats noMovementStats;
     private MovementStats currStatsSet;
@@ -30,34 +32,36 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
     private float dashLerpSpeed = 2f;
     private float dashSlowdownLerp = 8f;
 
-    public ChaseFoodMovement(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub)
+    public override void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
     {
-        this.agent = agent;
-        this.eventHub = eventHub;
-        this.transform = transform;
-        AssignMovementStats();
+        base.OnInstantiate(agent, transform, eventHub, statsHook);
     }
 
-    protected override void AssignMovementStats()
+    protected override void AssignExtraMovementStats(NavMeshAgent agent)
     {
-        AssignBaseMovementStats(agent);
-        chaseStats = new MovementStats(BaseStats);
-
-        slowdownStats = new MovementStats(BaseStats);
-        slowdownStats.Speed = BaseStats.Speed * 0.1f;
-        slowdownStats.AngularSpeed = BaseStats.AngularSpeed * 0.1f;
-        slowdownStats.Acceleration = BaseStats.AngularSpeed * 0.25f;
-
-        noMovementStats = new MovementStats(BaseStats);
-        noMovementStats.Speed = 0f;
-        noMovementStats.AngularSpeed = 0.125f;
-
-        currStatsSet = chaseStats;
+        slowdownStats = CalculateStatsWithModifiers(agent, slowdownStatsModifiers);
+        noMovementStats = CalculateStatsWithModifiers(agent, noMovementStatsModifiers);
     }
+
+    //protected override void AssignMovementStats()
+    //{
+    //    baseStats = new MovementStats(base.baseStats);
+
+    //    slowdownStats = new MovementStats(base.baseStats);
+    //    slowdownStats.Speed = base.baseStats.Speed * 0.1f;
+    //    slowdownStats.AngularSpeed = base.baseStats.AngularSpeed * 0.1f;
+    //    slowdownStats.Acceleration = base.baseStats.AngularSpeed * 0.25f;
+
+    //    noMovementStats = new MovementStats(base.baseStats);
+    //    noMovementStats.Speed = 0f;
+    //    noMovementStats.AngularSpeed = 0.125f;
+
+    //    currStatsSet = base.baseStats;
+    //}
 
     public void Enter()
     {
-        currStatsSet = chaseStats;
+        currStatsSet = baseStats;
         dashPushVector = Vector3.zero;
         dashPushTargetVector = Vector3.zero;
         updateAgentTargetingTimerMs = 0f;
@@ -118,7 +122,7 @@ public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
                 currStatsSet = noMovementStats;
                 break;
             case BiteAttackStage.Finished:
-                currStatsSet = chaseStats;
+                currStatsSet = baseStats;
                 dashPushTargetVector = Vector3.zero;
                 break;
         }

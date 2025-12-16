@@ -21,7 +21,7 @@ public class BeetlePathfindingController : PathfindController
     {
         base.InitializeWithStatsHook(statsHook);
         agent.baseOffset = 0f;
-        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), playercontrolled);
-        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), wander);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<PlayerControlledMovement>(), playercontrolled, statsHook);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<WanderMovement>(), wander, statsHook);
     }
 }

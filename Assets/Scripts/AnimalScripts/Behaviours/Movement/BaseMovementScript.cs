@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class BaseMovementScript
+public abstract class BaseMovementScript : ScriptableObject
 {
     protected struct MovementStats
     {
@@ -27,16 +27,37 @@ public abstract class BaseMovementScript
             Acceleration = other.Acceleration;
             StoppingDistance = other.StoppingDistance;
         }
-
     }
 
-    protected MovementStats BaseStats { private set; get; }
+    [System.Serializable]
+    protected class MovementStatsModifiers
+    {
+        public float SpeedModifier = 1f;
+        public float AngularSpeedModifier = 1f;
+        public float AccelerationModifier = 1f;
+        public float StoppingDistanceModifier = 1f;
+    }
+
+    protected NavMeshAgent agent;
+    protected Transform transform;
+    protected AnimalEventHub eventHub;
     protected IReadOnlyAnimalStats animalStatsHook;
 
+    [Header("Base stats modifiers")]
+    [SerializeField] private MovementStatsModifiers baseStatsModifiers = new MovementStatsModifiers();
+    protected MovementStats baseStats;
 
-    protected void AssignBaseMovementStats(NavMeshAgent agent)
+    [Header("Connected ActionID")]
+    [SerializeField] protected ActionID connectedId = null;
+
+    public virtual void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
     {
-        BaseStats = new MovementStats(agent.speed, agent.angularSpeed, agent.acceleration, agent.stoppingDistance);
+        this.agent = agent;
+        this.transform = transform;
+        this.eventHub = eventHub;
+        this.animalStatsHook = statsHook;
+        AssignBaseMovementStats(agent);
+        AssignExtraMovementStats(agent);
     }
 
     protected void SmoothAssignMovementStats(NavMeshAgent agent, MovementStats targetStats, float lerpSpeed)
@@ -54,5 +75,20 @@ public abstract class BaseMovementScript
             agent.stoppingDistance = Mathf.Lerp(agent.stoppingDistance, targetStats.StoppingDistance, lerpSpeed * Time.deltaTime);
     }
 
-    protected abstract void AssignMovementStats();
+    protected virtual void AssignBaseMovementStats(NavMeshAgent agent)
+    {
+        baseStats = CalculateStatsWithModifiers(agent, baseStatsModifiers);
+    }
+
+    protected MovementStats CalculateStatsWithModifiers(NavMeshAgent agent, MovementStatsModifiers modifiers)
+    {
+        MovementStats modifiedStats = new MovementStats(
+            agent.speed * modifiers.SpeedModifier,
+            agent.angularSpeed * modifiers.AngularSpeedModifier,
+            agent.acceleration * modifiers.AccelerationModifier,
+            agent.stoppingDistance * modifiers.StoppingDistanceModifier);
+        return modifiedStats;
+    }
+
+    protected abstract void AssignExtraMovementStats(NavMeshAgent agent);
 }

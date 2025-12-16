@@ -4,43 +4,34 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
+[CreateAssetMenu(fileName = "FindRestSpotMovement", menuName = "AI/Movement/FindRestSpotMovement")]
 public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
 {
-    private NavMeshAgent agent;
-    private Transform transform;
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }
     public bool? LookAtTarget { get; private set; }
 
-    private MovementStats searchRestStats;
-    private FindRestSpotMovementSettings searchRestMovementSettings;
-    private AnimalEventHub eventHub;
+    [Header("Global Stats Sensitivity Variables")]
+    public float vigorWalkSpeedVariationModifier = 0f;
+    [Range(0, 1)] public float lowHealthSpeedPenalityThreshold = 0f;
+    [Range(0f, 1)] public float healthSlowdownMaxPenality = 0f;
+
+    MovementStats penalisedStats;
+
     private Transform nearestRestSpot;
     private bool isOnRestSpot;
 
     private float restSpotScale = 0.65f;
     private float restSpotCheckRangeBonus = 0.15f;
 
-    public FindRestSpotMovement(NavMeshAgent agent, FindRestSpotMovementSettings settings, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats generalStatsHook)
+    public override void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
     {
-        this.agent = agent;
-        this.searchRestMovementSettings = settings;
-        this.animalStatsHook = generalStatsHook;
-        this.transform = transform;
-        this.eventHub = eventHub;
-        AssignMovementStats();
+        base.OnInstantiate(agent, transform, eventHub, statsHook);
     }
 
-    protected override void AssignMovementStats()
+    protected override void AssignExtraMovementStats(NavMeshAgent agent)
     {
-        AssignBaseMovementStats(agent);
-        searchRestStats = new MovementStats(BaseStats);
-
-        float modifier = searchRestMovementSettings.vigorWalkSpeedVariationModifier;
-        float speedMultiplier = Mathf.Lerp(1f - modifier, 1f + modifier, animalStatsHook.StatVigor);
-
-        searchRestStats.Speed *= searchRestMovementSettings.agentBaseWalkSpeedMultiplier * speedMultiplier;
-        searchRestStats.Acceleration *= searchRestMovementSettings.agentBaseWalkSpeedMultiplier * speedMultiplier;
+        penalisedStats = new MovementStats(baseStats);
     }
 
     public void Enter()
@@ -58,7 +49,8 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
         if (nearestRestSpot == null)
             return;
 
-        SmoothAssignMovementStats(agent, searchRestStats, lerpSpeed: 5f);
+        penalisedStats = CalculateHealthStatPenality(baseStats);
+        SmoothAssignMovementStats(agent, penalisedStats, lerpSpeed: 5f);
 
         Vector3 agentPos = transform.position;
         Vector3 spotPos = nearestRestSpot.position;
@@ -74,6 +66,7 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
             isOnRestSpot = true;
         DrawDebugCircle(nearestRestSpot.position, radius);
     }
+
     public void Exit()
     {
         nearestRestSpot = null;
@@ -111,5 +104,25 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
             Debug.DrawLine(prev, next, Color.red);
             prev = next;
         }
+    }
+
+    private MovementStats CalculateHealthStatPenality(MovementStats baseStats)
+    {
+        float speedMultiplier = 1f;
+
+        float currentHealthNormalized = animalStatsHook.Health / animalStatsHook.MaxHealth;
+        if (currentHealthNormalized <= lowHealthSpeedPenalityThreshold)
+        {
+            float t = 1f - (currentHealthNormalized / lowHealthSpeedPenalityThreshold);
+            t = Mathf.Clamp01(t);
+
+            speedMultiplier = 1f - t * healthSlowdownMaxPenality;
+        }
+
+        MovementStats modifiedStats = baseStats;
+        modifiedStats.Speed = baseStats.Speed * speedMultiplier;
+        modifiedStats.Acceleration = baseStats.Acceleration * speedMultiplier;
+
+        return modifiedStats;
     }
 }

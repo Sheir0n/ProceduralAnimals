@@ -26,10 +26,10 @@ public class LizardPathfindController : PathfindController
         base.InitializeWithStatsHook(statsHook);
         agent.baseOffset = 0.2f;
 
-        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), playerControlled);
-        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), wander);
-        AddNewMovementBehavior(new RestMovement(agent, transform), rest);
-        AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, transform, eventHub, statsHook), findRest);
-        AddNewMovementBehavior(new ChaseFoodMovement(agent, transform, eventHub), chase);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<PlayerControlledMovement>(), playerControlled, statsHook);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<WanderMovement>(), wander, statsHook);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<RestMovement>(), rest, statsHook);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<FindRestSpotMovement>(), findRest, statsHook);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<ChaseFoodMovement>(), chase, statsHook);
     }
 }

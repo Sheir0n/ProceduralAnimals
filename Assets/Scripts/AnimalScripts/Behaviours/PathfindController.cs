@@ -29,7 +29,6 @@ public class PathfindController : MonoBehaviour
     private Vector3 pendingPush;
     private bool pushedThisFrame = false;
 
-
     [SerializeField] protected ActionID death;
 
     protected virtual void Awake()
@@ -52,7 +51,7 @@ public class PathfindController : MonoBehaviour
         enumByMovement = new Dictionary<IAnimalMovement, ActionID>();
         lastRotation = transform.rotation;
 
-        AddNewMovementBehavior(new DeathMovement(agent, eventHub), death);
+        AddNewMovementBehavior(ScriptableObject.CreateInstance<DeathMovement>(), death, statsHook);
     }
 
     void Update()
@@ -99,13 +98,13 @@ public class PathfindController : MonoBehaviour
         lastRotation = transform.rotation;
     }
 
-    protected void AddNewMovementBehavior(IAnimalMovement movement, ActionID id)
+    protected void AddNewMovementBehavior(IAnimalMovement movement, ActionID id, IReadOnlyAnimalStats statsHook)
     {
-        if (id == null)
-            Debug.Log("NULL ID dla " + movement);
         movements.Add(movement);
         enumByMovement.Add(movement, id);
         movementByEnum.Add(id, movement);
+        Debug.Log("BEFORE INSTANTIATE " +  id.name);
+        movement.OnInstantiate(agent, transform, eventHub, statsHook);
     }
 
     protected void OnActionChanged(ActionID newAction)
