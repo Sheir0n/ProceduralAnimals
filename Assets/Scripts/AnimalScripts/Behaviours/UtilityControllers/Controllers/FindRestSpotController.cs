@@ -20,9 +20,9 @@ public class FindRestSpotController : ActionController, IUtilityAction
     private bool enableScore = false;
     private List<Transform> restingSpots = new List<Transform>();
 
-    public string DebugName() => "FindRestSpot";
-
     public AnimalAI.AIAction AIAction => AnimalAI.AIAction.FindRestSpot;
+
+    public ActionID ActionTag => actionID;
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {

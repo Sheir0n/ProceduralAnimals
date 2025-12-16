@@ -56,6 +56,10 @@ public class ChaseFoodController : ActionController, IUtilityAction
     private CancellationTokenSource biteCancelToken;
     AnimalMouthCollider animalMouth;
 
+    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.ChaseFood;
+
+    public ActionID ActionTag => actionID;
+
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
         this.eventHub = eventHub;
@@ -63,8 +67,6 @@ public class ChaseFoodController : ActionController, IUtilityAction
         this.saturationDrainRate = saturationDrainRate;
         bestPreyCandidate = new TrackedWithScore(null, 0);
     }
-
-    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.ChaseFood;
 
     public string DebugName() => "Chase Food";
 

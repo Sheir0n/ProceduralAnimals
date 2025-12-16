@@ -468,6 +468,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,6 +786,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -912,6 +936,18 @@ PrefabInstance:
       propertyPath: showAIPoints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: isPlayerControlled
@@ -1181,6 +1217,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
       propertyPath: isPlayerControlled
       value: 0
       objectReference: {fileID: 0}
@@ -1235,6 +1283,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1588,6 +1648,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1740,6 +1812,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2025,6 +2109,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2653,6 +2749,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
       propertyPath: isPlayerControlled
       value: 0
       objectReference: {fileID: 0}
@@ -2830,6 +2938,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2898,6 +3018,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3135,6 +3267,18 @@ PrefabInstance:
       propertyPath: showAIPoints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: sharedDeathId
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+        type: 2}
+    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: sharedEmptyId
+      value: 
+      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+        type: 2}
     - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: actionAssetList.Array.size

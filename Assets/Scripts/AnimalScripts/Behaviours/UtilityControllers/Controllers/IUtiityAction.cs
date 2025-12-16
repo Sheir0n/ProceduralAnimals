@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IUtilityAction
 {
     AnimalAI.AIAction AIAction { get; }
-    string DebugName();
+    ActionID ActionTag { get; }
     void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate);
     void Enter();
     void Update();

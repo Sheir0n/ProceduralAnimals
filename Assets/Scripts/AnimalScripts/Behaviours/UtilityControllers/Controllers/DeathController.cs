@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class DeathController : ActionController, IUtilityAction
 {
-
-    public string DebugName() => "DeathDisabled";
+    private static ActionID sharedID;
     public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Death;
-    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate) { 
+    public ActionID ActionTag => sharedID; 
+
+    public void InitializeShared(ActionID deathId)
+    {
+        sharedID = deathId;
     }
+
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate) {}
 
     public void Enter() { }
     public void Update() { }

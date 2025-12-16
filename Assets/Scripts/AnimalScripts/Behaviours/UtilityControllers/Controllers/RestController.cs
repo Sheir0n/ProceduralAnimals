@@ -25,6 +25,8 @@ public class RestController : ActionController, IUtilityAction
 
     public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Rest;
 
+    public ActionID ActionTag => actionID;
+
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
         this.eventHub = eventHub;

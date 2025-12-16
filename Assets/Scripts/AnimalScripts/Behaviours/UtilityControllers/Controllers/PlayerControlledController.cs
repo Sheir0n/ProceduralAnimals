@@ -5,15 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerControlledController", menuName = "AI/Actions/PlayerControlledController")]
 public class PlayerControlledController : ActionController, IUtilityAction
 {
-    private AnimalAnimator animator;
-
-    public string DebugName() => "PlayerControlled";
-
     public AnimalAI.AIAction AIAction => AnimalAI.AIAction.PlayerControlled;
+    public ActionID ActionTag => actionID;
+
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
-    {
-        this.animator = animator;
-    }
+    {}
 
     public void Enter() { }
     public void Update() { }

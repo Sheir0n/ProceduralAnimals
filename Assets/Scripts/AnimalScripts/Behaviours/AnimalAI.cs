@@ -47,6 +47,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] protected List<ActionController> actionAssetList = new List<ActionController>();
     [SerializeField] protected AIAction defaultAction = AIAction.EmptyController;
 
+    [SerializeField] ActionID sharedDeathId = null;
+    [SerializeField] ActionID sharedEmptyId = null;
+
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
@@ -69,7 +72,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
         actionByEnum = new Dictionary<AIAction, IUtilityAction>();
         enumByAction = new Dictionary<IUtilityAction, AIAction>();
 
-        AddNewAction(ScriptableObject.CreateInstance<EmptyController>(), AIAction.EmptyController);
+        EmptyController emptyController = ScriptableObject.CreateInstance<EmptyController>();
+        emptyController.InitializeShared(sharedEmptyId);
+        AddNewAction(emptyController, AIAction.EmptyController);
 
         if (actionAssetList.Count == 0)
             Debug.Log("Action asset list is empty! Defaulting to EmptyController", this);
@@ -82,7 +87,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
             }
         }
 
-        AddNewAction(ScriptableObject.CreateInstance<DeathController>(), AIAction.Death);
+        EmptyController deathController = ScriptableObject.CreateInstance<EmptyController>();
+        deathController.InitializeShared(sharedDeathId);
+        AddNewAction(deathController, AIAction.Death);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)
@@ -118,9 +125,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
         IUtilityAction newAction = GetHighestUtilityAction();
         if (newAction != currAction)
         {
-
-            if (showStateChangeLogs)
-                Debug.Log("Animal State Change: " + currAction.DebugName() + " => " + newAction.DebugName());
+            //DO ODKOMENTOWANIA PO ZMIANACH ACTIONID
+            //if (showStateChangeLogs)
+            //    Debug.Log("Animal State Change: " + currAction.DebugName() + " => " + newAction.DebugName());
             currAction.Exit();
             actionPenalities[currAction] += defaultPenality;
 
@@ -175,8 +182,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
                     highscore = actionScore;
                 }
 
-                if (showAIPoints)
-                    Debug.Log(action.DebugName() + " " + actionScore);
+                //DO DOKOMENTWOANIA PO ZMIANCH ACTON ID
+                //if (showAIPoints)
+                //    Debug.Log(action.DebugName() + " " + actionScore);
             }
         }
 

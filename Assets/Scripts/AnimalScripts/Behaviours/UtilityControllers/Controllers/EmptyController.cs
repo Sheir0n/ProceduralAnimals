@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class EmptyController : ActionController, IUtilityAction
 {
-    public string DebugName() => "Empty Default";
-
+    private static ActionID sharedID;
     public AnimalAI.AIAction AIAction => AnimalAI.AIAction.EmptyController;
-    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate) { 
+    public ActionID ActionTag => sharedID;
+
+    public void InitializeShared(ActionID deathId)
+    {
+        sharedID = deathId;
+    }
+
+    public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate) {
     }
     public void Enter() { }
     public void AlwaysUpdate() { }

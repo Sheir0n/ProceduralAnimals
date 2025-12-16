@@ -11,9 +11,9 @@ public class WanderController : ActionController, IUtilityAction
     [SerializeField] private float energyDrainRateModifier = 1;
     [SerializeField] private float saturationDrainRateModifier = 1;
 
-    public string DebugName() => "Wander";
-
     public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Wander;
+
+    public ActionID ActionTag => actionID;
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {
