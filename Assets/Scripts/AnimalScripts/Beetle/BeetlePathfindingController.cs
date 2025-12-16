@@ -9,6 +9,9 @@ public class BeetlePathfindingController : PathfindController
     [Header("Scriptable Behavior Settings")]
     [SerializeField] private WanderMovementSettings wanderBehaviorSettings;
 
+    [SerializeField] private ActionID playercontrolled;
+    [SerializeField] private ActionID wander;
+
     protected override void Awake()
     {
         base.Awake();
@@ -18,7 +21,7 @@ public class BeetlePathfindingController : PathfindController
     {
         base.InitializeWithStatsHook(statsHook);
         agent.baseOffset = 0f;
-        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
-        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), AIAction.Wander);
+        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), playercontrolled);
+        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), wander);
     }
 }

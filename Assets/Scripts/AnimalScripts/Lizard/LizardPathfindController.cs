@@ -10,6 +10,12 @@ public class LizardPathfindController : PathfindController
     [SerializeField] private WanderMovementSettings wanderBehaviorSettings;
     [SerializeField] private FindRestSpotMovementSettings findRestSpotBehaviorSettings;
 
+    [SerializeField] private ActionID playerControlled;
+    [SerializeField] private ActionID wander;
+    [SerializeField] private ActionID rest;
+    [SerializeField] private ActionID findRest;
+    [SerializeField] private ActionID chase;
+
     protected override void Awake()
     {
         base.Awake();
@@ -20,10 +26,10 @@ public class LizardPathfindController : PathfindController
         base.InitializeWithStatsHook(statsHook);
         agent.baseOffset = 0.2f;
 
-        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), AIAction.PlayerControlled);
-        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), AIAction.Wander);
-        AddNewMovementBehavior(new RestMovement(agent, transform), AIAction.Rest);
-        AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, transform, eventHub, statsHook), AIAction.FindRestSpot);
-        AddNewMovementBehavior(new ChaseFoodMovement(agent, transform, eventHub), AIAction.ChaseFood);
+        AddNewMovementBehavior(new PlayerControlledMovement(agent, transform, statsHook), playerControlled);
+        AddNewMovementBehavior(new WanderMovement(agent, wanderBehaviorSettings, eventHub, statsHook), wander);
+        AddNewMovementBehavior(new RestMovement(agent, transform), rest);
+        AddNewMovementBehavior(new FindRestSpotMovement(agent, findRestSpotBehaviorSettings, transform, eventHub, statsHook), findRest);
+        AddNewMovementBehavior(new ChaseFoodMovement(agent, transform, eventHub), chase);
     }
 }

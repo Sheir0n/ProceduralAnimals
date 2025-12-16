@@ -26,6 +26,7 @@ public class AnimalAnimator : MonoBehaviour
     {
         eventHub = GetComponent<AnimalEventHub>();
         eventHub.OnActionChanged += OnActionChanged;
+        eventHub.OnDeath += OnDeath;
     }
 
     protected virtual void Update()
@@ -284,14 +285,12 @@ public class AnimalAnimator : MonoBehaviour
         return Quaternion.Euler(euler);
     }
 
-    protected virtual void OnActionChanged(AIAction newAction)
+    protected virtual void OnActionChanged(ActionID newAction){}
+
+    private void OnDeath()
     {
-        Debug.Log("Animator recived: " + newAction);
-        if (newAction == AIAction.Death)
-        {
-            Debug.Log("Animal disable recived");
-            isAnimalDisabled = true;
-        }
+        Debug.Log("Animal disable recived");
+        isAnimalDisabled = true;
     }
 
     // COLLISION DETECTION FUNCTIONS

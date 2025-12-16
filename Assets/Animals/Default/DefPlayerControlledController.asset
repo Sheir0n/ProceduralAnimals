@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f22c2f5fd2fe24f837cd02ee928844, type: 3}
   m_Name: DefPlayerControlledController
   m_EditorClassIdentifier: 
+  actionID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036, type: 2}

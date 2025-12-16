@@ -12,6 +12,8 @@ public class LizardAnimator : AnimalAnimator
     private float currentTailLeanLerp = 0f;
     private int randomTailDir = 0;
 
+    [SerializeField] private ActionID tailRestActionID = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -93,12 +95,12 @@ public class LizardAnimator : AnimalAnimator
         return head.GetLerpedLook(segmentId: 2);
     }
 
-    protected override void OnActionChanged(AnimalAI.AIAction newAction)
+    protected override void OnActionChanged(ActionID newAction)
     {
         base.OnActionChanged(newAction);
         if (joints != null && joints.Count > 0)
         {
-            if (newAction == AnimalAI.AIAction.Rest)
+            if (newAction == tailRestActionID)
             {
                 calculateTailLean = true;
                 currentTailLeanLerp = 0f;

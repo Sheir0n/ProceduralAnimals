@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02466f0bcc8b8b641b83a3da4a1224ec, type: 3}
   m_Name: DefFindRestSpotController
   m_EditorClassIdentifier: 
+  actionID: {fileID: 11400000, guid: 45c6521c1774cf04cb72610929923aac, type: 2}
   energyDrainRateModifier: 1
   saturationDrainRateModifier: 1

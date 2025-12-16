@@ -23,8 +23,6 @@ public class RestController : ActionController, IUtilityAction
     const float restPenalityDefaultModifier = 0.5f;
     private float currentRestModifier = 1f;
 
-    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Rest;
-
     public ActionID ActionTag => actionID;
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)

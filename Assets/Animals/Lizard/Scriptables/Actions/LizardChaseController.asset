@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9134f0a1e3ff5444e98364ea7e811672, type: 3}
   m_Name: LizardChaseController
   m_EditorClassIdentifier: 
+  actionID: {fileID: 11400000, guid: 949596081633c28409e8dd9ebda862ea, type: 2}
   energyDrainRateModifier: 3
   saturationDrainRateModifier: 1.5
   biteCooldownMs: 500

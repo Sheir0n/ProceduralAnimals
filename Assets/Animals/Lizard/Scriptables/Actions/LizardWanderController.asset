@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd4c469043ea7f48be63261d5872944, type: 3}
   m_Name: LizardWanderController
   m_EditorClassIdentifier: 
+  actionID: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b, type: 2}
   energyDrainRateModifier: 1
   saturationDrainRateModifier: 1

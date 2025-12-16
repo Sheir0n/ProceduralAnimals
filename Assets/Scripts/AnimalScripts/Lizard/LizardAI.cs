@@ -23,7 +23,7 @@ public class LizardAI : AnimalAI
 
     protected void LateUpdate()
     {
-        if (enumByAction[currAction] == AIAction.Death && !clearedMemoryOnDeath)
+        if (IDByAction[currAction] == deathActionSharedID && !clearedMemoryOnDeath)
         {
             clearedMemoryOnDeath = true;
         }

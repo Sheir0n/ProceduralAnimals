@@ -9,12 +9,13 @@ public class AnimalEventHub : MonoBehaviour
 {
     public event Action OnBodyGenerated;
     public event Action<IReadOnlyAnimalStats> OnInitializeStats;
-    public event Action<AIAction> OnActionChanged;
+    public event Action<ActionID> OnActionChanged;
     public event Action<Vector3> OnSegmentCollision;
     public event Action<List<Transform>> OnNewInterestFound;
     public event Action<Collider> OnAttemptBite;
     public event Action<BiteAttackStage> OnBiteAttack;
     public event Action<IDamageable> OnAnnouncePreyCaught;
+    public event Action OnDeath;
 
     public event Func<float> OnAngularSpeedRequest;
     public event Func<LookTarget> OnPathfindScriptLookTarget; // animator <= movement
@@ -35,7 +36,7 @@ public class AnimalEventHub : MonoBehaviour
 
     public void AnnounceBodyGenerated() => OnBodyGenerated?.Invoke();
     public void SendInitializeRequest(IReadOnlyAnimalStats stats) => OnInitializeStats?.Invoke(stats);
-    public void SendAIStateChange(AIAction newAction) => OnActionChanged?.Invoke(newAction);
+    public void SendAIStateChange(ActionID newAction) => OnActionChanged?.Invoke(newAction);
     public void PushAgentOnSegmentCollision(Vector3 pushVector)
     {
         if (currPushEventCount >= pushEventLimit) return;
@@ -56,4 +57,5 @@ public class AnimalEventHub : MonoBehaviour
     public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);
     public void AnnouncePreyCaught(IDamageable prey) => OnAnnouncePreyCaught?.Invoke(prey);
     public TrackedWithScore RequestTrackedPrey() => OnTrackedPreyRequest?.Invoke() ?? new TrackedWithScore(null,0);
+    public void AnnounceDeath() => OnDeath?.Invoke();
 }

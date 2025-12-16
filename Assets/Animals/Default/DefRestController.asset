@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec23ef2647912345a6058ddceecd913, type: 3}
   m_Name: DefRestController
   m_EditorClassIdentifier: 
+  actionID: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77, type: 2}
   saturationDrainRateModifier: 1
   energyRegenRate: 0.5
   restHealthRegenRate: 0.05

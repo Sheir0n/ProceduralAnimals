@@ -27,16 +27,15 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
     protected IUtilityAction currAction;
 
-    public enum AIAction { EmptyController, PlayerControlled, FindRestSpot, Rest, Wander, ChaseFood, Death };
     [SerializeField] protected float defaultPenality = 1f;
     [SerializeField] protected float penalityDrainSpeed = 4f;
     [SerializeField] protected float hysteresis = 0.1f;
 
     [SerializeField, ReadOnly] protected Dictionary<IUtilityAction, float> actionPenalities;
-    [SerializeField, ReadOnly] protected AIAction actionDebugDisplay;
+    [SerializeField, ReadOnly] protected string actionDebugDisplay;
 
-    protected Dictionary<AIAction, IUtilityAction> actionByEnum;
-    protected Dictionary<IUtilityAction, AIAction> enumByAction;
+    protected Dictionary<ActionID, IUtilityAction> actionByID;
+    protected Dictionary<IUtilityAction, ActionID> IDByAction;
 
     [SerializeField] private bool isPlayerControlled = false;
     [SerializeField] private bool showAIPoints = false;
@@ -45,10 +44,9 @@ public class AnimalAI : MonoBehaviour, IDamageable
     private Transform snatchTransform;
 
     [SerializeField] protected List<ActionController> actionAssetList = new List<ActionController>();
-    [SerializeField] protected AIAction defaultAction = AIAction.EmptyController;
-
-    [SerializeField] ActionID sharedDeathId = null;
-    [SerializeField] ActionID sharedEmptyId = null;
+    [SerializeField] protected ActionID emptyActionSharedID;
+    [SerializeField] protected ActionID deathActionSharedID;
+    [SerializeField] protected ActionID playerControlledActionSharedID;
 
     protected virtual void Awake()
     {
@@ -69,12 +67,12 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
     private void LoadActionList()
     {
-        actionByEnum = new Dictionary<AIAction, IUtilityAction>();
-        enumByAction = new Dictionary<IUtilityAction, AIAction>();
+        actionByID = new Dictionary<ActionID, IUtilityAction>();
+        IDByAction = new Dictionary<IUtilityAction, ActionID>();
 
         EmptyController emptyController = ScriptableObject.CreateInstance<EmptyController>();
-        emptyController.InitializeShared(sharedEmptyId);
-        AddNewAction(emptyController, AIAction.EmptyController);
+        emptyController.InitializeShared(emptyActionSharedID);
+        AddNewAction(emptyController);
 
         if (actionAssetList.Count == 0)
             Debug.Log("Action asset list is empty! Defaulting to EmptyController", this);
@@ -83,39 +81,31 @@ public class AnimalAI : MonoBehaviour, IDamageable
         {
             if (action is IUtilityAction utilityAction)
             {
-                AddNewAction(utilityAction, utilityAction.AIAction);
+                AddNewAction(utilityAction);
             }
         }
 
-        EmptyController deathController = ScriptableObject.CreateInstance<EmptyController>();
-        deathController.InitializeShared(sharedDeathId);
-        AddNewAction(deathController, AIAction.Death);
+        DeathController deathController = ScriptableObject.CreateInstance<DeathController>();
+        deathController.InitializeShared(deathActionSharedID);
+        AddNewAction(deathController);
 
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)
             actionPenalities.Add(action, 0);
 
-        if (actionByEnum.TryGetValue(defaultAction, out var defaultActionInstance))
-        {
-            currAction = defaultActionInstance;
-        }
-        else
-        {
-            defaultAction = AIAction.EmptyController;
-            currAction = actionByEnum[defaultAction];
-            Debug.Log("Specified default action not present, defaulting to EmptyController.", this);
-        }
+
+        currAction = actionByID[emptyActionSharedID];
     }
 
     protected virtual void Start()
     {
         eventHub.SendInitializeRequest(stats);
-        eventHub.SendAIStateChange(enumByAction[currAction]);
+        eventHub.SendAIStateChange(IDByAction[currAction]);
     }
 
     protected virtual void Update()
     {
-        if (currAction == actionByEnum[AIAction.Death] || CheckDeath())
+        if (currAction == actionByID[deathActionSharedID] || CheckDeath())
         {
             return;
         }
@@ -133,8 +123,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
             currAction = newAction;
             newAction.Enter();
-            eventHub.SendAIStateChange(enumByAction[newAction]);
-            actionDebugDisplay = enumByAction[newAction];
+            eventHub.SendAIStateChange(IDByAction[newAction]);
+            actionDebugDisplay = newAction.ActionTag.actionName;
         }
 
         foreach (IUtilityAction action in actions)
@@ -147,13 +137,13 @@ public class AnimalAI : MonoBehaviour, IDamageable
         preyTracker.OnUpdate();
     }
 
-    protected void AddNewAction(IUtilityAction action, AIAction actionEnum)
+    protected void AddNewAction(IUtilityAction action)
     {
         var instance = Instantiate((ScriptableObject)action) as IUtilityAction;
         actions.Add(instance);
         instance.OnInstantiate(transform, eventHub, animator, energyDrainRate, saturationDrainRate);
-        enumByAction.Add(instance, actionEnum);
-        actionByEnum.Add(actionEnum, instance);
+        IDByAction.Add(instance, action.ActionTag);
+        actionByID.Add(action.ActionTag, instance);
     }
 
     protected virtual IUtilityAction GetHighestUtilityAction()
@@ -161,15 +151,15 @@ public class AnimalAI : MonoBehaviour, IDamageable
         IUtilityAction bestAction = currAction;
         float highscore = -Mathf.Infinity;
 
-        if (isPlayerControlled && actionByEnum.ContainsKey(AIAction.PlayerControlled))
+        if (isPlayerControlled && actionByID.ContainsKey(playerControlledActionSharedID))
         {
-            bestAction = actionByEnum[AIAction.PlayerControlled];
+            bestAction = actionByID[playerControlledActionSharedID];
         }
         else
         {
             foreach (IUtilityAction action in actions)
             {
-                if ((actionByEnum.ContainsKey(AIAction.PlayerControlled) && action == actionByEnum[AIAction.PlayerControlled]) || action == actionByEnum[AIAction.Death])
+                if ((actionByID.ContainsKey(playerControlledActionSharedID) && action == actionByID[playerControlledActionSharedID]) || action == actionByID[deathActionSharedID])
                     continue;
 
                 float actionScore = action.GetUtilityScore(stats, currAction) - actionPenalities[action];
@@ -211,9 +201,10 @@ public class AnimalAI : MonoBehaviour, IDamageable
         if (stats.health <= 0)
         {
             Debug.Log(stats.health);
-            currAction = actionByEnum[AIAction.Death];
-            eventHub.SendAIStateChange(AIAction.Death);
-            actionDebugDisplay = AIAction.Death;
+            currAction = actionByID[deathActionSharedID];
+            eventHub.SendAIStateChange(deathActionSharedID);
+            eventHub.AnnounceDeath();
+            actionDebugDisplay = currAction.ActionTag.actionName;
             return true;
         }
         return false;

@@ -31,7 +31,7 @@ public class AnimalSenses : MonoBehaviour
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
-        eventHub.OnActionChanged += DisableSensesOnDeath;
+        eventHub.OnDeath += DisableSensesOnDeath;
 
         if (visionConeData.allTrackedTagDatas == null)
             Debug.LogWarning(" Tracked datas not set in AnimalSenses script, will not record vision cone events!", this);
@@ -60,9 +60,8 @@ public class AnimalSenses : MonoBehaviour
 
     }
 
-    private void DisableSensesOnDeath(AIAction newAction)
+    private void DisableSensesOnDeath()
     {
-        if (newAction == AIAction.Death)
             deathDisableSenses = true;
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class DeathController : ActionController, IUtilityAction
 {
     private static ActionID sharedID;
-    public AnimalAI.AIAction AIAction => AnimalAI.AIAction.Death;
     public ActionID ActionTag => sharedID; 
 
     public void InitializeShared(ActionID deathId)

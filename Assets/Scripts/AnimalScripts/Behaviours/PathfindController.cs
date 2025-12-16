@@ -21,13 +21,16 @@ public class PathfindController : MonoBehaviour
     protected float agentCurrAngularSpeed { get; private set; } = 0;
 
     protected List<IAnimalMovement> movements = new List<IAnimalMovement>();
-    protected Dictionary<AIAction, IAnimalMovement> movementByEnum;
-    protected Dictionary<IAnimalMovement, AIAction> enumByMovement;
+    protected Dictionary<ActionID, IAnimalMovement> movementByEnum;
+    protected Dictionary<IAnimalMovement, ActionID> enumByMovement;
     protected IAnimalMovement currentBehavior;
 
     protected AnimalEventHub eventHub;
     private Vector3 pendingPush;
     private bool pushedThisFrame = false;
+
+
+    [SerializeField] protected ActionID death;
 
     protected virtual void Awake()
     {
@@ -45,11 +48,11 @@ public class PathfindController : MonoBehaviour
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
 
-        movementByEnum = new Dictionary<AIAction, IAnimalMovement>();
-        enumByMovement = new Dictionary<IAnimalMovement, AIAction>();
+        movementByEnum = new Dictionary<ActionID, IAnimalMovement>();
+        enumByMovement = new Dictionary<IAnimalMovement, ActionID>();
         lastRotation = transform.rotation;
 
-        AddNewMovementBehavior(new DeathMovement(agent, eventHub), AIAction.Death);
+        AddNewMovementBehavior(new DeathMovement(agent, eventHub), death);
     }
 
     void Update()
@@ -96,14 +99,16 @@ public class PathfindController : MonoBehaviour
         lastRotation = transform.rotation;
     }
 
-    protected void AddNewMovementBehavior(IAnimalMovement movement, AIAction actionEnum)
+    protected void AddNewMovementBehavior(IAnimalMovement movement, ActionID id)
     {
+        if (id == null)
+            Debug.Log("NULL ID dla " + movement);
         movements.Add(movement);
-        enumByMovement.Add(movement, actionEnum);
-        movementByEnum.Add(actionEnum, movement);
+        enumByMovement.Add(movement, id);
+        movementByEnum.Add(id, movement);
     }
 
-    protected void OnActionChanged(AIAction newAction)
+    protected void OnActionChanged(ActionID newAction)
     {
         if (!movementByEnum.ContainsKey(newAction))
         {
@@ -133,7 +138,7 @@ public class PathfindController : MonoBehaviour
         float distanceToDestination = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(currDestination.x, currDestination.z));
 
         //redirect agent
-        if (distanceToDestination < stopDistance && enumByMovement[currentBehavior] != AIAction.Death)
+        if (distanceToDestination < stopDistance && enumByMovement[currentBehavior] != death)
         {
             agent.SetDestination(currDestination + pushVector * redirectAmount * Time.deltaTime);
         }
