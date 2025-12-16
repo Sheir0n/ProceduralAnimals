@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAnimalDisabled: 0
+  tailRestActionID: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77, type: 2}
 --- !u!114 &3601753697074411684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff962cdadc580d4f8c178410a897a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creatorData: {fileID: 11400000, guid: 2a27c2be79fa35747aca55bd3c5142d5, type: 2}
+  creatorData: {fileID: 11400000, guid: 8ae58a55d2d149e47906559f3e5b8ceb, type: 2}
   bodyColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &6526603793127092797
 MonoBehaviour:
@@ -196,15 +197,21 @@ MonoBehaviour:
   penalityDrainSpeed: 4
   hysteresis: 0.05
   actionDebugDisplay: 0
-  isPlayerControlled: 1
-  showAIPoints: 1
+  isPlayerControlled: 0
+  showAIPoints: 0
   actionAssetList:
   - {fileID: 11400000, guid: c7f15355f3adac2498d6ec361179c79c, type: 2}
   - {fileID: 11400000, guid: 4da5108932d5bfd478481735596e186a, type: 2}
   - {fileID: 11400000, guid: a25b6686c6b100a4a94ab35a23821119, type: 2}
   - {fileID: 11400000, guid: 646a523c28e576045a84ec61042f86a9, type: 2}
   - {fileID: 11400000, guid: cd05be2583da09541af615e407489bdd, type: 2}
-  defaultAction: 0
+  emptyActionSharedID: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+    type: 2}
+  deathActionSharedID: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
+    type: 2}
+  playerControlledActionSharedID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
+    type: 2}
+  runtimeActionDebug: []
 --- !u!114 &6163224130160172068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +250,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590e5058688b2484fbb1ba990b7681e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderBehaviorSettings: {fileID: 11400000, guid: bba1677c44732c34bbc9fdc1c4591ac4,
+  playerControlledMovement: {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219,
     type: 2}
-  findRestSpotBehaviorSettings: {fileID: 11400000, guid: f6e223be6cc7b264ea84bcc8b4eb3626,
+  avalibleMovements:
+  - {fileID: 11400000, guid: 61936f6335072774086ea823939cb9f8, type: 2}
+  - {fileID: 11400000, guid: 81c10263f0a086840b207773c7b26635, type: 2}
+  - {fileID: 11400000, guid: bb50ff518d79dc24b9c118130283cdd1, type: 2}
+  - {fileID: 11400000, guid: ba750c333e2b7d4429a66da4624eebc8, type: 2}
+  deathActionSharedID: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
     type: 2}
+  emptyActionSharedID: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
+    type: 2}
+  playerControlledActionSharedID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
+    type: 2}
+  agentHeightBaseOffset: 0.5
+  runtimeMovementsDebug: []

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -16,25 +17,33 @@ public class PathfindController : MonoBehaviour
     protected NavMeshAgent agent;
     public Vector3 lookTargetPos { get; private set; } = Vector3.zero;
     public bool lookAtTarget { get; private set; } = false;
-
     private Quaternion lastRotation;
     protected float agentCurrAngularSpeed { get; private set; } = 0;
 
+
+    [SerializeField] protected PlayerControlledMovement playerControlledMovement;
+    [SerializeField] protected List<MovementScript> avalibleMovements;
+
     protected List<IAnimalMovement> movements = new List<IAnimalMovement>();
-    protected Dictionary<ActionID, IAnimalMovement> movementByEnum;
-    protected Dictionary<IAnimalMovement, ActionID> enumByMovement;
+    protected Dictionary<ActionID, IAnimalMovement> movementByID;
+    protected Dictionary<IAnimalMovement, ActionID> IDByMovement;
     protected IAnimalMovement currentBehavior;
 
     protected AnimalEventHub eventHub;
     private Vector3 pendingPush;
     private bool pushedThisFrame = false;
 
-    [SerializeField] protected ActionID death;
+    [SerializeField] protected ActionID deathActionSharedID;
+    [SerializeField] protected ActionID emptyActionSharedID;
+    [SerializeField] protected ActionID playerControlledActionSharedID;
+    [SerializeField] private float agentHeightBaseOffset = 0.5f;
+
+    [SerializeField] private List<ScriptableObject> runtimeMovementsDebug;
 
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
-        eventHub.OnInitializeStats += InitializeWithStatsHook;
+        eventHub.OnInitializeStats += InitializeMovements;
         eventHub.OnActionChanged += OnActionChanged;
         eventHub.OnSegmentCollision += PushAgent;
 
@@ -43,15 +52,33 @@ public class PathfindController : MonoBehaviour
         eventHub.OnPathfindScriptLookTarget += GetLookTarget;
     }
 
-    protected virtual void InitializeWithStatsHook(IReadOnlyAnimalStats statsHook)
+    private void InitializeMovements(IReadOnlyAnimalStats statsHook)
     {
         agent = transform.GetComponentInParent<NavMeshAgent>();
+        agent.baseOffset = agentHeightBaseOffset;
 
-        movementByEnum = new Dictionary<ActionID, IAnimalMovement>();
-        enumByMovement = new Dictionary<IAnimalMovement, ActionID>();
+        movementByID = new Dictionary<ActionID, IAnimalMovement>();
+        IDByMovement = new Dictionary<IAnimalMovement, ActionID>();
         lastRotation = transform.rotation;
 
-        AddNewMovementBehavior(ScriptableObject.CreateInstance<DeathMovement>(), death, statsHook);
+        foreach (MovementScript movement in avalibleMovements)
+        {
+            if (movement is IAnimalMovement utilityAction)
+            {
+                AddNewMovementBehavior(movement, movement.connectedId, statsHook);
+            }
+        }
+
+        if (playerControlledMovement != null)
+            AddNewMovementBehavior(playerControlledMovement, playerControlledActionSharedID, statsHook);
+        else
+            Debug.LogWarning("Player movement controller not set! Player wont be able to control the animal!", this);
+
+        EmptyMovement emptyController = ScriptableObject.CreateInstance<EmptyMovement>();
+        AddNewMovementBehavior(emptyController, emptyActionSharedID, statsHook);
+
+        DeathMovement deathController = ScriptableObject.CreateInstance<DeathMovement>();
+        AddNewMovementBehavior(deathController, deathActionSharedID, statsHook);
     }
 
     void Update()
@@ -98,24 +125,36 @@ public class PathfindController : MonoBehaviour
         lastRotation = transform.rotation;
     }
 
-    protected void AddNewMovementBehavior(IAnimalMovement movement, ActionID id, IReadOnlyAnimalStats statsHook)
+    protected void AddNewMovementBehavior(MovementScript movement,ActionID id,IReadOnlyAnimalStats statsHook)
     {
-        movements.Add(movement);
-        enumByMovement.Add(movement, id);
-        movementByEnum.Add(id, movement);
-        Debug.Log("BEFORE INSTANTIATE " +  id.name);
-        movement.OnInstantiate(agent, transform, eventHub, statsHook);
+        var instanceObj = Instantiate(movement);
+
+        if (instanceObj is not IAnimalMovement instance)
+        {
+            Debug.LogError($"{movement.name} does not implement IAnimalMovement");
+            return;
+        }
+
+        if(movementByID.ContainsKey(id)) {
+            IAnimalMovement duplicate = movementByID[id];
+            Debug.LogWarning($"{movement.name} has duplicate id to existing movement: " + duplicate);
+            return;
+        }
+
+        movements.Add(instance);
+        instance.OnInstantiate(agent, transform, eventHub, statsHook);
+        IDByMovement.Add(instance, id);
+        movementByID.Add(id, instance);
+        runtimeMovementsDebug.Add(instanceObj);
     }
 
     protected void OnActionChanged(ActionID newAction)
     {
-        if (!movementByEnum.ContainsKey(newAction))
-        {
-            Debug.LogWarning("Couldnt find corresponding movement action! " + newAction);
-            return;
-        }
-
-        IAnimalMovement newMovementBehavior = movementByEnum[newAction];
+        IAnimalMovement newMovementBehavior = movementByID[emptyActionSharedID];
+        if (!movementByID.ContainsKey(newAction))
+            Debug.LogWarning("Couldnt find corresponding movement action! Defaulting to empty movement!" + newAction);
+        else
+            newMovementBehavior = movementByID[newAction];
 
         if (currentBehavior == newMovementBehavior)
             return;
@@ -137,7 +176,7 @@ public class PathfindController : MonoBehaviour
         float distanceToDestination = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(currDestination.x, currDestination.z));
 
         //redirect agent
-        if (distanceToDestination < stopDistance && enumByMovement[currentBehavior] != death)
+        if (distanceToDestination < stopDistance && IDByMovement[currentBehavior] != deathActionSharedID)
         {
             agent.SetDestination(currDestination + pushVector * redirectAmount * Time.deltaTime);
         }

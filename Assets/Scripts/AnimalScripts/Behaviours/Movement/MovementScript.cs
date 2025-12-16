@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class BaseMovementScript : ScriptableObject
+public abstract class MovementScript : ScriptableObject
 {
     protected struct MovementStats
     {
@@ -44,11 +44,11 @@ public abstract class BaseMovementScript : ScriptableObject
     protected IReadOnlyAnimalStats animalStatsHook;
 
     [Header("Base stats modifiers")]
-    [SerializeField] private MovementStatsModifiers baseStatsModifiers = new MovementStatsModifiers();
+    [SerializeField] private MovementStatsModifiers baseStatsModifiers;
     protected MovementStats baseStats;
 
     [Header("Connected ActionID")]
-    [SerializeField] protected ActionID connectedId = null;
+    [SerializeField] public ActionID connectedId = null;
 
     public virtual void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
     {

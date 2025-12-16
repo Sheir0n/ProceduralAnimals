@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RestMovement : BaseMovementScript, IAnimalMovement
+
+
+[CreateAssetMenu(fileName = "RestMovement", menuName = "AI/Movement/RestMovement")]
+public class RestMovement : MovementScript, IAnimalMovement
 {
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }

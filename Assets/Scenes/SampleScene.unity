@@ -468,54 +468,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent
       objectReference: {fileID: 0}
-    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: sharedDeathId
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: sharedEmptyId
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: deathActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: emptyActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: playerControlledActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6950670138473753536, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: death
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6950670138473753536, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: wander
-      value: 
-      objectReference: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b,
-        type: 2}
-    - target: {fileID: 6950670138473753536, guid: 430957fe42c400b44b3259dceb295b22,
-        type: 3}
-      propertyPath: playercontrolled
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -822,6 +774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: sharedDeathId
@@ -983,116 +940,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: rest
-      value: 
-      objectReference: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: chase
-      value: 
-      objectReference: {fileID: 11400000, guid: 949596081633c28409e8dd9ebda862ea,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: death
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: wander
-      value: 
-      objectReference: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: findRest
-      value: 
-      objectReference: {fileID: 11400000, guid: 45c6521c1774cf04cb72610929923aac,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlled
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showAIPoints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedDeathId
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedEmptyId
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: isPlayerControlled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: deathActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: emptyActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlledActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showConeDebug
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1316,116 +1167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: rest
-      value: 
-      objectReference: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: chase
-      value: 
-      objectReference: {fileID: 11400000, guid: 949596081633c28409e8dd9ebda862ea,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: death
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: wander
-      value: 
-      objectReference: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: findRest
-      value: 
-      objectReference: {fileID: 11400000, guid: 45c6521c1774cf04cb72610929923aac,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlled
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showAIPoints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedDeathId
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedEmptyId
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: isPlayerControlled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: deathActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: emptyActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlledActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showConeDebug
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1462,6 +1207,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -1864,6 +1614,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: sharedDeathId
@@ -2063,6 +1818,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -2396,6 +2156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -3046,116 +2811,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3601753697074411684, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: bodyColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: rest
-      value: 
-      objectReference: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: chase
-      value: 
-      objectReference: {fileID: 11400000, guid: 949596081633c28409e8dd9ebda862ea,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: death
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: wander
-      value: 
-      objectReference: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: findRest
-      value: 
-      objectReference: {fileID: 11400000, guid: 45c6521c1774cf04cb72610929923aac,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlled
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showAIPoints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedDeathId
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedEmptyId
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: isPlayerControlled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: deathActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: emptyActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlledActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6898191812217292574, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showConeDebug
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3183,7 +2842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1711374850
 Transform:
   m_ObjectHideFlags: 0
@@ -3316,6 +2975,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleAgent (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: sharedDeathId
@@ -3431,6 +3095,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeetleAgent (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5751978485350454209, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -3712,112 +3381,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: rest
-      value: 
-      objectReference: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: chase
-      value: 
-      objectReference: {fileID: 11400000, guid: 949596081633c28409e8dd9ebda862ea,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: death
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: wander
-      value: 
-      objectReference: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: findRest
-      value: 
-      objectReference: {fileID: 11400000, guid: 45c6521c1774cf04cb72610929923aac,
-        type: 2}
-    - target: {fileID: 5736892628052416827, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlled
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: showAIPoints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedDeathId
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: sharedEmptyId
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: deathActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: emptyActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: actionAssetList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: actionAssetList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: c7f15355f3adac2498d6ec361179c79c,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: actionAssetList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4da5108932d5bfd478481735596e186a,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: actionAssetList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: a25b6686c6b100a4a94ab35a23821119,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: actionAssetList.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 646a523c28e576045a84ec61042f86a9,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: actionAssetList.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: cd05be2583da09541af615e407489bdd,
-        type: 2}
-    - target: {fileID: 6526603793127092797, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
-        type: 3}
-      propertyPath: playerControlledActionSharedID
-      value: 
-      objectReference: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
-        type: 2}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using static ChaseFoodController;
 
 [CreateAssetMenu(fileName = "ChaseMovement", menuName = "AI/Movement/ChaseMovement")]
-public class ChaseFoodMovement : BaseMovementScript, IAnimalMovement
+public class ChaseFoodMovement : MovementScript, IAnimalMovement
 {
     [Header("Attack Dash Settings")]
     [SerializeField] private MovementStatsModifiers slowdownStatsModifiers = new MovementStatsModifiers();

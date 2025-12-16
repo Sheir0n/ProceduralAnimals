@@ -19,7 +19,7 @@ MonoBehaviour:
     StoppingDistanceModifier: 1
   connectedId: {fileID: 11400000, guid: 7bf99c9615c76894abfd1d80e027378b, type: 2}
   selectNewTargetCooldownMs: 250
-  wanderCircleDistance: 2
+  wanderCircleDistance: 4
   wanderCircleRadius: 1.5
   wanderJitter: 0.1
   vigorWalkSpeedVariationModifier: 0.2

@@ -15,7 +15,7 @@ MonoBehaviour:
   actionID: {fileID: 11400000, guid: 949596081633c28409e8dd9ebda862ea, type: 2}
   energyDrainRateModifier: 3
   saturationDrainRateModifier: 1.5
-  biteCooldownMs: 500
-  biteWindupMs: 100
-  biteDashDuration: 500
+  biteCooldownMs: 2000
+  biteWindupMs: 1500
+  biteDashDuration: 750
   biteDamage: 1

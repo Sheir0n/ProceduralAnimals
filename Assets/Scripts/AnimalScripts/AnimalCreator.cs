@@ -42,7 +42,6 @@ public class AnimalCreator : MonoBehaviour
     }
     async void Start()
     {
-        Debug.Log("GENERATING");
         bool hasHead = false;
         await LoadPrefabs();
         if (prefabCache == null)

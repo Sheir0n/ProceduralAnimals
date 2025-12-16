@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.UI;
 
 [CreateAssetMenu(fileName = "WanderMovement", menuName = "AI/Movement/WanderMovement")]
-public class WanderMovement : BaseMovementScript, IAnimalMovement
+public class WanderMovement : MovementScript, IAnimalMovement
 {
     [Header("Wander Variables")]
     [SerializeField] private float selectNewTargetCooldownMs = 250;
@@ -55,13 +56,15 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
         penalisedFallbackStats.Speed *= baseStats.Speed * speedMultiplier;
         penalisedFallbackStats.Acceleration *= baseStats.Acceleration * speedMultiplier;
     }
+
+
+
     public void Enter()
     {
+        currStats = penalisedStats;
         fallbackTimerMs = fallbackCooldownMs;
         wanderFallback = false;
         selectNewTargetTimerMs = 0;
-
-        //tymczasowo
         LookAtTarget = false;
     }
 
@@ -69,6 +72,7 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
     {
         penalisedStats = CalculateHealthStatPenality(baseStats);
         penalisedFallbackStats = CalculateHealthStatPenality(baseFallbackStats);
+        currStats = wanderFallback ? penalisedFallbackStats : penalisedStats;
 
         SmoothAssignMovementStats(agent, currStats, lerpSpeed: 5f);
         if (fallbackCooldownMs < fallbackTimerMs && selectNewTargetTimerMs >= selectNewTargetCooldownMs)
@@ -134,13 +138,6 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
     {
         if (fallback != wanderFallback)
         {
-            if (fallback)
-            {
-                currStats = penalisedFallbackStats;
-            }
-            else
-                currStats = penalisedStats;
-
             wanderFallback = fallback;
         }
     }
@@ -151,7 +148,7 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
         fallbackTimerMs += Time.deltaTime * 1000;
     }
 
-    private MovementStats CalculateHealthStatPenality(MovementStats baseStats)
+    private MovementStats CalculateHealthStatPenality(MovementStats stats)
     {
         float speedMultiplier = 1f;
 
@@ -164,9 +161,10 @@ public class WanderMovement : BaseMovementScript, IAnimalMovement
             speedMultiplier = 1f - t * healthSlowdownMaxPenality;
         }
 
-        MovementStats modifiedStats = baseStats;
-        modifiedStats.Speed = baseStats.Speed * speedMultiplier;
-        modifiedStats.Acceleration = baseStats.Acceleration * speedMultiplier;
+
+        MovementStats modifiedStats = stats;
+        modifiedStats.Speed = stats.Speed * speedMultiplier;
+        modifiedStats.Acceleration = stats.Acceleration * speedMultiplier;
 
         return modifiedStats;
     }

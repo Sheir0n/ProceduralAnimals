@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "FindRestSpotMovement", menuName = "AI/Movement/FindRestSpotMovement")]
-public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
+public class FindRestSpotMovement : MovementScript, IAnimalMovement
 {
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }
@@ -45,7 +45,8 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
         isOnRestSpot = false;
     }
 
-    public void Update() {
+    public void Update()
+    {
         if (nearestRestSpot == null)
             return;
 
@@ -64,7 +65,10 @@ public class FindRestSpotMovement : BaseMovementScript, IAnimalMovement
 
         if (diff.sqrMagnitude <= radius * radius)
             isOnRestSpot = true;
+
+#if UNITY_EDITOR
         DrawDebugCircle(nearestRestSpot.position, radius);
+#endif
     }
 
     public void Exit()

@@ -32,7 +32,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] protected float hysteresis = 0.1f;
 
     [SerializeField, ReadOnly] protected Dictionary<IUtilityAction, float> actionPenalities;
-    [SerializeField, ReadOnly] protected string actionDebugDisplay;
+    [SerializeField] protected string actionDebugDisplay;
 
     protected Dictionary<ActionID, IUtilityAction> actionByID;
     protected Dictionary<IUtilityAction, ActionID> IDByAction;
@@ -43,11 +43,15 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected AnimalEventHub eventHub;
     private Transform snatchTransform;
 
+    [Header("Static action IDS")]
     [SerializeField] protected List<ActionController> actionAssetList = new List<ActionController>();
     [SerializeField] protected ActionID emptyActionSharedID;
     [SerializeField] protected ActionID deathActionSharedID;
     [SerializeField] protected ActionID playerControlledActionSharedID;
 
+
+    [Header("Runtime action settings clones")]
+    [SerializeField] private List<ScriptableObject> runtimeActionDebug;
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
@@ -81,7 +85,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         {
             if (action is IUtilityAction utilityAction)
             {
-                AddNewAction(utilityAction);
+                AddNewAction(action);
             }
         }
 
@@ -92,7 +96,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
         actionPenalities = new Dictionary<IUtilityAction, float>();
         foreach (IUtilityAction action in actions)
             actionPenalities.Add(action, 0);
-
 
         currAction = actionByID[emptyActionSharedID];
     }
@@ -115,16 +118,16 @@ public class AnimalAI : MonoBehaviour, IDamageable
         IUtilityAction newAction = GetHighestUtilityAction();
         if (newAction != currAction)
         {
-            //DO ODKOMENTOWANIA PO ZMIANACH ACTIONID
-            //if (showStateChangeLogs)
-            //    Debug.Log("Animal State Change: " + currAction.DebugName() + " => " + newAction.DebugName());
+            if (showStateChangeLogs)
+                Debug.Log("Animal State Change: " + currAction.ActionTag + " => " + newAction.ActionTag);
+
             currAction.Exit();
             actionPenalities[currAction] += defaultPenality;
 
             currAction = newAction;
             newAction.Enter();
             eventHub.SendAIStateChange(IDByAction[newAction]);
-            actionDebugDisplay = newAction.ActionTag.actionName;
+            Debug.Log(newAction);
         }
 
         foreach (IUtilityAction action in actions)
@@ -135,15 +138,33 @@ public class AnimalAI : MonoBehaviour, IDamageable
         currAction.Update();
         interestTracker.OnUpdate();
         preyTracker.OnUpdate();
+
+        actionDebugDisplay = currAction.ActionTag.actionName;
     }
 
-    protected void AddNewAction(IUtilityAction action)
+    protected void AddNewAction(ActionController action)
     {
-        var instance = Instantiate((ScriptableObject)action) as IUtilityAction;
+        var instanceObj = Instantiate(action);
+
+        if (instanceObj is not IUtilityAction instance)
+        {
+            Debug.LogError($"{action.name} does not implement IUtilityAction");
+            return;
+        }
+
+        if (actionByID.ContainsKey(instance.ActionTag))
+        {
+            IUtilityAction duplicate = actionByID[instance.ActionTag];
+            Debug.LogWarning($"{instance.ActionTag} has duplicate id to existing ai script: " + duplicate);
+            return;
+        }
+
         actions.Add(instance);
         instance.OnInstantiate(transform, eventHub, animator, energyDrainRate, saturationDrainRate);
-        IDByAction.Add(instance, action.ActionTag);
-        actionByID.Add(action.ActionTag, instance);
+
+        IDByAction.Add(instance, instance.ActionTag);
+        actionByID.Add(instance.ActionTag, instance);
+        runtimeActionDebug.Add(instanceObj);
     }
 
     protected virtual IUtilityAction GetHighestUtilityAction()
@@ -172,9 +193,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
                     highscore = actionScore;
                 }
 
-                //DO DOKOMENTWOANIA PO ZMIANCH ACTON ID
-                //if (showAIPoints)
-                //    Debug.Log(action.DebugName() + " " + actionScore);
+                if (showAIPoints)
+                    Debug.Log(action.ActionTag + " " + actionScore);
             }
         }
 

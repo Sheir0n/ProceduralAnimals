@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "PlayerMovement", menuName = "AI/Movement/PlayerMovement")]
-public class PlayerControlledMovement : BaseMovementScript, IAnimalMovement
+public class PlayerControlledMovement : MovementScript, IAnimalMovement
 {
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }
