@@ -252,11 +252,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerControlledMovement: {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219,
     type: 2}
-  avalibleMovements:
+  avalibleMovementsScriptables:
   - {fileID: 11400000, guid: 61936f6335072774086ea823939cb9f8, type: 2}
   - {fileID: 11400000, guid: 81c10263f0a086840b207773c7b26635, type: 2}
-  - {fileID: 11400000, guid: bb50ff518d79dc24b9c118130283cdd1, type: 2}
   - {fileID: 11400000, guid: ba750c333e2b7d4429a66da4624eebc8, type: 2}
+  - {fileID: 11400000, guid: bb50ff518d79dc24b9c118130283cdd1, type: 2}
+  - {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219, type: 2}
   deathActionSharedID: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
     type: 2}
   emptyActionSharedID: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,
@@ -264,4 +265,5 @@ MonoBehaviour:
   playerControlledActionSharedID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
     type: 2}
   agentHeightBaseOffset: 0.5
-  runtimeMovementsDebug: []
+  runtimeMovementsDebug:
+  - {fileID: 0}

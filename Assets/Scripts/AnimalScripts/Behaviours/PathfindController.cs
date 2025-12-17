@@ -22,7 +22,7 @@ public class PathfindController : MonoBehaviour
 
 
     [SerializeField] protected PlayerControlledMovement playerControlledMovement;
-    [SerializeField] protected List<MovementScript> avalibleMovements;
+    [SerializeField] protected List<MovementScript> avalibleMovementsScriptables;
 
     protected List<IAnimalMovement> movements = new List<IAnimalMovement>();
     protected Dictionary<ActionID, IAnimalMovement> movementByID;
@@ -61,7 +61,7 @@ public class PathfindController : MonoBehaviour
         IDByMovement = new Dictionary<IAnimalMovement, ActionID>();
         lastRotation = transform.rotation;
 
-        foreach (MovementScript movement in avalibleMovements)
+        foreach (MovementScript movement in avalibleMovementsScriptables)
         {
             if (movement is IAnimalMovement utilityAction)
             {

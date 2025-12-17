@@ -14,9 +14,10 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] private bool showStateChangeLogs = false;
 
     //Datas
-    [SerializeField] TrackerDatas trackersData;
-    InterestTracker interestTracker;
-    PreyTracker preyTracker;
+    [SerializeField] protected TrackerDatas trackersData;
+    protected InterestTracker interestTracker;
+    protected PreyTracker preyTracker;
+    //FEARTRACKER TUTAJ
 
 
     //UtilityAction controllers

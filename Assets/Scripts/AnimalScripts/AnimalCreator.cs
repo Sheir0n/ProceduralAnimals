@@ -22,8 +22,8 @@ public class SegmentData
 
 public class AnimalCreator : MonoBehaviour
 {
-    AnimalAnimator animatorScript;
-    AnimalEventHub eventHub;
+    protected AnimalAnimator animatorScript;
+    protected AnimalEventHub eventHub;
 
     [Header("Segment Datas")]
     [SerializeField] private ScriptableCreator creatorData;
@@ -89,7 +89,7 @@ public class AnimalCreator : MonoBehaviour
         ReleasePrefab();
     }
 
-    public void GenerateBody()
+    protected void GenerateBody()
     {
         Transform masterTransform = transform;
         Vector3 positionOffset = Vector3.zero;
@@ -109,7 +109,7 @@ public class AnimalCreator : MonoBehaviour
         }
     }
 
-    public void GenerateHead()
+    protected void GenerateHead()
     {
         Transform masterTransform = transform;
         Vector3 positionOffset = creatorData.animalHeadData.headParentOffset;
@@ -130,7 +130,7 @@ public class AnimalCreator : MonoBehaviour
         animalHead = new AnimalHead(headJoints, spineJoints[0], creatorData.animalHeadData);
     }
 
-    public void GenerateLimbs()
+    protected void GenerateLimbs()
     {
         Transform masterTransform = transform;
         int limbId = 0;
