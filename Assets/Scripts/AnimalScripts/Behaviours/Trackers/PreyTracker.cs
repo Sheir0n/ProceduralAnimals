@@ -29,7 +29,7 @@ public class PreyTracker : DefaultTracker<TrackerData, TrackerTarget<TrackerData
             float distance = Mathf.Sqrt((transform.position - targetPosition).sqrMagnitude);
 
             float normalized = Mathf.Clamp01(distance / targetData.maxTrackDistance);
-            float score = (1 - normalized) * targetData.importance;
+            float score = (1 - 0.25f * normalized) * targetData.importance;
 
             if (score > highscore)
             {

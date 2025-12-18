@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerControlledController", menuName = "AI/Actions/PlayerControlledController")]
 public class PlayerControlledController : ActionController, IUtilityAction
 {
-    public ActionID ActionTag => actionID;
+
+    private static ActionID sharedID;
+    public ActionID ActionTag => sharedID;
+
+    public void InitializeShared(ActionID playerSharedId)
+    {
+        sharedID = playerSharedId;
+    }
 
     public void OnInstantiate(Transform transform, AnimalEventHub eventHub, AnimalAnimator animator, float energyDrainRate, float saturationDrainRate)
     {}

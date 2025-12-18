@@ -61,7 +61,7 @@ public class InterestTracker : DefaultTracker<LookTrackerData, LookTrackerTarget
                     break;
             }
 
-            if (score > highscore && score > 0.5f * (1f - statsHook.StatCuriosity))
+            if (score > highscore && score > 0.25f * (1f - statsHook.StatCuriosity))
             {
                 highscore = score;
                 best = target;

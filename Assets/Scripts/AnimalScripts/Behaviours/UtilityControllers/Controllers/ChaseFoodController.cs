@@ -38,7 +38,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
     [Header("Bite settings")]
     [SerializeField] private int biteCooldownMs = 500;
     [SerializeField] private int biteWindupMs = 100;
-    [SerializeField] private int biteDashDuration = 500;
+    [SerializeField] private int biteDashDurationMs = 500;
     [SerializeField] private int biteDamage = 1;
 
     TrackedWithScore bestPreyCandidate;
@@ -97,15 +97,14 @@ public class ChaseFoodController : ActionController, IUtilityAction
         biteCancelToken?.Cancel();
         animalMouth = null;
     }
+    //TODO do zmiany, na razie zapobiega blokadzie
+    //ma sie odblokowac po zaniesieniu ofiary na spawn
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
-        //float targetScoreModifier = bestPreyCandidate.score;
-        float targetScoreModifier = 1f;
+        float targetScoreModifier = bestPreyCandidate.score;
         Transform targetTransform = bestPreyCandidate.tracked;
 
-        //TODO do zmiany, na razie zapobiega blokadzie
-        //ma sie odblokowac po zaniesieniu ofiary na spawn
         if (targetTransform == null || preyCaught)
             return -Mathf.Infinity;
         else
@@ -151,7 +150,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
             Debug.Log("bite dash started");
 
             float elapsedMs = 0f;
-            while (elapsedMs < biteDashDuration)
+            while (elapsedMs < biteDashDurationMs)
             {
                 token.ThrowIfCancellationRequested();
                 if(animalMouth.CheckIfOtherInMouth(other))

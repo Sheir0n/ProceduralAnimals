@@ -79,6 +79,10 @@ public class AnimalAI : MonoBehaviour, IDamageable
         emptyController.InitializeShared(emptyActionSharedID);
         AddNewAction(emptyController);
 
+        PlayerControlledController playerController = ScriptableObject.CreateInstance<PlayerControlledController>();
+        playerController.InitializeShared(playerControlledActionSharedID);
+        AddNewAction(playerController);
+
         if (actionAssetList.Count == 0)
             Debug.Log("Action asset list is empty! Defaulting to EmptyController", this);
 
@@ -174,9 +178,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         float highscore = -Mathf.Infinity;
 
         if (isPlayerControlled && actionByID.ContainsKey(playerControlledActionSharedID))
-        {
             bestAction = actionByID[playerControlledActionSharedID];
-        }
         else
         {
             foreach (IUtilityAction action in actions)
@@ -198,7 +200,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
                     Debug.Log(action.ActionTag + " " + actionScore);
             }
         }
-
         return bestAction;
     }
 

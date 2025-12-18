@@ -28,9 +28,9 @@ public class ChaseFoodMovement : MovementScript, IAnimalMovement
 
     private float updateAgentTargetingTimerMs = 0f;
     private const int updateAgentTargetingTimeMs = 500;
-    private float dashSpeed = 8f;
-    private float dashLerpSpeed = 2f;
-    private float dashSlowdownLerp = 8f;
+    [SerializeField] private float dashSpeed = 8f;
+    [SerializeField] private float dashLerpSpeed = 2f;
+    [SerializeField] private float dashSlowdownLerp = 8f;
 
     public override void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
     {
