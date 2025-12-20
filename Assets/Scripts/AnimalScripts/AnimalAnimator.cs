@@ -177,14 +177,12 @@ public class AnimalAnimator : MonoBehaviour
         float angleY = GetYAngle(targetPos - tip.segmentPosition);
         tip.SetRotation(angleY);
 
-
         for (int i = chain.Count - 1; i > 0; i--)
         {
             AnimalJoint next = chain[i];
             AnimalJoint curr = chain[i - 1];
 
             SolveJoint(anchor: next, segment: curr, constraintJoint: curr, curr.prefferedAngle);
-
         }
     }
 
@@ -342,7 +340,6 @@ public class AnimalAnimator : MonoBehaviour
         return finalPos;
     }
 
-    //NOWE
     private void FixChainCollision(List<AnimalJoint> jointChain)
     {
         if (jointChain.Count == 0)

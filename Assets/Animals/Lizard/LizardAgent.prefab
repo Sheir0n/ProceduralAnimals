@@ -200,7 +200,6 @@ MonoBehaviour:
   isPlayerControlled: 0
   showAIPoints: 0
   actionAssetList:
-  - {fileID: 11400000, guid: c7f15355f3adac2498d6ec361179c79c, type: 2}
   - {fileID: 11400000, guid: 4da5108932d5bfd478481735596e186a, type: 2}
   - {fileID: 11400000, guid: a25b6686c6b100a4a94ab35a23821119, type: 2}
   - {fileID: 11400000, guid: 646a523c28e576045a84ec61042f86a9, type: 2}
@@ -257,7 +256,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81c10263f0a086840b207773c7b26635, type: 2}
   - {fileID: 11400000, guid: ba750c333e2b7d4429a66da4624eebc8, type: 2}
   - {fileID: 11400000, guid: bb50ff518d79dc24b9c118130283cdd1, type: 2}
-  - {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219, type: 2}
   deathActionSharedID: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
     type: 2}
   emptyActionSharedID: {fileID: 11400000, guid: 00870b0d73e4f2248ad50fdd26d54ead,

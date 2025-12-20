@@ -43,22 +43,6 @@ public class ChaseFoodMovement : MovementScript, IAnimalMovement
         noMovementStats = CalculateStatsWithModifiers(agent, noMovementStatsModifiers);
     }
 
-    //protected override void AssignMovementStats()
-    //{
-    //    baseStats = new MovementStats(base.baseStats);
-
-    //    slowdownStats = new MovementStats(base.baseStats);
-    //    slowdownStats.Speed = base.baseStats.Speed * 0.1f;
-    //    slowdownStats.AngularSpeed = base.baseStats.AngularSpeed * 0.1f;
-    //    slowdownStats.Acceleration = base.baseStats.AngularSpeed * 0.25f;
-
-    //    noMovementStats = new MovementStats(base.baseStats);
-    //    noMovementStats.Speed = 0f;
-    //    noMovementStats.AngularSpeed = 0.125f;
-
-    //    currStatsSet = base.baseStats;
-    //}
-
     public void Enter()
     {
         currStatsSet = baseStats;

@@ -137,7 +137,7 @@ public class PathfindController : MonoBehaviour
 
         if(movementByID.ContainsKey(id)) {
             IAnimalMovement duplicate = movementByID[id];
-            Debug.LogWarning($"{movement.name} has duplicate id to existing movement: " + duplicate);
+            Debug.LogWarning($"{movement.name} has duplicate id to existing movement: " + duplicate, this);
             return;
         }
 
@@ -152,7 +152,7 @@ public class PathfindController : MonoBehaviour
     {
         IAnimalMovement newMovementBehavior = movementByID[emptyActionSharedID];
         if (!movementByID.ContainsKey(newAction))
-            Debug.LogWarning("Couldnt find corresponding movement action! Defaulting to empty movement!" + newAction);
+            Debug.LogWarning("Couldnt find corresponding movement action! Defaulting to empty movement!" + newAction, this);
         else
             newMovementBehavior = movementByID[newAction];
 

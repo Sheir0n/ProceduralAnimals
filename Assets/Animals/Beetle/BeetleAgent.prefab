@@ -248,7 +248,6 @@ MonoBehaviour:
   playerControlledMovement: {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219,
     type: 2}
   avalibleMovementsScriptables:
-  - {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219, type: 2}
   - {fileID: 11400000, guid: bb50ff518d79dc24b9c118130283cdd1, type: 2}
   deathActionSharedID: {fileID: 11400000, guid: 0f4bc4d569520944791c780b0048f8ee,
     type: 2}

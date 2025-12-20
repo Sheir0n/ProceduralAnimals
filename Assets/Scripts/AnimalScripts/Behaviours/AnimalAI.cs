@@ -17,6 +17,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] protected TrackerDatas trackersData;
     protected InterestTracker interestTracker;
     protected PreyTracker preyTracker;
+   // protected InterestTracker fearTracker;
     //FEARTRACKER TUTAJ
 
 
@@ -143,6 +144,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         currAction.Update();
         interestTracker.OnUpdate();
         preyTracker.OnUpdate();
+       // fearTracker.OnUpdate();
 
         actionDebugDisplay = currAction.ActionTag.actionName;
     }

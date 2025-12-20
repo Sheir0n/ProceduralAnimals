@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Xsl;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 using static AnimalAI;
@@ -78,31 +80,32 @@ public class AnimalSenses : MonoBehaviour
         for (float angle = -halfAngle; angle <= halfAngle; angle += 2.5f)
         {
             Vector3 rayDir = Quaternion.Euler(0, angle, 0) * forward;
-
             if (Physics.Raycast(pivot, rayDir, out RaycastHit hit, visionConeData.coneSize))
             {
                 var colTransform = hit.collider.transform;
-
                 if(!objectsFound.Contains(colTransform))
                     objectsFound.Add(colTransform);
 
                 if (showConeDebug)
-                {
-                    if (trackedFoodTags.Contains(colTransform.tag))
-                        Debug.DrawLine(pivot, hit.point, Color.white);
-                    else if (trackedFearTags.Contains(colTransform.tag))
-                        Debug.DrawLine(pivot, hit.point, Color.red);
-                    else if (trackedInterestTags.Contains(colTransform.tag))
-                        Debug.DrawLine(pivot, hit.point, Color.yellow);
-                    else
-                        Debug.DrawLine(pivot, hit.point, Color.green);
-                }
+                    ShowDebugHitRay(colTransform, pivot, hit);
             }
             else if (showConeDebug)
                 Debug.DrawRay(pivot, rayDir * visionConeData.coneSize, Color.green);
         }
 
         eventHub.NewInterestsFound(objectsFound);
+    }
+
+    private void ShowDebugHitRay(Transform hitTransform, Vector3 pivot, RaycastHit hit)
+    {
+        if (trackedFoodTags.Contains(hitTransform.tag))
+            Debug.DrawLine(pivot, hit.point, Color.white);
+        else if (trackedFearTags.Contains(hitTransform.tag))
+            Debug.DrawLine(pivot, hit.point, Color.red);
+        else if (trackedInterestTags.Contains(hitTransform.tag))
+            Debug.DrawLine(pivot, hit.point, Color.yellow);
+        else
+            Debug.DrawLine(pivot, hit.point, Color.green);
     }
 
     private bool IsPivotObstructed(Vector3 pivot)
