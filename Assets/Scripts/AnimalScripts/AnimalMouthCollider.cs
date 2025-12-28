@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class AnimalMouthCollider : MonoBehaviour
@@ -14,7 +12,12 @@ public class AnimalMouthCollider : MonoBehaviour
         eventHub = transform.parent.parent.GetComponent<AnimalEventHub>();
         mouthCollider = transform.GetComponent<CapsuleCollider>();
         eventHub.OnMouthHookRequest += GetThisHook;
+
+        TrackerDatas trackerDatas = eventHub.RequestTrackerDataToInitialize();
+        foreach (TrackerData preyData in trackerDatas.foodTrackerTags)
+            detectionTags.Add(preyData.tag);
     }
+
     private void Update()
     {
         CheckMouthCollider();

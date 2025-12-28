@@ -17,6 +17,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] protected TrackerDatas trackersData;
     protected InterestTracker interestTracker;
     protected PreyTracker preyTracker;
+
    // protected InterestTracker fearTracker;
     //FEARTRACKER TUTAJ
 
@@ -68,6 +69,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
             trackersData = ScriptableObject.CreateInstance<TrackerDatas>();
         interestTracker = new InterestTracker(trackersData.lookTrackerTags, transform, eventHub, stats);
         preyTracker = new PreyTracker(trackersData.foodTrackerTags, transform, eventHub, stats);
+
+        eventHub.OnTrackerDatasRequest += () => trackersData;
     }
 
 
@@ -105,6 +108,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
         currAction = actionByID[emptyActionSharedID];
     }
+
 
     protected virtual void Start()
     {

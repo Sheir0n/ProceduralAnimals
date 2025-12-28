@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class LizardMouthCollider : AnimalMouthCollider
 {
-    public override void OnInstantiate()
-    {
-        base.OnInstantiate();
-        detectionTags.Add("Beetle");
-    }
+    
 }
