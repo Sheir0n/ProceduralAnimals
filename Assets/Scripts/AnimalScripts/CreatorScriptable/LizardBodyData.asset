@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spineSegmentData:
   - segmentName: MainBody
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-      type: 3}
     jointCount: 5
     sizeCurve:
       serializedVersion: 2
@@ -54,8 +52,6 @@ MonoBehaviour:
     angularConstraint: 35
     prefferedAngle: 0
   - segmentName: Tail
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-      type: 3}
     jointCount: 12
     sizeCurve:
       serializedVersion: 2
@@ -88,8 +84,6 @@ MonoBehaviour:
   - limbName: FrontLeft
     joints:
     - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -119,8 +113,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: -10
     - segmentName: FrontLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -156,8 +148,6 @@ MonoBehaviour:
   - limbName: FrontRight
     joints:
     - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -187,8 +177,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: 10
     - segmentName: FrontLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -224,8 +212,6 @@ MonoBehaviour:
   - limbName: BackLeft
     joints:
     - segmentName: BackRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -255,8 +241,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: -10
     - segmentName: BackLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -292,8 +276,6 @@ MonoBehaviour:
   - limbName: BackRight
     joints:
     - segmentName: BackRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -323,8 +305,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: 10
     - segmentName: BackLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -361,8 +341,6 @@ MonoBehaviour:
     headName: LizardHead
     joints:
     - segmentName: Neck
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -410,8 +388,6 @@ MonoBehaviour:
       angularConstraint: 20
       prefferedAngle: 0
     - segmentName: Head
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: 7c78b2c8595422d418223d121fee84ca,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -442,7 +418,7 @@ MonoBehaviour:
       prefferedAngle: 0
     maxLookAngle: 60
     headParentOffset: {x: 0, y: 0, z: 0.2}
-  mouthColliderPrefab: {fileID: 6174930570440199844, guid: 0fe86e160b47f9a438e102bb7b82ffb8,
+  mouthColliderPrefab: {fileID: 6174930570440199844, guid: 2b81f7be443984247bbad4753b952777,
     type: 3}
   attachMouthToHeadSegment: 1
   mouthParentId: 2
