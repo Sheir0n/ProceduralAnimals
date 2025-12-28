@@ -26,6 +26,7 @@ public class AnimalAnimator : MonoBehaviour
     {
         eventHub = GetComponent<AnimalEventHub>();
         eventHub.OnActionChanged += OnActionChanged;
+        eventHub.OnHeadDataRequest += GetLookCenter;
         eventHub.OnDeath += OnDeath;
     }
 
@@ -412,6 +413,13 @@ public class AnimalAnimator : MonoBehaviour
         newPos.y = origY;
 
         return newPos;
+    }
+
+    private HeadCenterData GetLookCenter()
+    {
+        if (head == null)
+            return new HeadCenterData(transform.position, transform.forward);
+        return head.GetLerpedLook();
     }
 
     public void OnDrawGizmos()

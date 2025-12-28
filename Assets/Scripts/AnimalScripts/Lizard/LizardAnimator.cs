@@ -14,12 +14,6 @@ public class LizardAnimator : AnimalAnimator
 
     [SerializeField] private ActionID tailRestActionID = null;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        eventHub.OnHeadDataRequest += GetLookCenter;
-    }
-
     protected override void Update()
     {
         if (!isBodyReady)
@@ -86,13 +80,6 @@ public class LizardAnimator : AnimalAnimator
                 currLimb.UpdateLimbTarget(lerp: true);
             }
         }
-    }
-
-    private HeadCenterData GetLookCenter()
-    {
-        if (head == null)
-            return new HeadCenterData(transform.position, transform.forward);
-        return head.GetLerpedLook(segmentId: 2);
     }
 
     protected override void OnActionChanged(ActionID newAction)

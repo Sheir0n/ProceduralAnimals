@@ -418,6 +418,7 @@ MonoBehaviour:
       prefferedAngle: 0
     maxLookAngle: 60
     headParentOffset: {x: 0, y: 0, z: 0.2}
+    visionConeSegmentId: 2
   mouthColliderPrefab: {fileID: 6174930570440199844, guid: 2b81f7be443984247bbad4753b952777,
     type: 3}
   attachMouthToHeadSegment: 1

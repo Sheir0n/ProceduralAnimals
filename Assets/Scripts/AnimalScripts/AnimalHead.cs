@@ -11,6 +11,7 @@ public class AnimalHeadData
     public List<SegmentData> joints = new List<SegmentData>();
     public float maxLookAngle = 0f;
     public Vector3 headParentOffset = Vector3.zero;
+    public int visionConeSegmentId = 0;
 }
 
 public struct LookTarget
@@ -76,9 +77,10 @@ public class AnimalHead
         targetPosition = parentJoint.transform.position + rotatedForward * targetDistance;
     }
 
-    public HeadCenterData GetLerpedLook(int segmentId)
+    public HeadCenterData GetLerpedLook()
     {
-        return new HeadCenterData(headJoints[segmentId].segmentPosition, headJoints.Last().segmentLerpRotation * -Vector3.up);
+        int segmentId = headData.visionConeSegmentId;
+        return new HeadCenterData(headJoints[segmentId].segmentPosition, headJoints[segmentId].segmentLerpRotation * -Vector3.up);
     }
 }
 
