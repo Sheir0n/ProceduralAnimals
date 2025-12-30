@@ -8,24 +8,6 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class HuntTarget
-{
-    public Transform target;
-    public float memoryTimeMs;
-    private float defaultMemoryMs = 5000;
-
-    public HuntTarget(Transform target)
-    {
-        this.target = target;
-        memoryTimeMs = defaultMemoryMs;
-    }
-
-    public void ResetMemoryTime()
-    {
-        memoryTimeMs = defaultMemoryMs;
-    }
-}
-
 [CreateAssetMenu(fileName = "ChaseFoodController", menuName = "AI/Actions/ChaseFoodController")]
 public class ChaseFoodController : ActionController, IUtilityAction
 {
@@ -50,8 +32,6 @@ public class ChaseFoodController : ActionController, IUtilityAction
     private int randomisedCooldownMs;
     private float biteTimerMs = 0;
     private bool preyCaught = false;
-
-    private Collider biteTarget = null;
     public enum BiteAttackStage {Windup, Dash, Finished}
     private CancellationTokenSource biteCancelToken;
     AnimalMouthCollider animalMouth;
@@ -65,8 +45,6 @@ public class ChaseFoodController : ActionController, IUtilityAction
         this.saturationDrainRate = saturationDrainRate;
         bestPreyCandidate = new TrackedWithScore(null, 0);
     }
-
-    public string DebugName() => "Chase Food";
 
     public void Enter()
     {
@@ -92,17 +70,15 @@ public class ChaseFoodController : ActionController, IUtilityAction
     public void Exit()
     {
         eventHub.OnAttemptBite -= AttemptBite;
-        biteTarget = null;
         targetInterface = null;
         biteCancelToken?.Cancel();
         animalMouth = null;
+        preyCaught = false;
+        bitePrepared = false;
     }
-    //TODO do zmiany, na razie zapobiega blokadzie
-    //ma sie odblokowac po zaniesieniu ofiary na spawn
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
-        float targetScoreModifier = bestPreyCandidate.score;
         Transform targetTransform = bestPreyCandidate.tracked;
 
         if (targetTransform == null || preyCaught)
@@ -110,7 +86,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
         else
         {
             float normalisedSaturation = stats.saturation / stats.maxSaturation;
-            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * targetScoreModifier * 2 / 3;
+            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2)  * 2 / 3;
         }
     }
 
@@ -126,7 +102,6 @@ public class ChaseFoodController : ActionController, IUtilityAction
     {
         if (!bitePrepared && !preyCaught && biteTimerMs >= randomisedCooldownMs)
         {
-            biteTarget = other;
             bitePrepared = true;
             targetInterface = other.gameObject.GetComponent<IDamageable>();
 

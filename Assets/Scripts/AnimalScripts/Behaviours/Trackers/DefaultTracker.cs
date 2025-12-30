@@ -58,7 +58,7 @@ public abstract class DefaultTracker<TData, TTarget>
 
     public virtual void OnUpdate() 
     {
-        UpdateHuntTargetMemory();
+        UpdateTargetMemory();
     }
 
     protected void AddTarget(List<Transform> targets)
@@ -90,20 +90,16 @@ public abstract class DefaultTracker<TData, TTarget>
 
     protected abstract TrackedWithScore GetMostImportantTracked();
 
-    private void UpdateHuntTargetMemory()
+    private void UpdateTargetMemory()
     {
         for (int i = trackerTargets.Count - 1; i >= 0; i--)
         {
             Vector3 currentPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 targetPosXZ = new Vector3(trackerTargets[i].target.position.x, 0, trackerTargets[i].target.position.z);
-
-
             TTarget target = trackerTargets[i];
 
             if (target.memoryTimeMs < 0)
-            {
                 trackerTargets.RemoveAt(i);
-            }
             else if (Vector3.Distance(currentPosXZ, targetPosXZ) > target.maxTrackDistance)
                 target.memoryTimeMs -= Time.deltaTime * 1000f;
         }

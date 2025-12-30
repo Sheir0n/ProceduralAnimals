@@ -15,7 +15,7 @@ public interface IReadOnlyAnimalStats
     float StatVigor { get; }
     float StatAggressiveness { get; }
     float StatCuriosity { get; }
-    float StatDominance { get; }
+    float StatBravery { get; }
 }
 
 
@@ -38,7 +38,7 @@ public class AnimalStats : IReadOnlyAnimalStats
     [Range(0.01f, 0.99f)] public float statVigor;
     [Range(0.01f, 0.99f)] public float statAggressiveness;
     [Range(0.01f, 0.99f)] public float statCuriosity;
-    [Range(0.01f, 0.99f)] public float statDominance;
+    [Range(0.01f, 0.99f)] public float statBravery;
 
     float IReadOnlyAnimalStats.Health => health;
     float IReadOnlyAnimalStats.Saturation => saturation;
@@ -51,7 +51,7 @@ public class AnimalStats : IReadOnlyAnimalStats
     float IReadOnlyAnimalStats.StatVigor => statVigor;
     float IReadOnlyAnimalStats.StatAggressiveness => statAggressiveness;
     float IReadOnlyAnimalStats.StatCuriosity => statCuriosity;
-    float IReadOnlyAnimalStats.StatDominance => statDominance;
+    float IReadOnlyAnimalStats.StatBravery => statBravery;
 
 
     public bool ignoreSeed = false;
@@ -83,7 +83,7 @@ public class AnimalStats : IReadOnlyAnimalStats
             statVigor = GetRandom(rng, 0.01f, 0.99f);
             statAggressiveness = GetRandom(rng, 0.01f, 0.99f);
             statCuriosity = GetRandom(rng, 0.01f, 0.99f);
-            statDominance = GetRandom(rng, 0.01f, 0.99f);
+            statBravery = GetRandom(rng, 0.01f, 0.99f);
 
             maxHealth *= 1 + randomnessMultiplier * GetRandom(rng, -1, 1);
             maxSaturation *= 1 + randomnessMultiplier * GetRandom(rng, -1, 1);

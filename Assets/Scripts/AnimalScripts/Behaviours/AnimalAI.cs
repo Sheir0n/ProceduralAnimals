@@ -17,10 +17,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [SerializeField] protected TrackerDatas trackersData;
     protected InterestTracker interestTracker;
     protected PreyTracker preyTracker;
-
-   // protected InterestTracker fearTracker;
-    //FEARTRACKER TUTAJ
-
+    protected FearTracker fearTracker;
 
     //UtilityAction controllers
     protected AnimalAnimator animator;
@@ -69,6 +66,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
             trackersData = ScriptableObject.CreateInstance<TrackerDatas>();
         interestTracker = new InterestTracker(trackersData.lookTrackerTags, transform, eventHub, stats);
         preyTracker = new PreyTracker(trackersData.foodTrackerTags, transform, eventHub, stats);
+        fearTracker = new FearTracker(trackersData.fearTrackerTags, transform, eventHub, stats);
 
         eventHub.OnTrackerDatasRequest += () => trackersData;
     }
@@ -148,7 +146,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         currAction.Update();
         interestTracker.OnUpdate();
         preyTracker.OnUpdate();
-       // fearTracker.OnUpdate();
+        fearTracker.OnUpdate();
 
         actionDebugDisplay = currAction.ActionTag.actionName;
     }

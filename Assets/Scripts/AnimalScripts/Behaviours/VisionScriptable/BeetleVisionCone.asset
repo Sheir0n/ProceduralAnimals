@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BeetleVisionCone
   m_EditorClassIdentifier: 
   coneSize: 15
-  coneAngleRange: 120
+  coneAngleRange: 240
   allTrackedTagDatas: {fileID: 11400000, guid: e1a05554247db3f4a9d5ffab27074620, type: 2}

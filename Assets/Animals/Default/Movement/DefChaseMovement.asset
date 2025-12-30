@@ -28,6 +28,6 @@ MonoBehaviour:
     AngularSpeedModifier: 0.1
     AccelerationModifier: 1
     StoppingDistanceModifier: 1
-  dashSpeed: 10
+  dashSpeed: 12.5
   dashLerpSpeed: 2
   dashSlowdownLerp: 8

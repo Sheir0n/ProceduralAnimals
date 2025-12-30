@@ -80,7 +80,7 @@ public abstract class MovementScript : ScriptableObject
         baseStats = CalculateStatsWithModifiers(agent, baseStatsModifiers);
     }
 
-    protected MovementStats CalculateStatsWithModifiers(NavMeshAgent agent, MovementStatsModifiers modifiers)
+    protected virtual MovementStats CalculateStatsWithModifiers(NavMeshAgent agent, MovementStatsModifiers modifiers)
     {
         MovementStats modifiedStats = new MovementStats(
             agent.speed * modifiers.SpeedModifier,

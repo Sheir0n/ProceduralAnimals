@@ -57,7 +57,7 @@ public class RestController : ActionController, IUtilityAction
 
         float utilityScore;
         if (stats.energy < 0.1)
-            utilityScore = 1;
+            utilityScore = 2;
         else if (ReferenceEquals(currAction, this) && !applyRestPenality && normalizedSaturation > saturationRegenThreshold && normalizedHealth < 0.75f)
             utilityScore = Mathf.Pow(1 - normalizedHealth, 1f);
         else if (ReferenceEquals(currAction, this) || eventHub.IsOnRestSpot())

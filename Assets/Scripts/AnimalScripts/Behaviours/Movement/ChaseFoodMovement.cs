@@ -81,7 +81,8 @@ public class ChaseFoodMovement : MovementScript, IAnimalMovement
             if (chaseTarget != null)
                 agent.SetDestination(chaseTarget.position);
         }
-        lookTargetPos = chaseTarget.transform.position;
+        if (chaseTarget != null)
+            lookTargetPos = chaseTarget.transform.position;
     }
     public void Exit()
     {

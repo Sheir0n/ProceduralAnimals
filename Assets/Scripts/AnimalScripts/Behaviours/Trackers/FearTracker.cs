@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PreyTracker : DefaultTracker<TrackerData, TrackerTarget<TrackerData>>
+public class FearTracker : DefaultTracker<TrackerData, TrackerTarget<TrackerData>>
 {
-    public PreyTracker(List<TrackerData> datas, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
+    public FearTracker(List<TrackerData> datas, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
          : base(datas, transform, eventHub, statsHook)
     {
         eventHub.OnNewInterestFound += AddTarget;
-        eventHub.OnTrackedPreyRequest += GetMostImportantTracked;
-        
+        eventHub.OnTrackedFearRequest += GetMostImportantTracked;
     }
 
     protected override TrackerTarget<TrackerData> CreateTarget(Transform target, TrackerData data)

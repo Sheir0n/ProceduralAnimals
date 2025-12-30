@@ -2,78 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.UI;
 
-[CreateAssetMenu(fileName = "WanderMovement", menuName = "AI/Movement/WanderMovement")]
-public class WanderMovement : MovementScript, IAnimalMovement
+[CreateAssetMenu(fileName = "FleeMovement", menuName = "AI/Movement/FleeMovement")]
+public class FleeMovement : MovementScript, IAnimalMovement
 {
-    [Header("Wander Variables")]
+    [Header("Flee Wander Randomness Variables")]
     [SerializeField] private float selectNewTargetCooldownMs = 250;
-    [SerializeField] private float wanderCircleDistance = 2f;
-    [SerializeField] private float wanderCircleRadius = 1.5f;
-    [SerializeField] private float wanderJitter = 0.1f;
+    [SerializeField] private float fleeWanderCircleDistance = 2f;
+    [SerializeField] private float fleeWanderCircleRadius = 1.5f;
+    [SerializeField] private float fleeWanderJitter = 0.1f;
 
     [Header("Global Stats Sensitivity Variables")]
-    [SerializeField] private float vigorWalkSpeedVariationModifier = 0f;
     [SerializeField][Range(0, 1)] private float lowHealthSpeedPenalityThreshold = 0f;
     [SerializeField][Range(0f, 1)] private float healthSlowdownMaxPenality = 0f;
 
-    private bool showTargetingLogs = false;
     private bool wanderFallback = false;
     private float selectNewTargetTimerMs = 0;
     private float fallbackTimerMs = 0;
     private const float fallbackCooldownMs = 500;
-
     public Vector3? MoveTargetPosition { get; private set; }
     public Vector3? LookTargetPosition { get; private set; }
     public bool? LookAtTarget { get; private set; }
 
     MovementStats penalisedStats;
 
-    MovementStats baseFallbackStats;
-    MovementStats penalisedFallbackStats;
-
-    MovementStats currStats;
-
-    [Header("No target fallback movement modifiers")]
-    [SerializeField] private MovementStatsModifiers fallbackStatsModifiers = new MovementStatsModifiers();
-
-
     protected override void AssignExtraMovementStats(NavMeshAgent agent)
     {
         penalisedStats = new MovementStats(baseStats);
-        baseFallbackStats = CalculateStatsWithModifiers(agent, fallbackStatsModifiers);
-    }
-
-    protected override MovementStats CalculateStatsWithModifiers(NavMeshAgent agent, MovementStatsModifiers modifiers)
-    {
-        float modifier = vigorWalkSpeedVariationModifier;
-        float vigorMultiplier = Mathf.Lerp(1f - modifier, 1f + modifier, animalStatsHook.StatVigor);
-
-        MovementStats modifiedStats = new MovementStats(
-            agent.speed * modifiers.SpeedModifier * vigorMultiplier,
-            agent.angularSpeed * modifiers.AngularSpeedModifier * vigorMultiplier,
-            agent.acceleration * modifiers.AccelerationModifier * vigorMultiplier,
-            agent.stoppingDistance * modifiers.StoppingDistanceModifier * vigorMultiplier);
-        return modifiedStats;
     }
 
     public void Enter()
     {
-        currStats = penalisedStats;
         fallbackTimerMs = fallbackCooldownMs;
         wanderFallback = false;
         selectNewTargetTimerMs = 0;
-        LookAtTarget = false;
+        LookAtTarget = true;
     }
 
     public void Update()
     {
         penalisedStats = CalculateHealthStatPenality(baseStats);
-        penalisedFallbackStats = CalculateHealthStatPenality(baseFallbackStats);
-        currStats = wanderFallback ? penalisedFallbackStats : penalisedStats;
 
-        SmoothAssignMovementStats(agent, currStats, lerpSpeed: 5f);
+        SmoothAssignMovementStats(agent, penalisedStats, lerpSpeed: 5f);
         if (fallbackCooldownMs < fallbackTimerMs && selectNewTargetTimerMs >= selectNewTargetCooldownMs)
         {
             selectNewTargetTimerMs = 0;
@@ -86,27 +56,24 @@ public class WanderMovement : MovementScript, IAnimalMovement
         UpdateTimer();
     }
 
-    public void Exit() 
-    {
-    }
+    public void Exit() { }
 
     private Vector3 GetNewWanderTarget()
     {
         const int maxTries = 5;
-
+        TrackedWithScore fearOrigin = eventHub.RequestTrackedFear();
         for (int i = 0; i < maxTries; i++)
         {
-            Vector3 randomOffset = Random.insideUnitSphere * Random.Range(0f, wanderJitter);
-            Vector3 wanderTarget = Vector3.Normalize(new Vector3(randomOffset.x, 0, randomOffset.z)) * wanderCircleRadius * (0.5f + animalStatsHook.StatCuriosity);
+            Vector3 randomOffset = Random.insideUnitSphere * Random.Range(0f, fleeWanderJitter);
+            Vector3 wanderTarget = Vector3.Normalize(new Vector3(randomOffset.x, 0, randomOffset.z)) * fleeWanderCircleRadius * (0.5f + animalStatsHook.StatCuriosity);
 
-            Vector3 circleCenter = agent.transform.forward * wanderCircleDistance;
+            Vector3 fleeDirection = (agent.transform.position - fearOrigin.tracked.transform.position).normalized;
+            Vector3 circleCenter = fleeDirection * fleeWanderCircleDistance;
             Vector3 targetPos = agent.transform.position + circleCenter + wanderTarget;
             targetPos.y = 0;
 
             if (NavMeshUtils.IsPointOnNavMesh(targetPos, out Vector3 validPos, 0.25f) && NavMeshUtils.CanReachTarget(agent, validPos))
             {
-                if (showTargetingLogs)
-                    Debug.Log($"[Wander] Target found on attempt {i + 1}");
                 SetWanderFallback(false);
                 return validPos;
             }
@@ -124,8 +91,6 @@ public class WanderMovement : MovementScript, IAnimalMovement
 
             if (NavMeshUtils.IsPointOnNavMesh(candidate, out Vector3 candidateValidPos, 1.5f) && NavMeshUtils.CanReachTarget(agent, candidateValidPos))
             {
-                if (showTargetingLogs)
-                    Debug.Log($"[Wander] Fallback target found on attempt {i + 1}");
                 SetWanderFallback(true);
                 return candidateValidPos;
             }
@@ -159,7 +124,6 @@ public class WanderMovement : MovementScript, IAnimalMovement
 
             speedMultiplier = 1f - t * healthSlowdownMaxPenality;
         }
-
 
         MovementStats modifiedStats = stats;
         modifiedStats.Speed = stats.Speed * speedMultiplier;

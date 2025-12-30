@@ -25,6 +25,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Func<bool> OnIsOnRestSpotRequest;
     public event Func<AnimalMouthCollider> OnMouthHookRequest;
     public event Func<TrackedWithScore> OnTrackedPreyRequest;
+    public event Func<TrackedWithScore> OnTrackedFearRequest;
     public event Func<TrackerDatas> OnTrackerDatasRequest;
 
     private const int pushEventLimit = 5;
@@ -58,6 +59,7 @@ public class AnimalEventHub : MonoBehaviour
     public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);
     public void AnnouncePreyCaught(IDamageable prey) => OnAnnouncePreyCaught?.Invoke(prey);
     public TrackedWithScore RequestTrackedPrey() => OnTrackedPreyRequest?.Invoke() ?? new TrackedWithScore(null,0);
+    public TrackedWithScore RequestTrackedFear() => OnTrackedFearRequest?.Invoke() ?? new TrackedWithScore(null, 0);
     public TrackerDatas RequestTrackerDataToInitialize() => OnTrackerDatasRequest?.Invoke() ?? new TrackerDatas();
     public void AnnounceDeath() => OnDeath?.Invoke();
 }
