@@ -68,9 +68,14 @@ public class AnimalCreator : MonoBehaviour
         {
             if (hasHead)
             {
-                GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
-                AttachMouthCollider(animalHead.headJoints, mouthCollider, creatorData.mouthParentId);
-                mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+                if (creatorData.mouthColliderPrefab == null)
+                    Debug.LogWarning("AnimalCreator: Mouth Collider prefab jest pusty! Czy to zamierzone zachowanie?", this);
+                else
+                {
+                    GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
+                    AttachMouthCollider(animalHead.headJoints, mouthCollider, creatorData.mouthParentId);
+                    mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+                }
             }
             else
                 Debug.LogWarning("AnimalCreator: Próba przypisania otworu gêbowego do segmentu g³owy, kiedy jej nie ma! Wybierz prypisanie do segmentu cia³a jeœli jest to zamierzone!", this);

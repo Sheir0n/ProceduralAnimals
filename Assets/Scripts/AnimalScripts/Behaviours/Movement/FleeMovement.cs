@@ -62,6 +62,8 @@ public class FleeMovement : MovementScript, IAnimalMovement
     {
         const int maxTries = 5;
         TrackedWithScore fearOrigin = eventHub.RequestTrackedFear();
+        if(fearOrigin.tracked == null)
+            fearOrigin.tracked = transform;
         for (int i = 0; i < maxTries; i++)
         {
             Vector3 randomOffset = Random.insideUnitSphere * Random.Range(0f, fleeWanderJitter);

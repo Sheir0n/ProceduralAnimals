@@ -32,6 +32,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
     private int randomisedCooldownMs;
     private float biteTimerMs = 0;
     private bool preyCaught = false;
+    private bool hasAddedFeedStats = false;
     public enum BiteAttackStage {Windup, Dash, Finished}
     private CancellationTokenSource biteCancelToken;
     AnimalMouthCollider animalMouth;
@@ -53,6 +54,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
         biteTimerMs = biteCooldownMs;
         randomisedCooldownMs = (int)(biteCooldownMs * UnityEngine.Random.Range(0.75f, 1.25f));
         preyCaught = false;
+        hasAddedFeedStats = false;
 
         animalMouth = eventHub.GetAnimalMouth();
     }
@@ -81,7 +83,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
     {
         Transform targetTransform = bestPreyCandidate.tracked;
 
-        if (targetTransform == null || preyCaught)
+        if (targetTransform == null || (preyCaught && hasAddedFeedStats))
             return -Mathf.Infinity;
         else
         {
@@ -95,6 +97,12 @@ public class ChaseFoodController : ActionController, IUtilityAction
         stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * energyDrainRateModifier * Time.deltaTime, 0, stats.maxEnergy);
 
         stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate *saturationDrainRateModifier* Time.deltaTime, 0, stats.maxSaturation);
+
+        if (preyCaught && !hasAddedFeedStats)
+        {
+            stats.saturation = stats.maxSaturation;
+            hasAddedFeedStats = true;
+        }
     }
 
 

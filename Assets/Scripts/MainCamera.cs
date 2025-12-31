@@ -13,7 +13,7 @@ public class MainCamera : MonoBehaviour
 
     //orthographic size
     private float minOrthSize = 4;
-    private float maxOrthSize = 10;
+    private float maxOrthSize = 20;
 
     //camera rotation
     private float tiltAmount = 270f;

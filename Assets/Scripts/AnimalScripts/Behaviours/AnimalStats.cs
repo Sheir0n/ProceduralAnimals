@@ -71,29 +71,8 @@ public class AnimalStats : IReadOnlyAnimalStats
 
         if (!ignoreSeed)
         {
-            if (useStaticSeed)
-            {
-                Debug.Log(
-                    "Utworzono nowe zwierze ze sta³ym seedem\n" +
-                    "Seed: " + seed + "\n" +
-                    "Wigor: " + statVigor + "\n" +
-                    "Agresja: " + statAggressiveness + "\n" +
-                    "Ciekawoœæ: " + statCuriosity + "\n" +
-                    "Odwaga: " + statBravery
-                );
-            }
-            else
-            {
+            if (!useStaticSeed)
                 seed = UnityEngine.Random.Range(1, 99999);
-                Debug.Log(
-                    "Utworzono nowe zwierze z losowymi statystykami:\n" +
-                    "Seed: " + seed + "\n" +
-                    "Wigor: " + statVigor + "\n" +
-                    "Agresja: " + statAggressiveness + "\n" +
-                    "Ciekawoœæ: " + statCuriosity + "\n" +
-                    "Odwaga: " + statBravery
-                );
-            }
 
             System.Random rng = new System.Random(seed);
             statVigor = GetRandom(rng, 0.01f, 0.99f);
@@ -104,6 +83,15 @@ public class AnimalStats : IReadOnlyAnimalStats
             maxHealth *= 1 + randomnessMultiplier * GetRandom(rng, -1, 1);
             maxSaturation *= 1 + randomnessMultiplier * GetRandom(rng, -1, 1);
             maxEnergy *= 1 + randomnessMultiplier * GetRandom(rng, -1, 1);
+
+            Debug.Log(
+                "Utworzono nowe zwierze z parametrami:\n" +
+                "Seed: " + seed + "\n" +
+                "Wigor: " + statVigor + "\n" +
+                "Agresja: " + statAggressiveness + "\n" +
+                "Ciekawoœæ: " + statCuriosity + "\n" +
+                "Odwaga: " + statBravery
+            );
         }
         else
         {
