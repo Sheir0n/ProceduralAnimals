@@ -19,7 +19,7 @@ public class AnimalAnimator : MonoBehaviour
     protected Vector3 prevHeadPosition;
 
     protected AnimalEventHub eventHub;
-    [SerializeField] private bool isAnimalDisabled;
+    private bool isAnimalDisabled = false;
     protected bool isBodyReady { get; private set; } = false;
 
     protected virtual void Awake()

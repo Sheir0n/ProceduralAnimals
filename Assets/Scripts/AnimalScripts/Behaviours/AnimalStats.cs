@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public interface IReadOnlyAnimalStats
@@ -22,19 +23,20 @@ public interface IReadOnlyAnimalStats
 [System.Serializable]
 public class AnimalStats : IReadOnlyAnimalStats
 {
+    [Header("Statystyki bazowe")]
     public StatData baseMaxStats;
 
-    [Header("General Variables")]
+    [Header("Statyczne parametry zmienne")]
     public float health;
     public float saturation;
     public float energy;
 
-    [Header("Variable limits")]
+    [Header("Statyczne zakresy parametrów zmiennych")]
     public float maxHealth;
     public float maxSaturation;
     public float maxEnergy;
 
-    [Header("Behaviour modifiers (0-1)")]
+    [Header("Statyczne modyfikatory zachowania")]
     [Range(0.01f, 0.99f)] public float statVigor;
     [Range(0.01f, 0.99f)] public float statAggressiveness;
     [Range(0.01f, 0.99f)] public float statCuriosity;
@@ -53,7 +55,7 @@ public class AnimalStats : IReadOnlyAnimalStats
     float IReadOnlyAnimalStats.StatCuriosity => statCuriosity;
     float IReadOnlyAnimalStats.StatBravery => statBravery;
 
-
+    [Header("Ustawienia statycznego generowania statystyk")]
     public bool ignoreSeed = false;
     public bool useStaticSeed = false;
     [Range(0f, 99999f)]
@@ -71,12 +73,26 @@ public class AnimalStats : IReadOnlyAnimalStats
         {
             if (useStaticSeed)
             {
-                Debug.Log("Created new animal with static seed: " + seed);
+                Debug.Log(
+                    "Utworzono nowe zwierze ze sta³ym seedem\n" +
+                    "Seed: " + seed + "\n" +
+                    "Wigor: " + statVigor + "\n" +
+                    "Agresja: " + statAggressiveness + "\n" +
+                    "Ciekawoœæ: " + statCuriosity + "\n" +
+                    "Odwaga: " + statBravery
+                );
             }
             else
             {
                 seed = UnityEngine.Random.Range(1, 99999);
-                Debug.Log("Created new animal with seed: " + seed);
+                Debug.Log(
+                    "Utworzono nowe zwierze z losowymi statystykami:\n" +
+                    "Seed: " + seed + "\n" +
+                    "Wigor: " + statVigor + "\n" +
+                    "Agresja: " + statAggressiveness + "\n" +
+                    "Ciekawoœæ: " + statCuriosity + "\n" +
+                    "Odwaga: " + statBravery
+                );
             }
 
             System.Random rng = new System.Random(seed);
@@ -91,7 +107,14 @@ public class AnimalStats : IReadOnlyAnimalStats
         }
         else
         {
-            Debug.Log("Created new animal without seed");
+            Debug.Log(
+                    "Utworzono nowe zwierze bez wykorzystania seeda:\n" +
+                    "Seed: null\n" +
+                    "Wigor: " + statVigor + "\n" +
+                    "Agresja: " + statAggressiveness + "\n" +
+                    "Ciekawoœæ: " + statCuriosity + "\n" +
+                    "Odwaga: " + statBravery
+                );
             seed = 0;
         }
 

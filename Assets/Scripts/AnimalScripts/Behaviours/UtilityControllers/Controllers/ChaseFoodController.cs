@@ -163,7 +163,6 @@ public class ChaseFoodController : ActionController, IUtilityAction
             {
                 targetInterface.OnSnatchAttachTo(animalMouth.transform);
                 preyCaught = true;
-                eventHub.AnnouncePreyCaught(targetInterface);
             }
         }
     }

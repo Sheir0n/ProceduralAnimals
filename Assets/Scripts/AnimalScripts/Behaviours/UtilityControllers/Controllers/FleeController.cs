@@ -40,10 +40,7 @@ public class FleeController : ActionController, IUtilityAction
         if (targetTransform == null)
             return -Mathf.Infinity;
         else
-        {
-            Debug.Log("flee score: " + Mathf.Pow(fleeTargetScore, (1 + 2 * stats.statBravery) / 2) * 4 / 5);
             return Mathf.Pow(fleeTargetScore, (1 + 2 * stats.statBravery) / 2) * 4 / 5;
-        }
     }
 
     public void CalculateStats(AnimalStats stats)

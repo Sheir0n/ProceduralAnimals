@@ -5,15 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CreatorData", menuName = "AI/Animal Creator Settings")]
 public class ScriptableCreator : ScriptableObject
 {
-    [Header("Segment Datas")]
+    [Header("Ustawienia krêgos³upa")]
     [SerializeField] public List<SegmentData> spineSegmentData = new List<SegmentData>();
+    [Header("Ustawienia koñczyn")]
     [SerializeField] public List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
+    [Header("Ustawienia g³owy")]
     [SerializeField] public AnimalHeadData animalHeadData;
 
-    [Header("Mouth Collider Data")]
+    [Header("Prefabrykant otworu gêbowego")]
     [SerializeField] public GameObject mouthColliderPrefab;
 
-    [Header("True if attach to head segments, false if to body")]
+    [Header("Pozycja otworu gêbowego (czy podpi¹æ do segmentu g³owy czy bezpoœrednio do cia³a)")]
     [SerializeField] public bool attachMouthToHeadSegment;
     [SerializeField] public int mouthParentId;
 }

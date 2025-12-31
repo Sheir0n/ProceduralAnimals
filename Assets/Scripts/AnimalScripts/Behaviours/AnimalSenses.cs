@@ -20,15 +20,18 @@ public struct HeadCenterData
 
 public class AnimalSenses : MonoBehaviour
 {
-    [SerializeField] protected bool showConeDebug = false;
     protected AnimalEventHub eventHub { private set; get; }
     protected HeadCenterData coneCenterData { private set; get; }
     protected bool deathDisableSenses { private set; get; } = false;
 
+    [Header("Parametry sto¿ka wizji")]
     [SerializeField] protected VisionConeData visionConeData;
     protected List<string> trackedInterestTags = new List<string>();
     protected List<string> trackedFoodTags = new List<string>();
     protected List<string> trackedFearTags = new List<string>();
+
+    [Header("Poka¿ sto¿ek wizji ageanta")]
+    [SerializeField] protected bool showConeDebug = false;
 
     protected virtual void Awake()
     {

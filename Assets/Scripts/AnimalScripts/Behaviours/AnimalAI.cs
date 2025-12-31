@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class AnimalAI : MonoBehaviour, IDamageable
 {
+    [Header("Statystyki domyœlne agenta")]
     [SerializeField] protected AnimalStats stats;
     protected readonly float energyDrainRate = 0.075f;
     protected readonly float saturationDrainRate = 0.045f;
 
-    [Header("Show StateChange logs")]
+    [Header("Poka¿ logi zmiany zachowania")]
     [SerializeField] private bool showStateChangeLogs = false;
 
-    //Datas
+    [Header("Scriptable listy œledzonych obiektów")]
     [SerializeField] protected TrackerDatas trackersData;
     protected InterestTracker interestTracker;
     protected PreyTracker preyTracker;
@@ -27,31 +28,37 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected List<IUtilityAction> actions = new List<IUtilityAction>();
     protected IUtilityAction currAction;
 
+    [Header("Ustawienia histerezy przy zmianie stanu")]
     [SerializeField] protected float defaultPenality = 1f;
     [SerializeField] protected float penalityDrainSpeed = 4f;
     [SerializeField] protected float hysteresis = 0.1f;
 
-    [SerializeField, ReadOnly] protected Dictionary<IUtilityAction, float> actionPenalities;
-    [SerializeField] protected string actionDebugDisplay;
+    protected Dictionary<IUtilityAction, float> actionPenalities;
 
     protected Dictionary<ActionID, IUtilityAction> actionByID;
     protected Dictionary<IUtilityAction, ActionID> IDByAction;
 
-    [SerializeField] private bool isPlayerControlled = false;
-    [SerializeField] private bool showAIPoints = false;
-
     protected AnimalEventHub eventHub;
     private Transform snatchTransform;
 
-    [Header("Static action IDS")]
+    [Header("ID zachowañ statycznych (ogólnodostêpnych w ka¿dym osobniku)")]
     [SerializeField] protected List<ActionController> actionAssetList = new List<ActionController>();
     [SerializeField] protected ActionID emptyActionSharedID;
     [SerializeField] protected ActionID deathActionSharedID;
     [SerializeField] protected ActionID playerControlledActionSharedID;
 
+    [Header("Runtime Debug: Ustawienia komunikatów")]
+    [SerializeField] private bool isPlayerControlled = false;
+    [SerializeField] private bool showAIPoints = false;
 
-    [Header("Runtime action settings clones")]
+    [Header("Runtime Debug: Aktualny stan zachowania")]
+    [SerializeField] protected ActionID actionDebugDisplay;
+
+    [Header("Runtime Debug: Lista sklonowanych zachowañ")]
     [SerializeField] private List<ScriptableObject> runtimeActionDebug;
+
+    private bool clearedMemoryOnDeath = false;
+
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
@@ -135,7 +142,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
             currAction = newAction;
             newAction.Enter();
             eventHub.SendAIStateChange(IDByAction[newAction]);
-            Debug.Log(newAction);
         }
 
         foreach (IUtilityAction action in actions)
@@ -148,7 +154,15 @@ public class AnimalAI : MonoBehaviour, IDamageable
         preyTracker.OnUpdate();
         fearTracker.OnUpdate();
 
-        actionDebugDisplay = currAction.ActionTag.actionName;
+        actionDebugDisplay = currAction.ActionTag;
+    }
+
+    protected void LateUpdate()
+    {
+        if (IDByAction[currAction] == deathActionSharedID && !clearedMemoryOnDeath)
+        {
+            clearedMemoryOnDeath = true;
+        }
     }
 
     protected void AddNewAction(ActionController action)
@@ -230,7 +244,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
             currAction = actionByID[deathActionSharedID];
             eventHub.SendAIStateChange(deathActionSharedID);
             eventHub.AnnounceDeath();
-            actionDebugDisplay = currAction.ActionTag.actionName;
+            actionDebugDisplay = currAction.ActionTag;
             return true;
         }
         return false;

@@ -10,12 +10,13 @@ using UnityEngine.AddressableAssets;
 [System.Serializable]
 public class SegmentData
 {
+    [Header("Ustawienia ³añcucha")]
     public string segmentName;
     public int jointCount;
     public AnimationCurve sizeCurve;
     public float distanceConstraint;
 
-    [Header("Angle Range Variables")]
+    [Header("Ustawienia zakresu wygiêcia")]
     [Range(0, 180)] public float angularConstraint;
     [Range(-180, 180)] public float prefferedAngle;
 }
@@ -25,7 +26,7 @@ public class AnimalCreator : MonoBehaviour
     protected AnimalAnimator animatorScript;
     protected AnimalEventHub eventHub;
 
-    [Header("Segment Datas")]
+    [Header("Globalne ustawienia segmentów")]
     [SerializeField] private ScriptableCreator creatorData;
     [SerializeField] private Color bodyColor = Color.red;
 
@@ -46,7 +47,7 @@ public class AnimalCreator : MonoBehaviour
         await LoadPrefabs();
         if (prefabCache == null)
         {
-            Debug.LogError("Animal Joint Prefab addressable not found! Halting animal creation process.", this);
+            Debug.LogError("AnimalCreator: Nie znaleziono obiektu addressable AnimalJoint! Upewnij siê ¿e obiekt tego typu jest oznaczony jako Addressable! Zatrzymano proces generowania zwierzêcia.", this);
             return;
         }
 
@@ -59,9 +60,7 @@ public class AnimalCreator : MonoBehaviour
         if (creatorData.animalLimbData.Count > 0)
             GenerateLimbs();
         if (creatorData.mouthColliderPrefab is null)
-        {
-            Debug.LogWarning(this + "Mouth collider not specified! Returning early.");
-        }
+            Debug.LogWarning("AnimalCreator: Nie znaleziono prefabrykanta MouthCollider", this);
 
         animatorScript.SetBody(spineJoints, limbs, animalHead);
 
@@ -74,7 +73,7 @@ public class AnimalCreator : MonoBehaviour
                 mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
             }
             else
-                Debug.LogWarning(this + "Trying to attach mouth collider whan animal has no head! Select attach to body!");
+                Debug.LogWarning("AnimalCreator: Próba przypisania otworu gêbowego do segmentu g³owy, kiedy jej nie ma! Wybierz prypisanie do segmentu cia³a jeœli jest to zamierzone!", this);
         }
         else
         {
@@ -194,12 +193,12 @@ public class AnimalCreator : MonoBehaviour
     {
         if (mouthCollider == null)
         {
-            Debug.Log("Cant attach mouth collider - not specified!");
+            Debug.Log("AnimalCreator: Nie mo¿na podpi¹æ MouthCollider - obiekt nie zosta³ sprecyzowany!");
             return;
         }
         if (segmentId < 0 || segmentId > attachChain.Count)
         {
-            Debug.Log("Cant attach mouth collider - id not in joint range!");
+            Debug.Log("AnimalCreator: Nie mo¿na podpi¹æ MouthCollider - podane id rodzica nie jest w zakresie id ³añcucha!");
             return;
         }
 

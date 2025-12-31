@@ -13,15 +13,16 @@ using static AnimalAI;
 
 public class PathfindController : MonoBehaviour
 {
-    [Header("Nav Mesh Agent Component")]
+    [Header("Agent znajdywania œcie¿ki")]
     protected NavMeshAgent agent;
     public Vector3 lookTargetPos { get; private set; } = Vector3.zero;
     public bool lookAtTarget { get; private set; } = false;
     private Quaternion lastRotation;
     protected float agentCurrAngularSpeed { get; private set; } = 0;
 
-
+    [Header("Domyœlny ruch sterowania agenta poprzez u¿ytkownika")]
     [SerializeField] protected PlayerControlledMovement playerControlledMovement;
+    [Header("Lista zachowañ ruchowych - powinna odpowiadaæ zachowaniom UtilityAI")]
     [SerializeField] protected List<MovementScript> avalibleMovementsScriptables;
 
     protected List<IAnimalMovement> movements = new List<IAnimalMovement>();
@@ -33,11 +34,15 @@ public class PathfindController : MonoBehaviour
     private Vector3 pendingPush;
     private bool pushedThisFrame = false;
 
+    [Header("Globalne ID statycznych zachowañ ruchowych")]
     [SerializeField] protected ActionID deathActionSharedID;
     [SerializeField] protected ActionID emptyActionSharedID;
     [SerializeField] protected ActionID playerControlledActionSharedID;
+
+    [Header("Pozycja agenta w osi Y, zachowañ unikalne by unikn¹æ zjawiska Z-fighting ")]
     [SerializeField] private float agentHeightBaseOffset = 0.5f;
 
+    [Header("Runtime Debug: lista parametrów kopii zachowañ")]
     [SerializeField] private List<ScriptableObject> runtimeMovementsDebug;
 
     protected virtual void Awake()
@@ -72,7 +77,7 @@ public class PathfindController : MonoBehaviour
         if (playerControlledMovement != null)
             AddNewMovementBehavior(playerControlledMovement, playerControlledActionSharedID, statsHook);
         else
-            Debug.LogWarning("Player movement controller not set! Player wont be able to control the animal!", this);
+            Debug.LogWarning("PathfindController: Nie przypisano skryptu kontrolera gracza! U¿ytkownik nie bêdzie móg³ obj¹æ kontroli nad agentem!", this);
 
         EmptyMovement emptyController = ScriptableObject.CreateInstance<EmptyMovement>();
         AddNewMovementBehavior(emptyController, emptyActionSharedID, statsHook);
@@ -125,19 +130,20 @@ public class PathfindController : MonoBehaviour
         lastRotation = transform.rotation;
     }
 
-    protected void AddNewMovementBehavior(MovementScript movement,ActionID id,IReadOnlyAnimalStats statsHook)
+    protected void AddNewMovementBehavior(MovementScript movement, ActionID id, IReadOnlyAnimalStats statsHook)
     {
         var instanceObj = Instantiate(movement);
 
         if (instanceObj is not IAnimalMovement instance)
         {
-            Debug.LogError($"{movement.name} does not implement IAnimalMovement");
+            Debug.LogError($"PathfindController: {movement.name} nie implementuje interfejsu IAnimalMovement!", this);
             return;
         }
 
-        if(movementByID.ContainsKey(id)) {
+        if (movementByID.ContainsKey(id))
+        {
             IAnimalMovement duplicate = movementByID[id];
-            Debug.LogWarning($"{movement.name} has duplicate id to existing movement: " + duplicate, this);
+            Debug.LogWarning($"PathfindController: {movement.name} ma duplikat ID istniej¹cego ju¿ zachowania: " + duplicate, this);
             return;
         }
 
@@ -152,7 +158,7 @@ public class PathfindController : MonoBehaviour
     {
         IAnimalMovement newMovementBehavior = movementByID[emptyActionSharedID];
         if (!movementByID.ContainsKey(newAction))
-            Debug.LogWarning("Couldnt find corresponding movement action! Defaulting to empty movement!" + newAction, this);
+            Debug.LogWarning("PathfindController: Nie znaleziono zachowania odpowiadaj¹cemu id: " + newAction + "! Przejœcie na domyœlne zachowanie EmptyMovement!", this);
         else
             newMovementBehavior = movementByID[newAction];
 

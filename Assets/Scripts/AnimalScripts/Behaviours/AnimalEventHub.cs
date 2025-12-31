@@ -14,7 +14,6 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<List<Transform>> OnNewInterestFound;
     public event Action<Collider> OnAttemptBite;
     public event Action<BiteAttackStage> OnBiteAttack;
-    public event Action<IDamageable> OnAnnouncePreyCaught;
     public event Action OnDeath;
 
     public event Func<float> OnAngularSpeedRequest;
@@ -57,7 +56,6 @@ public class AnimalEventHub : MonoBehaviour
     public void AttemptBite(Collider other) => OnAttemptBite?.Invoke(other);
     public AnimalMouthCollider GetAnimalMouth() => OnMouthHookRequest?.Invoke();
     public void AnnounceBiteAttack(BiteAttackStage attackStage) => OnBiteAttack?.Invoke(attackStage);
-    public void AnnouncePreyCaught(IDamageable prey) => OnAnnouncePreyCaught?.Invoke(prey);
     public TrackedWithScore RequestTrackedPrey() => OnTrackedPreyRequest?.Invoke() ?? new TrackedWithScore(null,0);
     public TrackedWithScore RequestTrackedFear() => OnTrackedFearRequest?.Invoke() ?? new TrackedWithScore(null, 0);
     public TrackerDatas RequestTrackerDataToInitialize() => OnTrackerDatasRequest?.Invoke() ?? new TrackerDatas();

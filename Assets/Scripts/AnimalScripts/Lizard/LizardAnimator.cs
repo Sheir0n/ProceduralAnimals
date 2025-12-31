@@ -12,6 +12,7 @@ public class LizardAnimator : AnimalAnimator
     private float currentTailLeanLerp = 0f;
     private int randomTailDir = 0;
 
+    [Header("ID zachowania ze zwiniêciem ogona")]
     [SerializeField] private ActionID tailRestActionID = null;
 
     protected override void Update()
@@ -21,7 +22,7 @@ public class LizardAnimator : AnimalAnimator
 
         if (joints == null || joints.Count == 0)
         {
-            Debug.LogWarning("Animal Animator: joints list is empty or null!");
+            Debug.LogWarning("LizardAnimator: Lista stawów jest pusta!",this);
             return;
         }
 
