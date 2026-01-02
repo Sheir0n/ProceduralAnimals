@@ -17,6 +17,11 @@ MonoBehaviour:
   - tag: Lizard
     importance: 1
     memoryTimeInSec: 10
-    forgetMinRange: 8
+    forgetMinRange: 5
     maxTrackDistance: 15
+  - tag: Centipede
+    importance: 0.7
+    memoryTimeInSec: 3
+    forgetMinRange: 8
+    maxTrackDistance: 12
   foodTrackerTags: []

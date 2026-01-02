@@ -10,36 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23e82e356521cf0479e44cf02d04db5f, type: 3}
-  m_Name: LizardTrackerData
+  m_Name: CentipedeTrackerData
   m_EditorClassIdentifier: 
   lookTrackerTags:
-  - tag: Rock
-    importance: 0.4
-    memoryTimeInSec: 2
-    forgetMinRange: 0
-    maxTrackDistance: 10
-    objectType: 1
   - tag: Lizard
-    importance: 0.6
-    memoryTimeInSec: 2
-    forgetMinRange: 0
-    maxTrackDistance: 15
-    objectType: 4
-  - tag: Beetle
     importance: 0.7
-    memoryTimeInSec: 2
-    forgetMinRange: 0
-    maxTrackDistance: 20
-    objectType: 2
-  fearTrackerTags:
-  - tag: Centipede
-    importance: 0.9
     memoryTimeInSec: 5
-    forgetMinRange: 15
-    maxTrackDistance: 20
-  foodTrackerTags:
-  - tag: Beetle
-    importance: 1
-    memoryTimeInSec: 8
     forgetMinRange: 5
     maxTrackDistance: 20
+    objectType: 2
+  - tag: Beetle
+    importance: 0.4
+    memoryTimeInSec: 3
+    forgetMinRange: 5
+    maxTrackDistance: 20
+    objectType: 2
+  - tag: Centipede
+    importance: 0.4
+    memoryTimeInSec: 3
+    forgetMinRange: 5
+    maxTrackDistance: 20
+    objectType: 4
+  fearTrackerTags: []
+  foodTrackerTags:
+  - tag: Lizard
+    importance: 1
+    memoryTimeInSec: 2
+    forgetMinRange: 3
+    maxTrackDistance: 20
+  - tag: Beetle
+    importance: 0.4
+    memoryTimeInSec: 2
+    forgetMinRange: 3
+    maxTrackDistance: 15
