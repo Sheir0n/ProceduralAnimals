@@ -51,45 +51,50 @@ public class AnimalCreator : MonoBehaviour
             return;
         }
 
-        GenerateBody();
-        if (creatorData.animalHeadData.joints.Count > 0)
+        if (creatorData != null)
         {
-            GenerateHead();
-            hasHead = true;
-        }
-        if (creatorData.animalLimbData.Count > 0)
-            GenerateLimbs();
-        if (creatorData.mouthColliderPrefab is null)
-            Debug.LogWarning("AnimalCreator: Nie znaleziono prefabrykanta MouthCollider", this);
-
-        animatorScript.SetBody(spineJoints, limbs, animalHead);
-
-        if (creatorData.attachMouthToHeadSegment && hasHead)
-        {
-            if (hasHead)
+            GenerateBody();
+            if (creatorData.animalHeadData.joints.Count > 0)
             {
-                if (creatorData.mouthColliderPrefab == null)
-                    Debug.LogWarning("AnimalCreator: Mouth Collider prefab jest pusty! Czy to zamierzone zachowanie?", this);
+                GenerateHead();
+                hasHead = true;
+            }
+            if (creatorData.animalLimbData.Count > 0)
+                GenerateLimbs();
+            if (creatorData.mouthColliderPrefab is null)
+                Debug.LogWarning("AnimalCreator: Nie znaleziono prefabrykanta MouthCollider", this);
+
+            animatorScript.SetBody(spineJoints, limbs, animalHead);
+
+            if (creatorData.attachMouthToHeadSegment && hasHead)
+            {
+                if (hasHead)
+                {
+                    if (creatorData.mouthColliderPrefab == null)
+                        Debug.LogWarning("AnimalCreator: Mouth Collider prefab jest pusty! Czy to zamierzone zachowanie?", this);
+                    else
+                    {
+                        GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
+                        AttachMouthCollider(animalHead.headJoints, mouthCollider, creatorData.mouthParentId);
+                        mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
+                    }
+                }
                 else
+                    Debug.LogError("AnimalCreator: Próba przypisania otworu gêbowego do segmentu g³owy, kiedy jej nie ma! Wybierz prypisanie do segmentu cia³a jeœli jest to zamierzone!", this);
+            }
+            else
+            {
+                if (creatorData.mouthColliderPrefab != null)
                 {
                     GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
-                    AttachMouthCollider(animalHead.headJoints, mouthCollider, creatorData.mouthParentId);
+                    AttachMouthCollider(spineJoints, mouthCollider, creatorData.mouthParentId);
                     mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
                 }
             }
-            else
-                Debug.LogWarning("AnimalCreator: Próba przypisania otworu gêbowego do segmentu g³owy, kiedy jej nie ma! Wybierz prypisanie do segmentu cia³a jeœli jest to zamierzone!", this);
+            eventHub.AnnounceBodyGenerated();
         }
         else
-        {
-            if (creatorData.mouthColliderPrefab != null)
-            {
-                GameObject mouthCollider = Instantiate(creatorData.mouthColliderPrefab);
-                AttachMouthCollider(spineJoints, mouthCollider, creatorData.mouthParentId);
-                mouthCollider.GetComponent<AnimalMouthCollider>().OnInstantiate();
-            }
-        }
-        eventHub.AnnounceBodyGenerated();
+            Debug.LogError("AnimalCreator: Creator data jest nie przypisane albo jest puste!");
         ReleasePrefab();
     }
 

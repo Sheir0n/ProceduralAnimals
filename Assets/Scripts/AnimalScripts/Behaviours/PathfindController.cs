@@ -139,6 +139,11 @@ public class PathfindController : MonoBehaviour
             Debug.LogError($"PathfindController: {movement.name} nie implementuje interfejsu IAnimalMovement!", this);
             return;
         }
+        if (id == null)
+        {
+            Debug.LogError($"PathfindController: {movement.name} Nie ma podano tagu zachowania!", this);
+            return;
+        }
 
         if (movementByID.ContainsKey(id))
         {

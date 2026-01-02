@@ -63,11 +63,22 @@ public class AnimalStats : IReadOnlyAnimalStats
 
     public void GenerateStats()
     {
-        maxHealth = baseMaxStats.maxHealth;
-        maxSaturation = baseMaxStats.maxSaturation;
-        maxEnergy = baseMaxStats.maxEnergy;
-
-        float randomnessMultiplier = baseMaxStats.randomnessAmount;
+        float randomnessMultiplier;
+        if (baseMaxStats == null)
+        {
+            Debug.LogWarning("AnimalStats: Nie przypisano bazowych statystyk zwierzêcia!");
+            maxHealth = 1;
+            maxSaturation = 1;
+            maxEnergy = 1;
+            randomnessMultiplier = 0;
+        }
+        else
+        {
+            maxHealth = baseMaxStats.maxHealth;
+            maxSaturation = baseMaxStats.maxSaturation;
+            maxEnergy = baseMaxStats.maxEnergy;
+            randomnessMultiplier = baseMaxStats.randomnessAmount;
+        }
 
         if (!ignoreSeed)
         {

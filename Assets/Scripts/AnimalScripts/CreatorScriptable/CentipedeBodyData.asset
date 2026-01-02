@@ -1,0 +1,1112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7a39077c6007a4ea01cd473fef0aa4, type: 3}
+  m_Name: CentipedeBodyData
+  m_EditorClassIdentifier: 
+  spineSegmentData:
+  - segmentName: Body
+    jointCount: 12
+    sizeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.0017318726
+        value: 0.54550934
+        inSlope: 0.23945203
+        outSlope: 0.23945203
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.49289486
+        value: 0.6639487
+        inSlope: -0.28692576
+        outSlope: -0.28692576
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.13192558
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8625304
+        value: 0.3004216
+        inSlope: -0.7697764
+        outSlope: -0.7697764
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.007019
+        value: 0.24732208
+        inSlope: -0.3674996
+        outSlope: -0.3674996
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    distanceConstraint: 1
+    angularConstraint: 40
+    prefferedAngle: 0
+  animalLimbData:
+  - limbName: HeadLegRight
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 20
+      prefferedAngle: -20
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0041105133
+          value: 0.20497684
+          inSlope: -0.034629684
+          outSlope: -0.034629684
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.034629684
+          outSlope: -0.034629684
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 2
+      angularConstraint: 20
+      prefferedAngle: -5
+    parentJointId: 0
+    parentPositionOffset: {x: 0.2, y: 0, z: 0.2}
+    targetPosOffset: {x: 0.05, y: 0, z: 1.5}
+    maxReachDistance: 0.01
+  - limbName: Right1
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -60
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0017242432
+          value: 0.24902344
+          inSlope: -0.078170046
+          outSlope: -0.078170046
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.078170046
+          outSlope: -0.078170046
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.4
+      angularConstraint: 60
+      prefferedAngle: -40
+    parentJointId: 0
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 1, y: 0, z: 2}
+    maxReachDistance: 1.5
+  - limbName: Right2
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -50
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0017242432
+          value: 0.2625122
+          inSlope: -0.09147882
+          outSlope: -0.09147882
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.09147882
+          outSlope: -0.09147882
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.7
+      angularConstraint: 60
+      prefferedAngle: -30
+    parentJointId: 1
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 1.5, y: 0, z: 1.5}
+    maxReachDistance: 1.5
+  - limbName: Right3
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -40
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0043411255
+          value: 0.2599182
+          inSlope: -0.088690445
+          outSlope: -0.088690445
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.088690445
+          outSlope: -0.088690445
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.9
+      angularConstraint: 60
+      prefferedAngle: -20
+    parentJointId: 2
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 1.75, y: 0, z: 1}
+    maxReachDistance: 1.5
+  - limbName: Right4
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -30
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.00074005127
+          value: 0.26267624
+          inSlope: -0.09172974
+          outSlope: -0.09172974
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.09172974
+          outSlope: -0.09172974
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 2
+      angularConstraint: 60
+      prefferedAngle: -10
+    parentJointId: 3
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 2, y: 0, z: 0.5}
+    maxReachDistance: 1.5
+  - limbName: Right5
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -60
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009475708
+          value: 0.30030823
+          inSlope: -0.12779312
+          outSlope: -0.12779312
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.12779312
+          outSlope: -0.12779312
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 2.1
+      angularConstraint: 60
+      prefferedAngle: 0
+    parentJointId: 4
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 2.5, y: 0, z: 0}
+    maxReachDistance: 1.5
+  - limbName: Right6
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -20
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0024490356
+          value: 0.2518654
+          inSlope: -0.0809162
+          outSlope: -0.0809162
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.0809162
+          outSlope: -0.0809162
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.8
+      angularConstraint: 60
+      prefferedAngle: 10
+    parentJointId: 5
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 1.8, y: 0, z: -0.05}
+    maxReachDistance: 1.5
+  - limbName: Right7
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -10
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0033226013
+          value: 0.21413812
+          inSlope: -0.043681357
+          outSlope: -0.043681357
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.043681357
+          outSlope: -0.043681357
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 60
+      prefferedAngle: 15
+    parentJointId: 6
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 1.5, y: 0, z: -0.1}
+    maxReachDistance: 1.5
+  - limbName: Right8
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -10
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0050697327
+          value: 0.20232782
+          inSlope: -0.03199194
+          outSlope: -0.03199194
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.03199194
+          outSlope: -0.03199194
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.45
+      angularConstraint: 60
+      prefferedAngle: 35
+    parentJointId: 7
+    parentPositionOffset: {x: 0.1, y: 0, z: 0}
+    targetPosOffset: {x: 1, y: 0, z: -0.15}
+    maxReachDistance: 1.5
+  - limbName: HeadLegLeft
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 20
+      prefferedAngle: 20
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0041105133
+          value: 0.20497684
+          inSlope: -0.034629684
+          outSlope: -0.034629684
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.034629684
+          outSlope: -0.034629684
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 2
+      angularConstraint: 20
+      prefferedAngle: 5
+    parentJointId: 0
+    parentPositionOffset: {x: -0.2, y: 0, z: 0.2}
+    targetPosOffset: {x: -0.05, y: 0, z: 1.5}
+    maxReachDistance: 0.01
+  - limbName: Left1
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 60
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0017242432
+          value: 0.24902344
+          inSlope: -0.078170046
+          outSlope: -0.078170046
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.078170046
+          outSlope: -0.078170046
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.4
+      angularConstraint: 60
+      prefferedAngle: 40
+    parentJointId: 0
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -1, y: 0, z: 2}
+    maxReachDistance: 1.5
+  - limbName: Left2
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 50
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0017242432
+          value: 0.2625122
+          inSlope: -0.09147882
+          outSlope: -0.09147882
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.09147882
+          outSlope: -0.09147882
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.7
+      angularConstraint: 60
+      prefferedAngle: 30
+    parentJointId: 1
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -1.5, y: 0, z: 1.5}
+    maxReachDistance: 1.5
+  - limbName: Left3
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 40
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0043411255
+          value: 0.2599182
+          inSlope: -0.088690445
+          outSlope: -0.088690445
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.088690445
+          outSlope: -0.088690445
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.9
+      angularConstraint: 60
+      prefferedAngle: 20
+    parentJointId: 2
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -1.75, y: 0, z: 1}
+    maxReachDistance: 1.5
+  - limbName: Left4
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 30
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.00074005127
+          value: 0.26267624
+          inSlope: -0.09172974
+          outSlope: -0.09172974
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.09172974
+          outSlope: -0.09172974
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 2
+      angularConstraint: 60
+      prefferedAngle: 10
+    parentJointId: 3
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -2, y: 0, z: 0.5}
+    maxReachDistance: 1.5
+  - limbName: Left5
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 60
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.009475708
+          value: 0.30030823
+          inSlope: -0.12779312
+          outSlope: -0.12779312
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.12779312
+          outSlope: -0.12779312
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 2.1
+      angularConstraint: 60
+      prefferedAngle: 0
+    parentJointId: 4
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -2.5, y: 0, z: 0}
+    maxReachDistance: 1.5
+  - limbName: Left6
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 20
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0024490356
+          value: 0.2518654
+          inSlope: -0.0809162
+          outSlope: -0.0809162
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.0809162
+          outSlope: -0.0809162
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.8
+      angularConstraint: 60
+      prefferedAngle: -10
+    parentJointId: 5
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -1.8, y: 0, z: -0.05}
+    maxReachDistance: 1.5
+  - limbName: Left7
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: -10
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0033226013
+          value: 0.21413812
+          inSlope: -0.043681357
+          outSlope: -0.043681357
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.043681357
+          outSlope: -0.043681357
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 60
+      prefferedAngle: -15
+    parentJointId: 6
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -1.5, y: 0, z: -0.1}
+    maxReachDistance: 1.5
+  - limbName: Left8
+    joints:
+    - segmentName: Root
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.40252686
+          value: 0.12506866
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.1
+      angularConstraint: 80
+      prefferedAngle: 10
+    - segmentName: Limb
+      jointCount: 4
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0050697327
+          value: 0.20232782
+          inSlope: -0.03199194
+          outSlope: -0.03199194
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0118004
+          value: 0.16979617
+          inSlope: -0.03199194
+          outSlope: -0.03199194
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.45
+      angularConstraint: 60
+      prefferedAngle: -35
+    parentJointId: 7
+    parentPositionOffset: {x: -0.1, y: 0, z: 0}
+    targetPosOffset: {x: -1, y: 0, z: -0.15}
+    maxReachDistance: 1.5
+  animalHeadData:
+    headName: CenripedeHead
+    joints:
+    - segmentName: Head
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.01714325
+          value: 0.081344604
+          inSlope: 0.004024512
+          outSlope: 0.004024512
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0274048
+          value: 0.0855484
+          inSlope: 0.004024512
+          outSlope: 0.004024512
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0
+      angularConstraint: 10
+      prefferedAngle: 0
+    - segmentName: Head
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.27052715
+          value: 0.67044485
+          inSlope: -0.00070942525
+          outSlope: -0.00070942525
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.05
+      angularConstraint: 10
+      prefferedAngle: 0
+    maxLookAngle: 0
+    headParentOffset: {x: 0, y: 0, z: 0.2}
+    visionConeSegmentId: 0
+  mouthColliderPrefab: {fileID: 6174930570440199844, guid: 2b81f7be443984247bbad4753b952777,
+    type: 3}
+  attachMouthToHeadSegment: 1
+  mouthParentId: 1

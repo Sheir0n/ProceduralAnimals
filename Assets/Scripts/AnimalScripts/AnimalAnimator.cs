@@ -37,7 +37,7 @@ public class AnimalAnimator : MonoBehaviour
 
         if (joints == null || joints.Count == 0)
         {
-            Debug.LogWarning("Animal Animator: joints list is empty or null!");
+            Debug.LogWarning("AnimalAnimator: Lista stawów nie jest przypisana lub jest pusta! SprawdŸ ustawienia AnimalCreator!", this);
             return;
         }
 
@@ -284,7 +284,7 @@ public class AnimalAnimator : MonoBehaviour
         return Quaternion.Euler(euler);
     }
 
-    protected virtual void OnActionChanged(ActionID newAction){}
+    protected virtual void OnActionChanged(ActionID newAction) { }
 
     private void OnDeath()
     {

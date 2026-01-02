@@ -78,7 +78,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
         eventHub.OnTrackerDatasRequest += () => trackersData;
     }
 
-
     private void LoadActionList()
     {
         actionByID = new Dictionary<ActionID, IUtilityAction>();
@@ -93,7 +92,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         AddNewAction(playerController);
 
         if (actionAssetList.Count == 0)
-            Debug.Log("Action asset list is empty! Defaulting to EmptyController", this);
+            Debug.LogError("AnimalAI: Lista zachowañ jest pusta!", this);
 
         foreach (ActionController action in actionAssetList)
         {
@@ -111,19 +110,20 @@ public class AnimalAI : MonoBehaviour, IDamageable
         foreach (IUtilityAction action in actions)
             actionPenalities.Add(action, 0);
 
-        currAction = actionByID[emptyActionSharedID];
+        if (emptyActionSharedID != null)
+            currAction = actionByID[emptyActionSharedID];
     }
-
 
     protected virtual void Start()
     {
         eventHub.SendInitializeRequest(stats);
-        eventHub.SendAIStateChange(IDByAction[currAction]);
+        if (currAction != null)
+            eventHub.SendAIStateChange(IDByAction[currAction]);
     }
 
     protected virtual void Update()
     {
-        if (currAction == actionByID[deathActionSharedID] || CheckDeath())
+        if (currAction == null || currAction == actionByID[deathActionSharedID] || CheckDeath())
         {
             return;
         }
@@ -159,6 +159,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
     protected void LateUpdate()
     {
+        if (currAction == null)
+            return;
         if (IDByAction[currAction] == deathActionSharedID && !clearedMemoryOnDeath)
         {
             clearedMemoryOnDeath = true;
@@ -171,14 +173,20 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
         if (instanceObj is not IUtilityAction instance)
         {
-            Debug.LogError($"{action.name} does not implement IUtilityAction");
+            Debug.LogError($"AnimalAI: {action.name} nie implementuje IUtilityAction");
+            return;
+        }
+
+        if (instance.ActionTag == null)
+        {
+            Debug.LogError($"AnimalAI: {action.name} Nie ma podano tagu zachowania!", this);
             return;
         }
 
         if (actionByID.ContainsKey(instance.ActionTag))
         {
             IUtilityAction duplicate = actionByID[instance.ActionTag];
-            Debug.LogWarning($"{instance.ActionTag} has duplicate id to existing ai script: " + duplicate);
+            Debug.LogWarning($"AnimalAI: {instance.ActionTag} jest ma zduplikowany tag z przypisanym ju¿ skryptem: " + duplicate, this);
             return;
         }
 

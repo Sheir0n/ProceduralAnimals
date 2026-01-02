@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 2942879188421425895}
   - component: {fileID: 2135909315469369229}
   - component: {fileID: 3372454230984371394}
-  - component: {fileID: 3844302037179674085}
   - component: {fileID: 8322555769018731319}
-  - component: {fileID: 5751978485350454209}
-  - component: {fileID: 6950670138473753536}
+  - component: {fileID: 2777999381579626589}
+  - component: {fileID: 4977565559187051045}
+  - component: {fileID: 105869058488358981}
   m_Layer: 0
   m_Name: BeetleAgent
   m_TagString: Beetle
@@ -117,21 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a825d37bdbd024347a8592cf0c52acc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showConeDebug: 1
   visionConeData: {fileID: 11400000, guid: 3f4190e25aec59d449190f2e9ce8a4f6, type: 2}
---- !u!114 &3844302037179674085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256173970276126365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b539e3496d8814e46889b6c00607a621, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAnimalDisabled: 0
+  showConeDebug: 0
 --- !u!114 &8322555769018731319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatorData: {fileID: 11400000, guid: dfe6319d903b1f54596dc232ccb2d88a, type: 2}
   bodyColor: {r: 0.2300954, g: 0.4716981, b: 0.09878961, a: 1}
---- !u!114 &5751978485350454209
+--- !u!114 &2777999381579626589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4256173970276126365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4fbc8ccdd33254ab9659284461b254, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fe0496a31d8416418880f962597ce4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
@@ -164,12 +151,12 @@ MonoBehaviour:
     saturation: 0
     energy: 0
     maxHealth: 2
-    maxSaturation: 10
-    maxEnergy: 10
+    maxSaturation: 5
+    maxEnergy: 5
     statVigor: 0.01
     statAggressiveness: 0.01
     statCuriosity: 0.01
-    statBravery: 0.949
+    statBravery: 0.01
     ignoreSeed: 0
     useStaticSeed: 0
     seed: 12345
@@ -178,9 +165,6 @@ MonoBehaviour:
   defaultPenality: 1
   penalityDrainSpeed: 4
   hysteresis: 0.05
-  actionDebugDisplay: 0
-  isPlayerControlled: 0
-  showAIPoints: 0
   actionAssetList:
   - {fileID: 11400000, guid: 3e3e40560816ec348be5ca5d0ed4a5a1, type: 2}
   - {fileID: 11400000, guid: 975289ead937e5f42999cbef60db73f2, type: 2}
@@ -190,8 +174,11 @@ MonoBehaviour:
     type: 2}
   playerControlledActionSharedID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
     type: 2}
+  isPlayerControlled: 0
+  showAIPoints: 0
+  actionDebugDisplay: {fileID: 0}
   runtimeActionDebug: []
---- !u!114 &6950670138473753536
+--- !u!114 &4977565559187051045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,7 +187,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4256173970276126365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a0f663ab5c0edb4f8d7633ddb1b1bb2, type: 3}
+  m_Script: {fileID: 11500000, guid: da899309ad9e20b45873eaa385dbeaf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerControlledMovement: {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219,
@@ -216,3 +203,15 @@ MonoBehaviour:
     type: 2}
   agentHeightBaseOffset: 0.25
   runtimeMovementsDebug: []
+--- !u!114 &105869058488358981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256173970276126365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6b0ac4f1716f1418d68e9d1bca9adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

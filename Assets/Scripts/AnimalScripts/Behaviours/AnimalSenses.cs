@@ -38,10 +38,13 @@ public class AnimalSenses : MonoBehaviour
         eventHub = GetComponent<AnimalEventHub>();
         eventHub.OnDeath += DisableSensesOnDeath;
 
-        if (visionConeData.allTrackedTagDatas == null)
-            Debug.LogWarning(" Tracked datas not set in AnimalSenses script, will not record vision cone events!", this);
+        if (visionConeData == null || visionConeData.allTrackedTagDatas == null)
+        {
+            Debug.LogWarning("AnimalSenses: Informacje o œledzonych obiektach nie s¹ przypisane!", this);
+            return;
+        }
 
-        foreach (TrackerData  data in visionConeData.allTrackedTagDatas.lookTrackerTags)
+        foreach (TrackerData data in visionConeData.allTrackedTagDatas.lookTrackerTags)
         {
             trackedInterestTags.Add(data.tag);
         }
@@ -62,7 +65,6 @@ public class AnimalSenses : MonoBehaviour
 
         coneCenterData = eventHub.RequestHeadData();
         CheckVisionCone();
-
     }
 
     private void DisableSensesOnDeath()
@@ -72,7 +74,7 @@ public class AnimalSenses : MonoBehaviour
 
     private void CheckVisionCone()
     {
-        if (coneCenterData.direction == Vector3.zero) return;
+        if (coneCenterData.direction == Vector3.zero || visionConeData == null) return;
         Vector3 pivot = coneCenterData.pivot;
         if (IsPivotObstructed(pivot)) return;
 
