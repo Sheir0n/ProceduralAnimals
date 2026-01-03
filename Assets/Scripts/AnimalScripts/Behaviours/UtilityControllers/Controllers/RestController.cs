@@ -36,12 +36,10 @@ public class RestController : ActionController, IUtilityAction
         applyRestPenality = !eventHub.IsOnRestSpot();
         if (applyRestPenality)
         {
-            Debug.Log("resting with penality");
             currentRestModifier = restPenalityDefaultModifier;
         }
         else
         {
-            Debug.Log("resting without penality");
             currentRestModifier = 1f;
         }
     }

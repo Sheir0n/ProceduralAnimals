@@ -274,7 +274,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
             snatchTransform = other;
             transform.position = new Vector3(snatchTransform.position.x, transform.position.y, snatchTransform.position.z);
             Debug.Log(transform.position + " " + snatchTransform.position);
-            Debug.Log("snatched on death!");
 
             //transform.GetComponent<Collider>().enabled = false;
         }
