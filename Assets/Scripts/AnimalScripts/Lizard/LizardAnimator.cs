@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LizardAnimator : AnimalAnimator
@@ -39,6 +40,7 @@ public class LizardAnimator : AnimalAnimator
 
         CalculateLimbsTransform();
         CalculateHeadTransform();
+        UpdateMesh(bodyColor);
     }
 
     protected override void CalculateLimbsTargetPosition(AnimalLimb currLimb)

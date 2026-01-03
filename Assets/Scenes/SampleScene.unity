@@ -714,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.2
+      value: 41.7
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -724,7 +724,7 @@ PrefabInstance:
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.7
+      value: 20.3
       objectReference: {fileID: 0}
     - target: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
         type: 3}
@@ -1530,6 +1530,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizardAgent (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2193,6 +2198,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizardAgent (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2362,6 +2372,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizardAgent (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2379,7 +2394,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1226968227}
     m_Modifications:
     - target: {fileID: 1403884006061802945, guid: 286aad6db4904e5449a0d74c8dc704ef,
         type: 3}
@@ -2894,6 +2909,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 286aad6db4904e5449a0d74c8dc704ef, type: 3}
+--- !u!4 &863578733 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4125345013207402274, guid: 286aad6db4904e5449a0d74c8dc704ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 929542551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &868423992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3288,7 +3309,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1226968227}
     m_Modifications:
     - target: {fileID: 1403884006061802945, guid: 286aad6db4904e5449a0d74c8dc704ef,
         type: 3}
@@ -4211,6 +4232,8 @@ Transform:
   - {fileID: 788881710}
   - {fileID: 295997909}
   - {fileID: 1159117708}
+  - {fileID: 863578733}
+  - {fileID: 1400063688}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1266815943
@@ -4531,6 +4554,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizardAgent (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4699,6 +4727,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8905538708068829035, guid: 430957fe42c400b44b3259dceb295b22,
     type: 3}
   m_PrefabInstance: {fileID: 1384042556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1400063688 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4125345013207402274, guid: 286aad6db4904e5449a0d74c8dc704ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 731590309}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1435869564
 PrefabInstance:
@@ -5005,6 +5039,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LizardAgent (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6724,7 +6763,7 @@ PrefabInstance:
     - target: {fileID: 2963919266616240904, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.5787263
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 2963919266616240904, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -6734,7 +6773,7 @@ PrefabInstance:
     - target: {fileID: 2963919266616240904, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.09563973
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 2963919266616240904, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
@@ -6771,6 +6810,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4194617672388669986, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
+        type: 3}
+      propertyPath: isPlayerControlled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
         type: 3}
       propertyPath: m_Name
@@ -6789,8 +6833,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 210794434}
-  - {fileID: 929542551}
-  - {fileID: 731590309}
   - {fileID: 2054570043}
   - {fileID: 450401119}
   - {fileID: 1226968227}

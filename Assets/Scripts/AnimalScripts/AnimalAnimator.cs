@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static AnimalAI;
 
 public class AnimalAnimator : MonoBehaviour
@@ -22,12 +24,18 @@ public class AnimalAnimator : MonoBehaviour
     private bool isAnimalDisabled = false;
     protected bool isBodyReady { get; private set; } = false;
 
+    protected Color bodyColor = Color.white;
+    private Mesh bodyMesh;
+    private MeshFilter bodyMeshFilter;
+    private MeshRenderer bodyMeshRenderer;
+
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
         eventHub.OnActionChanged += OnActionChanged;
         eventHub.OnHeadDataRequest += GetLookCenter;
         eventHub.OnDeath += OnDeath;
+        InitializeMesh();
     }
 
     protected virtual void Update()
@@ -45,6 +53,7 @@ public class AnimalAnimator : MonoBehaviour
         CalculateMainBodyTransform(joints, minSegmentId: 1, joints.Count);
         CalculateLimbsTransform();
         CalculateHeadTransform();
+        UpdateMesh(bodyColor);
     }
 
 
@@ -420,6 +429,184 @@ public class AnimalAnimator : MonoBehaviour
         if (head == null)
             return new HeadCenterData(transform.position, transform.forward);
         return head.GetLerpedLook();
+    }
+
+    //RYSOWANIE MESH
+    private void InitializeMesh()
+    {
+        GameObject go = new GameObject("SpineMesh");
+        go.transform.SetParent(transform, false);
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localRotation = Quaternion.identity;
+
+        bodyMeshFilter = go.AddComponent<MeshFilter>();
+        bodyMeshRenderer = go.AddComponent<MeshRenderer>();
+
+        bodyMesh = new Mesh();
+        bodyMesh.MarkDynamic();
+        bodyMeshFilter.mesh = bodyMesh;
+
+        bodyMeshRenderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        bodyMeshRenderer.material.color = Color.white;
+    }
+
+    protected void UpdateMesh(Color color)
+    {
+        if (bodyMesh == null)
+            InitializeMesh();
+        bodyMesh.Clear();
+
+        CreateRegularMeshFromChain(joints, color);
+
+        if (head != null)
+            CreateRegularMeshFromChain(head.headJoints, color);
+
+        foreach (AnimalLimb limb in limbs)
+            CreateRegularMeshFromChain(limb.joints, color);
+
+        bodyMesh.RecalculateNormals();
+        bodyMesh.RecalculateBounds();
+    }
+
+    private void CreateRegularMeshFromChain(List<AnimalJoint> chainJoints, Color color)
+    {
+        if (chainJoints == null || joints.Count == 0)
+            return;
+
+        //float rightAngle = 0f;
+        //float leftAngle = Mathf.PI;
+
+        List<Vector3> pointPositions = new List<Vector3>();
+        //for (int i = 0; i < chainJoints.Count; i++)
+        //{
+        //    pointPositions.Add(GetPoint(chainJoints[i], rightAngle));
+        //    pointPositions.Add(GetPoint(chainJoints[i], leftAngle));
+        //}
+
+        for (int i = 0; i < chainJoints.Count-1; i++)
+        {
+            Vector3 direction = (chainJoints[i].segmentPosition - chainJoints[i+1].segmentPosition).normalized;
+
+            Vector3 right = Vector3.Cross(Vector3.up, direction).normalized;
+            Vector3 left = -right;
+            AnimalJoint firstJoint = chainJoints[i];
+            AnimalJoint secondJoint = chainJoints[i+1];
+            float radiusFirst = firstJoint.segmentScale.x * 0.5f;
+            float radiusSecond = secondJoint.segmentScale.x * 0.5f;
+
+            Vector3 rightFirst = firstJoint.transform.position + right * radiusFirst;
+            Vector3 leftFirst = firstJoint.transform.position + left * radiusFirst;
+            Vector3 rightSecond = secondJoint.transform.position + right * radiusSecond;
+            Vector3 leftSecond = secondJoint.transform.position + left * radiusSecond;
+
+            pointPositions.Add(rightFirst);
+            pointPositions.Add(leftFirst);
+            pointPositions.Add(rightSecond);
+            pointPositions.Add(leftSecond);
+        }
+
+        if (pointPositions.Count < 4)
+            return;
+
+        Vector3 localOffset = bodyMeshFilter.transform.position;
+        Quaternion invRot = Quaternion.Inverse(bodyMeshFilter.transform.rotation);
+        for (int j = 0; j < pointPositions.Count; j++)
+        {
+            pointPositions[j] = invRot * (pointPositions[j] - localOffset);
+        }
+        CreateRibbonMesh(pointPositions, color);
+    }
+
+    private void CreateLimbMeshFromChain(List<AnimalJoint> chainJoints, Color color)
+    {
+        //if (chainJoints == null || joints.Count == 0)
+        //    return;
+
+        //List<Vector3> pointPositions = new List<Vector3>();
+
+        //Vector3 localOffset = bodyMeshFilter.transform.position;
+        //Quaternion invRot = Quaternion.Inverse(bodyMeshFilter.transform.rotation);
+        //for (int i = 0; i < chainJoints.Count-1; i++)
+        //{
+        //    List<Vector3> newPoints = GetSegmentEdgePoints(chainJoints[i], chainJoints[i + 1]);
+        //    for (int j = 0; j < newPoints.Count; j++)
+        //    {
+        //        newPoints[j] = invRot * (newPoints[j] - localOffset);
+        //    }
+        //    CreateRibbonMesh(newPoints, color);
+        //}
+    }
+
+    private List<Vector3> GetSegmentEdgePoints(AnimalJoint firstJoint, AnimalJoint secondJoint)
+    {
+        List<Vector3> points = new List<Vector3>();
+
+        Vector3 direction = (firstJoint.segmentPosition - secondJoint.segmentPosition).normalized;
+        Vector3 up = Vector3.up;
+
+        // prostopad³y wektor do kierunku segmentu
+        Vector3 right = Vector3.Cross(up, direction).normalized;
+        Vector3 left = -right;
+
+        float radiusFirst = firstJoint.segmentScale.x * 0.5f;
+        float radiusSecond = secondJoint.segmentScale.x * 0.5f;
+
+        // punkty pierwszego segmentu
+        Vector3 frontFirst = firstJoint.segmentPosition + direction * radiusFirst;
+        Vector3 rightFirst = firstJoint.segmentPosition + right * radiusFirst;
+        Vector3 leftFirst = firstJoint.segmentPosition + left * radiusFirst;
+
+        // punkty drugiego segmentu
+        Vector3 backSecond = secondJoint.segmentPosition - direction * radiusSecond;
+        Vector3 rightSecond = secondJoint.segmentPosition + right * radiusSecond;
+        Vector3 leftSecond = secondJoint.segmentPosition + left * radiusSecond;
+
+        // dodajemy w kolejnoœci wskazówek zegara;
+        points.Add(rightFirst);
+        points.Add(rightSecond);
+        points.Add(leftSecond);
+        points.Add(leftFirst);
+
+        return points;
+    }
+
+
+    private void CreateRibbonMesh(List<Vector3> pointPositions, Color color)
+    {
+        if (pointPositions == null || pointPositions.Count < 2)
+            return;
+
+        List<Vector3> verts = pointPositions;
+        List<int> tris = new List<int>();
+
+        for (int i = 0; i < pointPositions.Count-2; i+=4)
+        {
+            tris.Add(i);
+            tris.Add(i + 2);
+            tris.Add(i + 1);
+
+            tris.Add(i + 2);
+            tris.Add(i + 3);
+            tris.Add(i + 1);
+        }
+
+        Vector3[] oldVerts = bodyMesh.vertices;
+        int[] oldTris = bodyMesh.triangles;
+
+        int vertOffset = oldVerts.Length;
+
+        bodyMesh.vertices = oldVerts.Concat(verts).ToArray();
+        bodyMesh.triangles = oldTris.Concat(tris.Select(t => t + vertOffset)).ToArray();
+    }
+
+    private Vector3 GetPoint(AnimalJoint joint, float angleRad)
+    {
+        float radius = joint.segmentScale.x * 0.5f;
+        Vector3 localPoint = new Vector3(Mathf.Cos(angleRad) * radius, 0f, Mathf.Sin(angleRad) * radius);
+        Quaternion rotation = Quaternion.Euler(0f, joint.yaw, 0f);
+        Vector3 rotatedPoint = rotation * localPoint;
+        Vector3 worldPoint = joint.transform.position + rotatedPoint;
+        return worldPoint;
     }
 
     public void OnDrawGizmos()
