@@ -126,11 +126,9 @@ public class ChaseFoodController : ActionController, IUtilityAction
         try
         {
             eventHub.AnnounceBiteAttack(BiteAttackStage.Windup);
-            Debug.Log("bite windup start " + biteWindupMs);
             await Task.Delay(biteWindupMs, token);
 
             eventHub.AnnounceBiteAttack(BiteAttackStage.Dash);
-            Debug.Log("bite dash started");
 
             float elapsedMs = 0f;
             while (elapsedMs < biteDashDurationMs)
@@ -147,14 +145,11 @@ public class ChaseFoodController : ActionController, IUtilityAction
                 await Task.Yield();
                 elapsedMs += Time.deltaTime * 1000;
             }
-
-            Debug.Log("bite dash ended");
             eventHub.AnnounceBiteAttack(BiteAttackStage.Finished);
             bitePrepared = false;
         }
         catch (OperationCanceledException)
         {
-            Debug.Log("Bite cancelled!");
             bitePrepared = false;
         }
     }
@@ -162,7 +157,6 @@ public class ChaseFoodController : ActionController, IUtilityAction
     private void Bite(Collider other)
     {
         bitePrepared = false;
-        Debug.Log("Succesful bite for " + biteDamage + " damage!");
         if (targetInterface.GetHealth() > 0)
             targetInterface.TakeDamage(biteDamage);
         else

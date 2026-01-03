@@ -204,5 +204,5 @@ MonoBehaviour:
     type: 2}
   playerControlledActionSharedID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
     type: 2}
-  agentHeightBaseOffset: 0.75
+  agentHeightBaseOffset: 0.35
   runtimeMovementsDebug: []

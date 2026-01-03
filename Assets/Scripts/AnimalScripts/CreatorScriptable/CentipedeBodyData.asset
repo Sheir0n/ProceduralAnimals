@@ -309,10 +309,10 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: -0.00074005127
-          value: 0.26267624
-          inSlope: -0.09172974
-          outSlope: -0.09172974
+          time: -0.0028305054
+          value: 0.25028992
+          inSlope: -0.07933304
+          outSlope: -0.07933304
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
@@ -320,8 +320,8 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1.0118004
           value: 0.16979617
-          inSlope: -0.09172974
-          outSlope: -0.09172974
+          inSlope: -0.07933304
+          outSlope: -0.07933304
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -329,7 +329,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 2
+      distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: -10
     parentJointId: 3
@@ -364,10 +364,10 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: -0.009475708
-          value: 0.30030823
-          inSlope: -0.12779312
-          outSlope: -0.12779312
+          time: -0.0010495274
+          value: 0.24936198
+          inSlope: -0.078556366
+          outSlope: -0.078556366
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
@@ -375,8 +375,8 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1.0118004
           value: 0.16979617
-          inSlope: -0.12779312
-          outSlope: -0.12779312
+          inSlope: -0.078556366
+          outSlope: -0.078556366
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -384,7 +384,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 2.1
+      distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 0
     parentJointId: 4
@@ -804,10 +804,10 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: -0.00074005127
-          value: 0.26267624
-          inSlope: -0.09172974
-          outSlope: -0.09172974
+          time: -0.0028305054
+          value: 0.24943161
+          inSlope: -0.078487106
+          outSlope: -0.078487106
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
@@ -815,8 +815,8 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1.0118004
           value: 0.16979617
-          inSlope: -0.09172974
-          outSlope: -0.09172974
+          inSlope: -0.078487106
+          outSlope: -0.078487106
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -824,7 +824,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 2
+      distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 10
     parentJointId: 3
@@ -859,10 +859,10 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: -0.009475708
-          value: 0.30030823
-          inSlope: -0.12779312
-          outSlope: -0.12779312
+          time: -0.00028420496
+          value: 0.24941874
+          inSlope: -0.07867185
+          outSlope: -0.07867185
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
@@ -870,8 +870,8 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1.0118004
           value: 0.16979617
-          inSlope: -0.12779312
-          outSlope: -0.12779312
+          inSlope: -0.07867185
+          outSlope: -0.07867185
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -879,7 +879,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 2.1
+      distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 0
     parentJointId: 4

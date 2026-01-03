@@ -64,7 +64,7 @@ public class AnimalCreator : MonoBehaviour
             if (creatorData.mouthColliderPrefab is null)
                 Debug.LogWarning("AnimalCreator: Nie znaleziono prefabrykanta MouthCollider", this);
 
-            animatorScript.SetBody(spineJoints, limbs, animalHead);
+            animatorScript.SetBody(spineJoints, limbs, animalHead, bodyColor);
 
             if (creatorData.attachMouthToHeadSegment && hasHead)
             {

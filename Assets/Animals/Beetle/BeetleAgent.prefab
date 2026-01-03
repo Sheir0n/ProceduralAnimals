@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creatorData: {fileID: 11400000, guid: dfe6319d903b1f54596dc232ccb2d88a, type: 2}
-  bodyColor: {r: 0.2300954, g: 0.4716981, b: 0.09878961, a: 1}
+  bodyColor: {r: 0.41573936, g: 0.6830188, b: 0.26676393, a: 1}
 --- !u!114 &2777999381579626589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
     type: 2}
   playerControlledActionSharedID: {fileID: 11400000, guid: 0d408ab36551dab4392635badf964036,
     type: 2}
-  agentHeightBaseOffset: 0.25
+  agentHeightBaseOffset: 0.1
   runtimeMovementsDebug: []
 --- !u!114 &105869058488358981
 MonoBehaviour:

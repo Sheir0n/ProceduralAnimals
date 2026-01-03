@@ -35,7 +35,6 @@ public class AnimalAnimator : MonoBehaviour
         eventHub.OnActionChanged += OnActionChanged;
         eventHub.OnHeadDataRequest += GetLookCenter;
         eventHub.OnDeath += OnDeath;
-        InitializeMesh();
     }
 
     protected virtual void Update()
@@ -57,12 +56,14 @@ public class AnimalAnimator : MonoBehaviour
     }
 
 
-    public void SetBody(List<AnimalJoint> spineJoints, List<AnimalLimb> limbs, AnimalHead head)
+    public void SetBody(List<AnimalJoint> spineJoints, List<AnimalLimb> limbs, AnimalHead head, Color bodyColor)
     {
         this.joints = spineJoints;
         this.limbs = limbs;
         this.head = head;
+        this.bodyColor = bodyColor;
         isBodyReady = true;
+        InitializeMesh();
     }
 
     protected virtual void CalculateRootSegmentTransform()
@@ -447,13 +448,13 @@ public class AnimalAnimator : MonoBehaviour
         bodyMeshFilter.mesh = bodyMesh;
 
         bodyMeshRenderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-        bodyMeshRenderer.material.color = Color.white;
+        bodyMeshRenderer.material.color = bodyColor;
     }
 
     protected void UpdateMesh(Color color)
     {
         if (bodyMesh == null)
-            InitializeMesh();
+            return;
         bodyMesh.Clear();
 
         CreateRegularMeshFromChain(joints, color);
