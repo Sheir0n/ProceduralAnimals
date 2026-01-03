@@ -18,9 +18,9 @@ MonoBehaviour:
     AccelerationModifier: 3
     StoppingDistanceModifier: 1
   connectedId: {fileID: 11400000, guid: 23c1b14efe7b5c94fbb012e575f3af07, type: 2}
-  selectNewTargetCooldownMs: 250
-  fleeWanderCircleDistance: 5
-  fleeWanderCircleRadius: 3
+  selectNewTargetCooldownMs: 125
+  fleeWanderCircleDistance: 2
+  fleeWanderCircleRadius: 1
   fleeWanderJitter: 0.1
   lowHealthSpeedPenalityThreshold: 0.5
   healthSlowdownMaxPenality: 0.25
