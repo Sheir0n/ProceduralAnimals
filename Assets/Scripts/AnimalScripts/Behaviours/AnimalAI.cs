@@ -248,7 +248,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
     {
         if (stats.health <= 0)
         {
-            Debug.Log(stats.health);
             currAction = actionByID[deathActionSharedID];
             eventHub.SendAIStateChange(deathActionSharedID);
             eventHub.AnnounceDeath();
@@ -273,8 +272,6 @@ public class AnimalAI : MonoBehaviour, IDamageable
         {
             snatchTransform = other;
             transform.position = new Vector3(snatchTransform.position.x, transform.position.y, snatchTransform.position.z);
-            Debug.Log(transform.position + " " + snatchTransform.position);
-
             //transform.GetComponent<Collider>().enabled = false;
         }
     }

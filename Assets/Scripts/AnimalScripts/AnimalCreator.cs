@@ -110,7 +110,7 @@ public class AnimalCreator : MonoBehaviour
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Spine Segment " + nameId++;
-                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: 0f, creatorData.spineColor,name);
+                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: 0f, creatorData.spineColor, name);
                 spineJoints.Add(newJoint);
                 positionOffset += new Vector3(0, 0, -1f * segmentScale * currSegmentData.distanceConstraint);
             }
@@ -159,7 +159,7 @@ public class AnimalCreator : MonoBehaviour
 
                     string name = currLimbData.limbName + " " + currSegmentData.segmentName + " Segment " + nameId++;
 
-                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.01f, currLimbData.limbColor, name));
+                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.01f - 0.0001f * limbId, currLimbData.limbColor, name));
                     float offsetDirection = (currLimbData.parentPositionOffset.x >= 0f) ? 1 : -1;
                     positionOffset += new Vector3(offsetDirection * segmentScale * currSegmentData.distanceConstraint, 0, 0);
                 }

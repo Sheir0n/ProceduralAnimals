@@ -528,14 +528,7 @@ public class AnimalAnimator : MonoBehaviour
         if (pointPositions.Count < 4)
             return;
 
-        //Vector3 localOffset = filter.transform.position;
-        //Quaternion invRot = Quaternion.Inverse(filter.transform.rotation);
-        //for (int j = 0; j < pointPositions.Count; j++)
-        //{
-        //    pointPositions[j] = invRot * (pointPositions[j] - localOffset);
-        //}
-
-        Transform root = transform; // parent, który siê porusza
+        Transform root = transform;
 
         for (int j = 0; j < pointPositions.Count; j++)
         {
