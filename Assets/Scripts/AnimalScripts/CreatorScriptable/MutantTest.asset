@@ -80,6 +80,7 @@ MonoBehaviour:
     distanceConstraint: 0.75
     angularConstraint: 25
     prefferedAngle: 0
+  spineColor: {r: 0.78113204, g: 0.34182945, b: 0.19896752, a: 1}
   animalLimbData:
   - limbName: FrontLeft
     joints:
@@ -145,6 +146,7 @@ MonoBehaviour:
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 1.5, y: 0, z: 2}
     maxReachDistance: 3
+    limbColor: {r: 0.78039217, g: 0.34117648, b: 0.2, a: 1}
   - limbName: FrontRight
     joints:
     - segmentName: FrontRoot
@@ -209,6 +211,7 @@ MonoBehaviour:
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -1.5, y: 0, z: 2}
     maxReachDistance: 3
+    limbColor: {r: 0.78039217, g: 0.34117648, b: 0.2, a: 1}
   - limbName: BackLeft
     joints:
     - segmentName: BackRoot
@@ -273,6 +276,7 @@ MonoBehaviour:
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 1.5, y: 0, z: 2}
     maxReachDistance: 3
+    limbColor: {r: 0.78039217, g: 0.34117648, b: 0.2, a: 1}
   - limbName: BackRight
     joints:
     - segmentName: BackRoot
@@ -337,6 +341,7 @@ MonoBehaviour:
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -1.5, y: 0, z: 2}
     maxReachDistance: 3
+    limbColor: {r: 0.78039217, g: 0.34117648, b: 0.2, a: 1}
   animalHeadData:
     headName: LizardHead
     joints:
@@ -419,6 +424,7 @@ MonoBehaviour:
     maxLookAngle: 60
     headParentOffset: {x: 0, y: 0, z: 0.2}
     visionConeSegmentId: 2
+    headColor: {r: 0.78039217, g: 0.34117648, b: 0.2, a: 1}
   mouthColliderPrefab: {fileID: 6174930570440199844, guid: 2b81f7be443984247bbad4753b952777,
     type: 3}
   attachMouthToHeadSegment: 1

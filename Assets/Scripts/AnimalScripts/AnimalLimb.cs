@@ -12,6 +12,7 @@ public class AnimalLimbData
     public Vector3 parentPositionOffset;
     public Vector3 targetPosOffset;
     public float maxReachDistance;
+    public UnityEngine.Color limbColor = UnityEngine.Color.white;
 }
 
 public class AnimalLimb
@@ -34,6 +35,11 @@ public class AnimalLimb
     private const float targetReachThreshold = 0.05f;
     private const float targetAngleThreshold = 1f;
 
+    [HideInInspector] public UnityEngine.Color bodyColor = UnityEngine.Color.white;
+    [HideInInspector] public Mesh bodyMesh;
+    [HideInInspector] public MeshFilter bodyMeshFilter;
+    [HideInInspector] public MeshRenderer bodyMeshRenderer;
+
     public AnimalLimb(AnimalLimbData _limbData, List<AnimalJoint> _joints, AnimalJoint _parentJoint, int _limbId)
     {
         limbData = _limbData;
@@ -42,6 +48,7 @@ public class AnimalLimb
         limbId = _limbId;
         lastRootPos = _joints[0].segmentPosition;
         parentJoint = _parentJoint;
+        bodyColor = _limbData.limbColor;
         parentLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * _limbData.parentPositionOffset;
     }
 

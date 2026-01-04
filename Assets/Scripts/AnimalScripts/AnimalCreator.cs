@@ -28,7 +28,6 @@ public class AnimalCreator : MonoBehaviour
 
     [Header("Globalne ustawienia segmentów")]
     [SerializeField] private ScriptableCreator creatorData;
-    [SerializeField] private Color bodyColor = Color.red;
 
     protected List<AnimalJoint> spineJoints = new List<AnimalJoint>();
     protected List<AnimalLimb> limbs = new List<AnimalLimb>();
@@ -64,7 +63,7 @@ public class AnimalCreator : MonoBehaviour
             if (creatorData.mouthColliderPrefab is null)
                 Debug.LogWarning("AnimalCreator: Nie znaleziono prefabrykanta MouthCollider", this);
 
-            animatorScript.SetBody(spineJoints, limbs, animalHead, bodyColor);
+            animatorScript.SetBody(spineJoints, limbs, animalHead, creatorData.spineColor);
 
             if (creatorData.attachMouthToHeadSegment && hasHead)
             {
@@ -111,7 +110,7 @@ public class AnimalCreator : MonoBehaviour
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Spine Segment " + nameId++;
-                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name);
+                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: 0f, creatorData.spineColor,name);
                 spineJoints.Add(newJoint);
                 positionOffset += new Vector3(0, 0, -1f * segmentScale * currSegmentData.distanceConstraint);
             }
@@ -132,7 +131,7 @@ public class AnimalCreator : MonoBehaviour
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Head Segment " + nameId++;
-                headJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
+                headJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: -0.005f, creatorData.animalHeadData.headColor, name));
                 positionOffset += new Vector3(0, 0, 1f * segmentScale * currSegmentData.distanceConstraint);
             }
         }
@@ -160,7 +159,7 @@ public class AnimalCreator : MonoBehaviour
 
                     string name = currLimbData.limbName + " " + currSegmentData.segmentName + " Segment " + nameId++;
 
-                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, name));
+                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.01f, currLimbData.limbColor, name));
                     float offsetDirection = (currLimbData.parentPositionOffset.x >= 0f) ? 1 : -1;
                     positionOffset += new Vector3(offsetDirection * segmentScale * currSegmentData.distanceConstraint, 0, 0);
                 }
@@ -169,7 +168,7 @@ public class AnimalCreator : MonoBehaviour
         }
     }
 
-    protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, string name)
+    protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, float yOffset, Color color, string name)
     {
         GameObject newSegment = Instantiate(prefabCache, masterTransform);
         newSegment.transform.localScale = Vector3.one * segmentScale;
@@ -177,9 +176,9 @@ public class AnimalCreator : MonoBehaviour
         newSegment.transform.rotation = masterTransform.rotation * prefabCache.transform.rotation;
         newSegment.name = name;
 
-        newSegment.GetComponent<SpriteRenderer>().color = bodyColor;
+        newSegment.GetComponent<SpriteRenderer>().color = color;
         AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
-        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, iteration);
+        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, yOffset, iteration);
 
         return segmentScript;
     }
@@ -192,7 +191,8 @@ public class AnimalCreator : MonoBehaviour
         }
     }
 
-    private void ReleasePrefab() { 
+    private void ReleasePrefab()
+    {
         if (prefabCache != null)
         {
             Addressables.Release(prefabCache);

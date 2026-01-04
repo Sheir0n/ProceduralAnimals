@@ -7,6 +7,8 @@ public class ScriptableCreator : ScriptableObject
 {
     [Header("Ustawienia krêgos³upa")]
     [SerializeField] public List<SegmentData> spineSegmentData = new List<SegmentData>();
+    [SerializeField] public Color spineColor = Color.white;
+
     [Header("Ustawienia koñczyn")]
     [SerializeField] public List<AnimalLimbData> animalLimbData = new List<AnimalLimbData>();
     [Header("Ustawienia g³owy")]

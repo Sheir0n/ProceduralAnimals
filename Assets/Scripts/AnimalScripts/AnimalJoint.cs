@@ -19,8 +19,9 @@ public class AnimalJoint : MonoBehaviour
 
     public float yaw { get; protected set; }
     public float lerpedYaw { get; protected set; }
+    public float yOffset { get; protected set; } = 0;
 
-    virtual public void AfterInstantiate(Vector3 _segPosition, Quaternion _segRotation, Vector3 _segScale, float _distanceConstraint, float _angularConstraint, float _prefferedAngle, int _id)
+    virtual public void AfterInstantiate(Vector3 _segPosition, Quaternion _segRotation, Vector3 _segScale, float _distanceConstraint, float _angularConstraint, float _prefferedAngle, float yOffset, int _id)
     {
         segmentRotation = _segRotation;
         segmentLerpRotation = _segRotation;
@@ -30,10 +31,11 @@ public class AnimalJoint : MonoBehaviour
         distanceConstraint = _distanceConstraint;
         angularConstraint = _angularConstraint;
         prefferedAngle = _prefferedAngle;
+        this.yOffset = yOffset;
         segmentId = _id;
     }
 
-    virtual public void AfterInstantiate(float _distanceConstraint, float _angularConstraint, float _prefferedAngle, int _id)
+    virtual public void AfterInstantiate(float _distanceConstraint, float _angularConstraint, float _prefferedAngle, float yOffset, int _id)
     {
         segmentRotation = transform.rotation;
         segmentPosition = transform.position;
@@ -41,13 +43,17 @@ public class AnimalJoint : MonoBehaviour
         distanceConstraint = _distanceConstraint;
         angularConstraint = _angularConstraint;
         prefferedAngle = _prefferedAngle;
+        this.yOffset = yOffset;
         segmentId = _id;
     }
 
-    public void SetPosition(Vector3 _position) => segmentPosition = _position;
+    public void SetPosition(Vector3 _position)
+    {
+        segmentPosition = _position;
+    }
     public void SetRotation(float newYaw)
     {
-        yaw = newYaw; 
+        yaw = newYaw;
     }
 
     public void SetScale(Vector3 _scale) => segmentScale = _scale;
@@ -57,7 +63,7 @@ public class AnimalJoint : MonoBehaviour
         transform.rotation = Quaternion.Euler(90f, segmentRotation.eulerAngles.y, 0f);
         segmentRotation = Quaternion.Euler(90f, yaw, 0f);
         segmentLerpRotation = segmentRotation;
-        transform.position = segmentPosition;
+        transform.position = segmentPosition + new Vector3(0, yOffset, 0);
         segmentLerpPosition = segmentPosition;
         transform.localScale = segmentScale;
     }
@@ -78,7 +84,7 @@ public class AnimalJoint : MonoBehaviour
     public void UpdateSegmentLerpTransform()
     {
         transform.rotation = segmentLerpRotation;
-        transform.position = segmentLerpPosition;
+        transform.position = segmentLerpPosition + new Vector3(0, yOffset, 0);
 
         //not currently lerped
         transform.localScale = segmentScale;

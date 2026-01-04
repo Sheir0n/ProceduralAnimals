@@ -12,6 +12,7 @@ public class AnimalHeadData
     public float maxLookAngle = 0f;
     public Vector3 headParentOffset = Vector3.zero;
     public int visionConeSegmentId = 0;
+    public Color headColor = Color.white;
 }
 
 public struct LookTarget
@@ -36,11 +37,19 @@ public class AnimalHead
     private float lookLerpAngle = 0f;
     private float lerpSpeed = 15f;
     public AnimalJoint parentJoint { get; private set; }
+
+    [HideInInspector] public Color bodyColor = Color.white;
+    [HideInInspector] public Mesh bodyMesh;
+    [HideInInspector] public MeshFilter bodyMeshFilter;
+    [HideInInspector] public MeshRenderer bodyMeshRenderer;
+
+
     public AnimalHead(List<AnimalJoint> _joints, AnimalJoint _parentJoint, AnimalHeadData _data)
     {
         headData = _data;
         headJoints = _joints;
         parentJoint = _parentJoint;
+        bodyColor = _data.headColor;
         // przekszta³cenie z rotacji globalnej na lokaln¹
         headLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * _data.headParentOffset;
     }

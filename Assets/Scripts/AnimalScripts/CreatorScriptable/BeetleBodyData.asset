@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spineSegmentData:
   - segmentName: Head
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-      type: 3}
     jointCount: 1
     sizeCurve:
       serializedVersion: 2
@@ -36,8 +34,6 @@ MonoBehaviour:
     angularConstraint: 60
     prefferedAngle: 0
   - segmentName: Center
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-      type: 3}
     jointCount: 1
     sizeCurve:
       serializedVersion: 2
@@ -58,8 +54,6 @@ MonoBehaviour:
     angularConstraint: 80
     prefferedAngle: 0
   - segmentName: Back
-    bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-      type: 3}
     jointCount: 2
     sizeCurve:
       serializedVersion: 2
@@ -88,12 +82,11 @@ MonoBehaviour:
     distanceConstraint: 0.85
     angularConstraint: 20
     prefferedAngle: 0
+  spineColor: {r: 0.12610175, g: 0.335849, b: 0.22424035, a: 1}
   animalLimbData:
   - limbName: FrontLeft
     joints:
     - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -123,8 +116,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: -10
     - segmentName: FrontLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -157,11 +148,10 @@ MonoBehaviour:
     parentPositionOffset: {x: 0.15, y: 0, z: 0}
     targetPosOffset: {x: 0.4, y: 0, z: 1}
     maxReachDistance: 1.4
+    limbColor: {r: 0.033129215, g: 0.17735851, b: 0.101237476, a: 1}
   - limbName: FrontRight
     joints:
     - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -191,8 +181,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: 10
     - segmentName: FrontLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -225,11 +213,10 @@ MonoBehaviour:
     parentPositionOffset: {x: -0.15, y: 0, z: 0}
     targetPosOffset: {x: -0.4, y: 0, z: 1}
     maxReachDistance: 1.4
+    limbColor: {r: 0.03137255, g: 0.1764706, b: 0.101960786, a: 1}
   - limbName: CenterLeft
     joints:
     - segmentName: CenterRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -259,8 +246,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: -10
     - segmentName: CenterLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -293,11 +278,10 @@ MonoBehaviour:
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 0.35, y: 0, z: 0.7}
     maxReachDistance: 1
+    limbColor: {r: 0.03137255, g: 0.1764706, b: 0.101960786, a: 1}
   - limbName: CenterRight
     joints:
     - segmentName: CenterRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -327,8 +311,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: 10
     - segmentName: CenterLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -361,11 +343,10 @@ MonoBehaviour:
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -0.35, y: 0, z: 0.7}
     maxReachDistance: 1
+    limbColor: {r: 0.03137255, g: 0.1764706, b: 0.101960786, a: 1}
   - limbName: BackLeft
     joints:
     - segmentName: FrontRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -395,8 +376,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: -10
     - segmentName: BackLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -429,11 +408,10 @@ MonoBehaviour:
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 0.35, y: 0, z: 0.7}
     maxReachDistance: 1
+    limbColor: {r: 0.03137255, g: 0.1764706, b: 0.101960786, a: 1}
   - limbName: BackRight
     joints:
     - segmentName: BackRoot
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
@@ -463,8 +441,6 @@ MonoBehaviour:
       angularConstraint: 75
       prefferedAngle: 10
     - segmentName: BackLeg
-      bodySegmentPrefab: {fileID: 528962184640154690, guid: cfeaed62418a0f04499d503fd62f5e36,
-        type: 3}
       jointCount: 3
       sizeCurve:
         serializedVersion: 2
@@ -497,11 +473,14 @@ MonoBehaviour:
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -0.35, y: 0, z: 0.7}
     maxReachDistance: 1
+    limbColor: {r: 0.03137255, g: 0.1764706, b: 0.101960786, a: 1}
   animalHeadData:
     headName: Head
     joints: []
     maxLookAngle: 20
     headParentOffset: {x: 0, y: 0, z: 0.1}
+    visionConeSegmentId: 0
+    headColor: {r: 1, g: 1, b: 1, a: 1}
   mouthColliderPrefab: {fileID: 0}
   attachMouthToHeadSegment: 0
   mouthParentId: 0
