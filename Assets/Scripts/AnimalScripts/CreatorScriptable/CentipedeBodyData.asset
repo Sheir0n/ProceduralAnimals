@@ -90,19 +90,19 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: -0.0041105133
-          value: 0.20497684
-          inSlope: -0.034629684
-          outSlope: -0.034629684
+          time: -0.052889228
+          value: 0.17024377
+          inSlope: -0.114583895
+          outSlope: -0.114583895
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1.0118004
-          value: 0.16979617
-          inSlope: -0.034629684
-          outSlope: -0.034629684
+          time: 1.0021455
+          value: 0.049353782
+          inSlope: -0.114583895
+          outSlope: -0.114583895
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -110,7 +110,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 2
+      distanceConstraint: 3
       angularConstraint: 20
       prefferedAngle: -5
     parentJointId: 0
@@ -594,19 +594,19 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: -0.0041105133
-          value: 0.20497684
-          inSlope: -0.034629684
-          outSlope: -0.034629684
+          time: -0.051346194
+          value: 0.17001382
+          inSlope: -0.11429886
+          outSlope: -0.11429886
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1.0118004
-          value: 0.16979617
-          inSlope: -0.034629684
-          outSlope: -0.034629684
+          time: 1.0023278
+          value: 0.04958008
+          inSlope: -0.11429886
+          outSlope: -0.11429886
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -614,7 +614,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 2
+      distanceConstraint: 3
       angularConstraint: 20
       prefferedAngle: 5
     parentJointId: 0

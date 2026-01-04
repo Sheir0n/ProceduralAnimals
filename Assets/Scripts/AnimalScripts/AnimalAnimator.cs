@@ -30,16 +30,6 @@ public class AnimalAnimator : MonoBehaviour
     private MeshFilter bodyMeshFilter;
     private MeshRenderer bodyMeshRenderer;
 
-    //protected Color headColor = Color.white;
-    //private Mesh headMesh;
-    //private MeshFilter bodyMeshFilter;
-    //private MeshRenderer bodyMeshRenderer;
-
-    //protected Color bodyColor = Color.white;
-    //private Mesh bodyMesh;
-    //private MeshFilter bodyMeshFilter;
-    //private MeshRenderer bodyMeshRenderer;
-
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
@@ -313,7 +303,6 @@ public class AnimalAnimator : MonoBehaviour
 
     private void OnDeath()
     {
-        Debug.Log("Animal disable recived");
         isAnimalDisabled = true;
     }
 
