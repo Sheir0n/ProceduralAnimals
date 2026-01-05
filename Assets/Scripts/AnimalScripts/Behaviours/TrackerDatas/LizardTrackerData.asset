@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookTrackerTags:
   - tag: Rock
-    importance: 0.4
+    importance: 0.2
     memoryTimeInSec: 2
     forgetMinRange: 0
     maxTrackDistance: 10
-    objectType: 1
+    objectType: 0
   - tag: Lizard
     importance: 0.6
     memoryTimeInSec: 2
@@ -31,6 +31,12 @@ MonoBehaviour:
     forgetMinRange: 0
     maxTrackDistance: 20
     objectType: 2
+  - tag: RestingRock
+    importance: 0.4
+    memoryTimeInSec: 2
+    forgetMinRange: 0
+    maxTrackDistance: 10
+    objectType: 1
   fearTrackerTags:
   - tag: Centipede
     importance: 0.9

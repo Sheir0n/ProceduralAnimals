@@ -43,7 +43,7 @@ public class ObjectSpawner : MonoBehaviour
             animalObjectList = new List<GameObject>();
             this.targetAmount = targetAmount;
             this.respawnCooldownSec = respawnCooldownSec;
-            currCooldown = 0;
+            currCooldown = respawnCooldownSec;
             currAnimalIndex = 0;
             this.spawnData = spawnData;
         }

@@ -38,8 +38,8 @@ public class FindRestSpotController : ActionController, IUtilityAction
 
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
-        if (!enableScore)
-            return 0;
+        if (!enableScore || restingSpots.Count == 0)
+            return -Mathf.Infinity;
 
         float normalizedEnergy = stats.energy / stats.maxEnergy;
         float utilityScore = Mathf.Pow(1 - normalizedEnergy, 1f + stats.statVigor) * 1 / 3;
@@ -56,7 +56,7 @@ public class FindRestSpotController : ActionController, IUtilityAction
     {
         foreach (Transform restSpot in restSpots)
         {
-            if (restingSpots.Contains(restSpot) || !restSpot.CompareTag("Rock"))
+            if (restingSpots.Contains(restSpot) || !restSpot.CompareTag("RestingRock"))
                 return;
 
             if (!enableScore)

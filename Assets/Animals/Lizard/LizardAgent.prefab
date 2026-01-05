@@ -210,7 +210,7 @@ MonoBehaviour:
   playerControlledMovement: {fileID: 11400000, guid: 0c846931efb548b4c9b92e3aa358b219,
     type: 2}
   avalibleMovementsScriptables:
-  - {fileID: 11400000, guid: 61936f6335072774086ea823939cb9f8, type: 2}
+  - {fileID: 11400000, guid: eb1a78f7c3d47ac49bc0a0f3f9721720, type: 2}
   - {fileID: 11400000, guid: 81c10263f0a086840b207773c7b26635, type: 2}
   - {fileID: 11400000, guid: ba750c333e2b7d4429a66da4624eebc8, type: 2}
   - {fileID: 11400000, guid: bb50ff518d79dc24b9c118130283cdd1, type: 2}

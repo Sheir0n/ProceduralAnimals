@@ -8,12 +8,11 @@ public class MainCamera : MonoBehaviour
 {
     [SerializeField] private float cameraHeight = 10;
     [SerializeField] private float targetOrthSize = 5;
-
+    [SerializeField] private float maxOrthSize = 50;
     private Camera cam;
 
     //orthographic size
-    private float minOrthSize = 4;
-    private float maxOrthSize = 20;
+    private float minOrthSize = 5;
 
     //camera rotation
     private float tiltAmount = 270f;

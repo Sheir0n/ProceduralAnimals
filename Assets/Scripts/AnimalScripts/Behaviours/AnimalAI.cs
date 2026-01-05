@@ -173,10 +173,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         if (IDByAction[currAction] == deathActionSharedID && !startedDeath)
         {
             startedDeath = true;
-            if(stats.saturation <= 0f)
-                Debug.Log("Œmieræ g³odowa agenta: " + name);
-            else
-                Debug.Log("Œmieræ agenta: " + name);
+            Debug.Log("Œmieræ agenta: " + name);
 
             _ = DeathDelayAsync(intervalSec: 0.1f);
         }
@@ -309,7 +306,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
     protected void Starve()
     {
-        if(stats.health > 0)
+        if (stats.health > 0)
             stats.health -= Time.deltaTime * StarveDmgPerSec;
     }
 
