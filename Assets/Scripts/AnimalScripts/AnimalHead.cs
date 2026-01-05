@@ -44,14 +44,14 @@ public class AnimalHead
     [HideInInspector] public MeshRenderer bodyMeshRenderer;
 
 
-    public AnimalHead(List<AnimalJoint> _joints, AnimalJoint _parentJoint, AnimalHeadData _data)
+    public AnimalHead(List<AnimalJoint> joints, AnimalJoint parentJoint, AnimalHeadData data)
     {
-        headData = _data;
-        headJoints = _joints;
-        parentJoint = _parentJoint;
-        bodyColor = _data.headColor;
+        headData = data;
+        headJoints = joints;
+        this.parentJoint = parentJoint;
+        bodyColor = data.headColor;
         // przekszta³cenie z rotacji globalnej na lokaln¹
-        headLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * _data.headParentOffset;
+        headLocalOffset = Quaternion.Euler(-90f, 0f, 0f) * data.headParentOffset;
     }
 
     public void LookAt(LookTarget lookData)
@@ -90,6 +90,16 @@ public class AnimalHead
     {
         int segmentId = headData.visionConeSegmentId;
         return new HeadCenterData(headJoints[segmentId].segmentPosition, headJoints[segmentId].segmentLerpRotation * -Vector3.up);
+    }
+
+    public void SetColorFade(float amount)
+    {
+        foreach (var joint in headJoints)
+            joint.SetColorFade(amount);
+
+        amount = Mathf.Clamp01(amount);
+        Color resultColor = Color.Lerp(bodyColor, Color.gray, amount);
+        bodyMeshRenderer.material.color = resultColor;
     }
 }
 

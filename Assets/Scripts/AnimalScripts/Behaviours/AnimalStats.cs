@@ -61,7 +61,7 @@ public class AnimalStats : IReadOnlyAnimalStats
     [Range(0f, 99999f)]
     public int seed = 12345;
 
-    public void GenerateStats()
+    public void GenerateStats(string animalName)
     {
         float randomnessMultiplier;
         if (baseMaxStats == null)
@@ -96,7 +96,7 @@ public class AnimalStats : IReadOnlyAnimalStats
             maxEnergy *= 1 + randomnessMultiplier * GetRandom(rng, -1, 1);
 
             Debug.Log(
-                "Utworzono nowe zwierze z parametrami:\n" +
+                "Utworzono nowe zwierze: "+animalName+"\n" +
                 "Seed: " + seed + "\n" +
                 "Wigor: " + statVigor + "\n" +
                 "Agresja: " + statAggressiveness + "\n" +

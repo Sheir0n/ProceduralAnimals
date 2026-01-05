@@ -21,30 +21,37 @@ public class AnimalJoint : MonoBehaviour
     public float lerpedYaw { get; protected set; }
     public float yOffset { get; protected set; } = 0;
 
-    virtual public void AfterInstantiate(Vector3 _segPosition, Quaternion _segRotation, Vector3 _segScale, float _distanceConstraint, float _angularConstraint, float _prefferedAngle, float yOffset, int _id)
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+
+    virtual public void AfterInstantiate(Vector3 segPosition, Quaternion segRotation, Vector3 segScale, float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, int _id)
     {
-        segmentRotation = _segRotation;
-        segmentLerpRotation = _segRotation;
-        segmentPosition = _segPosition;
-        segmentLerpPosition = _segPosition;
-        segmentScale = _segScale;
-        distanceConstraint = _distanceConstraint;
-        angularConstraint = _angularConstraint;
-        prefferedAngle = _prefferedAngle;
+        segmentRotation = segRotation;
+        segmentLerpRotation = segRotation;
+        segmentPosition = segPosition;
+        segmentLerpPosition = segPosition;
+        segmentScale = segScale;
+        this.distanceConstraint = distanceConstraint;
+        this.angularConstraint = angularConstraint;
+        this.prefferedAngle = prefferedAngle;
         this.yOffset = yOffset;
         segmentId = _id;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
-    virtual public void AfterInstantiate(float _distanceConstraint, float _angularConstraint, float _prefferedAngle, float yOffset, int _id)
+    virtual public void AfterInstantiate(float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, int id)
     {
         segmentRotation = transform.rotation;
         segmentPosition = transform.position;
         segmentScale = transform.localScale;
-        distanceConstraint = _distanceConstraint;
-        angularConstraint = _angularConstraint;
-        prefferedAngle = _prefferedAngle;
+        this.distanceConstraint = distanceConstraint;
+        this.angularConstraint = angularConstraint;
+        this.prefferedAngle = prefferedAngle;
         this.yOffset = yOffset;
-        segmentId = _id;
+        segmentId = id;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     public void SetPosition(Vector3 _position)
@@ -88,5 +95,13 @@ public class AnimalJoint : MonoBehaviour
 
         //not currently lerped
         transform.localScale = segmentScale;
+    }
+
+    public void SetColorFade(float amount)
+    {
+        if (spriteRenderer == null) return;
+        amount = Mathf.Clamp01(amount);
+        Color resultColor = Color.Lerp(originalColor, Color.gray, amount);
+        spriteRenderer.color = resultColor;
     }
 }

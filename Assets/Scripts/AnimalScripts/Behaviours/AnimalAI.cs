@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class AnimalAI : MonoBehaviour, IDamageable
@@ -41,6 +42,12 @@ public class AnimalAI : MonoBehaviour, IDamageable
     protected AnimalEventHub eventHub;
     private Transform snatchTransform;
 
+    [Header("Szybkoœæ straty ¿ycia przy œmierci g³odowej")]
+    [SerializeField] private float StarveDmgPerSec = 0.2f;
+
+    [Header("Czas œmierci agenta")]
+    [SerializeField] private float DeathDurationInSec = 10f;
+
     [Header("ID zachowañ statycznych (ogólnodostêpnych w ka¿dym osobniku)")]
     [SerializeField] protected List<ActionController> actionAssetList = new List<ActionController>();
     [SerializeField] protected ActionID emptyActionSharedID;
@@ -57,7 +64,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
     [Header("Runtime Debug: Lista sklonowanych zachowañ")]
     [SerializeField] private List<ScriptableObject> runtimeActionDebug;
 
-    private bool clearedMemoryOnDeath = false;
+    private bool startedDeath = false;
 
     protected virtual void Awake()
     {
@@ -65,7 +72,7 @@ public class AnimalAI : MonoBehaviour, IDamageable
         animator = GetComponent<AnimalAnimator>();
         pathfindController = GetComponent<PathfindController>();
 
-        stats.GenerateStats();
+        stats.GenerateStats(name);
 
         LoadActionList();
 
@@ -154,6 +161,8 @@ public class AnimalAI : MonoBehaviour, IDamageable
         preyTracker.OnUpdate();
         fearTracker.OnUpdate();
 
+        if (stats.saturation <= 0f)
+            Starve();
         actionDebugDisplay = currAction.ActionTag;
     }
 
@@ -161,9 +170,15 @@ public class AnimalAI : MonoBehaviour, IDamageable
     {
         if (currAction == null)
             return;
-        if (IDByAction[currAction] == deathActionSharedID && !clearedMemoryOnDeath)
+        if (IDByAction[currAction] == deathActionSharedID && !startedDeath)
         {
-            clearedMemoryOnDeath = true;
+            startedDeath = true;
+            if(stats.saturation <= 0f)
+                Debug.Log("Œmieræ g³odowa agenta: " + name);
+            else
+                Debug.Log("Œmieræ agenta: " + name);
+
+            _ = DeathDelayAsync(intervalSec: 0.1f);
         }
     }
 
@@ -267,14 +282,47 @@ public class AnimalAI : MonoBehaviour, IDamageable
 
     public void OnSnatchAttachTo(Transform other)
     {
-        //temporary - move to movement
         if (snatchTransform != other)
         {
             snatchTransform = other;
             transform.position = new Vector3(snatchTransform.position.x, transform.position.y, snatchTransform.position.z);
-            //transform.GetComponent<Collider>().enabled = false;
         }
     }
 
+    private async Task DeathDelayAsync(float intervalSec)
+    {
+        float elapsed = 0f;
+        float intervalTime = 0f;
 
+        while (elapsed < DeathDurationInSec)
+        {
+            elapsed += Time.deltaTime;
+            if (elapsed >= intervalTime)
+            {
+                intervalTime += intervalSec;
+                eventHub.DeathFade(elapsed / DeathDurationInSec);
+            }
+            await Task.Yield();
+        }
+        Destroy(gameObject);
+    }
+
+    protected void Starve()
+    {
+        if(stats.health > 0)
+            stats.health -= Time.deltaTime * StarveDmgPerSec;
+    }
+
+    private void OnDestroy()
+    {
+        stats = null;
+        trackersData = null;
+        animator = null;
+        pathfindController = null;
+        actions = null;
+        actionByID = null;
+        IDByAction = null;
+        actionPenalities = null;
+        snatchTransform = null;
+    }
 }

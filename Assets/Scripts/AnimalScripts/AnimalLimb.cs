@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEditor;
 using UnityEngine;
 
@@ -176,14 +175,24 @@ public class AnimalLimb
             return;
 
         Vector3 root = joints[0].segmentPosition;
-        Gizmos.color = UnityEngine.Color.yellow;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawLine(root, targetPosition);
 
-        Gizmos.color = UnityEngine.Color.red;
+        Gizmos.color = Color.red;
         Gizmos.DrawSphere(targetPosition, 0.05f);
 
-        Gizmos.color = UnityEngine.Color.cyan;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawLine(root, targetLerpPosition);
         Gizmos.DrawSphere(targetLerpPosition, 0.04f);
+    }
+
+    public void SetColorFade(float amount)
+    {
+        foreach (var joint in joints)
+            joint.SetColorFade(amount);
+
+        amount = Mathf.Clamp01(amount);
+        Color resultColor = Color.Lerp(bodyColor, Color.gray, amount);
+        bodyMeshRenderer.material.color = resultColor;
     }
 }

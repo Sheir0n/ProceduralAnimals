@@ -24,6 +24,9 @@ public class PreyTracker : DefaultTracker<TrackerData, TrackerTarget<TrackerData
         foreach (TrackerTarget<TrackerData> targetData in trackerTargets)
         {
             Transform target = targetData.target;
+            if (target == null || target.transform == null)
+                continue;
+
             Vector3 position = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 targetPosition = new Vector3(target.position.x, 0, target.position.z);
             float distance = Mathf.Sqrt((transform.position - targetPosition).sqrMagnitude);

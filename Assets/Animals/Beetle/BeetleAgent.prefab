@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creatorData: {fileID: 11400000, guid: dfe6319d903b1f54596dc232ccb2d88a, type: 2}
-  bodyColor: {r: 0.41573936, g: 0.6830188, b: 0.26676393, a: 1}
 --- !u!114 &2777999381579626589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +164,8 @@ MonoBehaviour:
   defaultPenality: 1
   penalityDrainSpeed: 4
   hysteresis: 0.05
+  StarveDmgPerSec: 0
+  DeathDurationInSec: 15
   actionAssetList:
   - {fileID: 11400000, guid: 3e3e40560816ec348be5ca5d0ed4a5a1, type: 2}
   - {fileID: 11400000, guid: 975289ead937e5f42999cbef60db73f2, type: 2}

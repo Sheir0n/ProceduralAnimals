@@ -26,6 +26,7 @@ public class AnimalAnimator : MonoBehaviour
 
     //dane mesh
     protected Color bodyColor = Color.white;
+    protected float colorFadeAmount = 0f;
     private Mesh bodyMesh;
     private MeshFilter bodyMeshFilter;
     private MeshRenderer bodyMeshRenderer;
@@ -36,6 +37,7 @@ public class AnimalAnimator : MonoBehaviour
         eventHub.OnActionChanged += OnActionChanged;
         eventHub.OnHeadDataRequest += GetLookCenter;
         eventHub.OnDeath += OnDeath;
+        eventHub.OnDeathFade += ApplyColorFade;
     }
 
     protected virtual void Update()
@@ -461,7 +463,7 @@ public class AnimalAnimator : MonoBehaviour
         {
             bodyMesh.Clear();
 
-            CreateRegularMeshFromChain(joints, ref bodyMesh, ref bodyMeshFilter, color);
+            CreateRegularMeshFromChain(joints, ref bodyMesh, ref bodyMeshFilter);
             bodyMesh.RecalculateNormals();
             bodyMesh.RecalculateBounds();
         }
@@ -469,7 +471,7 @@ public class AnimalAnimator : MonoBehaviour
         if (head != null && head.bodyMesh != null)
         {
             head.bodyMesh.Clear();
-            CreateRegularMeshFromChain(head.headJoints, ref head.bodyMesh, ref head.bodyMeshFilter, color);
+            CreateRegularMeshFromChain(head.headJoints, ref head.bodyMesh, ref head.bodyMeshFilter);
             head.bodyMesh.RecalculateNormals();
             head.bodyMesh.RecalculateBounds();
         }
@@ -479,14 +481,14 @@ public class AnimalAnimator : MonoBehaviour
             if (limb.bodyMesh != null)
             {
                 limb.bodyMesh.Clear();
-                CreateRegularMeshFromChain(limb.joints, ref limb.bodyMesh, ref limb.bodyMeshFilter, color);
+                CreateRegularMeshFromChain(limb.joints, ref limb.bodyMesh, ref limb.bodyMeshFilter);
                 limb.bodyMesh.RecalculateNormals();
                 limb.bodyMesh.RecalculateBounds();
             }
         }
     }
 
-    private void CreateRegularMeshFromChain(List<AnimalJoint> chainJoints, ref Mesh mesh, ref MeshFilter filter, Color color)
+    private void CreateRegularMeshFromChain(List<AnimalJoint> chainJoints, ref Mesh mesh, ref MeshFilter filter)
     {
         if (chainJoints == null || joints.Count == 0)
             return;
@@ -523,9 +525,9 @@ public class AnimalAnimator : MonoBehaviour
         {
             pointPositions[j] = root.InverseTransformPoint(pointPositions[j]);
         }
-        CreateRibbonMesh(pointPositions, ref mesh, color);
+        CreateRibbonMesh(pointPositions, ref mesh);
     }
-    private void CreateRibbonMesh(List<Vector3> pointPositions, ref Mesh mesh, Color color)
+    private void CreateRibbonMesh(List<Vector3> pointPositions, ref Mesh mesh)
     {
         if (pointPositions == null || pointPositions.Count < 2)
             return;
@@ -560,5 +562,31 @@ public class AnimalAnimator : MonoBehaviour
 
         foreach (var limb in limbs)
             limb?.DrawGizmos();
+    }
+
+    private void ApplyColorFade(float amount)
+    {
+        foreach (AnimalJoint joint in joints)
+        {
+            joint.SetColorFade(amount);
+            amount = Mathf.Clamp01(amount);
+            Color resultColor = Color.Lerp(bodyColor, Color.gray, amount);
+            bodyMeshRenderer.material.color = resultColor;
+        }
+
+        foreach (AnimalLimb limb in limbs)
+            limb.SetColorFade(amount);
+
+        if (head != null)
+            head.SetColorFade(amount);
+    }
+
+    private void OnDestroy()
+    {
+        if(joints != null)
+            joints.Clear();
+        if (limbs != null)
+            limbs.Clear();
+        head = null;
     }
 }

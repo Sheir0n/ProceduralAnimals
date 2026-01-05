@@ -60,8 +60,10 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Lista prefabów zwierz¹t")]
     [SerializeField] private List<AnimalSpawnData> animalSpawnDatas = new List<AnimalSpawnData>();
 
-    [SerializeField] private bool spawnObstables = true;
+    [SerializeField] private bool spawnObstacles = true;
     [SerializeField] private bool spawnAnimals = true;
+    [SerializeField] private bool allowRespawn = true;
+    private bool firstInstantiate = true;
 
     private List<AnimalCounter> animalCounters = new List<AnimalCounter>();
     void Awake()
@@ -76,7 +78,7 @@ public class ObjectSpawner : MonoBehaviour
         planeXEdge = 5f * spawnPlane.transform.localScale.x;
         planeZEdge = 5f * spawnPlane.transform.localScale.z;
 
-        if (spawnObstables)
+        if (spawnObstacles)
         {
             foreach (ObstacleSpawnData objectData in obstacleSpawnDatas)
             {
@@ -141,20 +143,25 @@ public class ObjectSpawner : MonoBehaviour
 
     void LateUpdate()
     {
-        foreach (AnimalCounter animalCounter in animalCounters)
+        if (firstInstantiate)
         {
-            if (animalCounter.targetAmount > animalCounter.animalObjectList.Count)
+            firstInstantiate = false;
+            foreach (AnimalCounter animalCounter in animalCounters)
             {
-                TryInstantiateAnimal(animalCounter);
+                for (int i = 0; i < animalCounter.targetAmount; i++)
+                    TryInstantiateAnimal(animalCounter);
             }
         }
+
+        CheckRespawnCounters();
     }
 
     private void TryInstantiateAnimal(AnimalCounter counter)
     {
         if (TryGetRandomPointOnNavMesh(spawnPlane.transform.position, planeXEdge, planeZEdge, out Vector3 spawnPos))
         {
-            GameObject animal = Instantiate(counter.spawnData.animalPrefab, spawnPos, Quaternion.identity, counter.container.transform);
+            Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            GameObject animal = Instantiate(counter.spawnData.animalPrefab, spawnPos, randomRotation, counter.container.transform);
             if (counter.spawnData.animalName.Length != 0)
                 animal.name = counter.spawnData.animalName + " " + counter.currAnimalIndex++;
             animal.GetComponent<NavMeshAgent>().Warp(spawnPos);
@@ -168,7 +175,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private bool TryGetRandomPointOnNavMesh(Vector3 center, float rangeX, float rangeZ, out Vector3 result, int areaMask = NavMesh.AllAreas)
     {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 20; i++)
         {
             Vector3 randomPoint = center + new Vector3(
                 Random.Range(-rangeX, rangeX),
@@ -176,13 +183,38 @@ public class ObjectSpawner : MonoBehaviour
                 Random.Range(-rangeZ, rangeZ)
             );
 
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, areaMask))
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 0.5f, areaMask))
             {
                 result = hit.position;
+                float checkRadius = 0.5f;
+                if (Physics.CheckSphere(result, checkRadius, LayerMask.GetMask("Obstacles")))
+                    continue;
                 return true;
             }
         }
         result = Vector3.zero;
         return false;
+    }
+
+    private void CheckRespawnCounters()
+    {
+        foreach (AnimalCounter counter in animalCounters)
+        {
+            for (int i = 0; i < counter.animalObjectList.Count; i++)
+            {
+                if (counter.animalObjectList[i] == null)
+                    counter.animalObjectList.RemoveAt(i);
+            }
+
+            if (counter.animalObjectList.Count < counter.targetAmount && allowRespawn)
+            {
+                counter.currCooldown -= Time.deltaTime;
+                if (counter.currCooldown <= 0)
+                {
+                    TryInstantiateAnimal(counter);
+                    counter.currCooldown = counter.respawnCooldownSec;
+                }
+            }
+        }
     }
 }

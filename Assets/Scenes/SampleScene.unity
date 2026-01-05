@@ -254,19 +254,32 @@ MonoBehaviour:
   obstacleSpawnDatas:
   - obstaclePrefab: {fileID: 1403884006061802945, guid: 286aad6db4904e5449a0d74c8dc704ef,
       type: 3}
-    amount: 50
+    amount: 25
     containerName: Rocks
     minScale: 2
     maxScale: 100
   animalSpawnDatas:
   - animalPrefab: {fileID: 8691682312111985452, guid: da1be0ae1a4e68d4e8dd9c2044f35191,
       type: 3}
-    amount: 20
+    amount: 12
     animalName: Lizard
     containerName: RandomLizards
-    respawnTimeSec: 0
-  spawnObstables: 1
+    respawnTimeSec: 10
+  - animalPrefab: {fileID: 4256173970276126365, guid: 430957fe42c400b44b3259dceb295b22,
+      type: 3}
+    amount: 35
+    animalName: Beetle
+    containerName: RandomBeetles
+    respawnTimeSec: 5
+  - animalPrefab: {fileID: 7077528703583497122, guid: 7a127e91c760789479104e56aebe4e65,
+      type: 3}
+    amount: 5
+    animalName: Centipede
+    containerName: RandomCentipedes
+    respawnTimeSec: 30
+  spawnObstacles: 1
   spawnAnimals: 1
+  allowRespawn: 1
 --- !u!1 &92288873
 GameObject:
   m_ObjectHideFlags: 0

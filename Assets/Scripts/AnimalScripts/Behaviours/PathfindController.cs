@@ -204,5 +204,10 @@ public class PathfindController : MonoBehaviour
     public float GetAngularSpeed() => agentCurrAngularSpeed;
 
     public LookTarget GetLookTarget() => new LookTarget(lookTargetPos, lookAtTarget);
+
+    private void OnDestroy()
+    {
+        
+    }
 }
 

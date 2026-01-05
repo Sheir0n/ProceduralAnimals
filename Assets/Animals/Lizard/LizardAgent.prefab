@@ -151,6 +151,8 @@ MonoBehaviour:
   defaultPenality: 1
   penalityDrainSpeed: 4
   hysteresis: 0.05
+  StarveDmgPerSec: 0.2
+  DeathDurationInSec: 30
   actionAssetList:
   - {fileID: 11400000, guid: 4da5108932d5bfd478481735596e186a, type: 2}
   - {fileID: 11400000, guid: a25b6686c6b100a4a94ab35a23821119, type: 2}

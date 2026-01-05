@@ -15,6 +15,7 @@ public class AnimalEventHub : MonoBehaviour
     public event Action<Collider> OnAttemptBite;
     public event Action<BiteAttackStage> OnBiteAttack;
     public event Action OnDeath;
+    public event Action<float> OnDeathFade;
 
     public event Func<float> OnAngularSpeedRequest;
     public event Func<LookTarget> OnPathfindScriptLookTarget; // animator <= movement
@@ -60,4 +61,5 @@ public class AnimalEventHub : MonoBehaviour
     public TrackedWithScore RequestTrackedFear() => OnTrackedFearRequest?.Invoke() ?? new TrackedWithScore(null, 0);
     public TrackerDatas RequestTrackerDataToInitialize() => OnTrackerDatasRequest?.Invoke() ?? new TrackerDatas();
     public void AnnounceDeath() => OnDeath?.Invoke();
+    public void DeathFade(float fadeValue) => OnDeathFade?.Invoke(fadeValue);
 }

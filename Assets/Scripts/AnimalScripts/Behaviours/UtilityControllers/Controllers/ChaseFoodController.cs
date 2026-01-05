@@ -33,7 +33,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
     private float biteTimerMs = 0;
     private bool preyCaught = false;
     private bool hasAddedFeedStats = false;
-    public enum BiteAttackStage {Windup, Dash, Finished}
+    public enum BiteAttackStage { Windup, Dash, Finished }
     private CancellationTokenSource biteCancelToken;
     AnimalMouthCollider animalMouth;
 
@@ -88,7 +88,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
         else
         {
             float normalisedSaturation = stats.saturation / stats.maxSaturation;
-            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2)  * 2 / 3;
+            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * 2 / 3;
         }
     }
 
@@ -96,11 +96,12 @@ public class ChaseFoodController : ActionController, IUtilityAction
     {
         stats.energy = Mathf.Clamp(stats.energy - (0.75f + 0.25f * (1 - stats.statVigor)) * energyDrainRate * energyDrainRateModifier * Time.deltaTime, 0, stats.maxEnergy);
 
-        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate *saturationDrainRateModifier* Time.deltaTime, 0, stats.maxSaturation);
+        stats.saturation = Mathf.Clamp(stats.saturation - saturationDrainRate * saturationDrainRateModifier * Time.deltaTime, 0, stats.maxSaturation);
 
         if (preyCaught && !hasAddedFeedStats)
         {
             stats.saturation = stats.maxSaturation;
+            stats.health = Math.Min(stats.health + stats.maxHealth / 3, stats.maxHealth);
             hasAddedFeedStats = true;
         }
     }
@@ -134,7 +135,7 @@ public class ChaseFoodController : ActionController, IUtilityAction
             while (elapsedMs < biteDashDurationMs)
             {
                 token.ThrowIfCancellationRequested();
-                if(animalMouth.CheckIfOtherInMouth(other))
+                if (animalMouth.CheckIfOtherInMouth(other))
                 {
                     Bite(other);
                     bitePrepared = false;
