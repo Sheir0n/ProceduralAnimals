@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefFleeMovement
   m_EditorClassIdentifier: 
   baseStatsModifiers:
-    SpeedModifier: 1
+    SpeedModifier: 1.35
     AngularSpeedModifier: 2
     AccelerationModifier: 3
     StoppingDistanceModifier: 1

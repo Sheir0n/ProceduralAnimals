@@ -82,14 +82,15 @@ public class ChaseFoodController : ActionController, IUtilityAction
     public float GetUtilityScore(AnimalStats stats, IUtilityAction currAction)
     {
         Transform targetTransform = bestPreyCandidate.tracked;
+        float targetScore = bestPreyCandidate.score;
+        float normalisedSaturation = stats.saturation / stats.maxSaturation;
 
         if (targetTransform == null || (preyCaught && hasAddedFeedStats))
             return -Mathf.Infinity;
+        else if (stats.saturation < stats.maxSaturation/4)
+            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) *2/3;
         else
-        {
-            float normalisedSaturation = stats.saturation / stats.maxSaturation;
-            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * 2 / 3;
-        }
+            return Mathf.Pow(1 - normalisedSaturation, (1.5f - stats.statAggressiveness) / 2) * targetScore;
     }
 
     public void CalculateStats(AnimalStats stats)

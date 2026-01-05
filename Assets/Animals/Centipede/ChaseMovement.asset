@@ -30,4 +30,4 @@ MonoBehaviour:
     StoppingDistanceModifier: 0
   dashSpeed: 10
   dashLerpSpeed: 2
-  dashSlowdownLerp: 6
+  dashSlowdownLerp: 12

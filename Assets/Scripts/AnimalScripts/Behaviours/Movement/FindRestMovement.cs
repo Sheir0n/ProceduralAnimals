@@ -21,8 +21,8 @@ public class FindRestSpotMovement : MovementScript, IAnimalMovement
     private Transform nearestRestSpot;
     private bool isOnRestSpot;
 
-    private float restSpotScale = 0.65f;
-    private float restSpotCheckRangeBonus = 0.15f;
+    private float restSpotScale = 0.55f;
+    private float restSpotCheckRangeBonus = 1f;
     private bool pathSet = false;
 
     public override void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
