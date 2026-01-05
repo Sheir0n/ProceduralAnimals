@@ -665,7 +665,7 @@ MonoBehaviour:
       rotateSprite: 0
     maxLookAngle: 60
     headParentOffset: {x: 0, y: 0, z: 0.2}
-    visionConeSegmentId: 4
+    visionConeSegmentId: 3
     headColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   mouthColliderPrefab: {fileID: 6174930570440199844, guid: 2b81f7be443984247bbad4753b952777,
     type: 3}
