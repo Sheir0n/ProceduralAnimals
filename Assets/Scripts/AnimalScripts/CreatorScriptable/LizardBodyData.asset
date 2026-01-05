@@ -51,6 +51,9 @@ MonoBehaviour:
     distanceConstraint: 0.75
     angularConstraint: 35
     prefferedAngle: 0
+    sprite: {fileID: 21300000, guid: 04ca07a5612439b4a988ecb069499ee9, type: 3}
+    spriteScale: 1.5
+    rotateSprite: 0
   - segmentName: Tail
     jointCount: 12
     sizeCurve:
@@ -80,7 +83,42 @@ MonoBehaviour:
     distanceConstraint: 0.75
     angularConstraint: 25
     prefferedAngle: 0
-  spineColor: {r: 0.8867924, g: 0.018405106, b: 0.018405106, a: 1}
+    sprite: {fileID: 21300000, guid: 04ca07a5612439b4a988ecb069499ee9, type: 3}
+    spriteScale: 1.5
+    rotateSprite: 0
+  - segmentName: Tail
+    jointCount: 1
+    sizeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.0017196275
+        value: 0.09409554
+        inSlope: -0.010104323
+        outSlope: -0.010104323
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0077332
+        value: 0.083895706
+        inSlope: 0.0000007323182
+        outSlope: 0.0000007323182
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.060472168
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    distanceConstraint: 0.75
+    angularConstraint: 25
+    prefferedAngle: 0
+    sprite: {fileID: 21300000, guid: b390b172db6b97240ba8a68c09593b2f, type: 3}
+    spriteScale: 20
+    rotateSprite: 0
+  spineColor: {r: 0.77647066, g: 0.2392157, b: 0.27450982, a: 1}
   animalLimbData:
   - limbName: FrontLeft
     joints:
@@ -113,25 +151,28 @@ MonoBehaviour:
       distanceConstraint: 0.5
       angularConstraint: 75
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
     - segmentName: FrontLeg
-      jointCount: 3
+      jointCount: 2
       sizeCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
           value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          time: 0.99572754
+          value: 0.25981444
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -142,11 +183,46 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: -70
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
+    - segmentName: LegTip
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0060272217
+          value: 0.15912017
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9749756
+          value: 0.15889283
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 70
+      prefferedAngle: -70
+      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      spriteScale: 7.5
+      rotateSprite: 1
     parentJointId: 0
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 0.75, y: 0, z: 1.35}
     maxReachDistance: 2
-    limbColor: {r: 0.7509433, g: 0, b: 0, a: 1}
+    limbColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   - limbName: FrontRight
     joints:
     - segmentName: FrontRoot
@@ -178,25 +254,60 @@ MonoBehaviour:
       distanceConstraint: 0.5
       angularConstraint: 75
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
     - segmentName: FrontLeg
-      jointCount: 3
+      jointCount: 2
       sizeCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
           value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          time: 0.99572754
+          value: 0.25981444
+          inSlope: -0.09057252
+          outSlope: -0.09057252
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 70
+      prefferedAngle: 70
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
+    - segmentName: LegTip
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0060272217
+          value: 0.15912017
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9749756
+          value: 0.15889283
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -207,11 +318,14 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: 70
+      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      spriteScale: 7.5
+      rotateSprite: 1
     parentJointId: 0
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -0.75, y: 0, z: 1.35}
     maxReachDistance: 2
-    limbColor: {r: 0.7529412, g: 0, b: 0, a: 1}
+    limbColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   - limbName: BackLeft
     joints:
     - segmentName: BackRoot
@@ -243,25 +357,28 @@ MonoBehaviour:
       distanceConstraint: 0.5
       angularConstraint: 75
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
     - segmentName: BackLeg
-      jointCount: 3
+      jointCount: 2
       sizeCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
           value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          time: 0.99572754
+          value: 0.25981444
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -272,11 +389,46 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: -70
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
+    - segmentName: LegTip
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0060272217
+          value: 0.15912017
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9749756
+          value: 0.15889283
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 70
+      prefferedAngle: -70
+      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      spriteScale: 7.5
+      rotateSprite: 1
     parentJointId: 4
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 0.75, y: 0, z: 1.35}
     maxReachDistance: 1.75
-    limbColor: {r: 0.7529412, g: 0, b: 0, a: 1}
+    limbColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   - limbName: BackRight
     joints:
     - segmentName: BackRoot
@@ -308,25 +460,28 @@ MonoBehaviour:
       distanceConstraint: 0.5
       angularConstraint: 75
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
     - segmentName: BackLeg
-      jointCount: 3
+      jointCount: 2
       sizeCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
           value: 0.35
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -0.14999999
-          outSlope: -0.14999999
+          time: 0.99572754
+          value: 0.25981444
+          inSlope: -0.09057252
+          outSlope: -0.09057252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -337,80 +492,132 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: 70
+      sprite: {fileID: 0}
+      spriteScale: 0
+      rotateSprite: 0
+    - segmentName: LegTip
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.0060272217
+          value: 0.15912017
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9749756
+          value: 0.15889283
+          inSlope: -0.00023174961
+          outSlope: -0.00023174961
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 1.5
+      angularConstraint: 70
+      prefferedAngle: 70
+      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      spriteScale: 7.5
+      rotateSprite: 1
     parentJointId: 4
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -0.75, y: 0, z: 1.35}
     maxReachDistance: 1.75
-    limbColor: {r: 0.7529412, g: 0, b: 0, a: 1}
+    limbColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   animalHeadData:
     headName: LizardHead
     joints:
+    - segmentName: NeckBase
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: -0.018509284
+          value: 0.5376717
+          inSlope: -0.0014536757
+          outSlope: -0.0014536757
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.044281
+          value: 0.53612673
+          inSlope: -0.0014536757
+          outSlope: -0.0014536757
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.7
+      angularConstraint: 20
+      prefferedAngle: 0
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Neck
-      jointCount: 3
+      jointCount: 2
       sizeCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
           value: 0.45
-          inSlope: 0.05899627
-          outSlope: 0.05899627
+          inSlope: -0.21937704
+          outSlope: -0.21937704
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.37269858
-          value: 0.4719878
-          inSlope: -0.018589912
-          outSlope: -0.018589912
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.11212802
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.5220291
-          value: 0.72779036
-          inSlope: 1.0391493
-          outSlope: 1.0391493
-          tangentMode: 0
+          time: 1.012977
+          value: 0.2277761
+          inSlope: -0.21937704
+          outSlope: -0.21937704
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.9
-          inSlope: -0.0034980865
-          outSlope: -0.0034980865
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.06134969
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      distanceConstraint: 0.65
-      angularConstraint: 20
+      distanceConstraint: 0.4
+      angularConstraint: 25
       prefferedAngle: 0
-    - segmentName: Head
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
+    - segmentName: HeadMain
       jointCount: 1
       sizeCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
+          time: 0.4632268
+          value: 0.6511435
+          inSlope: 0.01154892
+          outSlope: 0.01154892
           tangentMode: 34
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.35
-          inSlope: 0
-          outSlope: 0
+          time: 0.47651136
+          value: 0.6512969
+          inSlope: 0.01154892
+          outSlope: 0.01154892
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -419,13 +626,48 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 1
+      angularConstraint: 30
+      prefferedAngle: 0
+      sprite: {fileID: 21300000, guid: 55510dc88079b4f4aacc39a429b00fba, type: 3}
+      spriteScale: 2
+      rotateSprite: 1
+    - segmentName: HeadTip
+      jointCount: 1
+      sizeCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.06014681
+          value: 0.4976092
+          inSlope: 0.0012012124
+          outSlope: 0.0012012124
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9529419
+          value: 0.49868163
+          inSlope: 0.0012012124
+          outSlope: 0.0012012124
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      distanceConstraint: 0.5
       angularConstraint: 0
       prefferedAngle: 0
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     maxLookAngle: 60
     headParentOffset: {x: 0, y: 0, z: 0.2}
-    visionConeSegmentId: 2
-    headColor: {r: 1, g: 0, b: 0, a: 1}
+    visionConeSegmentId: 4
+    headColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   mouthColliderPrefab: {fileID: 6174930570440199844, guid: 2b81f7be443984247bbad4753b952777,
     type: 3}
   attachMouthToHeadSegment: 1
-  mouthParentId: 2
+  mouthParentId: 4

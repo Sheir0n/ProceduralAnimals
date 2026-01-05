@@ -23,8 +23,9 @@ public class AnimalJoint : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
+    private GameObject sprite;
 
-    virtual public void AfterInstantiate(Vector3 segPosition, Quaternion segRotation, Vector3 segScale, float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, int _id)
+    virtual public void AfterInstantiate(Vector3 segPosition, Quaternion segRotation, Vector3 segScale, float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, GameObject sprite, int _id)
     {
         segmentRotation = segRotation;
         segmentLerpRotation = segRotation;
@@ -38,9 +39,10 @@ public class AnimalJoint : MonoBehaviour
         segmentId = _id;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        this.sprite = sprite;
     }
 
-    virtual public void AfterInstantiate(float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, int id)
+    virtual public void AfterInstantiate(float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, GameObject sprite, int id)
     {
         segmentRotation = transform.rotation;
         segmentPosition = transform.position;
@@ -52,6 +54,7 @@ public class AnimalJoint : MonoBehaviour
         segmentId = id;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        this.sprite = sprite;
     }
 
     public void SetPosition(Vector3 _position)

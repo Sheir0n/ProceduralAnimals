@@ -17,5 +17,5 @@ MonoBehaviour:
   saturationDrainRateModifier: 1.5
   biteCooldownMs: 3000
   biteWindupMs: 1500
-  biteDashDurationMs: 2000
+  biteDashDurationMs: 1250
   biteDamage: 1

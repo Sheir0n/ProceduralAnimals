@@ -37,6 +37,12 @@ MonoBehaviour:
     forgetMinRange: 0
     maxTrackDistance: 10
     objectType: 1
+  - tag: Centipede
+    importance: 1
+    memoryTimeInSec: 5
+    forgetMinRange: 0
+    maxTrackDistance: 20
+    objectType: 3
   fearTrackerTags:
   - tag: Centipede
     importance: 0.9

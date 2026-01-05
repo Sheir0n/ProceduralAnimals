@@ -19,6 +19,11 @@ public class SegmentData
     [Header("Ustawienia zakresu wygiêcia")]
     [Range(0, 180)] public float angularConstraint;
     [Range(-180, 180)] public float prefferedAngle;
+
+    [Header("Ustawienia sprite")]
+    public Sprite sprite;
+    public float spriteScale = 1f;
+    public bool rotateSprite = false;
 }
 
 public class AnimalCreator : MonoBehaviour
@@ -110,7 +115,7 @@ public class AnimalCreator : MonoBehaviour
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Spine Segment " + nameId++;
-                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: 0f, creatorData.spineColor, name);
+                AnimalJoint newJoint = GenerateSegment(segmentData: currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: 0f, creatorData.spineColor, name, spriteOffset: 0.001f);
                 spineJoints.Add(newJoint);
                 positionOffset += new Vector3(0, 0, -1f * segmentScale * currSegmentData.distanceConstraint);
             }
@@ -131,7 +136,7 @@ public class AnimalCreator : MonoBehaviour
                 float xValue = (float)i / (float)currSegmentData.jointCount;
                 float segmentScale = currSegmentData.sizeCurve.Evaluate(xValue);
                 string name = currSegmentData.segmentName + " Head Segment " + nameId++;
-                headJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: -0.005f, creatorData.animalHeadData.headColor, name));
+                headJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, yOffset: -0.001f, creatorData.animalHeadData.headColor, name, spriteOffset: 0.002f));
                 positionOffset += new Vector3(0, 0, 1f * segmentScale * currSegmentData.distanceConstraint);
             }
         }
@@ -159,7 +164,7 @@ public class AnimalCreator : MonoBehaviour
 
                     string name = currLimbData.limbName + " " + currSegmentData.segmentName + " Segment " + nameId++;
 
-                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.01f - 0.0001f * limbId, currLimbData.limbColor, name));
+                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.002f - 0.00001f * limbId, currLimbData.limbColor, name, spriteOffset: 0.001f));
                     float offsetDirection = (currLimbData.parentPositionOffset.x >= 0f) ? 1 : -1;
                     positionOffset += new Vector3(offsetDirection * segmentScale * currSegmentData.distanceConstraint, 0, 0);
                 }
@@ -168,7 +173,7 @@ public class AnimalCreator : MonoBehaviour
         }
     }
 
-    protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, float yOffset, Color color, string name)
+    protected AnimalJoint GenerateSegment(SegmentData segmentData, int iteration, Transform masterTransform, Vector3 positionOffset, float segmentScale, float yOffset, Color color, string name, float spriteOffset = 0f)
     {
         GameObject newSegment = Instantiate(prefabCache, masterTransform);
         newSegment.transform.localScale = Vector3.one * segmentScale;
@@ -178,7 +183,23 @@ public class AnimalCreator : MonoBehaviour
 
         newSegment.GetComponent<SpriteRenderer>().color = color;
         AnimalJoint segmentScript = newSegment.GetComponent<AnimalJoint>();
-        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, yOffset, iteration);
+
+        GameObject spriteObject = null;
+        if (segmentData.sprite != null)
+        {
+            spriteObject = new GameObject("Sprite");
+            spriteObject.transform.SetParent(newSegment.transform, false);
+            spriteObject.transform.localScale *= segmentData.spriteScale;
+            SpriteRenderer sr = spriteObject.AddComponent<SpriteRenderer>();
+            sr.material = newSegment.GetComponent<SpriteRenderer>().material;
+            sr.sprite = segmentData.sprite;
+            sr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            sr.receiveShadows = true;
+            if (segmentData.rotateSprite)
+                spriteObject.transform.Rotate(new Vector3(0, 0, 180));
+            spriteObject.transform.position += new Vector3(0, spriteOffset, 0);
+        }
+        segmentScript.AfterInstantiate(segmentData.distanceConstraint * segmentScale, segmentData.angularConstraint, segmentData.prefferedAngle, yOffset, spriteObject, iteration);
 
         return segmentScript;
     }
