@@ -133,6 +133,9 @@ public class AnimalLimb
 
     private void DetectInaccesibleTargetPoint()
     {
+        if (parentJoint == null)
+            return;
+
         float overlapRadius = 0.05f;
         var hits = Physics.OverlapSphere(targetPosition, overlapRadius, LayerMask.GetMask("Obstacles"));
         if (hits.Length == 0)
