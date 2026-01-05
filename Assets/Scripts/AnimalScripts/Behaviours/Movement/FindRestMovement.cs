@@ -23,6 +23,7 @@ public class FindRestSpotMovement : MovementScript, IAnimalMovement
 
     private float restSpotScale = 0.65f;
     private float restSpotCheckRangeBonus = 0.15f;
+    private bool pathSet = false;
 
     public override void OnInstantiate(NavMeshAgent agent, Transform transform, AnimalEventHub eventHub, IReadOnlyAnimalStats statsHook)
     {
@@ -40,15 +41,20 @@ public class FindRestSpotMovement : MovementScript, IAnimalMovement
         nearestRestSpot = eventHub.FindNearestRestSpot();
         if (nearestRestSpot == null)
             return;
-
+        pathSet = false;
         SetAgentDestination(nearestRestSpot);
         isOnRestSpot = false;
     }
 
     public void Update()
     {
-        if (nearestRestSpot == null)
-            return;
+        if (!pathSet)
+        {
+            nearestRestSpot = eventHub.FindNearestRestSpot();
+            if (nearestRestSpot == null)
+                return;
+            SetAgentDestination(nearestRestSpot);
+        }
 
         penalisedStats = CalculateHealthStatPenality(baseStats);
         SmoothAssignMovementStats(agent, penalisedStats, lerpSpeed: 5f);
@@ -80,15 +86,19 @@ public class FindRestSpotMovement : MovementScript, IAnimalMovement
     private void SetAgentDestination(Transform newRestSpot)
     {
         Vector3 spotPos = newRestSpot.position;
-
         Vector2 randomDir2D = Random.insideUnitCircle.normalized;
         Vector3 randomDir = new Vector3(randomDir2D.x, 0f, randomDir2D.y);
 
         float offset = newRestSpot.lossyScale.x * restSpotScale;
 
         Vector3 finalTarget = spotPos + randomDir * offset;
+        NavMeshPath path = new NavMeshPath();
 
-        agent.SetDestination(finalTarget);
+        if (agent.CalculatePath(finalTarget, path) && path.status == NavMeshPathStatus.PathComplete)
+        {
+            agent.SetDestination(finalTarget);
+            pathSet = true;
+        }
     }
 
     private bool CheckIsOnRestSpot()
