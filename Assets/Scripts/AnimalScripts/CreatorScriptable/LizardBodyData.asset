@@ -660,7 +660,7 @@ MonoBehaviour:
       distanceConstraint: 0.5
       angularConstraint: 15
       prefferedAngle: 0
-      sprite: {fileID: 0}
+      sprite: {fileID: 21300000, guid: 55510dc88079b4f4aacc39a429b00fba, type: 3}
       spriteScale: 2.5
       rotateSprite: 1
     maxLookAngle: 75
