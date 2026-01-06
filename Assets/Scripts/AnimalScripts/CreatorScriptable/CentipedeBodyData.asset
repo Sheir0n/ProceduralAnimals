@@ -60,6 +60,9 @@ MonoBehaviour:
     distanceConstraint: 0.8
     angularConstraint: 40
     prefferedAngle: 0
+    sprite: {fileID: 21300000, guid: 2c966ca6eb696034faed80365ed7aad0, type: 3}
+    spriteScale: 1
+    rotateSprite: 0
   spineColor: {r: 0.87169814, g: 0.6461443, b: 0.16940545, a: 1}
   animalLimbData:
   - limbName: HeadLegRight
@@ -84,6 +87,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 20
       prefferedAngle: -20
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -113,6 +119,9 @@ MonoBehaviour:
       distanceConstraint: 3
       angularConstraint: 20
       prefferedAngle: -5
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 0
     parentPositionOffset: {x: 0.2, y: 0, z: 0.2}
     targetPosOffset: {x: 0.05, y: 0, z: 1.5}
@@ -140,6 +149,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -60
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -169,6 +181,9 @@ MonoBehaviour:
       distanceConstraint: 1.4
       angularConstraint: 60
       prefferedAngle: -40
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 0
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 1, y: 0, z: 2}
@@ -196,6 +211,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -50
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -225,6 +243,9 @@ MonoBehaviour:
       distanceConstraint: 1.7
       angularConstraint: 60
       prefferedAngle: -30
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 1
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 1.5, y: 0, z: 1.5}
@@ -252,6 +273,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -40
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -281,6 +305,9 @@ MonoBehaviour:
       distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: -20
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 2
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 1.75, y: 0, z: 1}
@@ -308,6 +335,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -30
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -337,6 +367,9 @@ MonoBehaviour:
       distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 3
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 2, y: 0, z: 0.5}
@@ -364,6 +397,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -60
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -393,6 +429,9 @@ MonoBehaviour:
       distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 0
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 4
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 2.5, y: 0, z: 0}
@@ -420,6 +459,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -20
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -449,6 +491,9 @@ MonoBehaviour:
       distanceConstraint: 1.8
       angularConstraint: 60
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 5
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 1.8, y: 0, z: -0.05}
@@ -476,6 +521,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -505,6 +553,9 @@ MonoBehaviour:
       distanceConstraint: 1.5
       angularConstraint: 60
       prefferedAngle: 15
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 6
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 1.5, y: 0, z: -0.1}
@@ -532,6 +583,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -561,6 +615,9 @@ MonoBehaviour:
       distanceConstraint: 1.45
       angularConstraint: 60
       prefferedAngle: 35
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 7
     parentPositionOffset: {x: 0.1, y: 0, z: 0}
     targetPosOffset: {x: 1, y: 0, z: -0.15}
@@ -588,6 +645,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 20
       prefferedAngle: 20
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -617,6 +677,9 @@ MonoBehaviour:
       distanceConstraint: 3
       angularConstraint: 20
       prefferedAngle: 5
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 0
     parentPositionOffset: {x: -0.2, y: 0, z: 0.2}
     targetPosOffset: {x: -0.05, y: 0, z: 1.5}
@@ -644,6 +707,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 60
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -673,6 +739,9 @@ MonoBehaviour:
       distanceConstraint: 1.4
       angularConstraint: 60
       prefferedAngle: 40
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 0
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -1, y: 0, z: 2}
@@ -700,6 +769,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 50
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -729,6 +801,9 @@ MonoBehaviour:
       distanceConstraint: 1.7
       angularConstraint: 60
       prefferedAngle: 30
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 1
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -1.5, y: 0, z: 1.5}
@@ -756,6 +831,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 40
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -785,6 +863,9 @@ MonoBehaviour:
       distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 20
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 2
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -1.75, y: 0, z: 1}
@@ -812,6 +893,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 30
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -841,6 +925,9 @@ MonoBehaviour:
       distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 3
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -2, y: 0, z: 0.5}
@@ -868,6 +955,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 60
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -897,6 +987,9 @@ MonoBehaviour:
       distanceConstraint: 1.9
       angularConstraint: 60
       prefferedAngle: 0
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 4
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -2.5, y: 0, z: 0}
@@ -924,6 +1017,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 20
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -953,6 +1049,9 @@ MonoBehaviour:
       distanceConstraint: 1.8
       angularConstraint: 60
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 5
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -1.8, y: 0, z: -0.05}
@@ -980,6 +1079,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -1009,6 +1111,9 @@ MonoBehaviour:
       distanceConstraint: 1.5
       angularConstraint: 60
       prefferedAngle: -15
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 6
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -1.5, y: 0, z: -0.1}
@@ -1036,6 +1141,9 @@ MonoBehaviour:
       distanceConstraint: 0.1
       angularConstraint: 80
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Limb
       jointCount: 4
       sizeCurve:
@@ -1065,6 +1173,9 @@ MonoBehaviour:
       distanceConstraint: 1.45
       angularConstraint: 60
       prefferedAngle: -35
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 7
     parentPositionOffset: {x: -0.1, y: 0, z: 0}
     targetPosOffset: {x: -1, y: 0, z: -0.15}
@@ -1102,6 +1213,9 @@ MonoBehaviour:
       distanceConstraint: 0
       angularConstraint: 10
       prefferedAngle: 0
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: Head
       jointCount: 1
       sizeCurve:
@@ -1122,6 +1236,9 @@ MonoBehaviour:
       distanceConstraint: 0.05
       angularConstraint: 10
       prefferedAngle: 0
+      sprite: {fileID: 21300000, guid: efae8011d75169446be60af8f6b20dd6, type: 3}
+      spriteScale: 2
+      rotateSprite: 1
     maxLookAngle: 0
     headParentOffset: {x: 0, y: 0, z: 0.2}
     visionConeSegmentId: 0

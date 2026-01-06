@@ -167,10 +167,6 @@ public class ObjectSpawner : MonoBehaviour
             animal.GetComponent<NavMeshAgent>().Warp(spawnPos);
             counter.animalObjectList.Add(animal);
         }
-        else
-        {
-            Debug.LogWarning("Nie znaleziono punktu na NavMeshu!");
-        }
     }
 
     private bool TryGetRandomPointOnNavMesh(Vector3 center, float rangeX, float rangeZ, out Vector3 result, int areaMask = NavMesh.AllAreas)

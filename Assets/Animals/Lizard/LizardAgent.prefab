@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a631ab87eabe04f478d6dce477b6bee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyMaterial: {fileID: 2100000, guid: 35c7f3b0b7eefa444b0f78692e71a38e, type: 2}
   tailRestActionID: {fileID: 11400000, guid: c8f691b8a7dce754eb6ed741fc5c9f77, type: 2}
 --- !u!114 &3601753697074411684
 MonoBehaviour:

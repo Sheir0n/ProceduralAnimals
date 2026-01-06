@@ -31,6 +31,8 @@ public class AnimalAnimator : MonoBehaviour
     private MeshFilter bodyMeshFilter;
     private MeshRenderer bodyMeshRenderer;
 
+    [SerializeField] private Material bodyMaterial;
+
     protected virtual void Awake()
     {
         eventHub = GetComponent<AnimalEventHub>();
@@ -66,10 +68,10 @@ public class AnimalAnimator : MonoBehaviour
         this.head = head;
         this.bodyColor = bodyColor;
         isBodyReady = true;
-        CreateMeshObject(ref bodyMesh, ref bodyMeshFilter,ref bodyMeshRenderer ,bodyColor, "BodyMesh");
-        if(head != null)
+        CreateMeshObject(ref bodyMesh, ref bodyMeshFilter, ref bodyMeshRenderer, bodyColor, "BodyMesh");
+        if (head != null)
             CreateMeshObject(ref head.bodyMesh, ref head.bodyMeshFilter, ref head.bodyMeshRenderer, head.bodyColor, "HeadMesh");
-        foreach(AnimalLimb limb in limbs)
+        foreach (AnimalLimb limb in limbs)
             CreateMeshObject(ref limb.bodyMesh, ref limb.bodyMeshFilter, ref limb.bodyMeshRenderer, limb.bodyColor, "LimbMesh");
     }
 
@@ -452,9 +454,18 @@ public class AnimalAnimator : MonoBehaviour
         mesh = new Mesh();
         mesh.MarkDynamic();
         filter.mesh = mesh;
-
-        renderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-        renderer.material.color = meshColor;
+        if (bodyMaterial != null)
+        {
+            if (bodyMaterial.HasProperty("_Color"))
+            {
+                renderer.material = bodyMaterial;
+                renderer.material.SetColor("_Color", meshColor);
+            }
+            else
+                Debug.LogWarning("AnimalAnimator: Wybrany material nie posiada parametru Color w shaderze, kolorowanie cia³a nie bêdzie poprawnie dzia³aæ!");
+        }
+        else
+            Debug.LogWarning("AnimalAnimator: Nie podano materia³u dla meshu cia³a. Kolorowanie nie bêdzie poprawnie dzia³aæ!");
     }
 
     protected void UpdateMesh(Color color)
@@ -571,7 +582,8 @@ public class AnimalAnimator : MonoBehaviour
             joint.SetColorFade(amount);
             amount = Mathf.Clamp01(amount);
             Color resultColor = Color.Lerp(bodyColor, Color.black, amount);
-            bodyMeshRenderer.material.color = resultColor;
+            if (bodyMeshRenderer.material != null)
+                bodyMeshRenderer.material.SetColor("_Color", resultColor);
         }
 
         foreach (AnimalLimb limb in limbs)
@@ -583,7 +595,7 @@ public class AnimalAnimator : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(joints != null)
+        if (joints != null)
             joints.Clear();
         if (limbs != null)
             limbs.Clear();

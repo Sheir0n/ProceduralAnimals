@@ -193,6 +193,7 @@ public class AnimalLimb
 
         amount = Mathf.Clamp01(amount);
         Color resultColor = Color.Lerp(bodyColor, Color.black, amount);
-        bodyMeshRenderer.material.color = resultColor;
+        if (bodyMeshRenderer.material != null)
+            bodyMeshRenderer.material.SetColor("_Color", resultColor);
     }
 }

@@ -33,6 +33,9 @@ MonoBehaviour:
     distanceConstraint: 0.7
     angularConstraint: 60
     prefferedAngle: 0
+    sprite: {fileID: 21300000, guid: 763b83f173944884480645722c61231d, type: 3}
+    spriteScale: 2.5
+    rotateSprite: 0
   - segmentName: Center
     jointCount: 1
     sizeCurve:
@@ -53,6 +56,9 @@ MonoBehaviour:
     distanceConstraint: 0.8
     angularConstraint: 80
     prefferedAngle: 0
+    sprite: {fileID: 21300000, guid: e3b9a6bdcb63f36478b06a49af0bf7c0, type: 3}
+    spriteScale: 3
+    rotateSprite: 0
   - segmentName: Back
     jointCount: 2
     sizeCurve:
@@ -82,6 +88,9 @@ MonoBehaviour:
     distanceConstraint: 0.85
     angularConstraint: 20
     prefferedAngle: 0
+    sprite: {fileID: 0}
+    spriteScale: 1
+    rotateSprite: 0
   spineColor: {r: 0.12610175, g: 0.335849, b: 0.22424035, a: 1}
   animalLimbData:
   - limbName: FrontLeft
@@ -115,6 +124,9 @@ MonoBehaviour:
       distanceConstraint: 1
       angularConstraint: 75
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: FrontLeg
       jointCount: 3
       sizeCurve:
@@ -144,6 +156,9 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: -70
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 1
     parentPositionOffset: {x: 0.15, y: 0, z: 0}
     targetPosOffset: {x: 0.4, y: 0, z: 1}
@@ -180,6 +195,9 @@ MonoBehaviour:
       distanceConstraint: 1
       angularConstraint: 75
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: FrontLeg
       jointCount: 3
       sizeCurve:
@@ -209,6 +227,9 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 1
     parentPositionOffset: {x: -0.15, y: 0, z: 0}
     targetPosOffset: {x: -0.4, y: 0, z: 1}
@@ -245,6 +266,9 @@ MonoBehaviour:
       distanceConstraint: 1
       angularConstraint: 75
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: CenterLeg
       jointCount: 3
       sizeCurve:
@@ -274,6 +298,9 @@ MonoBehaviour:
       distanceConstraint: 1.4
       angularConstraint: 70
       prefferedAngle: -70
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 2
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 0.35, y: 0, z: 0.7}
@@ -310,6 +337,9 @@ MonoBehaviour:
       distanceConstraint: 1
       angularConstraint: 75
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: CenterLeg
       jointCount: 3
       sizeCurve:
@@ -339,6 +369,9 @@ MonoBehaviour:
       distanceConstraint: 1.4
       angularConstraint: 70
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 2
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -0.35, y: 0, z: 0.7}
@@ -375,6 +408,9 @@ MonoBehaviour:
       distanceConstraint: 1
       angularConstraint: 75
       prefferedAngle: -10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: BackLeg
       jointCount: 3
       sizeCurve:
@@ -404,6 +440,9 @@ MonoBehaviour:
       distanceConstraint: 1.4
       angularConstraint: 70
       prefferedAngle: -70
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 3
     parentPositionOffset: {x: 0.25, y: 0, z: 0}
     targetPosOffset: {x: 0.35, y: 0, z: 0.7}
@@ -440,6 +479,9 @@ MonoBehaviour:
       distanceConstraint: 1
       angularConstraint: 75
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: BackLeg
       jointCount: 3
       sizeCurve:
@@ -469,6 +511,9 @@ MonoBehaviour:
       distanceConstraint: 1.4
       angularConstraint: 70
       prefferedAngle: 10
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     parentJointId: 3
     parentPositionOffset: {x: -0.25, y: 0, z: 0}
     targetPosOffset: {x: -0.35, y: 0, z: 0.7}
