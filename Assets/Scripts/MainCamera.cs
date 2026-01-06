@@ -45,9 +45,9 @@ public class MainCamera : MonoBehaviour
     {
         float scrollAxis = Input.GetAxis("Mouse ScrollWheel");
         if (scrollAxis < 0)
-            targetOrthSize += 0.5f;
+            targetOrthSize += 2f;
         else if (scrollAxis > 0)
-            targetOrthSize -= 0.5f;
+            targetOrthSize -= 2f;
 
         targetOrthSize = Math.Clamp(targetOrthSize, minOrthSize, maxOrthSize);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetOrthSize, 5f * Time.deltaTime);

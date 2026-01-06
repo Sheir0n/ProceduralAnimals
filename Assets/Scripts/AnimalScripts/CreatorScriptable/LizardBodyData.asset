@@ -52,7 +52,7 @@ MonoBehaviour:
     angularConstraint: 35
     prefferedAngle: 0
     sprite: {fileID: 21300000, guid: 04ca07a5612439b4a988ecb069499ee9, type: 3}
-    spriteScale: 1.5
+    spriteScale: 1.65
     rotateSprite: 0
   - segmentName: Tail
     jointCount: 12
@@ -84,7 +84,7 @@ MonoBehaviour:
     angularConstraint: 25
     prefferedAngle: 0
     sprite: {fileID: 21300000, guid: 04ca07a5612439b4a988ecb069499ee9, type: 3}
-    spriteScale: 1.5
+    spriteScale: 1.65
     rotateSprite: 0
   - segmentName: Tail
     jointCount: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b390b172db6b97240ba8a68c09593b2f, type: 3}
     spriteScale: 20
     rotateSprite: 0
-  spineColor: {r: 0.77647066, g: 0.2392157, b: 0.27450982, a: 1}
+  spineColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}
   animalLimbData:
   - limbName: FrontLeft
     joints:
@@ -215,7 +215,7 @@ MonoBehaviour:
       distanceConstraint: 1.5
       angularConstraint: 70
       prefferedAngle: -70
-      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      sprite: {fileID: 21300000, guid: 7b018c8ef7ee82e45a7fc8426972bf57, type: 3}
       spriteScale: 7.5
       rotateSprite: 1
     parentJointId: 0
@@ -318,7 +318,7 @@ MonoBehaviour:
       distanceConstraint: 1.2
       angularConstraint: 70
       prefferedAngle: 70
-      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      sprite: {fileID: 21300000, guid: 7b018c8ef7ee82e45a7fc8426972bf57, type: 3}
       spriteScale: 7.5
       rotateSprite: 1
     parentJointId: 0
@@ -421,7 +421,7 @@ MonoBehaviour:
       distanceConstraint: 1.5
       angularConstraint: 70
       prefferedAngle: -70
-      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      sprite: {fileID: 21300000, guid: 7b018c8ef7ee82e45a7fc8426972bf57, type: 3}
       spriteScale: 7.5
       rotateSprite: 1
     parentJointId: 4
@@ -524,7 +524,7 @@ MonoBehaviour:
       distanceConstraint: 1.5
       angularConstraint: 70
       prefferedAngle: 70
-      sprite: {fileID: 21300000, guid: d25ee3236c30fea4a9b372f9b518deaa, type: 3}
+      sprite: {fileID: 21300000, guid: 7b018c8ef7ee82e45a7fc8426972bf57, type: 3}
       spriteScale: 7.5
       rotateSprite: 1
     parentJointId: 4
@@ -562,10 +562,10 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.7
-      angularConstraint: 20
+      angularConstraint: 15
       prefferedAngle: 0
-      sprite: {fileID: 0}
-      spriteScale: 1
+      sprite: {fileID: 21300000, guid: 04ca07a5612439b4a988ecb069499ee9, type: 3}
+      spriteScale: 1.65
       rotateSprite: 0
     - segmentName: Neck
       jointCount: 2
@@ -594,10 +594,10 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.4
-      angularConstraint: 25
+      angularConstraint: 15
       prefferedAngle: 0
-      sprite: {fileID: 0}
-      spriteScale: 1
+      sprite: {fileID: 21300000, guid: 04ca07a5612439b4a988ecb069499ee9, type: 3}
+      spriteScale: 1.65
       rotateSprite: 0
     - segmentName: HeadMain
       jointCount: 1
@@ -626,11 +626,11 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 1
-      angularConstraint: 30
+      angularConstraint: 15
       prefferedAngle: 0
-      sprite: {fileID: 21300000, guid: 55510dc88079b4f4aacc39a429b00fba, type: 3}
-      spriteScale: 2
-      rotateSprite: 1
+      sprite: {fileID: 0}
+      spriteScale: 1
+      rotateSprite: 0
     - segmentName: HeadTip
       jointCount: 1
       sizeCurve:
@@ -658,12 +658,12 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       distanceConstraint: 0.5
-      angularConstraint: 0
+      angularConstraint: 15
       prefferedAngle: 0
       sprite: {fileID: 0}
-      spriteScale: 1
-      rotateSprite: 0
-    maxLookAngle: 60
+      spriteScale: 2.5
+      rotateSprite: 1
+    maxLookAngle: 75
     headParentOffset: {x: 0, y: 0, z: 0.2}
     visionConeSegmentId: 3
     headColor: {r: 0.63529414, g: 0.14901961, b: 0.2, a: 1}

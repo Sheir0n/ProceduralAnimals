@@ -192,7 +192,7 @@ public class AnimalLimb
             joint.SetColorFade(amount);
 
         amount = Mathf.Clamp01(amount);
-        Color resultColor = Color.Lerp(bodyColor, Color.gray, amount);
+        Color resultColor = Color.Lerp(bodyColor, Color.black, amount);
         bodyMeshRenderer.material.color = resultColor;
     }
 }

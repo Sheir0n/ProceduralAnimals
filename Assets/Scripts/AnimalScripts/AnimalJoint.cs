@@ -21,9 +21,9 @@ public class AnimalJoint : MonoBehaviour
     public float lerpedYaw { get; protected set; }
     public float yOffset { get; protected set; } = 0;
 
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer jointRenderer;
     private Color originalColor;
-    private GameObject sprite;
+    private SpriteRenderer spriteRenderer;
 
     virtual public void AfterInstantiate(Vector3 segPosition, Quaternion segRotation, Vector3 segScale, float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, GameObject sprite, int _id)
     {
@@ -37,9 +37,10 @@ public class AnimalJoint : MonoBehaviour
         this.prefferedAngle = prefferedAngle;
         this.yOffset = yOffset;
         segmentId = _id;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalColor = spriteRenderer.color;
-        this.sprite = sprite;
+        jointRenderer = GetComponent<SpriteRenderer>();
+        originalColor = jointRenderer.color;
+        if (sprite != null)
+            this.spriteRenderer = sprite.GetComponent<SpriteRenderer>();
     }
 
     virtual public void AfterInstantiate(float distanceConstraint, float angularConstraint, float prefferedAngle, float yOffset, GameObject sprite, int id)
@@ -52,9 +53,10 @@ public class AnimalJoint : MonoBehaviour
         this.prefferedAngle = prefferedAngle;
         this.yOffset = yOffset;
         segmentId = id;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalColor = spriteRenderer.color;
-        this.sprite = sprite;
+        jointRenderer = GetComponent<SpriteRenderer>();
+        originalColor = jointRenderer.color;
+        if(sprite != null)
+        this.spriteRenderer = sprite.GetComponent<SpriteRenderer>();
     }
 
     public void SetPosition(Vector3 _position)
@@ -102,9 +104,11 @@ public class AnimalJoint : MonoBehaviour
 
     public void SetColorFade(float amount)
     {
-        if (spriteRenderer == null) return;
+        if (jointRenderer == null) return;
         amount = Mathf.Clamp01(amount);
-        Color resultColor = Color.Lerp(originalColor, Color.gray, amount);
-        spriteRenderer.color = resultColor;
+        Color resultColor = Color.Lerp(originalColor, Color.black, amount);
+        jointRenderer.color = resultColor;
+        if(spriteRenderer != null)
+            spriteRenderer.color = resultColor;
     }
 }

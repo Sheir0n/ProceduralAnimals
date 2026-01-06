@@ -171,8 +171,14 @@ MonoBehaviour:
   - obstaclePrefab: {fileID: 1403884006061802945, guid: 286aad6db4904e5449a0d74c8dc704ef,
       type: 3}
     amount: 20
-    containerName: Rocks
+    containerName: SmallRocks
     minScale: 2
+    maxScale: 30
+  - obstaclePrefab: {fileID: 1403884006061802945, guid: 286aad6db4904e5449a0d74c8dc704ef,
+      type: 3}
+    amount: 10
+    containerName: LargeRocks
+    minScale: 30
     maxScale: 100
   - obstaclePrefab: {fileID: 1403884006061802945, guid: 6990d3e412e2deb4f89d7997debfc3c9,
       type: 3}
@@ -527,7 +533,7 @@ MonoBehaviour:
   cameraHeight: 10
   targetOrthSize: 10
   maxOrthSize: 50
-  moveSpeed: 25
+  moveSpeed: 40
   moveSpeedLerp: 10
 --- !u!1 &410087039
 GameObject:

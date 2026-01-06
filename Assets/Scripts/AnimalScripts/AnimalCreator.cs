@@ -164,7 +164,7 @@ public class AnimalCreator : MonoBehaviour
 
                     string name = currLimbData.limbName + " " + currSegmentData.segmentName + " Segment " + nameId++;
 
-                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.002f - 0.00001f * limbId, currLimbData.limbColor, name, spriteOffset: 0.001f));
+                    limbJoints.Add(GenerateSegment(currSegmentData, iteration: i, masterTransform, positionOffset, segmentScale, -0.002f - 0.00001f * limbId, currLimbData.limbColor, name, spriteOffset: -0.001f));
                     float offsetDirection = (currLimbData.parentPositionOffset.x >= 0f) ? 1 : -1;
                     positionOffset += new Vector3(offsetDirection * segmentScale * currSegmentData.distanceConstraint, 0, 0);
                 }

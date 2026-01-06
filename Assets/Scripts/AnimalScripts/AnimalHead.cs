@@ -57,7 +57,7 @@ public class AnimalHead
     public void LookAt(LookTarget lookData)
     {
         Vector3 toTarget;
-        float targetDistance = 2;
+        float targetDistance = 5;
 
         if (lookData.isLooking)
         {
@@ -98,7 +98,7 @@ public class AnimalHead
             joint.SetColorFade(amount);
 
         amount = Mathf.Clamp01(amount);
-        Color resultColor = Color.Lerp(bodyColor, Color.gray, amount);
+        Color resultColor = Color.Lerp(bodyColor, Color.black, amount);
         bodyMeshRenderer.material.color = resultColor;
     }
 }

@@ -69,7 +69,7 @@ public class AnimalSenses : MonoBehaviour
 
     private void DisableSensesOnDeath()
     {
-            deathDisableSenses = true;
+        deathDisableSenses = true;
     }
 
     private void CheckVisionCone()
@@ -85,10 +85,11 @@ public class AnimalSenses : MonoBehaviour
         for (float angle = -halfAngle; angle <= halfAngle; angle += 2.5f)
         {
             Vector3 rayDir = Quaternion.Euler(0, angle, 0) * forward;
-            if (Physics.Raycast(pivot, rayDir, out RaycastHit hit, visionConeData.coneSize))
+            if (Physics.Raycast(pivot, rayDir, out RaycastHit hit, visionConeData.coneSize, Physics.DefaultRaycastLayers,
+        QueryTriggerInteraction.Ignore))
             {
                 var colTransform = hit.collider.transform;
-                if(!objectsFound.Contains(colTransform))
+                if (!objectsFound.Contains(colTransform))
                     objectsFound.Add(colTransform);
 
                 if (showConeDebug)
