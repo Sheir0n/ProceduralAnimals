@@ -99,7 +99,6 @@ public class AnimalCreator : MonoBehaviour
         }
         else
             Debug.LogError("AnimalCreator: Creator data jest nie przypisane albo jest puste!");
-        ReleasePrefab();
     }
 
     protected void GenerateBody()
@@ -191,7 +190,7 @@ public class AnimalCreator : MonoBehaviour
             spriteObject.transform.SetParent(newSegment.transform, false);
             spriteObject.transform.localScale *= segmentData.spriteScale;
             SpriteRenderer sr = spriteObject.AddComponent<SpriteRenderer>();
-            sr.material = newSegment.GetComponent<SpriteRenderer>().material;
+            sr.material = newSegment.GetComponent<SpriteRenderer>().sharedMaterial;
             sr.sprite = segmentData.sprite;
             sr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
             sr.receiveShadows = true;
@@ -237,5 +236,10 @@ public class AnimalCreator : MonoBehaviour
         mouthCollider.transform.SetParent(parent, false);
         mouthCollider.transform.localPosition = Vector3.zero;
         mouthCollider.transform.localScale = Vector3.one;
+    }
+
+    void OnDestroy()
+    {
+        ReleasePrefab();
     }
 }
