@@ -97,14 +97,21 @@ public class ObjectSpawner : MonoBehaviour
 
                 for (int i = 0; i < objectData.amount; i++)
                 {
-                    GameObject obstacle = Instantiate(objectData.obstaclePrefab);
-                    obstacle.transform.SetParent(container.transform);
-                    obstacle.transform.localPosition = Vector3.zero;
-                    float randomScale = Random.Range(objectData.minScale, objectData.maxScale);
-                    float randomPosX = Random.Range(planeCenter.x - planeXEdge, planeCenter.x + planeXEdge);
-                    float randomPosZ = Random.Range(planeCenter.z - planeZEdge, planeCenter.z + planeZEdge);
-                    obstacle.transform.localScale = new Vector3(randomScale, 1, randomScale);
-                    obstacle.transform.position = new Vector3(randomPosX, 0, randomPosZ);
+                    try
+                    {
+                        GameObject obstacle = Instantiate(objectData.obstaclePrefab);
+                        obstacle.transform.SetParent(container.transform);
+                        obstacle.transform.localPosition = Vector3.zero;
+                        float randomScale = Random.Range(objectData.minScale, objectData.maxScale);
+                        float randomPosX = Random.Range(planeCenter.x - planeXEdge, planeCenter.x + planeXEdge);
+                        float randomPosZ = Random.Range(planeCenter.z - planeZEdge, planeCenter.z + planeZEdge);
+                        obstacle.transform.localScale = new Vector3(randomScale, 1, randomScale);
+                        obstacle.transform.position = new Vector3(randomPosX, 0, randomPosZ);
+                    }
+                    catch
+                    {
+                        Debug.LogError("Napotrano problem w trakcie generowania obiektu przeszkody!", this);
+                    }
                 }
             }
         }
@@ -157,14 +164,21 @@ public class ObjectSpawner : MonoBehaviour
 
     private void TryInstantiateAnimal(AnimalCounter counter)
     {
-        if (TryGetRandomPointOnNavMesh(spawnPlane.transform.position, planeXEdge, planeZEdge, out Vector3 spawnPos))
+        try
         {
-            Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            GameObject animal = Instantiate(counter.spawnData.animalPrefab, spawnPos, randomRotation, counter.container.transform);
-            if (counter.spawnData.animalName.Length != 0)
-                animal.name = counter.spawnData.animalName + " " + counter.currAnimalIndex++;
-            animal.GetComponent<NavMeshAgent>().Warp(spawnPos);
-            counter.animalObjectList.Add(animal);
+            if (TryGetRandomPointOnNavMesh(spawnPlane.transform.position, planeXEdge, planeZEdge, out Vector3 spawnPos))
+            {
+                Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+                GameObject animal = Instantiate(counter.spawnData.animalPrefab, spawnPos, randomRotation, counter.container.transform);
+                if (counter.spawnData.animalName.Length != 0)
+                    animal.name = counter.spawnData.animalName + " " + counter.currAnimalIndex++;
+                animal.GetComponent<NavMeshAgent>().Warp(spawnPos);
+                counter.animalObjectList.Add(animal);
+            }
+        }
+        catch
+        {
+            Debug.LogError("Napotrano problem w trakcie generowania agenta!", this);
         }
     }
 
