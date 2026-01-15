@@ -376,10 +376,46 @@ PrefabInstance:
       propertyPath: spawnPlane
       value: 
       objectReference: {fileID: 210794430}
+    - target: {fileID: 6195204467479331563, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: animalSpawnDatas.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195204467479331563, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: animalSpawnDatas.Array.data[3].amount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195204467479331563, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: animalSpawnDatas.Array.data[3].animalName
+      value: Rat
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195204467479331563, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: animalSpawnDatas.Array.data[3].animalPrefab
+      value: 
+      objectReference: {fileID: 1310159280848201781, guid: 2380485969de6d04da88f17cc65d9ca2,
+        type: 3}
+    - target: {fileID: 6195204467479331563, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: animalSpawnDatas.Array.data[3].containerName
+      value: RandomRats
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195204467479331563, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: animalSpawnDatas.Array.data[3].respawnTimeSec
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6408283636537506533, guid: 6849701fbe6ec024d8ed00d5582ef475,
         type: 3}
       propertyPath: m_Name
       value: ObjectSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408283636537506533, guid: 6849701fbe6ec024d8ed00d5582ef475,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8653325055773219871, guid: 6849701fbe6ec024d8ed00d5582ef475,
         type: 3}

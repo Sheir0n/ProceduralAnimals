@@ -9,6 +9,7 @@ TagManager:
   - Beetle
   - Centipede
   - RestingRock
+  - Rat
   layers:
   - Default
   - TransparentFX

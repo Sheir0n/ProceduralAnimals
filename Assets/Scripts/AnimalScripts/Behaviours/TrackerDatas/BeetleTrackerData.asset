@@ -24,4 +24,9 @@ MonoBehaviour:
     memoryTimeInSec: 3
     forgetMinRange: 8
     maxTrackDistance: 12
+  - tag: Rat
+    importance: 0.7
+    memoryTimeInSec: 3
+    forgetMinRange: 8
+    maxTrackDistance: 12
   foodTrackerTags: []
