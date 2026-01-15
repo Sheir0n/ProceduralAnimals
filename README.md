@@ -1,6 +1,6 @@
 # Projekt pracy inżynierskiej pt. "Proceduralnie generowana symulacja zachowań zwierząt na potrzeby gier komputerowych"
 
-Narzędzie wbudowane w silnik Unity umożliwia przygotowanie i wygenerowanie symulacji zachowania zwierząt z wykorzystaniem technik proceduralnych do animacji oraz podejmowania decyzji. Pozwala na definicje poszczególnych parametrów kształtów ciała z podziałem na kręgosłup, kończyny oraz głowę. Definicja proceduralnego zachowania opiera się na podania tablic relacji międzygatunkowych, parametrów domyślnych gatunku oraz możliwych zachowań.
+Narzędzie wbudowane w silnik Unity umożliwia przygotowanie i wygenerowanie symulacji zachowania zwierząt z wykorzystaniem technik proceduralnych do animacji oraz podejmowania decyzji. Pozwala na definicje poszczególnych parametrów kształtów ciała z podziałem na kręgosłup, kończyny oraz głowę. Definicja proceduralnego zachowania opiera się na podaniu tablic relacji międzygatunkowych, parametrów domyślnych gatunku oraz możliwych zachowań.
 
 <img width="968" height="538" alt="image" src="https://github.com/user-attachments/assets/d9f7a407-b07f-4965-a874-379fe5d03663" /><br/>
 Obraz wygenerowanej symulacji
